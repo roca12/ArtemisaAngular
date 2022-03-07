@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nice-admin-angular": {
+    "bibliotecaArtemisa": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/nice-admin-angular",
+            "outputPath": "dist/bibliotecaArtemisa",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "nice-admin-angular:build:production"
+              "browserTarget": "bibliotecaArtemisa:build:production"
             },
             "development": {
-              "browserTarget": "nice-admin-angular:build:development"
+              "browserTarget": "bibliotecaArtemisa:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nice-admin-angular:build"
+            "browserTarget": "bibliotecaArtemisa:build"
           }
         },
         "test": {
@@ -108,5 +108,5 @@
       }
     }
   },
-  "defaultProject": "nice-admin-angular"
+  "defaultProject": "bibliotecaArtemisa"
 }

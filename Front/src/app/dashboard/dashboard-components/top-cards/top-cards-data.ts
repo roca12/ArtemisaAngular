@@ -9,27 +9,27 @@ export const topcards: topcard[] = [
 
     {
         bgcolor: 'success',
-        icon: 'bi bi-wallet',
-        title: '$21k',
-        subtitle: 'Yearly Earning'
+        icon: 'bi bi-people-fill',
+        title: '5',
+        subtitle: 'Algoritmos diferentes'
     },
     {
         bgcolor: 'danger',
-        icon: 'bi bi-coin',
-        title: '$1k',
-        subtitle: 'Refund given'
+        icon: 'bi bi-plus-slash-minus',
+        title: '5',
+        subtitle: 'Niveles de dificultad'
     },
     {
         bgcolor: 'warning',
-        icon: 'bi bi-basket3',
-        title: '456',
-        subtitle: 'Yearly Project'
+        icon: 'bi bi-file-earmark-code',
+        title: '3',
+        subtitle: 'Lenguajes de programación'
     },
     {
         bgcolor: 'info',
-        icon: 'bi bi-bag',
-        title: '210',
-        subtitle: 'Weekly Sales'
+        icon: 'bi bi-send-check',
+        title: '4',
+        subtitle: 'Jueces calificadores online'
     },
 
 ] 
