@@ -8,12 +8,12 @@
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.roca12.artemisa2</groupId>
-	<artifactId>ArtemisaBK</artifactId>
+	<groupId>com.roca12.misiontic2022.spring.data.mongodb</groupId>
+	<artifactId>TIBURONESBK</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
-	<name>ArtemisaBK</name>
-	<description>h</description>
+	<name>TIBURONESBK</name>
+	<description>Proyecto de entrenamiento en java con spring y mongodb</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
