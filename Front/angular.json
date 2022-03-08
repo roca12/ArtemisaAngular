@@ -32,7 +32,10 @@
             ],
             "styles": [
               "src/assets/scss/style.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/animate.css/animate.min.css",
+              "node_modules/font-awesome/css/font-awesome.css"
+
             ],
             "scripts": []
           },

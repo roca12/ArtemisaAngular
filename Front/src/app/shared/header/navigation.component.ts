@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import * as fa from '@fortawesome/free-solid-svg-icons';
 
-declare var $: any;
 
 @Component({
   selector: 'app-navigation',
@@ -10,6 +10,13 @@ declare var $: any;
 })
 export class NavigationComponent implements AfterViewInit {
   @Output() toggleSidebar = new EventEmitter<void>();
+  fahome=fa.faHome;
+  facircleinfo=fa.faInfoCircle;
+  facode=fa.faCode;
+  fagavel=fa.faGavel;
+  fapizza=fa.faPizzaSlice;
+  faworld=fa.faGlobeAmericas;
+  faonline=fa.faBinoculars;
 
   public config: PerfectScrollbarConfigInterface = {};
 
@@ -83,10 +90,10 @@ export class NavigationComponent implements AfterViewInit {
   ];
 
   public selectedLanguage: any = {
-    language: 'English',
-    code: 'en',
-    type: 'US',
-    icon: 'us'
+    language: 'Español',
+    code: 'es',
+    type: 'CO',
+    icon: 'es'
   }
 
   public languages: any[] = [{

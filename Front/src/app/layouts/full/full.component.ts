@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { Router } from "@angular/router";
-
+import * as fab from '@fortawesome/free-brands-svg-icons';
+import * as far from '@fortawesome/free-regular-svg-icons';
+import * as fas from '@fortawesome/free-solid-svg-icons';
 //declare var $: any;
 
 @Component({
@@ -9,7 +11,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./full.component.scss"],
 })
 export class FullComponent implements OnInit {
-
+  falinux =fab.faLinux;
   constructor(public router: Router) {}
   public isCollapsed = false;
   public innerWidth: number = 0;
