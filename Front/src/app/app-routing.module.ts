@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BibliotecaComponent } from './component/biblioteca/biblioteca.component';
 
 import { FullComponent } from './layouts/full/full.component';
 
@@ -18,8 +19,8 @@ export const Approutes: Routes = [
         loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
       },
       {
-        path: 'component',
-        loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
+        path: 'temario',
+        component:BibliotecaComponent
       }
     ]
   },
