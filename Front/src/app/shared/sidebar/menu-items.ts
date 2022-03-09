@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/temario',
     title: 'Temario',
-    icon: 'bi bi-house',
+    icon: 'bi bi-collection',
     class: '',
     extralink: false,
     submenu: []

@@ -1,11 +1,255 @@
-<div >
-    <h2>
-       Lista de temas GPC
+<div class="row">
 
-    </h2>
-    <div *ngFor="let tema of listatemas">
-       <li>
-          <h3>Tema :{{tema.tema}}, Code: {{tema.supergrupo}}</h3>
-       </li>
+
+   <div class="card">
+      <div class="card-body">
+         <h4 class="card-title">Introducción</h4>
+         <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                     aria-expanded="true" aria-controls="collapseOne">
+                     Todo el temario
+                  </button>
+               </h2>
+               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                     <div class="table-responsive">
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions">
+                           <thead>
+                              <tr>
+                                 <th class="text-light bg-dark font-small fs-4">#</th>
+                                 <th class="text-light bg-dark font-small fs-4">Tema / Algoritmo</th>
+                                 <th class="text-light bg-dark font-small fs-4">Grupo</th>
+
+                                 <th class="text-light bg-dark font-small fs-4">Explicación</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr *ngFor='let tema of listatemas; index as i'>
+                                 <td style="font-size: smaller;">
+                                    {{ i + 1 }}
+                                 </td>
+                                 <td style="font-size: smaller;">
+                                    {{tema.tema}}
+                                 </td>
+                                 <td style="font-size: smaller;">
+                                    {{tema.supergrupo}}
+                                 </td>
+                                 <td style="font-size: smaller;">
+                                    <button class="btn btn-success">
+                                       <fa-icon [icon]="fachevron" size="2x"></fa-icon>
+                                    </button>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                     Teoría básica
+                  </button>
+               </h2>
+               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                     <div class="table-responsive">
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions">
+                           <thead>
+                              <tr>
+                                 <th class="text-light bg-dark font-small fs-4">#</th>
+                                 <th class="text-light bg-dark font-small fs-4">Tema / Algoritmo</th>
+                                 <th class="text-light bg-dark font-small fs-4">Grupo</th>
+
+                                 <th class="text-light bg-dark font-small fs-4">Explicación</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <div *ngFor='let tema of listatemas; index as i'>
+                                 <tr *ngIf='tema.orden==0'>
+                                    <td style="font-size: smaller;">
+                                       {{ i + 1 }}
+                                    </td>
+                                    <td style="font-size: smaller;">
+                                       {{tema.tema}}
+                                    </td>
+                                    <td style="font-size: smaller;">
+                                       {{tema.supergrupo}}
+                                    </td>
+                                    <td style="font-size: smaller;">
+                                       <button class="btn btn-success">
+                                          <fa-icon [icon]="fachevron" size="2x"></fa-icon>
+                                       </button>
+                                    </td>
+                                 </tr>
+                              </div>
+                           </tbody>
+                        </table>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                     Algoritmos de búsqueda
+                  </button>
+               </h2>
+               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="heading4">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                     Algoritmos de ordenamiento
+                  </button>
+               </h2>
+               <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapseThree">
+                     Manipulación de cadenas de caracteres y matching
+                  </button>
+               </h2>
+               <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapseThree">
+                     Manejo binario y bitwise
+                  </button>
+               </h2>
+               <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapseThree">
+                     Estructuras de datos básicas y avanzadas
+                  </button>
+               </h2>
+               <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapseThree">
+                     Matemáticas
+                  </button>
+               </h2>
+               <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapseThree">
+                     Geometría
+                  </button>
+               </h2>
+               <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapseThree">
+                     Teoría de grafos, arboles y redes
+                  </button>
+               </h2>
+               <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapseThree">
+                     Programación dinámica
+                  </button>
+               </h2>
+               <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapseThree">
+                     Generadores de casos de prueba y otros
+                  </button>
+               </h2>
+               <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
+   </div>
 </div>
