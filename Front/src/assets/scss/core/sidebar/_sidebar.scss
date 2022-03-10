@@ -36,6 +36,7 @@ sidebar navigation
         white-space: nowrap;
         align-items: center;
         line-height: 25px;
+        transition: all 0.5s;
         opacity: 0.6;
         i {
           font-style: normal;
@@ -50,8 +51,12 @@ sidebar navigation
         &.active,
         &:hover {
           opacity: 1;
+          transition: all 0.5s;
+          background-color: black;
+
           .feather {
             color: $white;
+            
           }
         }
       }
