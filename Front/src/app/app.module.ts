@@ -28,6 +28,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BibliotecaComponent } from './component/biblioteca/biblioteca.component';
 import { DataTablesModule } from "angular-datatables";
 
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 1,
@@ -56,6 +58,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FontAwesomeModule,
     DataTablesModule,
+    CodemirrorModule
   ],
   providers: [
     {

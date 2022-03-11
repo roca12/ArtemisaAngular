@@ -1,15 +1,15 @@
+
 <div class="row animate__animated animate__bounceInLeft">
-
-
    <div class="card">
       <div class="card-body">
          <h4 class="card-title">Temarios separados por grupos</h4>
          <div class="accordion" id="accordionExample">
+
             <div class="accordion-item">
                <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
                      aria-expanded="true" aria-controls="collapseOne">
-                     <fa-icon [icon]="fatodotemario" style="padding-right: 5px;" size="1x"></fa-icon>   Todo el temario
+                     <fa-icon [icon]="fatodotemario" style="padding-right: 5px;" size="1x"></fa-icon> Todo el temario
                   </button>
                </h2>
                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -17,18 +17,20 @@
                   <div class="accordion-body">
 
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
                               <tr *ngFor="let tema of listatemas;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"><fa-icon [icon]="fachevron" size="1x"></fa-icon></button></td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm" [id]="tema.ID">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button></td>
 
                               </tr>
-                           </tbody>
+                           </tbody>s
                         </table>
                      </div>
 
@@ -48,16 +50,18 @@
                   <div class="accordion-body">
 
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listateoria;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -71,23 +75,26 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="fabusquedas" style="padding-right: 5px;" size="1x"></fa-icon>   Algoritmos de búsqueda
+                     <fa-icon [icon]="fabusquedas" style="padding-right: 5px;" size="1x"></fa-icon> Algoritmos de
+                     búsqueda
                   </button>
                </h2>
                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listabusquedas;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -101,23 +108,26 @@
                <h2 class="accordion-header" id="heading4">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                     <fa-icon [icon]="faordenamientos" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon> Algoritmos de ordenamiento
+                     <fa-icon [icon]="faordenamientos" style="padding-right: 5px;" style="padding-right: 5px;"
+                        size="1x"></fa-icon> Algoritmos de ordenamiento
                   </button>
                </h2>
                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listaordenamientos;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -131,23 +141,26 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="fastrings" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon> Manipulación de cadenas de caracteres y matching
+                     <fa-icon [icon]="fastrings" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon> Manipulación de cadenas de caracteres y matching
                   </button>
                </h2>
                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listastrings;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -161,23 +174,26 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="fabitwise" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon> Manejo binario y bitwise
+                     <fa-icon [icon]="fabitwise" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon> Manejo binario y bitwise
                   </button>
                </h2>
                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listabitwise;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -191,7 +207,8 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="faestructuras" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon>Estructuras de datos básicas y avanzadas
+                     <fa-icon [icon]="faestructuras" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon>Estructuras de datos básicas y avanzadas
                   </button>
                </h2>
                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -199,16 +216,18 @@
                   <div class="accordion-body">
 
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listaestructuras;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -221,23 +240,26 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="famatematicas" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon> Matemáticas
+                     <fa-icon [icon]="famatematicas" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon> Matemáticas
                   </button>
                </h2>
                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listamatematica;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -251,23 +273,26 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="fageometria" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon> Geometría
+                     <fa-icon [icon]="fageometria" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon> Geometría
                   </button>
                </h2>
                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listageometria;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -281,7 +306,8 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="fagrafos" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon>Teoría de grafos, arboles y redes
+                     <fa-icon [icon]="fagrafos" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon>Teoría de grafos, arboles y redes
                   </button>
                </h2>
                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -289,16 +315,18 @@
                   <div class="accordion-body">
 
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listagrafos;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -311,23 +339,26 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="fadinamica" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon>Programación dinámica
+                     <fa-icon [icon]="fadinamica" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon>Programación dinámica
                   </button>
                </h2>
                <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listadp;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -341,23 +372,26 @@
                <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                      data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapseThree">
-                     <fa-icon [icon]="faotros" style="padding-right: 5px;" style="padding-right: 5px;" size="1x"></fa-icon>Generadores de casos de prueba y otros
+                     <fa-icon [icon]="faotros" style="padding-right: 5px;" style="padding-right: 5px;" size="1x">
+                     </fa-icon>Generadores de casos de prueba y otros
                   </button>
                </h2>
                <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="headingThree"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                      <div class="table-responsive">
-                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped" 
-                           [dtOptions]="dtOptions[0]" >
+                        <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                           [dtOptions]="dtOptions[0]">
                            <tbody>
-                              
+
                               <tr *ngFor="let tema of listaeotros;index as i" class="">
 
                                  <td class="text-center">{{i}}</td>
                                  <td class="text-center">{{tema.tema}}</td>
                                  <td class="text-center">{{tema.supergrupo}}</td>
-                                 <td class="text-center"> <button class="btn btn-success btn-sm"> <fa-icon [icon]="fachevron" size="1x"></fa-icon> </button> </td>
+                                 <td class="text-center"> <button class="btn btn-success btn-sm">
+                                       <fa-icon [icon]="fachevron" size="1x"></fa-icon>
+                                    </button> </td>
 
                               </tr>
                            </tbody>
@@ -368,6 +402,47 @@
                </div>
             </div>
          </div>
+      </div>
+   </div>
+</div>
+
+<div class="row animate__animated animate__bounceInLeft">
+
+
+   <div class="card">
+      <div class="card-body">
+         <h4 class="card-title">Java</h4>
+         <ngx-codemirror [(ngModel)]="codejava" [options]="{
+            
+            theme: 'seti',
+            mode: 'text/x-java',
+            readOnly:true
+         }">
+         </ngx-codemirror>
+      </div>
+   </div>
+   <div class="card">
+      <div class="card-body">
+         <h4 class="card-title">C++</h4>
+         <ngx-codemirror [(ngModel)]="codecpp" [options]="{
+            
+            theme: 'seti',
+            mode: 'text/x-c++src',
+            readOnly:true
+         }">
+         </ngx-codemirror>
+      </div>
+   </div>
+   <div class="card">
+      <div class="card-body">
+         <h4 class="card-title">Python</h4>
+         <ngx-codemirror [(ngModel)]="codepython" [options]="{
+            
+            theme: 'seti',
+            mode: 'text/x-python',
+            readOnly:true
+         }">
+         </ngx-codemirror>
       </div>
    </div>
 </div>

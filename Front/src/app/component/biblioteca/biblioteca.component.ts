@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
 import temario from '../../../assets/jsons/temariogpc.json'
@@ -14,7 +14,8 @@ import { Subject } from 'rxjs';
   templateUrl: './biblioteca.component.html',
   styleUrls: ['./biblioteca.component.scss']
 })
-export class BibliotecaComponent implements OnInit, AfterViewInit {
+export class BibliotecaComponent implements OnInit, AfterViewInit,AfterContentInit {
+  
 
   fachevron = far.faArrowAltCircleRight;
   fatodotemario=fas.faGlobeAmericas;
@@ -212,6 +213,10 @@ export class BibliotecaComponent implements OnInit, AfterViewInit {
     "fecha_modificacion": string
   }[] = [];
 
+  codejava:string='No hay codigo disponible en este lenguaje';
+  codepython:string='No hay codigo disponible en este lenguaje';
+  codecpp:string='No hay codigo disponible en este lenguaje';
+
   @ViewChildren(DataTableDirective)
   dtElements: QueryList<DataTableDirective>;;
 
@@ -224,9 +229,7 @@ export class BibliotecaComponent implements OnInit, AfterViewInit {
 
     this.dtOptions[0] = this.buildDtOptions();
     this.dtOptions[1] = this.buildDtOptions();
-  }
 
-  ngAfterViewInit(): void {
     //teoria
 
     for (let tema of this.listatemas) {
@@ -274,6 +277,18 @@ export class BibliotecaComponent implements OnInit, AfterViewInit {
 
       }
     }
+  }
+
+  ngAfterViewInit(): void {
+    
+
+
+  }
+
+  ngAfterContentInit(): void {
+    this.codejava=this.listadp[5].java;
+    this.codepython=this.listadp[5].py;
+    this.codecpp=this.listadp[5].cpp;
   }
 
   ngOnDestroy(): void {
