@@ -2,6 +2,7 @@ import { AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChil
 
 import { DataTableDirective } from 'angular-datatables';
 import temario from '../../../assets/jsons/temariogpc.json'
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fab from '@fortawesome/free-brands-svg-icons';
 import * as far from '@fortawesome/free-regular-svg-icons';
@@ -14,22 +15,22 @@ import { Subject } from 'rxjs';
   templateUrl: './biblioteca.component.html',
   styleUrls: ['./biblioteca.component.scss']
 })
-export class BibliotecaComponent implements OnInit, AfterViewInit,AfterContentInit {
-  
+export class BibliotecaComponent implements OnInit, AfterContentInit {
+
 
   fachevron = far.faArrowAltCircleRight;
-  fatodotemario=fas.faGlobeAmericas;
-  fateoria=fas.faSchool;
-  fabusquedas=fas.faSearch;
-  faordenamientos=fas.faSortNumericDownAlt;
-  fastrings=fas.faTextWidth;
-  fabitwise=fas.faDiceOne;
-  faestructuras=fas.faTable;
-  famatematicas=fas.faPlus;
-  fageometria=fas.faPencilRuler;
-  fagrafos=fas.faProjectDiagram;
-  fadinamica= fas.faLightbulb;
-  faotros=fas.faTerminal;
+  fatodotemario = fas.faGlobeAmericas;
+  fateoria = fas.faSchool;
+  fabusquedas = fas.faSearch;
+  faordenamientos = fas.faSortNumericDownAlt;
+  fastrings = fas.faTextWidth;
+  fabitwise = fas.faDiceOne;
+  faestructuras = fas.faTable;
+  famatematicas = fas.faPlus;
+  fageometria = fas.faPencilRuler;
+  fagrafos = fas.faProjectDiagram;
+  fadinamica = fas.faLightbulb;
+  faotros = fas.faTerminal;
 
 
 
@@ -212,10 +213,11 @@ export class BibliotecaComponent implements OnInit, AfterViewInit,AfterContentIn
     "fecha_creacion": string,
     "fecha_modificacion": string
   }[] = [];
-
-  codejava:string='No hay codigo disponible en este lenguaje';
-  codepython:string='No hay codigo disponible en este lenguaje';
-  codecpp:string='No hay codigo disponible en este lenguaje';
+  titulotema: String = "Sin tituto disponible";
+  textotema: String = "Sin texto disponible";
+  codejava: string = '';
+  codepython: string = '';
+  codecpp: string = '';
 
   @ViewChildren(DataTableDirective)
   dtElements: QueryList<DataTableDirective>;;
@@ -224,7 +226,6 @@ export class BibliotecaComponent implements OnInit, AfterViewInit,AfterContentIn
   dtTrigger: Subject<any> = new Subject<any>();
 
   ngOnInit(): void {
-
 
 
     this.dtOptions[0] = this.buildDtOptions();
@@ -279,16 +280,10 @@ export class BibliotecaComponent implements OnInit, AfterViewInit,AfterContentIn
     }
   }
 
-  ngAfterViewInit(): void {
-    
-
-
-  }
-
   ngAfterContentInit(): void {
-    this.codejava=this.listadp[5].java;
-    this.codepython=this.listadp[5].py;
-    this.codecpp=this.listadp[5].cpp;
+    this.codejava = "";
+    this.codepython = "";
+    this.codecpp = "";
   }
 
   ngOnDestroy(): void {
@@ -344,4 +339,93 @@ export class BibliotecaComponent implements OnInit, AfterViewInit,AfterContentIn
 
   }
 
+  closeResult: string = '';
+
+
+  constructor(private modalService: NgbModal) { }
+
+
+  obtenerCode(type: number, ID: number): any {
+    switch (type) {
+      case 0: {
+        for (let tema of this.listatemas) {
+          if (tema.ID == ID) {
+            return tema.tema;
+          }
+        }
+        break;
+      }
+      case 1: {
+        for (let tema of this.listatemas) {
+          if (tema.ID == ID) {
+            return tema.java;
+          }
+        }
+        break;
+      }
+      case 2: {
+        for (let tema of this.listatemas) {
+          if (tema.ID == ID) {
+            return tema.cpp;
+          }
+        }
+        break;
+      }
+      case 3: {
+        for (let tema of this.listatemas) {
+          if (tema.ID == ID) {
+            return tema.py;
+          }
+        }
+        break;
+      }
+      case 4: {
+        for (let tema of this.listatemas) {
+          if (tema.ID == ID) {
+            let re = /\n/;
+            let result = tema.texto.replace(re, "<br></br>");
+            let lista = result.split("\n");
+            let aux:string="";
+            let i =0;
+            for (let separado in lista){
+              aux+=lista[i];
+              aux+="<br></br>";
+              i++;
+
+            }
+            return aux;
+          }
+
+
+        }
+        break;
+      }
+    }
+  }
+
+  open(content: any, ID: number) {
+    this.textotema = this.obtenerCode(4, ID);
+    this.titulotema = this.obtenerCode(0, ID);
+    this.codejava = this.obtenerCode(1, ID);
+    this.codecpp = this.obtenerCode(2, ID);
+    this.codepython = this.obtenerCode(3, ID);
+    this.modalService.open(content, { size: 'xl', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }
+
+
