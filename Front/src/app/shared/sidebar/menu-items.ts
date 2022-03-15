@@ -20,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard',
-    title: 'Problemas',
+    title: 'Problemas (En espera)',
     icon: 'bi bi-question-square-fill',
     class: '',
     extralink: false,
@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard',
-    title: 'Libros',
+    title: 'Libros (En espera)',
     icon: 'bi bi-book',
     class: '',
     extralink: false,
@@ -36,7 +36,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard',
-    title: 'Links valiosos',
+    title: 'Links valiosos (En espera)',
     icon: 'bi bi-box-arrow-up-right',
     class: '',
     extralink: false,
@@ -44,7 +44,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard',
-    title: 'Estadisticas',
+    title: 'Estadisticas (En espera)',
     icon: 'bi bi-bar-chart-line',
     class: '',
     extralink: false,
@@ -52,7 +52,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard',
-    title: 'Eventos',
+    title: 'Eventos (En espera)',
     icon: 'bi bi-calendar-date',
     class: '',
     extralink: false,
@@ -60,7 +60,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/dashboard',
-    title: 'Competencias',
+    title: 'Competencias (En espera)',
     icon: 'bi bi-trophy',
     class: '',
     extralink: false,
