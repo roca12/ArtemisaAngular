@@ -382,8 +382,7 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
       case 4: {
         for (let tema of this.listatemas) {
           if (tema.ID == ID) {
-            let re = /\n/;
-            let result = tema.texto.replace(re, "<br></br>");
+            let result = tema.texto;
             let lista = result.split("\n");
             let aux:string="";
             let i =0;
