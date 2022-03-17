@@ -11,7 +11,9 @@ import * as fas from '@fortawesome/free-solid-svg-icons';
   styleUrls: ["./full.component.scss"],
 })
 export class FullComponent implements OnInit {
-  falinux =fab.faJediOrder;
+  fadiscord =fab.faDiscord;
+  fagithub =fab.faGithub;
+  famail =fab.faGoogle;
   constructor(public router: Router) {}
   public isCollapsed = false;
   public innerWidth: number = 0;
