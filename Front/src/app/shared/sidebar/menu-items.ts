@@ -2,14 +2,7 @@ import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
  
-  {
-    path: '/dashboard',
-    title: 'Inicio',
-    icon: 'bi bi-house',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
+
   {
     path: '/temario',
     title: 'Temario',
@@ -61,6 +54,14 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/dashboard',
     title: 'Competencias (En espera)',
+    icon: 'bi bi-trophy',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/about',
+    title: 'Acerca de ...',
     icon: 'bi bi-trophy',
     class: '',
     extralink: false,

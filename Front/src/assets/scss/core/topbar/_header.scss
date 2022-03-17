@@ -34,7 +34,8 @@
       height: $topbar-navlink-height;
     }
     .navbar-nav > .nav-item {
-      transition: 0.2s ease-in;
+      font-weight: bold;
+      transition: 0.2s all;
       &:hover {
         background: $transparent-dark-bg;
       }

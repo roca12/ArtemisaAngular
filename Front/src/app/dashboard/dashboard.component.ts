@@ -1,14 +1,18 @@
 import { Component, AfterViewInit } from '@angular/core';
-//declare var require: any;
+import * as fab from '@fortawesome/free-brands-svg-icons';
+import * as far from '@fortawesome/free-regular-svg-icons';
+import * as fas from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements AfterViewInit {
-  subtitle: string;
-  constructor() {
-    this.subtitle = 'This is some text within a card block.';
-  }
+export class DashboardComponent{
+  fain=fas.faLongArrowAltRight;
+  faquestion=fas.faQuestion;
+  fasmile=fas.faSmile;
+  facheck=fas.faCheck;
 
-  ngAfterViewInit() { }
+  constructor() {
+
+  }
 }

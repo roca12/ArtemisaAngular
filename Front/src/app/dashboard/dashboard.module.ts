@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { DashboardComponent } from "./dashboard.component";
-import { FeedsComponent } from "./dashboard-components/feeds/feeds.component";
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
     path: "",
     data: {
       title: "Dashboard",
-      urls: [{ title: "Dashboard", url: "/dashboard" }, { title: "Dashboard" }],
+      urls: [{ title: "Dashboard", url: "" }, { title: "Dashboard" }],
     },
     component: DashboardComponent,
   },
@@ -25,12 +25,12 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    FontAwesomeModule,
     RouterModule.forChild(routes),
     NgApexchartsModule,
   ],
   declarations: [
     DashboardComponent,
-    FeedsComponent,
     TopCardsComponent,
     BlogCardsComponent
   ],

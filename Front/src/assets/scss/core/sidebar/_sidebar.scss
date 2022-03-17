@@ -38,6 +38,8 @@ sidebar navigation
         line-height: 25px;
         transition: all 0.5s;
         opacity: 0.6;
+        font-weight: bold;
+        text-decoration:none;
         i {
           font-style: normal;
           width: 35px;
@@ -52,7 +54,7 @@ sidebar navigation
         &:hover {
           opacity: 1;
           transition: all 0.5s;
-          background-color: black;
+          background-color:#c94500;
 
           .feather {
             color: $white;
