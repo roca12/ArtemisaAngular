@@ -3,7 +3,7 @@
 
 <p align="center">
  <img width="100px" src="https://www.iconsdb.com/icons/preview/royal-blue/code-xxl.png" align="center"  />
- <h2 align="center">Biblioteca de programación competitiva ARTEMISA/h2>
+ <h2 align="center">Biblioteca de programación competitiva ARTEMISA </h2>
  <p align="center">Diego Rodriguez - Grupo de programación competitiva - Universidad El Bosque</p>
 </p>
   <p align="center">
