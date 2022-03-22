@@ -16,11 +16,12 @@
     <br />
   </p>
    <p align="center">
-      <img  src="https://img.shields.io/github/languages/count/roca12/ArtemisaAngular?label=Lenguajes&color=yellow" />
+      <img  src="https://img.shields.io/github/languages/count/roca12/ArtemisaAngular?color=yellow" />
       <img  src="https://img.shields.io/github/repo-size/roca12/ArtemisaAngular?color=important" />
       <img  src="https://img.shields.io/github/last-commit/roca12/ArtemisaAngular">
       <img  src="https://img.shields.io/github/contributors/roca12/ArtemisaAngular?color=blueviolet" />
-    <br />
+      <img  src="https://img.shields.io/website?down_color=red&down_message=offline%2Fuploading&up_color=green&up_message=online&url=https%3A%2F%2Fbiblioteca-artemisa.netlify.app" />
+      <img  src="https://img.shields.io/github/commit-activity/y/roca12/ArtemisaAngular" />
   </p>
   <p align="center">
       <img  src="https://img.shields.io/badge/JDK11 with SpringBoot 2.5-informational?style=flat&logo=java&logoColor=white&color=blue" />
