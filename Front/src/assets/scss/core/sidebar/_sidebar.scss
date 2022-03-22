@@ -85,3 +85,18 @@ sidebar navigation
 .collapse.in {
   display: block;
 }
+
+
+@media (max-width: 991px) {
+  .left-sidebar {
+    position: absolute;
+    width: $sidebar-width-full;
+    height: 100%;
+    top: 0px;
+    z-index: 99;
+    padding-top: 28%;
+    background: $sidebar;
+    box-shadow: $shadow;
+    transition: 0.2s ease-in;
+  }
+}

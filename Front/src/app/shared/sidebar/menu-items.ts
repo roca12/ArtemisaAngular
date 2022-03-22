@@ -12,48 +12,48 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/dashboard',
-    title: 'Problemas (En espera)',
+    path: '/problemas',
+    title: 'Problemas',
     icon: 'bi bi-question-square-fill',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/dashboard',
-    title: 'Libros (En espera)',
+    path: '/libros',
+    title: 'Libros',
     icon: 'bi bi-book',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/dashboard',
-    title: 'Links valiosos (En espera)',
+    path: '/links',
+    title: 'Links valiosos',
     icon: 'bi bi-box-arrow-up-right',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/dashboard',
-    title: 'Estadisticas (En espera)',
+    path: '/estadisticas',
+    title: 'Estadisticas',
     icon: 'bi bi-bar-chart-line',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/dashboard',
-    title: 'Eventos (En espera)',
+    path: '/eventos',
+    title: 'Eventos',
     icon: 'bi bi-calendar-date',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/dashboard',
-    title: 'Competencias (En espera)',
+    path: '/competencias',
+    title: 'Competencias',
     icon: 'bi bi-trophy',
     class: '',
     extralink: false,
