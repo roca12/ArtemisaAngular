@@ -30,6 +30,12 @@ import { BibliotecaComponent } from './component/biblioteca/biblioteca.component
 import { DataTablesModule } from "angular-datatables";
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { ProblemasComponent } from './component/problemas/problemas.component';
+import { LibrosComponent } from './component/libros/libros.component';
+import { LinksComponent } from './component/links/links.component';
+import { EstadisticasComponent } from './component/estadisticas/estadisticas.component';
+import { EventosComponent } from './component/eventos/eventos.component';
+import { CompetenciasComponent } from './component/competencias/competencias.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -45,7 +51,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    BibliotecaComponent
+    BibliotecaComponent,
+
+    ProblemasComponent,
+    LibrosComponent,
+    LinksComponent,
+    EstadisticasComponent,
+    EventosComponent,
+    CompetenciasComponent
   ],
   imports: [
     CommonModule,

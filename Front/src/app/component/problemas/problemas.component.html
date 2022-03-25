@@ -1,5 +1,28 @@
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Sitio en construcción, vuelve pronto :D</h4>
+<div class="row animate__animated animate__bounceInLeft">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"><fa-icon [icon]="falistchek" size="1x" ></fa-icon> Selector de problemas por dificultad, juez y tema</h4>
+
+            <div class="table-responsive">
+                <table datatable class="table table-hover align-middle text-nowrap table-bordered table-striped"
+                    [dtOptions]="dtOptions[0]">
+                    <tbody>
+                        <tr *ngFor="let p of listaproblemas;" class="">
+                            <td class="text-center">{{p.id}}</td>
+                            <td class="text-center">{{p.titulo}}</td>
+                            <td class="text-center">{{p.dificultad}}</td>
+                            <td class="text-center">{{p.tema_1}}</td>
+                            <td class="text-center">{{p.juez}}</td>
+                            <td class="text-center">
+                                <a class="btn btn-success btn-sm" [href]="p.url">
+                                    <fa-icon [icon]="fachevron" size="1x" ></fa-icon>
+                                </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
 </div>
