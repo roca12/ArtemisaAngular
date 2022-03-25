@@ -23,14 +23,6 @@ import { CompetenciasComponent } from './competencias/competencias.component';
     NgbModule,
   ],
   declarations: [
-    
-  
-    ProblemasComponent,
-             LibrosComponent,
-             LinksComponent,
-             EstadisticasComponent,
-             EventosComponent,
-             CompetenciasComponent
   ]
 })
 export class ComponentsModule { }
