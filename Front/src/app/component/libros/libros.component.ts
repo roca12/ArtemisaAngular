@@ -19,6 +19,7 @@ export class LibrosComponent implements OnInit {
   fadownload=fas.faFileDownload;
 
   sourcePath1=window.location.protocol+"\\\\"+window.location.host+"/assets/pdfs/";
+  sourcePath2=window.location.protocol+"\\\\"+window.location.host+"/assets/images/libros/descargables/";
   constructor() { 
     this.bookcards=bookscards;
   }
