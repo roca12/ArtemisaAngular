@@ -36,6 +36,7 @@ import { LinksComponent } from './component/links/links.component';
 import { EstadisticasComponent } from './component/estadisticas/estadisticas.component';
 import { EventosComponent } from './component/eventos/eventos.component';
 import { CompetenciasComponent } from './component/competencias/competencias.component';
+import { DownloadDirective } from './component/libros/libros.directive';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -58,7 +59,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     LinksComponent,
     EstadisticasComponent,
     EventosComponent,
-    CompetenciasComponent
+    CompetenciasComponent,
+    DownloadDirective
   ],
   imports: [
     CommonModule,
