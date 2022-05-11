@@ -38,6 +38,8 @@ export class LibrosComponent implements OnInit {
       this.bookgroups.add(element.group);
     });
 
+    
+
   }
 
   ngOnInit(): void {
