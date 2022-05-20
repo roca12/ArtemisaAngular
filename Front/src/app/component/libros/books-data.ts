@@ -75,6 +75,15 @@ export const bookscards: book[] = [
         imagename:"7.jpg",
         group:"Matemáticas"
     },
+    {
+        title: 'Advanced Data Structure (ingles)',
+        author: 'Geek4Geeks',
+        desc: 'Documento recopilatorio de algoritmos para estructuras de datos avanzadas o especializadas.',
+        year: '2022',
+        filename:'Advanced-Data-Structure.pdf',
+        imagename:"8.jpg",
+        group:"Estructuras de datos"
+    },
     
     
 
