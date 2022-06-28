@@ -15,7 +15,7 @@ export const bookscards: book[] = [
     {
         title: 'Competitive programming handbook',
         author: 'Antti Laaksonen',
-        desc: 'El propósito de este libro es darte una introducción completa a la programación competitiva. Se asume que ya dominas lo básico de programación, pero no es necesario que poseas conocimientos previos de programación competitiva. \nEl libro está especialmente destinado a estudiantes que quieran aprender algoritmos y posiblemente participar en la Olimpiada Internacional de Informática (IOI) o en el Concurso Internacional de Programación Universitaria (ICPC). Por supuesto, el libro también es adecuado para cualquier otra persona interesada en la programación competitiva.',
+        desc: 'El propósito de este libro es darte una introducción completa a la programación competitiva. Se asume que ya dominas lo básico de programación, pero no es necesario que poseas conocimientos previos de programación competitiva.',
         year: '2020',
         filename:'(Español) Competitive Programmer’s Handbook.pdf',
         imagename:"1.jpg",
@@ -69,7 +69,7 @@ export const bookscards: book[] = [
     {
         title: 'Principles of Algorithmic Problem Solving (ingles)',
         author: 'Johan Sannemo',
-        desc: 'La resolución algorítmica de problemas es el arte de formular métodos eficientes que resolver problemas de carácter matemático. Desde los muchos algoritmos numéricos desarrollados por los antiguos babilonios hasta la fundación de la teoría de grafos por Euler, la resolución de problemas algorítmicos ha sido una búsqueda intelectual popular durante los últimos miles de años. Durante mucho tiempo, fue un esfuerzo puramente matemático con algoritmos destinados a ser ejecutados a mano. durante el reciente. La resolución algorítmica de problemas ha evolucionado durante décadas. Lo que era principalmente un tema dela investigación se convirtió en un deporte mental conocido como programación competitiva. como deporte.',
+        desc: 'La resolución algorítmica de problemas es el arte de formular métodos eficientes que resolver problemas de carácter matemático.',
         year: '2018',
         filename:'Principles of Algorithmic Problem Solving.pdf',
         imagename:"7.jpg",
@@ -84,6 +84,42 @@ export const bookscards: book[] = [
         imagename:"8.jpg",
         group:"Estructuras de datos"
     },
+    {
+        title: 'Algorithms (ingles)',
+        author: 'Notes For Professionals',
+        desc: 'Libro introductorio (nivel básico) de algoritmia para iniciados',
+        year: '2022',
+        filename:'AlgorithmsNotesForProfessionals.pdf',
+        imagename:"9.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Algoritmos voraces',
+        author: 'Aprende olimpiadas informaticas',
+        desc: 'Pequeño libro teorico acerca de las ideas base de los algoritmos voraces (Básico).',
+        year: '2022',
+        filename:'Algoritmos Voraces.pdf',
+        imagename:"10.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Arrays (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en Arrays (Básico a experto).',
+        year: '2022',
+        filename:'Arrays.pdf',
+        imagename:"11.jpg",
+        group:"Estructuras de datos"
+    },
+    {
+        title: 'Backtracking (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en Backtracking y programación dinámica',
+        year: '2022',
+        filename:'Arrays.pdf',
+        imagename:"12.jpg",
+        group:"Algorítmica"
+    }
     
     
 
