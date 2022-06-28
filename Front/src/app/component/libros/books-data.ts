@@ -281,6 +281,123 @@ export const bookscards: book[] = [
         filename:'JavaNotesForProfessionals.pdf',
         imagename:"30.jpg",
         group:"Lenguajes de programación"
+    },
+    {
+        title: 'Linked List (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en listas enlazadas y listas doblemente enlazadas (Básico a experto).',
+        year: '2022',
+        filename:'Linked-List.pdf',
+        imagename:"31.jpg",
+        group:"Estructuras de datos"
+    },
+    {
+        title: 'Discrete Structures (Ingles)',
+        author: 'Rob Hoogerwoord y Hans Zantema',
+        desc: 'Libro de dificultad intermedia acerca de matemática discreta',
+        year: '2016',
+        filename:'Matematica discreta.pdf',
+        imagename:"32.jpg",
+        group:"Matemáticas"
+    },
+    {
+        title: 'Matemática discreta',
+        author: 'Francesc Comellas - Josep Fàbrega - Anna Sànchez - Oriol Serra',
+        desc: 'Libro de dificultad intermedia acerca de matemática discreta',
+        year: '2001',
+        filename:'matemtica_discreta_para_informticos.pdf',
+        imagename:"33.jpg",
+        group:"Matemáticas"
+    },
+    {
+        title: 'Principles of Algorithmic Problem Solving (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en matrices de diferentes dimensiones (Básico a experto).',
+        year: '2022',
+        filename:'Matrix.pdf',
+        imagename:"34.jpg",
+        group:"Estructuras de datos"
+    },
+    {
+        title: 'Programación Dinámica I - Fundamentos',
+        author: 'Aprende olimpiada informática',
+        desc: 'Pequeño libro introductorio a la programación dinámica, adecuado para principiantes',
+        year: '2022',
+        filename:'Programación Dinámica I Fundamentos.pdf',
+        imagename:"35.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Programación Dinámica II - Ejemplos más avanzados',
+        author: 'Aprende olimpiada informática',
+        desc: 'Pequeño libro introductorio a la programación dinámica, adecuado para principiantes',
+        year: '2022',
+        filename:'Programación Dinámica II Ejemplos más avanzados.pdf',
+        imagename:"36.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Python (Ingles)',
+        author: 'Notes For Professionals',
+        desc: 'Libro teórico del lenguaje Python desde nivel básico hasta avanzado.',
+        year: '2022',
+        filename:'PythonNotesForProfessionals.pdf',
+        imagename:"37.jpg",
+        group:"Lenguajes de programación"
+    },
+    {
+        title: 'Recursion (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en el método de resolución de problemas, recursividad (Básico a experto).',
+        year: '2022',
+        filename:'Recursion.pdf',
+        imagename:"38.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Recursividad',
+        author: 'Aprende Olimpiada Informática',
+        desc: 'Pequeño libro introductorio a los algoritmos recursivos, adecuado para principiantes',
+        year: '2022',
+        filename:'Recursividad.pdf',
+        imagename:"39.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Ruby (Ingles)',
+        author: 'Notes For Professionals',
+        desc: 'Libro teórico del lenguaje Ruby desde nivel básico hasta avanzado.',
+        year: '2022',
+        filename:'RubyNotesForProfessionals.pdf',
+        imagename:"40.jpg",
+        group:"Lenguajes de programación"
+    },
+    {
+        title: 'Searching (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos de búsquedas de todo tipo (Básico a experto).',
+        year: '2022',
+        filename:'Searching.pdf',
+        imagename:"41.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Sorting (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos de ordenamiento de todo tipo de datos (Básico a experto).',
+        year: '2022',
+        filename:'Sorting.pdf',
+        imagename:"42.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Strings (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos de matching y manipulación de Strings (Básico a experto).',
+        year: '2022',
+        filename:'Strings.pdf',
+        imagename:"43.jpg",
+        group:"Algorítmica"
     }
     
     
