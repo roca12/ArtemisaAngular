@@ -114,11 +114,173 @@ export const bookscards: book[] = [
     {
         title: 'Backtracking (Ingles)',
         author: 'Geeks4Geeks',
-        desc: 'Documento recopilatorio de algoritmos basados en Backtracking y programación dinámica',
+        desc: 'Documento recopilatorio de algoritmos basados en Backtracking y programación dinámica (Básico a experto).',
         year: '2022',
         filename:'Arrays.pdf',
         imagename:"12.jpg",
         group:"Algorítmica"
+    },
+    {
+        title: 'Binary Search Tree (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en arboles de busqueda binaria (Básico a experto).',
+        year: '2022',
+        filename:'Binary-Search-Tree.pdf',
+        imagename:"13.jpg",
+        group:"Estructuras de datos"
+    },
+    {
+        title: 'Bit Magic (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en magia binaria BitWise (Básico a experto).',
+        year: '2022',
+        filename:'Bit-Magic.pdf',
+        imagename:"14.jpg",
+        group:"Bit Wise"
+    },
+    {
+        title: 'Combinatorial (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en combinatorias y estadística (Básico a experto).',
+        year: '2022',
+        filename:'Combinatorial.pdf',
+        imagename:"15.jpg",
+        group:"Matemáticas"
+    },
+    {
+        title: 'C++ (Ingles)',
+        author: 'Notes For Professionals',
+        desc: 'Libro teórico del lenguaje C++ desde nivel básico hasta avanzado.',
+        year: '2022',
+        filename:'CPlusPlusNotesForProfessionals.pdf',
+        imagename:"16.jpg",
+        group:"Lenguajes de programación"
+    },
+    {
+        title: 'Divide And Conquer (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en la metodología de resolución de problemas, divide y conquista (Básico a experto).',
+        year: '2022',
+        filename:'Divide-And-Conquer.pdf',
+        imagename:"17.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Dynamic Programming (Ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en la metodología de resolución de problemas con programación dinámica y los algoritmos basados en DP (Básico a experto).',
+        year: '2022',
+        filename:'Dynamic-Programming.pdf',
+        imagename:"18.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Pilas, Colas, Listas, Árboles y Grafos',
+        author: 'Universidad Autónoma del Estado de México',
+        desc: 'Este libro tiene por objetivo que el programador identifique las herramientas teóricas fundamentales para la representación y manipulación de información en la computadora, haciendo énfasis en el tipo de datos dinámicos con base en éste. (Básico)',
+        year: '2019',
+        filename:'estructuras de datos.pdf',
+        imagename:"19.jpg",
+        group:"Estructuras de datos"
+    },
+    {
+        title: 'Game Theory (ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en teorías de juegos (Básico a experto).',
+        year: '2022',
+        filename:'Game-Theory.pdf',
+        imagename:"20.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Geometric Algorithms (ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos de geometría computacional (Básico a experto).',
+        year: '2022',
+        filename:'Geometric-Algorithms.pdf',
+        imagename:"21.jpg",
+        group:"Geometría"
+    },
+    {
+        title: 'Graphs (ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos de teoría de grafos, arboles, flujos y redes (Básico a experto).',
+        year: '2022',
+        filename:'Graphs.pdf',
+        imagename:"22.jpg",
+        group:"Grafos"
+    },
+    {
+        title: 'Greedy (ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos voraces (Básico a experto).',
+        year: '2022',
+        filename:'Greedy.pdf',
+        imagename:"23.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Hashing (ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en hasheos (Básico a experto).',
+        year: '2022',
+        filename:'Hashing.pdf',
+        imagename:"24.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Heaps (ingles)',
+        author: 'Geeks4Geeks',
+        desc: 'Documento recopilatorio de algoritmos basados en heaps (Básico a experto).',
+        year: '2022',
+        filename:'Heaps.pdf',
+        imagename:"25.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Introducción a la Algoritmia I - Eficiencia',
+        author: 'Aprende olimpiada informática',
+        desc: 'Explica aquellas propiedades de los algoritmos que están relacionadas con la cantidad de recursos utilizados por el algoritmo',
+        year: '2022',
+        filename:'Introducción a la Algoritmia I Eficiencia.pdf',
+        imagename:"26.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Introducción a la Algoritmia II - Costes',
+        author: 'Aprende olimpiada informática',
+        desc: 'Demuestra ejemplos de costes al momento de ejecutar algoritmos.',
+        year: '2022',
+        filename:'Introducción a la Algoritmia II Costes.pdf',
+        imagename:"27.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Introducción a la Algoritmia III - Ejemplos de análisis de costes',
+        author: 'Aprende olimpiada informática',
+        desc: 'Demuestra ejemplos de costes al momento de ejecutar algoritmos.',
+        year: '2022',
+        filename:'Introducción a la Algoritmia III Ejemplos de análisis de costes.pdf',
+        imagename:"28.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Introducción a la Algoritmia IV - Coste de ordenar',
+        author: 'Aprende olimpiada informática',
+        desc: 'Demuestra ejemplos de costes al momento de ejecutar algoritmos.',
+        year: '2022',
+        filename:'Introducción a la Algoritmia IV Coste de ordenar.pdf',
+        imagename:"29.jpg",
+        group:"Algorítmica"
+    },
+    {
+        title: 'Java (Ingles)',
+        author: 'Notes For Professionals',
+        desc: 'Libro teórico del lenguaje C++ desde nivel básico hasta avanzado.',
+        year: '2022',
+        filename:'JavaNotesForProfessionals.pdf',
+        imagename:"30.jpg",
+        group:"Lenguajes de programación"
     }
     
     
