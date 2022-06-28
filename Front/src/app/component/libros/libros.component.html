@@ -5,8 +5,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 col-lg-4" *ngFor='let book of bookcards'>
+
                     <div class="card">
-                        <img [src]="sourcePath2+book.imagename" alt="blogs" class="card-img-top">
+                        <h4 class="card-title"
+                            style="text-align: center; font-weight: bolder;color: rgb(226, 128, 8); padding-top: 10px;padding-bottom: -10px;font-size: 1.875em;">
+                            {{book.group}}
+                        </h4>
+                        <img [src]="sourcePath2+book.imagename" alt="blogs" class="card-img-top" style="border-bottom-style: groove;border-top-style: groove;">
                         <div class="card-body">
 
                             <h4 class="card-title" style="text-align: center; font-weight: bold;"> {{book.title}}</h4>
@@ -23,7 +28,7 @@
                                 <a [href]="sourcePath1+book.filename" class="btn btn-warning">
                                     <fa-icon [icon]="fadownload" size="1x"></fa-icon> Ver Online
                                 </a>
-        
+
                             </div>
                         </div>
                     </div>
