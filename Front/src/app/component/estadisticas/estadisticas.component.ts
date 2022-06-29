@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import uvaproblems from '../../../assets/jsons/uvaproblems.json'
-
+import { Chart, ChartConfiguration, ChartItem, registerables } from 'node_modules/chart.js'
 @Component({
   selector: 'app-estadisticas',
   templateUrl: './estadisticas.component.html',
@@ -30,6 +30,8 @@ export class EstadisticasComponent implements OnInit {
   uvauname!: any;
   uvasubs!: any;
   uvadata = Array();
+  uvaveredicts=[0,0,0,0,0,0];
+  uvastats=Array();
 
 
   listatemas = uvaproblems;
@@ -53,6 +55,57 @@ export class EstadisticasComponent implements OnInit {
     this.getCodeChefAll("shauryagupta12");
     this.getSPOJAll("macbon");
     this.getCFAll("tourist");
+    this.createChart();
+    
+  }
+
+  
+  calculateStatsUVA():void{
+    
+    let precision = this.uvaveredicts[0]/this.uvadata.length*100;
+    console.log(precision);
+    this.uvastats=Array()
+    this.uvastats.push(precision);
+  }
+
+  createChart(): void {
+    Chart.register(...registerables);
+    const data = {
+      labels: [
+        'Accepted', 
+        'Wrong Answer', 
+        'Runtime Error', 
+        'Time Limit', 
+        'Compilation Error', 
+        "Otro"],
+      datasets: [{
+        label: 'Online Judge Submissions',
+        backgroundColor: [
+          'rgb(99, 255, 20)',
+          'rgb(255, 20, 20)',
+          'rgb(241, 245, 24)',
+          'rgb(43, 255, 234)',
+          'rgb(222, 49, 193)',
+          'rgb(69, 63, 63)'],
+        data: this.uvaveredicts,
+        hoverOffset: 4,
+      }]
+    };
+    const options = {
+      scales: {
+        y: {
+          beginAtZero: true,
+          display: false
+        }
+      }
+    }
+    const config: ChartConfiguration = {
+      type: 'doughnut',
+      data: data,
+      options: options
+    }
+    const chartItem: ChartItem = document.getElementById('my-chart') as ChartItem
+    new Chart(chartItem, config)
   }
 
   subsToData(alldata: any): void {
@@ -119,33 +172,43 @@ export class EstadisticasComponent implements OnInit {
   getUvaSubmissionVereditc(dato: any): string {
     switch (dato) {
       case 10:
+        this.uvaveredicts[5]++;
         return "SE";
       case 15:
+        this.uvaveredicts[5]++;
         return "CBJ";
       case 20:
+        this.uvaveredicts[5]++;
         return "IQ";
       case 30:
+        this.uvaveredicts[4]++;
         return "CE";
       case 35:
+        this.uvaveredicts[5]++;
         return "RF";
       case 40:
+        this.uvaveredicts[2]++;
         return "RE";
       case 45:
+        this.uvaveredicts[5]++;
         return "OLE";
       case 50:
+        this.uvaveredicts[3]++;
         return "TLE";
       case 60:
+        this.uvaveredicts[5]++;
         return "MLE";
       case 70:
+        this.uvaveredicts[1]++;
         return "WA";
       case 80:
+        this.uvaveredicts[5]++;
         return "PE";
     }
-
+    this.uvaveredicts[0]++;
+    this.calculateStatsUVA()
     return "AC";
   }
-
-
 
   getCFAll(username: string): void {
     this.http.get(this.getCFUrl + username, { observe: 'response' }).subscribe((response: any) => {
@@ -185,9 +248,4 @@ export class EstadisticasComponent implements OnInit {
       this.uvaResponseCode = response.status;
     })
   }
-
-
-
-
-
 }

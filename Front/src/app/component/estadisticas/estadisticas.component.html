@@ -22,62 +22,88 @@
                     <div class="accordion-body">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12 col-lg-12">
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Estado</span>
+                                    <input type="text" class="form-control" [value]="uvaResponseCode" readonly="true">
+                                </div>
+                                <br>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Online Judge ID</span>
+                                    <input type="text" class="form-control" [value]="uvaid" readonly="true">
+                                </div>
+                                <br>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Nombre</span>
+                                    <input type="text" class="form-control" [value]="uvaname" readonly="true">
+                                </div>
+                                <br>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Username</span>
+                                    <input type="text" class="form-control" [value]="uvauname" readonly="true">
+                                </div>
+                                <br>
+                                <!-- grafica uva-->
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xl-6">
+                                    <h4 class="card-title"
+                                        style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                                        Resumen de veredictos
+                                    </h4>
+                                    <div class="chart-container">
+                                        <canvas id="my-chart">
+                                        </canvas>
+                                    </div>
+                                </div>
+                                <!-- Estadisticas -->
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xl-6">
+                                    <h4 class="card-title"
+                                        style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                                        Estadisticas
+                                    </h4>
+
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Estado</span>
-                                        <input type="text" class="form-control" [value]="uvaResponseCode"
-                                            readonly="true">
+                                        <span class="input-group-text" id="basic-addon1"> % Precisión</span>
+                                        <input type="text" class="form-control" [value]="uvastats[0]" readonly="true">
                                     </div>
-                                    <br>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Online Judge ID</span>
-                                        <input type="text" class="form-control" [value]="uvaid" readonly="true">
-                                    </div>
-                                    <br>
+                                    
+                                </div>
 
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Nombre</span>
-                                        <input type="text" class="form-control" [value]="uvaname" readonly="true">
-                                    </div>
-                                    <br>
+                                <div class="table-responsive">
+                                    <table class="table caption-top">
+                                        <caption>Lista de envíos</caption>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Fecha y hora</th>
+                                                <th scope="col"># problema</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Veredicto</th>
+                                                <th scope="col">Lenguaje</th>
 
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Username</span>
-                                        <input type="text" class="form-control" [value]="uvauname" readonly="true">
-                                    </div>
-                                    <br>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sub of uvadata">
+
+                                                <td>{{sub[4]}}</td>
+                                                <td>{{sub[1]}}</td>
+                                                <td> <a
+                                                        href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{sub[0]}}">{{sub[2]}}</a>
+                                                </td>
+                                                <td [ngClass]="sub[3] == 'AC' ? 'text-success' : 'text-danger'">
+                                                    {{sub[3]}}</td>
+                                                <td
+                                                    [ngClass]="sub[5]=='JAVA'?'text-primary':sub[5]=='C++'?'text-warning':sub[5]=='PYTHON'?'text-success':sub[5]=='ANSI C'?'text-danger':sub[5]=='C++ 11'?'text-info':'text-dark'">
+                                                    {{sub[5]}}
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
 
 
-
-                                    <div class="table-responsive">
-                                        <table class="table caption-top">
-                                            <caption>Lista de envíos</caption>
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Fecha y hora</th>
-                                                    <th scope="col"># problema</th>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Veredicto</th>
-                                                    <th scope="col">Lenguaje</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let sub of uvadata">
-
-                                                    <td>{{sub[4]}}</td>
-                                                    <td>{{sub[1]}}</td>
-                                                    <td> <a href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{sub[0]}}">{{sub[2]}}</a> </td>
-                                                    <td [ngClass]="sub[3] == 'AC' ? 'text-success' : 'text-danger'">{{sub[3]}}</td>
-                                                    <td [ngClass]="sub[5]=='JAVA'?'text-primary':sub[5]=='C++'?'text-warning':sub[5]=='PYTHON'?'text-success':sub[5]=='ANSI C'?'text-danger':sub[5]=='C++ 11'?'text-info':'text-dark'">
-                                                        {{sub[5]}}
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                         </div>

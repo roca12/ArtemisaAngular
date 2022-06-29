@@ -38,6 +38,7 @@ import { EventosComponent } from './component/eventos/eventos.component';
 import { CompetenciasComponent } from './component/competencias/competencias.component';
 import { DownloadDirective } from './component/libros/libros.directive';
 
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 1,
