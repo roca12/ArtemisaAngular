@@ -19,7 +19,7 @@
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-md-6 col-lg-4">
                                     {{uvaResponseCode}}
                                     <br>
@@ -51,7 +51,7 @@
                     <div class="accordion-body">
                         <div class="card-body">
 
-                            <div class="row">
+                            <div class="row" *ngIf="codechef!=undefined">
                                 <div class="col-md-6 col-lg-4">
                                     {{codechefResponseCode}}
                                     <br>
@@ -97,10 +97,6 @@
                                         {{resuelto.name}} -> {{resuelto.link}}
                                     </div>
                                     <br>
-
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -116,7 +112,7 @@
                 </h2>
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
+                    <div class="accordion-body" *ngIf="spoj!=undefined">
                         {{spoj.platform}}
                         <br>
                         {{spoj.points}}
@@ -152,7 +148,7 @@
                 </h2>
                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
+                    <div class="accordion-body" *ngIf="codeforcesinfo!=undefined">
                        {{cfResponseCode}}
                        <br>
                        {{codeforcesinfo.firstName}}

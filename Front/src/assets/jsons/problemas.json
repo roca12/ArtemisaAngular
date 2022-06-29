@@ -2,7 +2,7 @@
   {
     "id": 1,
     "titulo": "Hahsmat the Brave Warrior",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 10055,
     "dificultad": 0,
     "tema_1": "Math",
@@ -26,7 +26,7 @@
   {
     "id": 3,
     "titulo": "Automate the Grades",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 11777,
     "dificultad": 1,
     "tema_1": "Math",
@@ -74,7 +74,7 @@
   {
     "id": 7,
     "titulo": "Jumping Mario",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 11764,
     "dificultad": 2,
     "tema_1": "Data structures",
@@ -86,7 +86,7 @@
   {
     "id": 8,
     "titulo": "500!",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 623,
     "dificultad": 2,
     "tema_1": "Math",
@@ -98,7 +98,7 @@
   {
     "id": 9,
     "titulo": "Above Average",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 10370,
     "dificultad": 2,
     "tema_1": "Math",
@@ -122,7 +122,7 @@
   {
     "id": 11,
     "titulo": "FizzBuzz",
-    "juez": "UvaLive",
+    "juez": "Online JudgeLive",
     "alias": 8000,
     "dificultad": 2,
     "tema_1": "Math",
@@ -146,7 +146,7 @@
   {
     "id": 13,
     "titulo": "Tarif Plan",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 12157,
     "dificultad": 2,
     "tema_1": "Math",
@@ -158,7 +158,7 @@
   {
     "id": 14,
     "titulo": "Tennis Championship",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 13059,
     "dificultad": 2,
     "tema_1": "Math",
@@ -170,7 +170,7 @@
   {
     "id": 15,
     "titulo": "Multiple of 17",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 11879,
     "dificultad": 2,
     "tema_1": "Simulation",
@@ -182,7 +182,7 @@
   {
     "id": 16,
     "titulo": "Searching for Nessy",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 11044,
     "dificultad": 2,
     "tema_1": "Simulation",
@@ -194,7 +194,7 @@
   {
     "id": 17,
     "titulo": "Age Sort",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 11462,
     "dificultad": 2,
     "tema_1": "Sorting",
@@ -242,7 +242,7 @@
   {
     "id": 21,
     "titulo": "Divisors",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 294,
     "dificultad": 3,
     "tema_1": "Math",
@@ -254,7 +254,7 @@
   {
     "id": 22,
     "titulo": "Overflow",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 465,
     "dificultad": 3,
     "tema_1": "Math",
@@ -266,7 +266,7 @@
   {
     "id": 23,
     "titulo": "Prime Factors",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 583,
     "dificultad": 3,
     "tema_1": "Math",
@@ -302,7 +302,7 @@
   {
     "id": 26,
     "titulo": "Digit Counting",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 1225,
     "dificultad": 3,
     "tema_1": "Modular",
@@ -314,7 +314,7 @@
   {
     "id": 27,
     "titulo": "Summing Digits",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 11332,
     "dificultad": 3,
     "tema_1": "Modular",
@@ -338,7 +338,7 @@
   {
     "id": 29,
     "titulo": "Horror Dash",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 11799,
     "dificultad": 3,
     "tema_1": "Sorting",
@@ -398,7 +398,7 @@
   {
     "id": 34,
     "titulo": "Pizza Cutting",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 10079,
     "dificultad": 4,
     "tema_1": "Geometry",
@@ -410,7 +410,7 @@
   {
     "id": 35,
     "titulo": "Problem with a ridiculously long name but with a ridiculously short description",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 13216,
     "dificultad": 4,
     "tema_1": "Math",
@@ -458,7 +458,7 @@
   {
     "id": 39,
     "titulo": "Kindergarten Counting Game",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 494,
     "dificultad": 4,
     "tema_1": "Simulation",
@@ -470,7 +470,7 @@
   {
     "id": 40,
     "titulo": "Skew Binary",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 575,
     "dificultad": 4,
     "tema_1": "Simulation",
@@ -482,7 +482,7 @@
   {
     "id": 41,
     "titulo": "Train Swapping",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 299,
     "dificultad": 4,
     "tema_1": "Sorting",
@@ -494,7 +494,7 @@
   {
     "id": 42,
     "titulo": "The Decoder",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 458,
     "dificultad": 4,
     "tema_1": "Strings",
@@ -506,10 +506,10 @@
   {
     "id": 43,
     "titulo": "List of Conquests",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 10420,
     "dificultad": 4,
-    "tema_1": "",
+    "tema_1": "Sets",
     "tema_2": "Strings",
     "tema_3": "",
     "tema_4": "",
@@ -530,7 +530,7 @@
   {
     "id": 45,
     "titulo": "Stacking Cups",
-    "juez": "UvaLive",
+    "juez": "Online JudgeLive",
     "alias": 8025,
     "dificultad": 5,
     "tema_1": "String",
@@ -542,7 +542,7 @@
   {
     "id": 46,
     "titulo": "Andy's First Dicctionary",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 10815,
     "dificultad": 5,
     "tema_1": "Strings",
@@ -554,7 +554,7 @@
   {
     "id": 47,
     "titulo": "Molar Mass",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 1586,
     "dificultad": 5,
     "tema_1": "Strings",
@@ -566,7 +566,7 @@
   {
     "id": 48,
     "titulo": "Pole Position",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 12150,
     "dificultad": 6,
     "tema_1": "Data structures",
@@ -578,7 +578,7 @@
   {
     "id": 49,
     "titulo": "Brick Wall Patterns",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 900,
     "dificultad": 6,
     "tema_1": "Math",
@@ -614,7 +614,7 @@
   {
     "id": 52,
     "titulo": "Where is the Marble?",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 10474,
     "dificultad": 7,
     "tema_1": "Search",
@@ -650,7 +650,7 @@
   {
     "id": 55,
     "titulo": "TEX Quotes",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 272,
     "dificultad": 8,
     "tema_1": "Strings",
@@ -674,7 +674,7 @@
   {
     "id": 57,
     "titulo": "The Settlers of Catan",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 539,
     "dificultad": 10,
     "tema_1": "Grafo",
@@ -686,7 +686,7 @@
   {
     "id": 58,
     "titulo": "Audiophobia",
-    "juez": "Uva",
+    "juez": "Online Judge",
     "alias": 10048,
     "dificultad": 10,
     "tema_1": "Graph",
@@ -698,7 +698,7 @@
   {
     "id": 59,
     "titulo": "Wormholes",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 558,
     "dificultad": 10,
     "tema_1": "Graph",
@@ -710,7 +710,7 @@
   {
     "id": 60,
     "titulo": "All-star Three-point Contest",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 13293,
     "dificultad": 10,
     "tema_1": "Strings",
@@ -746,7 +746,7 @@
   {
     "id": 63,
     "titulo": "Travelling Salesman",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 10702,
     "dificultad": 12,
     "tema_1": "Graph",
@@ -758,7 +758,7 @@
   {
     "id": 64,
     "titulo": "Almost Shortest Path",
-    "juez": "UVA",
+    "juez": "Online Judge",
     "alias": 12144,
     "dificultad": 15,
     "tema_1": "Graph",
