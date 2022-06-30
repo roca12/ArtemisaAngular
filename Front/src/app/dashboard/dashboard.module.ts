@@ -7,6 +7,9 @@ import { DashboardComponent } from "./dashboard.component";
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 
 const routes: Routes = [
@@ -28,6 +31,9 @@ const routes: Routes = [
     FontAwesomeModule,
     RouterModule.forChild(routes),
     NgApexchartsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   declarations: [
     DashboardComponent,
