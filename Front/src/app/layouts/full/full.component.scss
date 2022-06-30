@@ -3,8 +3,9 @@
   margin: 0 auto;
 }
 
-@media (max-width: 991px) {
+@media (min-width: 1100px) {
  .container-fluid{
-   padding-top: 20%;
+   padding-left: 5%;
+   padding-right: 5%;
  }
 }

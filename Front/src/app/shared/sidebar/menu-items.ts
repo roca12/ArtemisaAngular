@@ -1,12 +1,12 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
- 
+
 
   {
     path: '/temario',
     title: 'Temario',
-    icon: 'bi bi-collection',
+    icon: 'collections_bookmark',
     class: '',
     extralink: false,
     submenu: []
@@ -14,7 +14,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/problemas',
     title: 'Problemas',
-    icon: 'bi bi-question-square-fill',
+    icon: 'question_answer',
     class: '',
     extralink: false,
     submenu: []
@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/libros',
     title: 'Libros',
-    icon: 'bi bi-book',
+    icon: 'book',
     class: '',
     extralink: false,
     submenu: []
@@ -30,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/links',
     title: 'Links valiosos',
-    icon: 'bi bi-box-arrow-up-right',
+    icon: 'link',
     class: '',
     extralink: false,
     submenu: []
@@ -38,7 +38,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/estadisticas',
     title: 'Estadisticas',
-    icon: 'bi bi-bar-chart-line',
+    icon: 'query_stats',
     class: '',
     extralink: false,
     submenu: []
@@ -46,7 +46,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/eventos',
     title: 'Eventos',
-    icon: 'bi bi-calendar-date',
+    icon: 'event',
     class: '',
     extralink: false,
     submenu: []
@@ -54,7 +54,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/competencias',
     title: 'Competencias',
-    icon: 'bi bi-trophy',
+    icon: 'emoji_events',
     class: '',
     extralink: false,
     submenu: []
@@ -62,10 +62,10 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/about',
     title: 'Acerca de ...',
-    icon: 'bi bi-trophy',
+    icon: 'emoji_events',
     class: '',
     extralink: false,
     submenu: []
   },
-  
+
 ];

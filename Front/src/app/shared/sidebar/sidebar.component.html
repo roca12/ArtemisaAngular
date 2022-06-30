@@ -1,16 +1,10 @@
-<nav class="sidebar-nav" style="padding-top: 10%;">
-    <ul id="sidebarnav">
-        <!-- First level menu -->
-        <li class="sidebar-item" [class.active]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems"
-            [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
-            <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>
-            <a class="sidebar-link waves-effect waves-dark" [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
-                [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;" (click)="addExpandClass(sidebarnavItem.title)"
-                [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
-                <i [ngClass]="[sidebarnavItem.icon]"></i>
-                <span class="hide-menu">{{sidebarnavItem.title}}</span>
-            </a>
-        </li>
-        
-    </ul>
-</nav>
+<mat-sidenav-container>
+  <mat-nav-list>
+    <br>
+    <a class="mat-item" mat-list-item *ngFor="let currentLink of sidebarnavItems" [routerLink]="currentLink.path">
+      <mat-icon>{{currentLink.icon}}</mat-icon>
+      {{ currentLink.title }}
+      <mat-divider></mat-divider>
+    </a>
+  </mat-nav-list>
+</mat-sidenav-container>

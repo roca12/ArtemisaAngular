@@ -1,8 +1,9 @@
-import { Component, OnInit, HostListener } from "@angular/core";
-import { Router } from "@angular/router";
+import {Component, OnInit, HostListener} from "@angular/core";
+import {Router} from "@angular/router";
 import * as fab from '@fortawesome/free-brands-svg-icons';
 import * as far from '@fortawesome/free-regular-svg-icons';
 import * as fas from '@fortawesome/free-solid-svg-icons';
+
 //declare var $: any;
 
 @Component({
@@ -11,10 +12,14 @@ import * as fas from '@fortawesome/free-solid-svg-icons';
   styleUrls: ["./full.component.scss"],
 })
 export class FullComponent implements OnInit {
-  fadiscord =fab.faDiscord;
-  fagithub =fab.faGithub;
-  famail =fab.faGoogle;
-  constructor(public router: Router) {}
+  fadiscord = fab.faDiscord;
+  fagithub = fab.faGithub;
+  famail = fab.faGoogle;
+
+  constructor(public router: Router) {
+    this.router = router;
+  }
+
   public isCollapsed = false;
   public innerWidth: number = 0;
   public defaultSidebar: string = "";
@@ -60,5 +65,13 @@ export class FullComponent implements OnInit {
 
       default:
     }
+  }
+
+  openLink(url: string, newTab: boolean = true): void {
+    if (!newTab) {
+      this.router.navigate([url]);
+      return;
+    }
+    window.open(url, "_blank");
   }
 }

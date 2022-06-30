@@ -1,14 +1,19 @@
-<div class="row">
-    <div class="col-md-6 col-lg-3" *ngFor='let blogcard of blogcards'>
-        <div class="card">
-            <img [src]=blogcard.image alt="blogs" class="card-img-top" >
-            <div class="card-body">
-                
-                <h4 class="card-title" style="text-align: center; font-weight: bold;"><fa-icon [icon]="blogcard.icon" ></fa-icon> {{blogcard.title}}</h4>
-                <h6 class="card-subtitle" style="text-align: center; font-weight: bold;">{{blogcard.subtitle}}</h6>
-                <p class="mt-3" >{{blogcard.subtext}}</p>
-                <button type="button" class="btn btn-primary">Quiero saber más <fa-icon [icon]="fago" ></fa-icon></button>
-            </div>
-        </div>
-    </div>
+<div class="row d-flex justify-content-center">
+  <div *ngFor='let blogcard of blogcards' class="col-md-4 col-sm-6 col-lg-3">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{blogcard.title}}</mat-card-title>
+        <mat-card-subtitle>{{blogcard.subtitle}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="blogcard.image" alt="Blogs">
+      <mat-card-content>
+        <p>{{blogcard.subtext}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button color="primary" mat-raised-button>Quiero saber más
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
