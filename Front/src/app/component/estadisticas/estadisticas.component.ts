@@ -1,17 +1,21 @@
-
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import uvaproblems from '../../../assets/jsons/uvaproblems.json'
-import { Chart, ChartConfiguration, ChartItem, registerables } from 'node_modules/chart.js'
+import {Chart, ChartConfiguration, ChartItem, registerables} from 'node_modules/chart.js'
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+
 @Component({
   selector: 'app-estadisticas',
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.scss']
 })
-export class EstadisticasComponent implements OnInit {
+export class EstadisticasComponent implements OnInit, AfterViewInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   getuidUrl = 'https://uhunt.onlinejudge.org/api/uname2uid/';
   getAllUrl = 'https://uhunt.onlinejudge.org/api/subs-user/';
@@ -30,8 +34,11 @@ export class EstadisticasComponent implements OnInit {
   uvauname!: any;
   uvasubs!: any;
   uvadata = Array();
-  uvaveredicts=[0,0,0,0,0,0];
-  uvastats=Array();
+  usernameUva = '';
+  searchUva = true;
+  dataSource = new MatTableDataSource<any>();
+  uvaveredicts = [0, 0, 0, 0, 0, 0];
+  uvastats = Array();
 
 
   listatemas = uvaproblems;
@@ -49,22 +56,29 @@ export class EstadisticasComponent implements OnInit {
   codechefResponseCode!: any;
   spojResponseCode!: any;
   cfResponseCode!: any;
+  displayedColumns: string[] = ['Fecha y hora', '# problema', 'Nombre', 'Veredicto', 'Lenguaje'];
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
-    this.getUvaIdCode("diegoroca17");
     this.getCodeChefAll("shauryagupta12");
     this.getSPOJAll("macbon");
     this.getCFAll("tourist");
-    this.createChart();
-    
   }
 
-  
-  calculateStatsUVA():void{
-    
-    let precision = this.uvaveredicts[0]/this.uvadata.length*100;
-    console.log(precision);
-    this.uvastats=Array()
+  searchNicknameUva(): void {
+    this.dataSource.data = [];
+    this.dataSource.paginator = this.paginator;
+    this.getUvaIdCode(this.usernameUva);
+    this.createChart();
+    this.searchUva = false;
+  }
+
+  calculateStatsUVA(): void {
+    let precision = this.uvaveredicts[0] / this.uvadata.length * 100;
+    this.uvastats = Array()
     this.uvastats.push(precision);
   }
 
@@ -72,11 +86,11 @@ export class EstadisticasComponent implements OnInit {
     Chart.register(...registerables);
     const data = {
       labels: [
-        'Accepted', 
-        'Wrong Answer', 
-        'Runtime Error', 
-        'Time Limit', 
-        'Compilation Error', 
+        'Accepted',
+        'Wrong Answer',
+        'Runtime Error',
+        'Time Limit',
+        'Compilation Error',
         "Otro"],
       datasets: [{
         label: 'Online Judge Submissions',
@@ -135,8 +149,7 @@ export class EstadisticasComponent implements OnInit {
       lineadata.push(this.getUvaLanguage(linea[5]));
       this.uvadata.push(lineadata);
     }
-
-
+    this.dataSource.data = this.uvadata;
   }
 
   problemIDtoCode(dato: number): Array<any> {
@@ -211,7 +224,7 @@ export class EstadisticasComponent implements OnInit {
   }
 
   getCFAll(username: string): void {
-    this.http.get(this.getCFUrl + username, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getCFUrl + username, {observe: 'response'}).subscribe((response: any) => {
       this.cfResponseCode = response.status;
       this.codeforcesinfo = response.body;
       this.codeforcesinfo = this.codeforcesinfo.result[0];
@@ -220,29 +233,30 @@ export class EstadisticasComponent implements OnInit {
   }
 
   getSPOJAll(username: string): void {
-    this.http.get(this.getSPOJUrl + username, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getSPOJUrl + username, {observe: 'response'}).subscribe((response: any) => {
       this.spoj = response.body;
       this.spojResponseCode = response.status;
     })
   }
 
   getCodeChefAll(username: string): void {
-    this.http.get(this.getCodechefUrl + username, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getCodechefUrl + username, {observe: 'response'}).subscribe((response: any) => {
       this.codechef = response.body;
       this.codechefResponseCode = response.status;
     })
   }
 
   getUvaAllInfo(uid: string): void {
-    this.http.get(this.getAllUrl + uid, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getAllUrl + uid, {observe: 'response'}).subscribe((response: any) => {
       this.uvaname = response.body["name"];
       this.uvauname = response.body["uname"];
       this.uvasubs = response.body["subs"];
       this.subsToData(this.uvasubs);
     });
   }
+
   getUvaIdCode(username: string): void {
-    this.http.get(this.getuidUrl + username, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getuidUrl + username, {observe: 'response'}).subscribe((response: any) => {
       this.uvaid = response.body;
       this.getUvaAllInfo(this.uvaid);
       this.uvaResponseCode = response.status;

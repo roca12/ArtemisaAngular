@@ -45,6 +45,8 @@ import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -71,28 +73,30 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CompetenciasComponent,
     DownloadDirective
   ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgbModule,
-    RouterModule.forRoot(Approutes, {useHash: false, relativeLinkResolution: 'legacy'}),
-    PerfectScrollbarModule,
-    FontAwesomeModule,
-    DataTablesModule,
-    CodemirrorModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatMenuModule,
-    MatFormFieldModule,
-    MatInputModule
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgbModule,
+        RouterModule.forRoot(Approutes, {useHash: false, relativeLinkResolution: 'legacy'}),
+        PerfectScrollbarModule,
+        FontAwesomeModule,
+        DataTablesModule,
+        CodemirrorModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatListModule,
+        MatMenuModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule
+    ],
   providers: [
     {
       provide: LocationStrategy, useClass: HashLocationStrategy
