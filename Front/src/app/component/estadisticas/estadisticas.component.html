@@ -22,32 +22,49 @@
           <div class="accordion-body">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Nickname</mat-label>
+                    <input matInput [(ngModel)]="usernameUva">
+                    <mat-icon (click)="searchNicknameUva()" matSuffix>
+                      search
+                    </mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchUva">
                   <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Estado</mat-label>
                     <input matInput readonly [value]="uvaResponseCode">
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12" [hidden]="searchUva">
                   <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Online Judge ID</mat-label>
                     <input matInput readonly [value]="uvaid">
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12" [hidden]="searchUva">
                   <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Nombre</mat-label>
                     <input matInput readonly [value]="uvaname">
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12" [hidden]="searchUva">
                   <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Username</mat-label>
                     <input matInput readonly [value]="uvauname">
                   </mat-form-field>
                 </div>
+                <!-- Estadisticas -->
+                <div class="col-md-6 col-sm-12" [hidden]="searchUva">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Estadisticas</mat-label>
+                    <input matInput readonly [value]="uvastats[0]">
+                  </mat-form-field>
+                </div>
                 <!-- grafica uva-->
-                <div class="col-md-6 col-lg-6 col-sm-12 col-xl-6">
+                <div class="col-md-6 col-sm-12" [hidden]="searchUva">
                   <h4 class="card-title"
                       style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
                     Resumen de veredictos
@@ -57,54 +74,43 @@
                     </canvas>
                   </div>
                 </div>
-                <!-- Estadisticas -->
-                <div class="col-md-6 col-lg-6 col-sm-12 col-xl-6">
-                  <h4 class="card-title"
-                      style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
-                    Estadisticas
-                  </h4>
-
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"> % Precisión</span>
-                    <input type="text" class="form-control" [value]="uvastats[0]" readonly="true">
-                  </div>
-
-                </div>
-
-                <div class="table-responsive">
-                  <table class="table caption-top">
-                    <caption>Lista de envíos</caption>
-                    <thead>
-                    <tr>
-                      <th scope="col">Fecha y hora</th>
-                      <th scope="col"># problema</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Veredicto</th>
-                      <th scope="col">Lenguaje</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let sub of uvadata">
-
-                      <td>{{sub[4]}}</td>
-                      <td>{{sub[1]}}</td>
-                      <td><a
-                        href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{sub[0]}}">{{sub[2]}}</a>
+                <div class="col-md-12 col-sm-12" [hidden]="searchUva">
+                  <table mat-table [dataSource]="dataSource" width="100%">
+                    <ng-container matColumnDef="Fecha y hora">
+                      <th mat-header-cell *matHeaderCellDef>Fecha y hora</th>
+                      <td mat-cell *matCellDef="let element">{{element[4]}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="# problema">
+                      <th mat-header-cell *matHeaderCellDef># problema</th>
+                      <td mat-cell *matCellDef="let element"> {{element[1]}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Nombre">
+                      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                      <td mat-cell *matCellDef="let element">
+                        <a
+                          href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{element[0]}}">{{element[2]}}</a>
+                    </ng-container>
+                    <ng-container matColumnDef="Veredicto">
+                      <th mat-header-cell *matHeaderCellDef>Veredicto</th>
+                      <td mat-cell *matCellDef="let element">
+                        <div [ngClass]="element[3] == 'AC' ? 'text-success' : 'text-danger'">
+                          {{element[3]}}
+                        </div>
                       </td>
-                      <td [ngClass]="sub[3] == 'AC' ? 'text-success' : 'text-danger'">
-                        {{sub[3]}}</td>
-                      <td
-                        [ngClass]="sub[5]=='JAVA'?'text-primary':sub[5]=='C++'?'text-warning':sub[5]=='PYTHON'?'text-success':sub[5]=='ANSI C'?'text-danger':sub[5]=='C++ 11'?'text-info':'text-dark'">
-                        {{sub[5]}}
+                    </ng-container>
+                    <ng-container matColumnDef="Lenguaje">
+                      <th mat-header-cell *matHeaderCellDef>Lenguaje</th>
+                      <td mat-cell *matCellDef="let element">
+                        <div
+                          [ngClass]="element[5]=='JAVA'?'text-primary':element[5]=='C++'?'text-warning':element[5]=='PYTHON'?'text-success':element[5]=='ANSI C'?'text-danger':element[5]=='C++ 11'?'text-info':'text-dark'">
+                          {{element[5]}}
+                        </div>
                       </td>
-
-                    </tr>
-
-                    </tbody>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
-
-
+                  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
                 </div>
               </div>
             </div>
