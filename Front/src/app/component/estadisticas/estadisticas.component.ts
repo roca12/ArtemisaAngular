@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import uvaproblems from '../../../assets/jsons/uvaproblems.json'
-import {Chart, ChartConfiguration, ChartItem, registerables} from 'node_modules/chart.js'
+import {Chart, ChartConfiguration, ChartItem, registerables} from 'chart.js'
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 
