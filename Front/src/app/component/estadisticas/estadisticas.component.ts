@@ -79,7 +79,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
     this.getUvaIdCode(this.usernameUva);
     setTimeout(() => {
       this.createUvaChart();
-    }, 1000);
+    }, 2500);
     this.searchUva = false;
     
   }
