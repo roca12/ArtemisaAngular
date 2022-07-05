@@ -17,6 +17,8 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  
+
   getuidUrl = 'https://uhunt.onlinejudge.org/api/uname2uid/';
   getAllUrl = 'https://uhunt.onlinejudge.org/api/subs-user/';
   getuvaproblem = 'https://uhunt.onlinejudge.org/api/p/id/';
@@ -39,6 +41,8 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<any>();
   uvaveredicts = [0, 0, 0, 0, 0, 0];
   uvastats = Array();
+  uvatried=new Set();
+  uvasolved=new Set();
 
 
   listatemas = uvaproblems;
@@ -60,6 +64,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+    
   }
 
   ngOnInit(): void {
@@ -72,17 +77,21 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
     this.dataSource.data = [];
     this.dataSource.paginator = this.paginator;
     this.getUvaIdCode(this.usernameUva);
-    this.createChart();
+    setTimeout(() => {
+      this.createUvaChart();
+    }, 1000);
     this.searchUva = false;
+    
   }
 
   calculateStatsUVA(): void {
     let precision = this.uvaveredicts[0] / this.uvadata.length * 100;
     this.uvastats = Array()
-    this.uvastats.push(precision);
+    
+    this.uvastats.push(parseFloat(precision.toString()).toFixed(2).toString()+"%");
   }
 
-  createChart(): void {
+  createUvaChart(): void {
     Chart.register(...registerables);
     const data = {
       labels: [
@@ -118,7 +127,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
       data: data,
       options: options
     }
-    const chartItem: ChartItem = document.getElementById('my-chart') as ChartItem
+    const chartItem: ChartItem = document.getElementById('uva-chart') as ChartItem
     new Chart(chartItem, config)
   }
 
@@ -141,7 +150,14 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
       }
 
       //veredicto
-      lineadata.push(this.getUvaSubmissionVereditc(linea[2]));
+      let ver=this.getUvaSubmissionVereditc(linea[2])
+      lineadata.push(ver);
+      if(ver=="AC"){
+        this.uvasolved.add(problemdata[2]);
+        this.uvatried.add(problemdata[2]);
+      }else{
+        this.uvatried.add(problemdata[2]);
+      }
       //fecha envio
       const date = new Date(linea[4] * 1000);
       lineadata.push(date.toLocaleDateString("es-CO") + " " + date.toLocaleTimeString("es-CO"));
@@ -149,7 +165,12 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
       lineadata.push(this.getUvaLanguage(linea[5]));
       this.uvadata.push(lineadata);
     }
+    this.uvastats.push(this.uvadata[0][4])
+    this.uvastats.push(this.uvadata[this.uvadata.length-1][4])
     this.dataSource.data = this.uvadata;
+
+    console.log(this.uvatried)
+    console.log(this.uvasolved);
   }
 
   problemIDtoCode(dato: number): Array<any> {
