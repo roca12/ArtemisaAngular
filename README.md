@@ -4,7 +4,7 @@
 <p align="center">
  <img width="100px" src="https://www.iconsdb.com/icons/preview/royal-blue/code-xxl.png" align="center"  />
  <h2 align="center">Biblioteca de programación competitiva ARTEMISA </h2>
- <p align="center">Diego Rodriguez - Grupo de programación competitiva - Universidad El Bosque</p>
+ <p align="center">Diego Rodriguez, Edwin Villarraga, Paula Rosero - Grupo de programación competitiva - Universidad El Bosque - Instituto Técnico Central</p>
 </p>
   <p align="center">
     <a href="https://github.com/roca12/ArtemisaAngular/issues">
