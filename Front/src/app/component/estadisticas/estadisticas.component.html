@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-title">
       <h4 class="card-title"
-          style="text-align: center; font-weight: bolder;color: rgb(226, 128, 8); padding-top: 10px;padding-bottom: -10px;font-size: 1.875em;">
+        style="text-align: center; font-weight: bolder;color: rgb(226, 128, 8); padding-top: 10px;padding-bottom: -10px;font-size: 1.875em;">
         Estadísticas por juez
       </h4>
     </div>
@@ -12,13 +12,13 @@
       <!-- online judge -->
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
             Online Judge
           </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-             data-bs-parent="#accordionExample">
+          data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <div class="card-body">
               <div class="row">
@@ -30,6 +30,9 @@
                       search
                     </mat-icon>
                   </mat-form-field>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  
                 </div>
 
                 <div class="col-md-6 col-sm-12" [hidden]="searchUva">
@@ -56,64 +59,95 @@
                     <input matInput readonly [value]="uvauname">
                   </mat-form-field>
                 </div>
-                <!-- Estadisticas -->
-                <div class="col-md-6 col-sm-12" [hidden]="searchUva">
-                  <mat-form-field appearance="outline" style="width: 100%">
-                    <mat-label>Estadisticas</mat-label>
-                    <input matInput readonly [value]="uvastats[0]">
-                  </mat-form-field>
-                </div>
+              </div>
+              <div class="row ">
+                
                 <!-- grafica uva-->
                 <div class="col-md-6 col-sm-12" [hidden]="searchUva">
                   <h4 class="card-title"
-                      style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                    style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
                     Resumen de veredictos
                   </h4>
+
                   <div class="chart-container">
-                    <canvas id="my-chart">
+                    <canvas id="uva-chart">
                     </canvas>
                   </div>
                 </div>
-                <div class="col-md-12 col-sm-12" [hidden]="searchUva">
-                  <table mat-table [dataSource]="dataSource" width="100%">
-                    <ng-container matColumnDef="Fecha y hora">
-                      <th mat-header-cell *matHeaderCellDef>Fecha y hora</th>
-                      <td mat-cell *matCellDef="let element">{{element[4]}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="# problema">
-                      <th mat-header-cell *matHeaderCellDef># problema</th>
-                      <td mat-cell *matCellDef="let element"> {{element[1]}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="Nombre">
-                      <th mat-header-cell *matHeaderCellDef>Nombre</th>
-                      <td mat-cell *matCellDef="let element">
-                        <a
-                          href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{element[0]}}">{{element[2]}}</a>
-                    </ng-container>
-                    <ng-container matColumnDef="Veredicto">
-                      <th mat-header-cell *matHeaderCellDef>Veredicto</th>
-                      <td mat-cell *matCellDef="let element">
-                        <div [ngClass]="element[3] == 'AC' ? 'text-success' : 'text-danger'">
-                          {{element[3]}}
-                        </div>
-                      </td>
-                    </ng-container>
-                    <ng-container matColumnDef="Lenguaje">
-                      <th mat-header-cell *matHeaderCellDef>Lenguaje</th>
-                      <td mat-cell *matCellDef="let element">
-                        <div
-                          [ngClass]="element[5]=='JAVA'?'text-primary':element[5]=='C++'?'text-warning':element[5]=='PYTHON'?'text-success':element[5]=='ANSI C'?'text-danger':element[5]=='C++ 11'?'text-info':'text-dark'">
-                          {{element[5]}}
-                        </div>
-                      </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+
+                <!-- Estadisticas -->
+                <div class="col-md-6 col-sm-12 align-items-center" [hidden]="searchUva">
+                  <h4 class="card-title"
+                    style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                    Estadisticas
+                  </h4>
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Precisión</mat-label>
+                    <input matInput readonly [value]="uvastats[0]">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Problemas intentados</mat-label>
+                    <input matInput readonly [value]="uvatried.size">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Problemas resueltos</mat-label>
+                    <input matInput readonly [value]="uvasolved.size">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Primer envio</mat-label>
+                    <input matInput readonly [value]="uvastats[2]">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Ultimo envio</mat-label>
+                    <input matInput readonly [value]="uvastats[1]">
+                  </mat-form-field>
                 </div>
+
+              </div>
+              <div class="col-md-12 col-sm-12" [hidden]="searchUva">
+                <h4 class="card-title"
+                    style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                    Envíos realizados
+                  </h4>
+                <table mat-table [dataSource]="dataSource" width="100%">
+                  <ng-container matColumnDef="Fecha y hora">
+                    <th mat-header-cell *matHeaderCellDef>Fecha y hora</th>
+                    <td mat-cell *matCellDef="let element">{{element[4]}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="# problema">
+                    <th mat-header-cell *matHeaderCellDef># problema</th>
+                    <td mat-cell *matCellDef="let element"> {{element[1]}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Nombre">
+                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                    <td mat-cell *matCellDef="let element">
+                      <a
+                        href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{element[0]}}">{{element[2]}}</a>
+                  </ng-container>
+                  <ng-container matColumnDef="Veredicto">
+                    <th mat-header-cell *matHeaderCellDef>Veredicto</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div [ngClass]="element[3] == 'AC' ? 'text-success' : 'text-danger'">
+                        {{element[3]}}
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Lenguaje">
+                    <th mat-header-cell *matHeaderCellDef>Lenguaje</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div
+                        [ngClass]="element[5]=='JAVA'?'text-primary':element[5]=='C++'?'text-warning':element[5]=='PYTHON'?'text-success':element[5]=='ANSI C'?'text-danger':element[5]=='C++ 11'?'text-info':'text-dark'">
+                        {{element[5]}}
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -122,12 +156,12 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             CodeChef
           </button>
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-             data-bs-parent="#accordionExample">
+          data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <div class="card-body">
 
@@ -188,12 +222,12 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             Sphere Online Judge
           </button>
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-             data-bs-parent="#accordionExample">
+          data-bs-parent="#accordionExample">
           <div class="accordion-body" *ngIf="spoj!=undefined">
             {{spoj.platform}}
             <br>
@@ -225,12 +259,12 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingFour">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
             CodeForces
           </button>
         </h2>
         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-             data-bs-parent="#accordionExample">
+          data-bs-parent="#accordionExample">
           <div class="accordion-body" *ngIf="codeforcesinfo!=undefined">
             {{cfResponseCode}}
             <br>
