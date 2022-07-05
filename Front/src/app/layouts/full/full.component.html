@@ -1,134 +1,107 @@
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<div
-  id="main-wrapper"
-  [ngClass]="{ 'show-sidebar': showMobileMenu }"
-  dir="ltr"
-  data-theme="light"
-  data-layout="vertical"
-  [attr.data-sidebartype]="sidebartype"
-  data-sidebar-position="absolute"
-  data-header-position="absolute"
-  data-boxed-layout="full"
->
-  <!-- ============================================================== -->
-  <!-- Topbar header - style you can find in topbar.scss -->
-  <!-- ============================================================== -->
-  <header class="topbar" data-navbarbg="skin5">
-    <nav class="d-flex top-navbar navbar-expand-lg navbar-light">
-      <div
-        class="navbar-header"
-        [ngClass]="expandLogo ? 'expand-logo' : ''"
-        data-logobg="skin5"
-      >
-        <!-- This is for the sidebar toggle which is visible on mobile only -->
-        <a
-          (click)="showMobileMenu = !showMobileMenu"
-          class="nav-toggler waves-effect waves-light d-block d-lg-none"
-          href="javascript:void(0)"
-        >
-          <i [ngClass]="showMobileMenu ? 'bi bi-text-left fs-6' : 'bi bi-text-left fs-6'"></i>
-        </a>
-        <!-- ============================================================== -->
-        <!-- Logo -->
-        <!-- ============================================================== -->
-        <a class="navbar-brand" href="/">
-          
-          <!--End Logo icon -->
-          <!-- Logo text -->
-          <span class="logo-text" >
+
+<!-- ============================================================== -->
+<!-- Topbar header - style you can find in topbar.scss -->
+<!-- ============================================================== -->
+
+<mat-toolbar style="background-color: #213233; color: white">
+  <button mat-icon-button class="example-icon" (click)="drawer.toggle()"
+          aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="logo-text">
             <!-- Light Logo text -->
             <img
               src="assets/images/logos/propuestas logo 1 artemisa-02.png"
               class="light-logo"
               alt="homepage"
-              width="100%"
-              
+              width="150px"
             />
           </span>
-        </a>
+  <span class="example-spacer"></span>
+  <button mat-icon-button (click)="openLink('/',false)">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openLink('/',false)">
+      <mat-icon>code</mat-icon>
+      <span>Inicio competitiva</span>
+    </button>
+    <button mat-menu-item (click)="openLink('https://domjudgeroca12.sa.ngrok.io/')">
+      <mat-icon>hardware</mat-icon>
+      <span>DomJudge</span>
+    </button>
+    <button mat-menu-item (click)="openLink('https://www.codechef.com/')">
+      <mat-icon>local_pizza</mat-icon>
+      <span>CodeChef</span>
+    </button>
+    <button mat-menu-item (click)="openLink('https://vjudge.net/group/cuevadelprofdiego')">
+      <mat-icon>sentiment_satisfied_alt</mat-icon>
+      <span>Vjudge</span>
+    </button>
+    <button mat-menu-item (click)="openLink('https://onlinejudge.org/')">
+      <mat-icon>keyboard_alt</mat-icon>
+      <span>Online Judge</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+<mat-drawer-container [hasBackdrop]="false">
+  <mat-drawer mode="side" #drawer>
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div
+      id="main-wrapper"
+      [ngClass]="{ 'show-sidebar': showMobileMenu }"
+      dir="ltr"
+      data-theme="light"
+      data-layout="vertical"
+      [attr.data-sidebartype]="sidebartype"
+      data-sidebar-position="absolute"
+      data-header-position="absolute"
+      data-boxed-layout="full"
+    >
+      <!-- ============================================================== -->
+      <!-- Page wrapper  -->
+      <!-- ============================================================== -->
+      <div>
         <!-- ============================================================== -->
-        <!-- End Logo -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+          <!-- ============================================================== -->
+          <!-- Start Page Content -->
+          <!-- ============================================================== -->
+          <router-outlet></router-outlet>
+          <!-- ============================================================== -->
+          <!-- End Start Page Content -->
+          <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
-        <!-- Toggle which is visible on mobile only -->
+        <!-- footer -->
         <!-- ============================================================== -->
-        <a
-          class="topbartoggler d-block d-lg-none waves-effect waves-light"
-          href="javascript:void(0)"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed"
-        >
-          <i class="bi bi-text-right fs-6"></i>
-        </a>
+        <footer class="footer text-center">
+          Desarrollado por
+          <fa-icon [icon]="fagithub"></fa-icon>
+          Diego Rodríguez, Edwin Villarraga y Paula Rosero
+          2022
+          <a href="https://www.netlify.com"> <img src="https://www.netlify.com/v3/img/components/netlify-color-accent.svg" alt="Deploys by Netlify" /> </a>
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
       </div>
       <!-- ============================================================== -->
-      <!-- End Logo -->
-      <!-- ============================================================== -->
-      <div
-        class="navbar-collapse collapse"
-        id="navbarSupportedContent"
-        data-navbarbg="skin6"
-        [ngbCollapse]="!isCollapsed"
-      >
-        <app-navigation
-          (toggleSidebar)="toggleSidebarType()"
-          class="w-100"
-        ></app-navigation>
-      </div>
-    </nav>
-  </header>
-  <!-- ============================================================== -->
-  <!-- Left Sidebar - style you can find in sidebar.scss  -->
-  <!-- ============================================================== -->
-  <aside
-    class="left-sidebar"
-    data-sidebarbg="skin5"
-    (mouseover)="Logo()"
-    (mouseout)="Logo()"
-  >
-      <app-sidebar></app-sidebar>
-  </aside>
-  <!-- ============================================================== -->
-  <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-  <!-- ============================================================== -->
-  <!-- ============================================================== -->
-  <!-- Page wrapper  -->
-  <!-- ============================================================== -->
-  <div class="page-wrapper">
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
-    <div class="container-fluid">
-      <!-- ============================================================== -->
-      <!-- Start Page Content -->
-      <!-- ============================================================== -->
-      <router-outlet></router-outlet>
-      <!-- ============================================================== -->
-      <!-- End Start Page Content -->
+      <!-- End Page wrapper  -->
       <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
-    <footer class="footer text-center">
-      Desarrollado por <fa-icon [icon]="fagithub"></fa-icon> Diego Rodríguez, Edwin Villarraga y Paula Rosero
-      2022
-    </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
-    <!-- ============================================================== -->
-  </div>
-  <!-- ============================================================== -->
-  <!-- End Page wrapper  -->
-  <!-- ============================================================== -->
-</div>
+  </mat-drawer-content>
+</mat-drawer-container>

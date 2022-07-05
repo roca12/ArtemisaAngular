@@ -4,7 +4,7 @@
 <p align="center">
  <img width="100px" src="https://www.iconsdb.com/icons/preview/royal-blue/code-xxl.png" align="center"  />
  <h2 align="center">Biblioteca de programación competitiva ARTEMISA </h2>
- <p align="center">Diego Rodriguez - Grupo de programación competitiva - Universidad El Bosque</p>
+ <p align="center">Diego Rodriguez, Edwin Villarraga, Paula Rosero - Grupo de programación competitiva - Universidad El Bosque - Instituto Técnico Central</p>
 </p>
   <p align="center">
     <a href="https://github.com/roca12/ArtemisaAngular/issues">
@@ -22,9 +22,5 @@
       <img  src="https://img.shields.io/github/contributors/roca12/ArtemisaAngular?color=blueviolet" />
       <img  src="https://img.shields.io/website?down_color=red&down_message=offline%2Fuploading&up_color=green&up_message=online&url=https%3A%2F%2Fbiblioteca-artemisa.netlify.app" />
       <img  src="https://img.shields.io/github/commit-activity/y/roca12/ArtemisaAngular" />
-  </p>
-  <p align="center">
-      <img  src="https://img.shields.io/badge/JDK11 with SpringBoot 2.5-informational?style=flat&logo=java&logoColor=white&color=blue" />
-    <br />
   </p>
 </p>
