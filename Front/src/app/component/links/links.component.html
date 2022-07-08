@@ -1,5 +1,31 @@
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Sitio en construcción, vuelve pronto :D</h4>
+<section class="wrapper" style="padding-top: 30px">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let current of dataSource">
+        <div class="card card-margin">
+          <div class="card-header no-border">
+            <h5 class="card-title">{{current.nombre}}</h5>
+          </div>
+          <div class="card-body pt-0">
+            <div class="widget-49">
+              <div class="widget-49-title-wrapper">
+                <div class="widget-49-date-primary">
+                  <img [src]="current.icono" class="rounded-circle" style="max-width: 60px">
+                </div>
+                <div class="widget-49-meeting-info">
+                  <a [href]="current.url" class="btn"
+                     style="border-radius: 46px; background-color: #3f51b4;color: white">
+                    Website
+                  </a>
+                </div>
+              </div>
+              <ol class="widget-49-meeting-points" *ngFor="let tag of current.tags">
+                <li class="widget-49-meeting-item"><span>{{tag}}</span></li>
+              </ol>
+            </div>
+          </div>
         </div>
-</div>
+      </div>
+    </div>
+  </div>
+</section>
