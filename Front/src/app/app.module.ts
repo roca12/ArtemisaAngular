@@ -47,6 +47,9 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -73,30 +76,33 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CompetenciasComponent,
     DownloadDirective
   ],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgbModule,
-        RouterModule.forRoot(Approutes, {useHash: false, relativeLinkResolution: 'legacy'}),
-        PerfectScrollbarModule,
-        FontAwesomeModule,
-        DataTablesModule,
-        CodemirrorModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatListModule,
-        MatMenuModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule
-    ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    RouterModule.forRoot(Approutes, {useHash: false, relativeLinkResolution: 'legacy'}),
+    PerfectScrollbarModule,
+    FontAwesomeModule,
+    DataTablesModule,
+    CodemirrorModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatAutocompleteModule
+  ],
   providers: [
     {
       provide: LocationStrategy, useClass: HashLocationStrategy
