@@ -8,18 +8,13 @@
 
 <mat-toolbar style="background-color: #213233; color: white">
   <button mat-icon-button class="example-icon" (click)="drawer.toggle()"
-          aria-label="Example icon-button with menu icon">
+    aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
   <span class="logo-text">
-            <!-- Light Logo text -->
-            <img
-              src="assets/images/logos/propuestas logo 1 artemisa-02.png"
-              class="light-logo"
-              alt="homepage"
-              width="150px"
-            />
-          </span>
+    <!-- Light Logo text -->
+    <img src="assets/images/logos/propuestas logo 1 artemisa-02.png" class="light-logo" alt="homepage" width="150px" />
+  </span>
   <span class="example-spacer"></span>
   <button mat-icon-button (click)="openLink('/',false)">
     <mat-icon>home</mat-icon>
@@ -55,17 +50,9 @@
     <app-sidebar></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
-    <div
-      id="main-wrapper"
-      [ngClass]="{ 'show-sidebar': showMobileMenu }"
-      dir="ltr"
-      data-theme="light"
-      data-layout="vertical"
-      [attr.data-sidebartype]="sidebartype"
-      data-sidebar-position="absolute"
-      data-header-position="absolute"
-      data-boxed-layout="full"
-    >
+    <div id="main-wrapper" [ngClass]="{ 'show-sidebar': showMobileMenu }" dir="ltr" data-theme="light"
+      data-layout="vertical" [attr.data-sidebartype]="sidebartype" data-sidebar-position="absolute"
+      data-header-position="absolute" data-boxed-layout="full">
       <!-- ============================================================== -->
       <!-- Page wrapper  -->
       <!-- ============================================================== -->
@@ -88,12 +75,22 @@
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
-        <footer class="footer text-center">
-          Desarrollado por
-          <fa-icon [icon]="fagithub"></fa-icon>
-          Diego Rodríguez, Edwin Villarraga y Paula Rosero
-          2022
-          <a href="https://www.netlify.com"> <img src="https://www.netlify.com/v3/img/components/netlify-color-accent.svg" alt="Deploys by Netlify" /> </a>
+        <footer class="footer ">
+          <div class="row">
+            <div class="text-center">
+              Desarrollado por Diego Rodríguez, Edwin Villarraga y Paula Rosero
+            </div>
+          </div>
+          <div class="row">
+            <div class="text-center">
+              Proyecto Artemisa 2022
+              <a href="https://github.com/roca12/ArtemisaAngular">
+                <fa-icon [icon]="fagithub" size="2x"></fa-icon>
+              </a>
+            </div>
+          </div>
+
+
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->
