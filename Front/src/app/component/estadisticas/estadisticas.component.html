@@ -14,7 +14,8 @@
         <h2 class="accordion-header" id="headingOne">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
             aria-expanded="true" aria-controls="collapseOne">
-            Online Judge
+            <img src="https://onlinejudge.org/templates/hm_yaml_2_5/img/ojlogo2.svg.png" width="50" height="50">
+            Online Judge (Anteriormente UVa)
           </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -24,7 +25,7 @@
               <div class="row">
                 <div class="col-md-6 col-sm-12">
                   <mat-form-field appearance="outline" style="width: 100%">
-                    <mat-label>Nickname</mat-label>
+                    <mat-label>Username a buscar</mat-label>
                     <input matInput [(ngModel)]="usernameUva">
                     <mat-icon (click)="searchNicknameUva()" matSuffix>
                       search
@@ -32,7 +33,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                  
+
                 </div>
 
                 <div class="col-md-6 col-sm-12" [hidden]="searchUva">
@@ -61,7 +62,7 @@
                 </div>
               </div>
               <div class="row ">
-                
+
                 <!-- grafica uva-->
                 <div class="col-md-6 col-sm-12" [hidden]="searchUva">
                   <h4 class="card-title"
@@ -106,9 +107,9 @@
               </div>
               <div class="col-md-12 col-sm-12" [hidden]="searchUva">
                 <h4 class="card-title"
-                    style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
-                    Envíos realizados
-                  </h4>
+                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                  Envíos realizados
+                </h4>
                 <table mat-table [dataSource]="dataSource" width="100%">
                   <ng-container matColumnDef="Fecha y hora">
                     <th mat-header-cell *matHeaderCellDef>Fecha y hora</th>
@@ -157,6 +158,7 @@
         <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_fTiGvqfzV66zYh_b9W9DnyTj6OyzY7pErg&usqp=CAU" width="50" height="50">
             CodeChef
           </button>
         </h2>
@@ -166,142 +168,276 @@
             <div class="card-body">
 
               <div class="row" *ngIf="codechef!=undefined">
-                <div class="col-md-6 col-lg-4">
-                  {{codechefResponseCode}}
-                  <br>
-                  {{codechef.rating}}
-                  <br>
-                  <div *ngIf="codechef.stars==null">
-                    sin estrellas
-                  </div>
-                  <div *ngIf="codechef.stars!=null">
-                    {{codechef.stars}}
-                  </div>
-                  {{codechef.highest_rating}}
-                  <br>
-                  {{codechef.global_rank}}
-                  <br>
-                  {{codechef.country_rank}}
-                  <br>
-                  {{codechef.user_details.name}}
-                  <br>
-                  {{codechef.user_details.username}}
-                  <br>
-                  {{codechef.user_details.country}}
-                  <br>
-                  {{codechef.user_details.state}}
-                  <br>
-                  {{codechef.user_details.city}}
-                  <br>
-                  {{codechef.user_details["student/professional"]}}
-                  <br>
-                  {{codechef.user_details.institution}}
-                  <br>
 
-                  Totalmente resueltos
-                  {{codechef.fully_solved.count}}
-                  <div *ngFor="let resuelto of codechef.fully_solved.Practice">
-                    {{resuelto.name}} -> {{resuelto.link}}
-                  </div>
-                  <br>
 
-                  Parcialmente resueltos
-                  {{codechef.partially_solved.count}}
-                  <div *ngFor="let resuelto of codechef.partially_solved.Practice">
-                    {{resuelto.name}} -> {{resuelto.link}}
-                  </div>
-                  <br>
+                <div class="col-md-6 col-sm-12">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Username a buscar</mat-label>
+                    <input matInput [(ngModel)]="usernamecc">
+                    <mat-icon (click)="searchNicknameUva()" matSuffix>
+                      search
+                    </mat-icon>
+                  </mat-form-field>
+
                 </div>
+                <div class="col-md-6 col-sm-12">
+
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Estado</mat-label>
+                    <input matInput readonly [value]="codechefResponseCode">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Usuario</mat-label>
+                    <input matInput readonly [value]="codechef.user_details.username">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput readonly [value]="codechef.user_details.name">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>País</mat-label>
+                    <input matInput readonly [value]="codechef.user_details.country">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Estado</mat-label>
+                    <input matInput readonly [value]="codechef.user_details.state">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Ciudad</mat-label>
+                    <input matInput readonly [value]="codechef.user_details.city">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Nivel Academico</mat-label>
+                    <input matInput readonly [value]='codechef.user_details["student/professional"]'>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Institución</mat-label>
+                    <input matInput readonly [value]='codechef.user_details.institution'>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Rating</mat-label>
+                    <input matInput readonly [value]="codechef.rating">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Estrellas</mat-label>
+
+                    <div *ngIf="codechef.stars==null">
+                      <input matInput readonly value="Sin estrellas">
+                    </div>
+                    <div *ngIf="codechef.stars!=null">
+                      <input matInput readonly [value]="codechef.stars">
+                    </div>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Rating mas alto conseguido</mat-label>
+                    <input matInput readonly [value]="codechef.highest_rating">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Rango global</mat-label>
+                    <input matInput readonly [value]="codechef.global_rank">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Rango del pais</mat-label>
+                    <input matInput readonly [value]="codechef.country_rank">
+                  </mat-form-field>
+                </div>
+
               </div>
+
+
+              <div class="row ">
+
+                <!-- grafica uva-->
+                <div class="col-md-6 col-sm-12" [hidden]="searchcc">
+                  <h4 class="card-title"
+                    style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                    Resumen de entregas
+                  </h4>
+
+                  <div class="chart-container">
+                    <canvas id="uva-chartcc">
+                    </canvas>
+                  </div>
+                </div>
+
+                <!-- Estadisticas -->
+                <div class="col-md-6 col-sm-12 align-items-center" [hidden]="searchcc">
+                  <h4 class="card-title"
+                    style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                    Estadisticas
+                  </h4>
+                  
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Problemas intentados</mat-label>
+                    <input matInput readonly [value]="codechef.fully_solved.count+codechef.partially_solved.count">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Problemas resueltos</mat-label>
+                    <input matInput readonly [value]="codechef.fully_solved.count">
+                  </mat-form-field>
+              
+                </div>
+
+              Totalmente resueltos
+              <div *ngFor="let resuelto of codechef.fully_solved.Practice">
+                {{resuelto.name}} -> {{resuelto.link}}
+              </div>
+              <br>
+
+              Parcialmente resueltos
+              <div *ngFor="let resuelto of codechef.partially_solved.Practice">
+                {{resuelto.name}} -> {{resuelto.link}}
+              </div>
+              <br>
+
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- spoj -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Sphere Online Judge
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-          data-bs-parent="#accordionExample">
-          <div class="accordion-body" *ngIf="spoj!=undefined">
-            {{spoj.platform}}
-            <br>
-            {{spoj.points}}
-            <br>
-            {{spoj.rank}}
-            <br>
-            {{spoj.rank}}
-            <br>
-            {{spoj["join data"]}}
-            <br>
-            {{spoj.institute}}
-            <br>
-
-            solved
-            <div *ngFor="let sol of spoj.solved">
-              {{sol}} -> <a href="https://www.spoj.com/problems/{{sol}}/"> ir</a>
-            </div>
-
-            to do
-            <div *ngFor="let todo of spoj.todo">
-              {{todo}} -> <a href="https://www.spoj.com/problems/{{todo}}/"> ir</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- codeforces -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFour">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            CodeForces
-          </button>
-        </h2>
-        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-          data-bs-parent="#accordionExample">
-          <div class="accordion-body" *ngIf="codeforcesinfo!=undefined">
-            {{cfResponseCode}}
-            <br>
-            {{codeforcesinfo.firstName}}
-            <br>
-            {{codeforcesinfo.lastName}}
-            <br>
-            {{codeforcesinfo.country}}
-            <br>
-            {{codeforcesinfo.city}}
-            <br>
-            {{codeforcesinfo.avatar}}
-
-            <br>
-            {{codeforcesinfo.rating}}
-            <br>
-            {{codeforcesinfo.handle}}
-            <br>
-            {{codeforcesinfo.contribution}}
-            <br>
-            {{codeforcesinfo.organization}}
-            <br>
-            {{codeforcesinfo.maxRating}}
-            <br>
-            {{codeforcesinfo.maxRank}}
-            <br>
-            {{codeforcesinfo.rank}}
-            <br>
-            {{codeforcesinfo.registrationTimeSeconds}}
-            <br>
-
           </div>
         </div>
       </div>
     </div>
 
+    <!-- spoj -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <img src="https://www.saashub.com/images/app/service_logos/22/b5705393b6b1/large.png?1545637222" width="50" height="50">
+          Sphere Online Judge
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body" *ngIf="spoj!=undefined">
+          {{spoj.platform}}
+          <br>
+          {{spoj.points}}
+          <br>
+          {{spoj.rank}}
+          <br>
+          {{spoj.rank}}
+          <br>
+          {{spoj["join data"]}}
+          <br>
+          {{spoj.institute}}
+          <br>
 
+          solved
+          <div *ngFor="let sol of spoj.solved">
+            {{sol}} -> <a href="https://www.spoj.com/problems/{{sol}}/"> ir</a>
+          </div>
+
+          to do
+          <div *ngFor="let todo of spoj.todo">
+            {{todo}} -> <a href="https://www.spoj.com/problems/{{todo}}/"> ir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- codeforces -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <img src="https://play-lh.googleusercontent.com/Qzd137yWn--3LdbxSOJaiRRgwHeRe_-BJCoWtk_c-ScPFIBTShXioaC951pXvqsCkQ" width="50" height="50">
+          CodeForces
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body" *ngIf="codeforcesinfo!=undefined">
+          {{cfResponseCode}}
+          <br>
+          {{codeforcesinfo.firstName}}
+          <br>
+          {{codeforcesinfo.lastName}}
+          <br>
+          {{codeforcesinfo.country}}
+          <br>
+          {{codeforcesinfo.city}}
+          <br>
+          {{codeforcesinfo.avatar}}
+
+          <br>
+          {{codeforcesinfo.rating}}
+          <br>
+          {{codeforcesinfo.handle}}
+          <br>
+          {{codeforcesinfo.contribution}}
+          <br>
+          {{codeforcesinfo.organization}}
+          <br>
+          {{codeforcesinfo.maxRating}}
+          <br>
+          {{codeforcesinfo.maxRank}}
+          <br>
+          {{codeforcesinfo.rank}}
+          <br>
+          {{codeforcesinfo.registrationTimeSeconds}}
+          <br>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- leetcode -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFifth">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">
+          <img src="https://leetcode.com/static/images/LeetCode_logo.png" width="50" height="50">
+            LeetCode
+        </button>
+      </h2>
+      <div id="collapseFifth" class="accordion-collapse collapse" aria-labelledby="headingFifth"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body" *ngIf="leetcodeinfo!=undefined">
+          https://competitive-coding-api.herokuapp.com/api/leetcode/saurabhprakash
+
+        </div>
+      </div>
+    </div>
   </div>
+
 
 </div>
