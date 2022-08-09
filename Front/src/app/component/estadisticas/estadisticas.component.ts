@@ -49,12 +49,16 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   listatemas = uvaproblems;
 
   spoj!: any;
+  usernamespoj="";
 
   codeforcesinfo!: any;
   codeforcesextra!: any;
+  searchcf=false;
+  cfdate:any;
 
   codechef!: any;
   codechefgraph = Array();
+  searchspoj=false;
 
 
   uvaResponseCode!: any;
@@ -78,7 +82,6 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.getSPOJAll("macbon");
     this.getCFAll("tourist");
   }
 
@@ -132,6 +135,13 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
 
     this.getCodeChefAll();
     this.searchcc = false;
+
+  }
+
+  searchNicknameSPOJ(): void {
+
+    this.getSPOJAll(this.usernamespoj);
+    this.searchspoj = false;
 
   }
 
@@ -305,6 +315,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
       this.cfResponseCode = response.status;
       this.codeforcesinfo = response.body;
       this.codeforcesinfo = this.codeforcesinfo.result[0];
+      this.epochToDate(this.codeforcesinfo.registrationTimeSeconds);
 
     })
   }
@@ -338,5 +349,10 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
       this.getUvaAllInfo(this.uvaid);
       this.uvaResponseCode = response.status;
     })
+  }
+
+  epochToDate(epoch: number):void{
+    const date = new Date(epoch*1000);
+    this.cfdate=date.toLocaleDateString("es-CO") + " " + date.toLocaleTimeString("es-CO");
   }
 }
