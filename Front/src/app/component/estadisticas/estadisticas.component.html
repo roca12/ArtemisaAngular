@@ -158,7 +158,9 @@
         <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_fTiGvqfzV66zYh_b9W9DnyTj6OyzY7pErg&usqp=CAU" width="50" height="50">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_fTiGvqfzV66zYh_b9W9DnyTj6OyzY7pErg&usqp=CAU"
+              width="50" height="50">
             CodeChef
           </button>
         </h2>
@@ -180,7 +182,7 @@
               <div class="row" *ngIf="codechef!=undefined">
 
 
-                
+
                 <div class="col-md-6 col-sm-12">
 
                 </div>
@@ -295,7 +297,7 @@
                     Resumen de entregas
                   </h4>
 
-                  
+
                   <div class="chart-container">
                     <canvas id="uva-chartcc">
                     </canvas>
@@ -309,7 +311,7 @@
                     style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
                     Estadisticas
                   </h4>
-                  
+
                   <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Problemas intentados</mat-label>
                     <input matInput readonly [value]="codechef.fully_solved.count+codechef.partially_solved.count">
@@ -318,129 +320,269 @@
                     <mat-label>Problemas resueltos</mat-label>
                     <input matInput readonly [value]="codechef.fully_solved.count">
                   </mat-form-field>
-              
+
                 </div>
 
-              Totalmente resueltos
-              <div *ngFor="let resuelto of codechef.fully_solved.Practice">
-                {{resuelto.name}} -> {{resuelto.link}}
-              </div>
-              <br>
+                Totalmente resueltos
+                <div *ngFor="let resuelto of codechef.fully_solved.Practice">
+                  {{resuelto.name}} -> {{resuelto.link}}
+                </div>
+                <br>
 
-              Parcialmente resueltos
-              <div *ngFor="let resuelto of codechef.partially_solved.Practice">
-                {{resuelto.name}} -> {{resuelto.link}}
-              </div>
-              <br>
+                Parcialmente resueltos
+                <div *ngFor="let resuelto of codechef.partially_solved.Practice">
+                  {{resuelto.name}} -> {{resuelto.link}}
+                </div>
+                <br>
 
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- spoj -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          <img src="https://www.saashub.com/images/app/service_logos/22/b5705393b6b1/large.png?1545637222" width="50" height="50">
-          Sphere Online Judge
-        </button>
-      </h2>
-      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-        data-bs-parent="#accordionExample">
-        <div class="accordion-body" *ngIf="spoj!=undefined">
-          {{spoj.platform}}
-          <br>
-          {{spoj.points}}
-          <br>
-          {{spoj.rank}}
-          <br>
-          {{spoj.rank}}
-          <br>
-          {{spoj["join data"]}}
-          <br>
-          {{spoj.institute}}
-          <br>
+      <!-- spoj -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <img src="https://www.saashub.com/images/app/service_logos/22/b5705393b6b1/large.png?1545637222" width="50"
+              height="50">
+            Sphere Online Judge
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div class="col-md-6 col-sm-12">
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Username a buscar</mat-label>
+                <input matInput [(ngModel)]="usernamespoj">
+                <mat-icon (click)="searchNicknameSPOJ()" matSuffix>
+                  search
+                </mat-icon>
+              </mat-form-field>
 
-          solved
-          <div *ngFor="let sol of spoj.solved">
-            {{sol}} -> <a href="https://www.spoj.com/problems/{{sol}}/"> ir</a>
-          </div>
+            </div>
 
-          to do
-          <div *ngFor="let todo of spoj.todo">
-            {{todo}} -> <a href="https://www.spoj.com/problems/{{todo}}/"> ir</a>
+            <div class="row" *ngIf="spoj!=undefined">
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Estado</mat-label>
+                  <input matInput readonly [value]="spojResponseCode">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Usuario</mat-label>
+                  <input matInput readonly [value]="spoj.username">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Plataforma</mat-label>
+                  <input matInput readonly [value]="spoj.platform">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Puntaje</mat-label>
+                  <input matInput readonly [value]="spoj.points">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Rango</mat-label>
+                  <input matInput readonly [value]="spoj.rank">
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Fecha de inscripción</mat-label>
+                  <input matInput readonly [value]='spoj["join data"]'>
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Instituto</mat-label>
+                  <input matInput readonly [value]="spoj.institute">
+                </mat-form-field>
+              </div>
+
+
+              <br>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <h4 class="card-title"
+                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                  Resumen de ejercicios completos
+                </h4>
+              </div>
+
+              <div *ngFor="let sol of spoj.solved">
+                {{sol}} -> <a href="https://www.spoj.com/problems/{{sol}}/"> ir</a>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
+                <h4 class="card-title"
+                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+                  Resumen de ejercicios pendientes
+                </h4>
+              </div>
+
+              <div *ngFor="let todo of spoj.todo">
+                {{todo}} -> <a href="https://www.spoj.com/problems/{{todo}}/"> ir</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- codeforces -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingFour">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          <img src="https://play-lh.googleusercontent.com/Qzd137yWn--3LdbxSOJaiRRgwHeRe_-BJCoWtk_c-ScPFIBTShXioaC951pXvqsCkQ" width="50" height="50">
-          CodeForces
-        </button>
-      </h2>
-      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-        data-bs-parent="#accordionExample">
-        <div class="accordion-body" *ngIf="codeforcesinfo!=undefined">
-          {{cfResponseCode}}
-          <br>
-          {{codeforcesinfo.firstName}}
-          <br>
-          {{codeforcesinfo.lastName}}
-          <br>
-          {{codeforcesinfo.country}}
-          <br>
-          {{codeforcesinfo.city}}
-          <br>
-          {{codeforcesinfo.avatar}}
+      <!-- codeforces -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <img
+              src="https://play-lh.googleusercontent.com/Qzd137yWn--3LdbxSOJaiRRgwHeRe_-BJCoWtk_c-ScPFIBTShXioaC951pXvqsCkQ"
+              width="50" height="50">
+            CodeForces
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
 
-          <br>
-          {{codeforcesinfo.rating}}
-          <br>
-          {{codeforcesinfo.handle}}
-          <br>
-          {{codeforcesinfo.contribution}}
-          <br>
-          {{codeforcesinfo.organization}}
-          <br>
-          {{codeforcesinfo.maxRating}}
-          <br>
-          {{codeforcesinfo.maxRank}}
-          <br>
-          {{codeforcesinfo.rank}}
-          <br>
-          {{codeforcesinfo.registrationTimeSeconds}}
-          <br>
+            <div class="row" *ngIf="codeforcesinfo!=undefined">
 
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Estado</mat-label>
+                  <input matInput readonly [value]="cfResponseCode">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.firstName">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.lastName">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>País</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.country">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <img [src]="codeforcesinfo.avatar" height="100" width="100">
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Ciudad</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.city">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Rating</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.rating">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Usuario</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.handle">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Contribución</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.contribution">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Organización</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.organization">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Rating Máximo</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.maxRating">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Rango Máximo</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.maxRank">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Rango actual</mat-label>
+                  <input matInput readonly [value]="codeforcesinfo.rank">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 col-sm-12" [hidden]="searchcf">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Tiempo de registro</mat-label>
+                  <input matInput readonly [value]="cfdate">
+                </mat-form-field>
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- leetcode -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingFifth">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">
-          <img src="https://leetcode.com/static/images/LeetCode_logo.png" width="50" height="50">
+      <!-- leetcode -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFifth">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">
+            <img src="https://leetcode.com/static/images/LeetCode_logo.png" width="50" height="50">
             LeetCode
-        </button>
-      </h2>
-      <div id="collapseFifth" class="accordion-collapse collapse" aria-labelledby="headingFifth"
-        data-bs-parent="#accordionExample">
-        <div class="accordion-body" *ngIf="leetcodeinfo!=undefined">
-          https://competitive-coding-api.herokuapp.com/api/leetcode/saurabhprakash
+          </button>
+        </h2>
+        <div id="collapseFifth" class="accordion-collapse collapse" aria-labelledby="headingFifth"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body" *ngIf="leetcodeinfo!=undefined">
+            https://competitive-coding-api.herokuapp.com/api/leetcode/saurabhprakash
 
+          </div>
         </div>
       </div>
     </div>
+
+
   </div>
-
-
-</div>
