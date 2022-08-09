@@ -43,6 +43,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   uvastats = Array();
   uvatried = new Set();
   uvasolved = new Set();
+  uvachart:any;
 
 
   listatemas = uvaproblems;
@@ -76,13 +77,6 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getCodeChefAll("shauryagupta12");
-    //this.codechefgraph.push(this.codechef.fully_solved.count);
-    //this.codechefgraph.push(this.codechef.partially_solved.count)
-    this.codechefgraph.push(6)
-    this.codechefgraph.push(7)
-    console.log(this.codechefgraph)
-    this.createCodeChefChart();
 
     this.getSPOJAll("macbon");
     this.getCFAll("tourist");
@@ -98,7 +92,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
         backgroundColor: 'rgb(99, 255, 20)',
         data: this.codechefgraph[0],
         hoverOffset: 4,
-      },{
+      }, {
         label: 'Parcialmente resueltos Resueltos',
         backgroundColor: 'rgb(255, 20, 20)',
         data: this.codechefgraph[1],
@@ -134,6 +128,13 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
 
   }
 
+  searchNicknameCodeChef(): void {
+
+    this.getCodeChefAll();
+    this.searchcc = false;
+
+  }
+
   calculateStatsUVA(): void {
     let precision = this.uvaveredicts[0] / this.uvadata.length * 100;
     this.uvastats = Array()
@@ -160,7 +161,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
           'rgb(43, 255, 234)',
           'rgb(222, 49, 193)',
           'rgb(69, 63, 63)'],
-        data: this.codechefgraph,
+        data: this.uvaveredicts,
         hoverOffset: 4,
       }]
     };
@@ -177,8 +178,12 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
       data: data,
       options: options
     }
+    
     const chartItem: ChartItem = document.getElementById('uva-chart') as ChartItem
-    new Chart(chartItem, config)
+    if (this.uvachart){
+      this.uvachart.destroy()
+    }
+    this.uvachart=new Chart(chartItem, config)
   }
 
   subsToData(alldata: any): void {
@@ -310,8 +315,8 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
     })
   }
 
-  getCodeChefAll(username: string): void {
-    this.http.get(this.getCodechefUrl + username, { observe: 'response' }).subscribe((response: any) => {
+  getCodeChefAll(): void {
+    this.http.get(this.getCodechefUrl + this.usernamecc, { observe: 'response' }).subscribe((response: any) => {
       this.codechef = response.body;
       this.codechefResponseCode = response.status;
     })
