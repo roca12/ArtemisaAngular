@@ -187,6 +187,8 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   }
 
   subsToData(alldata: any): void {
+    this.uvadata=Array()
+    this.uvastats=Array()
     //console.log(alldata);
     alldata.sort((a: any, b: any) => b[4] - a[4]);
     for (let linea of alldata) {
@@ -224,8 +226,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
     this.uvastats.push(this.uvadata[this.uvadata.length - 1][4])
     this.dataSource.data = this.uvadata;
 
-    console.log(this.uvatried)
-    console.log(this.uvasolved);
+
   }
 
   problemIDtoCode(dato: number): Array<any> {
