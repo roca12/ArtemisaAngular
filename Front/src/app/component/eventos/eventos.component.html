@@ -1,6 +1,116 @@
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Calendario de eventos y competencias</h4>
-      <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FBogota&src=bDl0cGt0OWJuNjRwdWhzYTk3ZnRvY25nOTBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=Y29kZWNoZWYuY29tXzNpbGtzZm12NDVhcXIzYXQ5Y2ttOTV0ZDVnQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&src=Y19xYWdrYWhzaDExb3M2Z3JzcjEycWF0MGdib0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=Y19sbGo5bXRndTNtcTZtaGQzdWtnbHRiaXY3c0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZWZjYWpsbnF2ZHFqZW91ZDJzcHNpcGhucWtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=azIzajIzM2d0Y3ZhdTdhOHVsazJwMzYwbTRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=NmhjcmpqYW1tbjFjbjFzanVlbXE3cGo3cXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23EF6C00&color=%23F09300&color=%23AD1457&color=%23009688&color=%237CB342&color=%23039BE5&color=%238E24AA" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+<block-ui>
+  <div class="row text-center container-fluid" style="padding-top: 30px">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Previous
         </div>
-</div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Today
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month"
+        >
+          Month
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week"
+        >
+          Week
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day"
+        >
+          Day
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+
+  <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+
+  <br/>
+  <ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Event action occurred</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+  </ng-template>
+</block-ui>
