@@ -1,0 +1,29 @@
+h3 {
+  margin: 0 0 10px;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.btn-primary {
+  background-color: #334d4f !important;
+  border-color: #212529 !important;
+
+}
+
+.btn-primary.active {
+  background-color: #213233 !important;
+  border-color: #212529 !important;
+}
+
+.btn-primary.active:hover {
+  background-color: #6c757d !important;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #6c757d !important;
+  color: #ffffff;
+}
