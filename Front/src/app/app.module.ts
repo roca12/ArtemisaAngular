@@ -1,9 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {
-  CommonModule, LocationStrategy, HashLocationStrategy,
-  PathLocationStrategy
-} from '@angular/common';
+import {CommonModule, LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -54,6 +51,17 @@ import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {BlockUiTemplateComponent} from './utils/block-ui-template/block-ui-template.component';
 import {BlockUIModule} from 'ng-block-ui';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {Error404Component} from './errors/error404/error404.component';
+import {Error400Component} from './errors/error400/error400.component';
+import {Error401Component} from './errors/error401/error401.component';
+import {Error403Component} from './errors/error403/error403.component';
+import {Error406Component} from './errors/error406/error406.component';
+import {Error410Component} from './errors/error410/error410.component';
+import {Error418Component} from './errors/error418/error418.component';
+import {Error500Component} from './errors/error500/error500.component';
+import {Error503Component} from './errors/error503/error503.component';
+import {Error521Component} from './errors/error521/error521.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -79,6 +87,17 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CompetenciasComponent,
     DownloadDirective,
     BlockUiTemplateComponent,
+    DownloadDirective,
+    Error404Component,
+    Error400Component,
+    Error401Component,
+    Error403Component,
+    Error406Component,
+    Error410Component,
+    Error418Component,
+    Error500Component,
+    Error503Component,
+    Error521Component,
   ],
   imports: [
     CommonModule,
@@ -88,7 +107,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    RouterModule.forRoot(Approutes, {useHash: false, relativeLinkResolution: 'legacy'}),
+    RouterModule.forRoot(Approutes, { useHash: false, relativeLinkResolution: 'legacy' }),
     PerfectScrollbarModule,
     FontAwesomeModule,
     DataTablesModule,
@@ -105,6 +124,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatPaginatorModule,
     MatExpansionModule,
     MatChipsModule,
+    MatAutocompleteModule,
+    MatTooltipModule,
     MatAutocompleteModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
