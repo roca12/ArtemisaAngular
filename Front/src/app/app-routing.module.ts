@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {Routes} from '@angular/router';
 import {AboutComponent} from './about/about.component';
 import {BibliotecaComponent} from './component/biblioteca/biblioteca.component';
 import {CompetenciasComponent} from './component/competencias/competencias.component';
@@ -20,16 +19,18 @@ import {Error503Component} from './errors/error503/error503.component';
 import {Error521Component} from './errors/error521/error521.component';
 
 import {FullComponent} from './layouts/full/full.component';
+import {DashboardModule} from "./dashboard/dashboard.module";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 export const Approutes: Routes = [
   {
     path: '',
     component: FullComponent,
     children: [
-      {path: 'dashboard', redirectTo: '', pathMatch: 'full'},
+      {path: '', redirectTo: 'index', pathMatch: 'full'},
       {
-        path: '',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+        path: 'index',
+        component: DashboardComponent
       },
       {
         path: 'about',

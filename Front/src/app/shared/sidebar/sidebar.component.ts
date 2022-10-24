@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, OnInit, Output, EventEmitter, HostListener} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, HostListener} from '@angular/core';
 import {ROUTES} from './menu-items';
 import {RouteInfo} from './sidebar.metadata';
 import {Router, ActivatedRoute} from '@angular/router';
@@ -29,6 +29,10 @@ interface SideNavToogle {
   ]
 })
 export class SidebarComponent implements OnInit {
+  showMenu = '';
+  showSubMenu = '';
+  collapsed = true;
+  screenWidth = 0;
 
   @Output() onToogleSlidenav: EventEmitter<SideNavToogle> = new EventEmitter()
 
@@ -43,8 +47,6 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  showMenu = '';
-  showSubMenu = '';
   public sidebarnavItems: RouteInfo[] = [];
 
   // this is for the open close
@@ -63,10 +65,6 @@ export class SidebarComponent implements OnInit {
   ) {
   }
 
-  // End open close
-  collapsed = true;
-  screenWidth = 0;
-
   ngOnInit() {
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
     this.screenWidth = window.innerWidth;
@@ -80,6 +78,14 @@ export class SidebarComponent implements OnInit {
   closeSidenav(): void {
     this.collapsed = true;
     this.onToogleSlidenav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+  }
+
+  openLink(url: string, newTab = true): void {
+    if (!newTab) {
+      this.router.navigate([url]);
+      return;
+    }
+    window.open(url, "_blank");
   }
 
 }
