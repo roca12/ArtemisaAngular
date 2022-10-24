@@ -43,7 +43,7 @@
 <mat-drawer-container [hasBackdrop]="false">
   <mat-drawer-content>
     <app-sidebar (onToogleSlidenav)="onToogleSlidenav($event)"></app-sidebar>
-    <div id="main-wrapper" [ngClass]="{ 'show-sidebar': showMobileMenu }" dir="ltr" data-theme="light"
+    <div id="main-wrapper" class="body" [ngClass]="getClass()" dir="ltr" data-theme="light"
          data-layout="vertical" [attr.data-sidebartype]="sidebartype" data-sidebar-position="absolute"
          data-header-position="absolute" data-boxed-layout="full">
       <!-- ============================================================== -->

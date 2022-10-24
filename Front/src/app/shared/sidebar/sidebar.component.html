@@ -1,6 +1,6 @@
 <div class="sidenav" [ngClass]="collapsed? 'sidenav-collapsed':''">
   <div class="logo-container">
-    <div *ngIf="!collapsed">
+    <div *ngIf="!collapsed" @fadeInOut>
       <button class="btn-close-logo" (click)="toogleCollapse()">
         <img src="assets/images/logos/propuestas logo 1 artemisa-02.png" class="light-logo" alt="homepage"
              width="150px"/>
@@ -20,7 +20,7 @@
       <a class="sidenav-nav-link"
          [routerLink]="data.path" routerLinkActive="active">
         <mat-icon class="sidenav-link-icon">{{data.icon}}</mat-icon>
-        <span class="sidenav-link-text" *ngIf="!collapsed">{{data.title}}</span>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="!collapsed">{{data.title}}</span>
       </a>
     </li>
   </ul>

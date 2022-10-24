@@ -1,8 +1,9 @@
-import {Component, AfterViewInit, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, AfterViewInit, OnInit, Output, EventEmitter, HostListener} from '@angular/core';
 import {ROUTES} from './menu-items';
 import {RouteInfo} from './sidebar.metadata';
 import {Router, ActivatedRoute} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {animate, style, transition, trigger} from "@angular/animations";
 
 //declare var $: any;
 interface SideNavToogle {
@@ -13,11 +14,35 @@ interface SideNavToogle {
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({opacity: 0}),
+        animate('250ms', style({opacity: 1}))
+      ]),
+      transition(':leave', [
+        style({opacity: 1}),
+        animate('250ms', style({opacity: 0}))
+      ])
+    ])
+  ]
 })
 export class SidebarComponent implements OnInit {
 
   @Output() onToogleSlidenav: EventEmitter<SideNavToogle> = new EventEmitter()
+
+  @HostListener('window:resize', ['$event'])
+
+  resizeWindow(event: any) {
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth <= 768) {
+      this.collapsed = true;
+      console.log(this.collapsed);
+      this.onToogleSlidenav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+    }
+  }
+
   showMenu = '';
   showSubMenu = '';
   public sidebarnavItems: RouteInfo[] = [];
@@ -44,6 +69,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
+    this.screenWidth = window.innerWidth;
   }
 
   toogleCollapse(): void {

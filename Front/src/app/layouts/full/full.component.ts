@@ -85,4 +85,17 @@ export class FullComponent implements OnInit {
     this.screenWidth = data.screenWidth;
     this.isSideNavCollapsed = data.collapsed;
   }
+
+  getClass(): string {
+    let strClass = '';
+    if (this.showMobileMenu) {
+      strClass += 'show-sidebar';
+    }
+    if (!this.isSideNavCollapsed && this.screenWidth > 768) {
+      strClass += ' body-trimmed';
+    } else if (!this.isSideNavCollapsed && this.screenWidth <= 768 && this.screenWidth > 0) {
+      strClass += 'body-md-screen';
+    }
+    return strClass.trim();
+  }
 }
