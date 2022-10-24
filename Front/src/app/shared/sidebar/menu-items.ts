@@ -52,14 +52,6 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/competencias',
-    title: 'Competencias',
-    icon: 'emoji_events',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: '/about',
     title: 'Acerca de ...',
     icon: 'emoji_events',
