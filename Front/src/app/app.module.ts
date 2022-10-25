@@ -62,6 +62,7 @@ import {Error418Component} from './errors/error418/error418.component';
 import {Error500Component} from './errors/error500/error500.component';
 import {Error503Component} from './errors/error503/error503.component';
 import {Error521Component} from './errors/error521/error521.component';
+import {MatSortModule} from "@angular/material/sort";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -99,42 +100,43 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     Error503Component,
     Error521Component,
   ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgbModule,
-    RouterModule.forRoot(Approutes, { useHash: false, relativeLinkResolution: 'legacy' }),
-    PerfectScrollbarModule,
-    FontAwesomeModule,
-    DataTablesModule,
-    CodemirrorModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatMenuModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatExpansionModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    MatTooltipModule,
-    MatAutocompleteModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-    BlockUIModule.forRoot({
-      template: BlockUiTemplateComponent
-    }),
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgbModule,
+        RouterModule.forRoot(Approutes, {useHash: false, relativeLinkResolution: 'legacy'}),
+        PerfectScrollbarModule,
+        FontAwesomeModule,
+        DataTablesModule,
+        CodemirrorModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatListModule,
+        MatMenuModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatExpansionModule,
+        MatChipsModule,
+        MatAutocompleteModule,
+        MatTooltipModule,
+        MatAutocompleteModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
+        BlockUIModule.forRoot({
+            template: BlockUiTemplateComponent
+        }),
+        MatSortModule,
+    ],
   providers: [
     {
       provide: LocationStrategy, useClass: HashLocationStrategy
