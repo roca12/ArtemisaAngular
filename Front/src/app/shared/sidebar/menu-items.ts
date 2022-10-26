@@ -1,8 +1,15 @@
-import { RouteInfo } from './sidebar.metadata';
+import {RouteInfo} from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
 
-
+  {
+    path: '/index',
+    title: 'Principal',
+    icon: 'home',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
   {
     path: '/temario',
     title: 'Temario',
@@ -59,5 +66,4 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
-
 ];
