@@ -2,7 +2,6 @@ import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 
 import problemas from '../../../assets/jsons/problemas.json'
 
-import * as fab from '@fortawesome/free-brands-svg-icons';
 import * as far from '@fortawesome/free-regular-svg-icons';
 import * as fas from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
