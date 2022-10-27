@@ -1,8 +1,59 @@
-<mat-sidenav-container>
-  <mat-nav-list class="sidenav-list">
-    <a class="mat-item" mat-list-item *ngFor="let currentLink of sidebarnavItems" [routerLink]="currentLink.path">
-      <mat-icon>{{currentLink.icon}}</mat-icon>
-      {{ currentLink.title }}
-    </a>
-  </mat-nav-list>
-</mat-sidenav-container>
+<div class="sidenav" [ngClass]="collapsed? 'sidenav-collapsed':''">
+  <div class="logo-container">
+    <div *ngIf="!collapsed" @fadeInOut>
+      <button class="btn-close-logo" (click)="toogleCollapse()" style="padding-bottom: 3rem">
+        <img src="assets/images/logos/propuestas logo 1 artemisa-02.png" class="light-logo" alt="homepage"
+             width="150px"/>
+      </button>
+    </div>
+    <div *ngIf="collapsed">
+      <button class="logo" (click)="toogleCollapse()">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
+    <button class="btn-close" *ngIf="!collapsed" (click)="closeSidenav()">
+      <i class="fa fa-times close-icon"></i>
+    </button>
+  </div>
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of sidebarnavItems">
+      <a class="sidenav-nav-link"
+         [routerLink]="data.path" routerLinkActive="active" (click)="closeSidenav()">
+        <mat-icon class="sidenav-link-icon">{{data.icon}}</mat-icon>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="!collapsed">{{data.title}}</span>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [matMenuTriggerFor]="menu">
+        <mat-icon class="sidenav-link-icon">more_horiz</mat-icon>
+      </a>
+      <mat-menu #menu="matMenu" xPosition="after">
+        <button mat-menu-item (click)="openLink('https://domjudgeueb.ngrok.io/')">
+          <mat-icon>hardware</mat-icon>
+          <span>DomJudge</span>
+        </button>
+        <button mat-menu-item (click)="openLink('https://www.codechef.com/')">
+          <mat-icon>local_pizza</mat-icon>
+          <span>CodeChef</span>
+        </button>
+        <button mat-menu-item (click)="openLink('https://vjudge.net/group/cuevadelprofdiego')">
+          <mat-icon>sentiment_satisfied_alt</mat-icon>
+          <span>Vjudge</span>
+        </button>
+        <button mat-menu-item (click)="openLink('https://onlinejudge.org/')">
+          <mat-icon>keyboard_alt</mat-icon>
+          <span>Online Judge</span>
+        </button>
+      </mat-menu>
+    </li>
+  </ul>
+</div>
+
+<!--<mat-sidenav-container>-->
+<!--  <mat-nav-list class="sidenav-list">-->
+<!--    <a class="mat-item" mat-list-item *ngFor="let currentLink of sidebarnavItems" [routerLink]="currentLink.path">-->
+<!--      <mat-icon>{{currentLink.icon}}</mat-icon>-->
+<!--      {{ currentLink.title }}-->
+<!--    </a>-->
+<!--  </mat-nav-list>-->
+<!--</mat-sidenav-container>-->

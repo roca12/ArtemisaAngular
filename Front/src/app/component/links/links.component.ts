@@ -1,5 +1,6 @@
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-links',
@@ -7,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./links.component.scss']
 })
 export class LinksComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   dataSource: Array<{}> = [];
 
   constructor(private http: HttpClient) {
@@ -25,8 +27,12 @@ export class LinksComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<any> {
+    this.blockUI.start();
     await Promise.resolve().then(async () => {
       await this.obtenerLinks();
+      setTimeout(() => {
+        this.blockUI.stop()
+      }, 500)
     });
   }
 

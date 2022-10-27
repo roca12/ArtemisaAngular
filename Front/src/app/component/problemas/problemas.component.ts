@@ -1,11 +1,13 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 
 import problemas from '../../../assets/jsons/problemas.json'
 
-import * as fab from '@fortawesome/free-brands-svg-icons';
 import * as far from '@fortawesome/free-regular-svg-icons';
 import * as fas from '@fortawesome/free-solid-svg-icons';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-problemas',
@@ -13,8 +15,12 @@ import { Subject } from 'rxjs';
   styleUrls: ['./problemas.component.scss']
 })
 export class ProblemasComponent implements OnInit, AfterContentInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
   fachevron = far.faArrowAltCircleRight;
-  falistchek=fas.faList;
+  falistchek = fas.faList;
 
   public listaproblemas: {
     "id": number,
@@ -31,6 +37,9 @@ export class ProblemasComponent implements OnInit, AfterContentInit {
 
   dtOptions: DataTables.Settings[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: String[] = ['id', 'titulo', 'dificultad', 'tema', 'juez', 'option'];
+
 
   ngOnInit(): void {
     this.dtOptions[0] = this.buildDtOptions();
@@ -38,6 +47,11 @@ export class ProblemasComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit(): void {
     this.listaproblemas = problemas;
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource(this.listaproblemas);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   ngOnDestroy(): void {
@@ -64,7 +78,7 @@ export class ProblemasComponent implements OnInit, AfterContentInit {
         {
           title: 'Tema',
           orderable: true
-        }, 
+        },
         {
           title: 'Juez',
           orderable: true
@@ -98,6 +112,11 @@ export class ProblemasComponent implements OnInit, AfterContentInit {
       }
     }
 
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

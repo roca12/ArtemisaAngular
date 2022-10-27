@@ -4,7 +4,10 @@ import * as fab from '@fortawesome/free-brands-svg-icons';
 import * as far from '@fortawesome/free-regular-svg-icons';
 import * as fas from '@fortawesome/free-solid-svg-icons';
 
-//declare var $: any;
+interface SideNavToogle {
+  screenWidth: number;
+  collapsed: boolean;
+}
 
 @Component({
   selector: "app-full-layout",
@@ -73,5 +76,26 @@ export class FullComponent implements OnInit {
       return;
     }
     window.open(url, "_blank");
+  }
+
+  isSideNavCollapsed = false;
+  screenWidth = 0;
+
+  onToogleSlidenav(data: SideNavToogle): void {
+    this.screenWidth = data.screenWidth;
+    this.isSideNavCollapsed = data.collapsed;
+  }
+
+  getClass(): string {
+    let strClass = '';
+    if (this.showMobileMenu) {
+      strClass += 'show-sidebar';
+    }
+    if (!this.isSideNavCollapsed && this.screenWidth > 768) {
+      strClass += ' body-trimmed';
+    } else if (!this.isSideNavCollapsed && this.screenWidth <= 768 && this.screenWidth > 0) {
+      strClass += 'body-md-screen';
+    }
+    return strClass.trim();
   }
 }

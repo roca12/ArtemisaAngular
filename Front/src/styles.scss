@@ -16,3 +16,11 @@ body {
 .alternate-theme {
   $alternate-primary: #447ea3;
 }
+
+.container-responsive {
+  display: flex;
+  flex-direction: column;
+  border-radius: .5rem;
+  background-color: #ffffff;
+  margin: 1.25rem 0 1.25rem;
+}
