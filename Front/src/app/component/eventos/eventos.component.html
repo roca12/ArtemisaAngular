@@ -97,15 +97,20 @@
     <br/>
     <ng-template #modalContent let-close="close">
       <div class="modal-header">
-        <h5 class="modal-title">Event action occurred</h5>
+        <h5 class="modal-title">{{modalData.event.title}}</h5>
         <button type="button" class="close" (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div>
-          Event:
-          <pre>{{ modalData?.event | json }}</pre>
+          <div *ngIf="modalData?.event['description']">
+            <h1>Descripcion del evento</h1>
+            <div [innerHTML]="modalData?.event['description']"></div>
+          </div>
+          <div *ngIf="modalData?.event['url']" style="margin-top: 20px" class="text-center">
+            <button mat-raised-button class="custom-btn-dialog" (click)="redirectTo(modalData?.event['url'])">Ir</button>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
