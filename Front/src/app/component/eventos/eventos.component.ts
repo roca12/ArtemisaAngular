@@ -163,6 +163,8 @@ export class EventosComponent implements OnInit, AfterViewInit {
                       afterEnd: true,
                     },
                     draggable: true,
+                    description: e['description'],
+                    url: e['url'],
                   });
                 }
               }
@@ -179,6 +181,10 @@ export class EventosComponent implements OnInit, AfterViewInit {
         this.blockUI.stop();
       }, 500);
     }
+  }
+
+  redirectTo(url: string): void{
+    window.open(url);
   }
 
 }

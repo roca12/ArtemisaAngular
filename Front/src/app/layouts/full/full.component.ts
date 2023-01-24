@@ -48,6 +48,7 @@ export class FullComponent implements OnInit {
   }
 
   handleSidebar() {
+    this.year = new Date().toString().split(' ')[3];
     this.innerWidth = window.innerWidth;
     if (this.innerWidth < 1170) {
       this.sidebartype = "full";
@@ -80,6 +81,7 @@ export class FullComponent implements OnInit {
 
   isSideNavCollapsed = false;
   screenWidth = 0;
+  year: string;
 
   onToogleSlidenav(data: SideNavToogle): void {
     this.screenWidth = data.screenWidth;
