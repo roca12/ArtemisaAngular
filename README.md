@@ -24,3 +24,5 @@
       <img  src="https://img.shields.io/github/commit-activity/y/roca12/ArtemisaAngular" />
   </p>
 </p>
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/113e78f4-e505-42ba-b844-d6520c60003c/deploy-status)](https://app.netlify.com/sites/biblioteca-artemisa/deploys)
