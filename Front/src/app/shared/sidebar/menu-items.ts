@@ -11,9 +11,33 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/primerospasos',
+    title: 'Primeros pasos',
+    icon: 'flight_takeoff',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/recomendaciones',
+    title: 'Recomendaciones',
+    icon: 'checklist',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/temario',
     title: 'Temario',
     icon: 'collections_bookmark',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/cpteorica',
+    title: 'Teoría P. Competitiva',
+    icon: 'code',
     class: '',
     extralink: false,
     submenu: []
@@ -43,8 +67,24 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/articulos',
+    title: 'Artículos relacionados',
+    icon: 'article',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/jueces',
+    title: 'Jueces Online',
+    icon: 'gavel',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/estadisticas',
-    title: 'Estadisticas',
+    title: 'Estadísticas',
     icon: 'query_stats',
     class: '',
     extralink: false,
@@ -54,6 +94,14 @@ export const ROUTES: RouteInfo[] = [
     path: '/eventos',
     title: 'Eventos',
     icon: 'event',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/alianzas',
+    title: 'Alianzas y apoyos',
+    icon: 'business',
     class: '',
     extralink: false,
     submenu: []
