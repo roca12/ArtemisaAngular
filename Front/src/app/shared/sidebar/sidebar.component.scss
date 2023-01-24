@@ -122,3 +122,33 @@
     color: #C94500;
   }
 }
+
+@media (max-width: 600px) {
+  .sidenav-nav {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .sidenav-collapsed {
+    width: 100%;
+    height: 60px;
+    overflow-x: auto;
+  }
+
+  .logo, .div-logo {
+    height: 0;
+    width: 0;
+  }
+  .logo {
+    height: 0;
+    width: 0;
+    i {
+      font-size: 0;
+    }
+  }
+
+  .sidenav-nav-item {
+    padding-top: 10px;
+  }
+
+}
