@@ -1,6 +1,17 @@
-@media (max-width: 800px) {
-  .logo {
-    width: 500px;
-  }
+.img-custom {
+  height: 250px;
+  width: 250px;
+}
 
+@media (max-width: 600px) {
+  .logo {
+    width: 140%;
+  }
+  .img-fluid {
+    max-width: 50%;
+  }
+  .img-custom {
+    height: 200px;
+    width: 200px;
+  }
 }
