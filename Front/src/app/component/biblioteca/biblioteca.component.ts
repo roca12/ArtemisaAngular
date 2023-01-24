@@ -1,13 +1,15 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {AfterContentInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 
-import { DataTableDirective } from 'angular-datatables';
+import {DataTableDirective} from 'angular-datatables';
 import temario from '../../../assets/jsons/temariogpc.json'
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
-import * as fab from '@fortawesome/free-brands-svg-icons';
 import * as far from '@fortawesome/free-regular-svg-icons';
 import * as fas from '@fortawesome/free-solid-svg-icons';
-import { Subject } from 'rxjs';
+import {Subject} from 'rxjs';
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 
 @Component({
@@ -31,7 +33,6 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   fagrafos = fas.faProjectDiagram;
   fadinamica = fas.faLightbulb;
   faotros = fas.faTerminal;
-
 
 
   public listatemas: {
@@ -220,19 +221,30 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   codecpp: string = '';
 
   @ViewChildren(DataTableDirective)
-  dtElements: QueryList<DataTableDirective>;;
+  dtElements: QueryList<DataTableDirective>;
 
   dtOptions: DataTables.Settings[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('paginatorTemario') paginatorTemario: MatPaginator;
+  @ViewChild('paginatorTeorias') paginatorTeorias: MatPaginator;
+  @ViewChild('paginatorBusquedas') paginatorBusquedas: MatPaginator;
+  @ViewChild('paginatorOrdenamiento') paginatorOrdenamiento: MatPaginator;
+  @ViewChild('paginamientoString') paginamientoString: MatPaginator;
+  @ViewChild('paginamientoBitwise') paginamientoBitwise: MatPaginator;
+  @ViewChild('paginamientoEstructuras') paginamientoEstructuras: MatPaginator;
+  @ViewChild('paginamientoMatematicas') paginamientoMatematicas: MatPaginator;
+  @ViewChild('paginamientoGeometria') paginamientoGeometria: MatPaginator;
+  @ViewChild('paginamientoGrafos') paginamientoGrafos: MatPaginator;
+  @ViewChild('paginamientoDinamica') paginamientoDinamica: MatPaginator;
+  @ViewChild('paginamientoCasos') paginamientoCasos: MatPaginator;
+
 
   ngOnInit(): void {
-
-
     this.dtOptions[0] = this.buildDtOptions();
     this.dtOptions[1] = this.buildDtOptions();
 
     //teoria
-
     for (let tema of this.listatemas) {
       switch (tema.orden) {
         case 0:
@@ -284,6 +296,45 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
     this.codejava = "";
     this.codepython = "";
     this.codecpp = "";
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource(this.listatemas);
+      this.dataSource.paginator = this.paginatorTemario;
+      this.dataSource.sort = this.sort;
+
+      this.dataSourceTeoria = new MatTableDataSource(this.listateoria);
+      this.dataSourceTeoria.paginator = this.paginatorTeorias;
+
+      this.dataSourceBusqueda = new MatTableDataSource(this.listabusquedas);
+      this.dataSourceBusqueda.paginator = this.paginatorBusquedas;
+
+      this.dataSourceOrdenamiento = new MatTableDataSource(this.listaordenamientos);
+      this.dataSourceOrdenamiento.paginator = this.paginatorOrdenamiento;
+
+      this.dataSourceStringMatching = new MatTableDataSource(this.listastrings);
+      this.dataSourceStringMatching.paginator = this.paginamientoString;
+
+      this.dataSourceBitwise = new MatTableDataSource(this.listabitwise);
+      this.dataSourceBitwise.paginator = this.paginamientoBitwise;
+
+      this.dataSourceEstructuras = new MatTableDataSource(this.listaestructuras);
+      this.dataSourceEstructuras.paginator = this.paginamientoEstructuras;
+
+      this.dataSourceMatematicas = new MatTableDataSource(this.listamatematica);
+      this.dataSourceMatematicas.paginator = this.paginamientoMatematicas;
+
+      this.dataSourceGeometria = new MatTableDataSource(this.listageometria);
+      this.dataSourceGeometria.paginator = this.paginamientoGeometria;
+
+      this.dataSourceGrafos = new MatTableDataSource(this.listagrafos);
+      this.dataSourceGrafos.paginator = this.paginamientoGrafos;
+
+      this.dataSourceDinamica = new MatTableDataSource(this.listadp);
+      this.dataSourceDinamica.paginator = this.paginamientoDinamica;
+
+      this.dataSourceCasos = new MatTableDataSource(this.listaeotros);
+      this.dataSourceCasos.paginator = this.paginamientoCasos;
+
+    });
   }
 
   ngOnDestroy(): void {
@@ -340,9 +391,22 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   }
 
   closeResult: string = '';
+  dataSource: MatTableDataSource<any>;
+  dataSourceTeoria: MatTableDataSource<any>;
+  dataSourceBusqueda: MatTableDataSource<any>;
+  dataSourceOrdenamiento: MatTableDataSource<any>;
+  dataSourceBitwise: MatTableDataSource<any>;
+  dataSourceStringMatching: MatTableDataSource<any>;
+  dataSourceEstructuras: MatTableDataSource<any>;
+  dataSourceMatematicas: MatTableDataSource<any>;
+  dataSourceGeometria: MatTableDataSource<any>;
+  dataSourceGrafos: MatTableDataSource<any>;
+  dataSourceDinamica: MatTableDataSource<any>;
+  dataSourceCasos: MatTableDataSource<any>;
+  displayedColumns: String[] = ['ID', 'supergrupo', 'tipo', 'ir'];
 
-
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal) {
+  }
 
 
   obtenerCode(type: number, ID: number): any {
@@ -384,11 +448,11 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
           if (tema.ID == ID) {
             let result = tema.texto;
             let lista = result.split("\n");
-            let aux:string="";
-            let i =0;
-            for (let separado in lista){
-              aux+=lista[i];
-              aux+="<br></br>";
+            let aux: string = "";
+            let i = 0;
+            for (let separado in lista) {
+              aux += lista[i];
+              aux += "<br></br>";
               i++;
 
             }
@@ -408,7 +472,7 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
     this.codejava = this.obtenerCode(1, ID);
     this.codecpp = this.obtenerCode(2, ID);
     this.codepython = this.obtenerCode(3, ID);
-    this.modalService.open(content, { size: 'xl', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
