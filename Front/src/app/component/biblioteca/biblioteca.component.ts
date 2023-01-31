@@ -10,6 +10,8 @@ import {Subject} from 'rxjs';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogTemarioComponent} from "../../dialog-temario/dialog-temario.component";
 
 
 @Component({
@@ -405,7 +407,7 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   dataSourceCasos: MatTableDataSource<any>;
   displayedColumns: String[] = ['ID', 'supergrupo', 'tipo', 'ir'];
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, public dialog: MatDialog) {
   }
 
 
@@ -466,28 +468,21 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
     }
   }
 
-  open(content: any, ID: number) {
+  openDialog(ID: number) {
     this.textotema = this.obtenerCode(4, ID);
     this.titulotema = this.obtenerCode(0, ID);
     this.codejava = this.obtenerCode(1, ID);
     this.codecpp = this.obtenerCode(2, ID);
     this.codepython = this.obtenerCode(3, ID);
-    this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    this.dialog.open(DialogTemarioComponent, {
+      data: {
+        textotema: this.textotema,
+        titulotema: this.titulotema,
+        codejava: this.codejava,
+        codecpp: this.codecpp,
+        codepython: this.codepython,
+      }
     });
-  }
-
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
   }
 }
 

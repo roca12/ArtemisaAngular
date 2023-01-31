@@ -12,6 +12,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/moment";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 const routes: Routes = [
@@ -40,6 +42,8 @@ const routes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    MatToolbarModule,
+    MatSlideToggleModule,
   ],
   declarations: [
     DashboardComponent,

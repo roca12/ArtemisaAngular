@@ -31,7 +31,6 @@
               "src/assets"
             ],
             "styles": [
-              
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/assets/scss/style.scss",
               "src/styles.scss",
@@ -43,7 +42,6 @@
               "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css"
             ],
             "scripts": [
-              
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
@@ -119,7 +117,7 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/angular-dark-mode/angular-dark-mode.js"]
           }
         }
       }
