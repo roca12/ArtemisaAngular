@@ -33,20 +33,31 @@ $dark-theme: mat.define-dark-theme((
 ));
 
 .darkMode {
-  --color-btn: #597D7C;
+  --color-btn: #90A19D;
   --sidebar-color: #404556;
+  --color-btn-second: #F0941F;
+  --logo: url('./assets/images/logos/propuestas logo 1 artemisa-02.png') no-repeat;
   @include mat.all-component-colors($dark-theme);
 }
 
 html, body {
-  --color-btn: #386775;
-  --sidebar-color: #263238;
+  --color-btn: #196774;
+  --sidebar-color: #363432;
+  --color-btn-second: #EF6024;
+  --logo: url('./assets/images/logos/propuestas logo 1 artemisa_Mesa de trabajo 1.png') no-repeat;
   height: 100% !important
 }
 
 @media (max-width: 600px) {
-  .mat-card{
-    padding-left: 0!important;
-    padding-right: 0!important;
+  .mat-card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
+}
+
+app-estadisticas, app-primeros-pasos, app-recomendaciones,
+app-biblioteca, app-cp-teorica, app-problemas, app-links,
+app-articulos, app-jueces, app-eventos, app-alianzas, about-component{
+  min-height: 76vh !important;
+  display: block;
 }

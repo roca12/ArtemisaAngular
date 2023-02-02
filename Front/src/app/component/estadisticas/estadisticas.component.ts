@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import uvaproblems from '../../../assets/jsons/uvaproblems.json'
-import { Chart, ChartConfiguration, ChartItem, registerables } from 'chart.js'
-import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
+import {Chart, ChartConfiguration, ChartItem, registerables} from 'chart.js'
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {BlockUI, NgBlockUI} from "ng-block-ui";
 
 @Component({
   selector: 'app-estadisticas',
@@ -16,7 +17,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @BlockUI() blockUI: NgBlockUI;
 
 
   getuidUrl = 'https://uhunt.onlinejudge.org/api/uname2uid/';
@@ -43,22 +44,22 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   uvastats = Array();
   uvatried = new Set();
   uvasolved = new Set();
-  uvachart:any;
+  uvachart: any;
 
 
   listatemas = uvaproblems;
 
   spoj!: any;
-  usernamespoj="";
+  usernamespoj = "";
 
   codeforcesinfo!: any;
   codeforcesextra!: any;
-  searchcf=false;
-  cfdate:any;
+  searchcf = false;
+  cfdate: any;
 
   codechef!: any;
   codechefgraph = Array();
-  searchspoj=false;
+  searchspoj = false;
 
 
   uvaResponseCode!: any;
@@ -123,9 +124,11 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   searchNicknameUva(): void {
     this.dataSource.data = [];
     this.dataSource.paginator = this.paginator;
+    this.blockUI.start();
     this.getUvaIdCode(this.usernameUva);
     setTimeout(() => {
       this.createUvaChart();
+      this.blockUI.stop();
     }, 2500);
     this.searchUva = false;
 
@@ -188,17 +191,17 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
       data: data,
       options: options
     }
-    
+
     const chartItem: ChartItem = document.getElementById('uva-chart') as ChartItem
-    if (this.uvachart){
+    if (this.uvachart) {
       this.uvachart.destroy()
     }
-    this.uvachart=new Chart(chartItem, config)
+    this.uvachart = new Chart(chartItem, config)
   }
 
   subsToData(alldata: any): void {
-    this.uvadata=Array()
-    this.uvastats=Array()
+    this.uvadata = Array()
+    this.uvastats = Array()
     //console.log(alldata);
     alldata.sort((a: any, b: any) => b[4] - a[4]);
     for (let linea of alldata) {
@@ -311,7 +314,7 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   }
 
   getCFAll(username: string): void {
-    this.http.get(this.getCFUrl + username, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getCFUrl + username, {observe: 'response'}).subscribe((response: any) => {
       this.cfResponseCode = response.status;
       this.codeforcesinfo = response.body;
       this.codeforcesinfo = this.codeforcesinfo.result[0];
@@ -321,21 +324,21 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   }
 
   getSPOJAll(username: string): void {
-    this.http.get(this.getSPOJUrl + username, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getSPOJUrl + username, {observe: 'response'}).subscribe((response: any) => {
       this.spoj = response.body;
       this.spojResponseCode = response.status;
     })
   }
 
   getCodeChefAll(): void {
-    this.http.get(this.getCodechefUrl + this.usernamecc, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getCodechefUrl + this.usernamecc, {observe: 'response'}).subscribe((response: any) => {
       this.codechef = response.body;
       this.codechefResponseCode = response.status;
     })
   }
 
   getUvaAllInfo(uid: string): void {
-    this.http.get(this.getAllUrl + uid, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getAllUrl + uid, {observe: 'response'}).subscribe((response: any) => {
       this.uvaname = response.body["name"];
       this.uvauname = response.body["uname"];
       this.uvasubs = response.body["subs"];
@@ -344,15 +347,15 @@ export class EstadisticasComponent implements OnInit, AfterViewInit {
   }
 
   getUvaIdCode(username: string): void {
-    this.http.get(this.getuidUrl + username, { observe: 'response' }).subscribe((response: any) => {
+    this.http.get(this.getuidUrl + username, {observe: 'response'}).subscribe((response: any) => {
       this.uvaid = response.body;
       this.getUvaAllInfo(this.uvaid);
       this.uvaResponseCode = response.status;
     })
   }
 
-  epochToDate(epoch: number):void{
-    const date = new Date(epoch*1000);
-    this.cfdate=date.toLocaleDateString("es-CO") + " " + date.toLocaleTimeString("es-CO");
+  epochToDate(epoch: number): void {
+    const date = new Date(epoch * 1000);
+    this.cfdate = date.toLocaleDateString("es-CO") + " " + date.toLocaleTimeString("es-CO");
   }
 }

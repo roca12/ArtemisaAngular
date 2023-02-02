@@ -26,7 +26,7 @@
     margin-top: 50px;
     margin-left: 0;
     transition: all .5s ease;
-    padding: 0!important;
+    padding: 0 !important;
   }
 }
 
@@ -38,4 +38,8 @@
 .body-md-screen {
   width: calc(100% - 5rem) !important;
   margin-left: 5rem;
+}
+
+.icon-git {
+  color: var(--color-btn-second);
 }

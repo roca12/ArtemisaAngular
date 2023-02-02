@@ -1,33 +1,23 @@
 <block-ui>
-  <section class="wrapper" style="padding-top: 30px">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let current of dataSource">
-          <div class="card card-margin">
-            <div class="card-header no-border">
-              <h5 class="card-title">{{current.nombre}}</h5>
-            </div>
-            <div class="card-body pt-0">
-              <div class="widget-49">
-                <div class="widget-49-title-wrapper">
-                  <div class="widget-49-date-primary">
-                    <img [src]="current.icono" class="rounded-circle" style="max-width: 60px">
-                  </div>
-                  <div class="widget-49-meeting-info">
-                    <a [href]="current.url" class="btn"
-                       style="border-radius: 46px; background-color: #355365;color: white">
-                      Website
-                    </a>
-                  </div>
-                </div>
-                <ol class="widget-49-meeting-points" *ngFor="let tag of current.tags">
-                  <li class="widget-49-meeting-item"><span>{{tag}}</span></li>
-                </ol>
-              </div>
-            </div>
-          </div>
+  <mat-card fxLayout="row wrap" fxLayout.sm="column" fxLayoutGap="1%">
+    <mat-card *ngFor="let current of dataSource" fxFlex.gt-md="49" fxFlex.gt-sm="100" fxFlex.lt-sm="100"
+              class="card-custom">
+      <mat-card-header fxLayout="row" fxLayoutAlign="space-between none">
+        <mat-card-title>{{current.nombre}}</mat-card-title>
+        <img mat-card-sm-image [src]="current.icono">
+      </mat-card-header>
+      <mat-card-content>
+        <ol *ngFor="let tag of current.tags">
+          <li><span>{{tag}}</span></li>
+        </ol>
+      </mat-card-content>
+      <mat-card-actions>
+        <div style="padding-left: 20px">
+          <a [href]="current.url" class="btn">
+            Website
+          </a>
         </div>
-      </div>
-    </div>
-  </section>
+      </mat-card-actions>
+    </mat-card>
+  </mat-card>
 </block-ui>
