@@ -152,8 +152,8 @@ export class EventosComponent implements OnInit, AfterViewInit {
                 if (e['start']['dateTime'] !== undefined) {
                   index++;
                   event.push({
-                    start: startOfDay(new Date(e['start']['dateTime'].replace(/T/g, ' ').slice(0, 19))),
-                    end: endOfDay(new Date(e['end']['dateTime'].replace(/T/g, ' ').slice(0, 19))),
+                    start: startOfDay(new Date(e['start']['dateTime'].replace(/T/g, ' '))),
+                    end: endOfDay(new Date(e['end']['dateTime'].replace(/T/g, ' '))),
                     title: e['summary'],
                     color: colors[(index % 4)],
                     actions: [],

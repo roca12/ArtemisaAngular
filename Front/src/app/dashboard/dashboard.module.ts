@@ -12,6 +12,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/moment";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 const routes: Routes = [
@@ -26,21 +29,24 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    FontAwesomeModule,
-    RouterModule.forChild(routes),
-    NgApexchartsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-  ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        FontAwesomeModule,
+        RouterModule.forChild(routes),
+        NgApexchartsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
+        MatToolbarModule,
+        MatSlideToggleModule,
+        FlexLayoutModule,
+    ],
   declarations: [
     DashboardComponent,
     TopCardsComponent,
