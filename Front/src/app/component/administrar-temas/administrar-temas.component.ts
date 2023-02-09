@@ -21,7 +21,6 @@ export class AdministrarTemasComponent implements OnInit {
     this.blockUI.start();
     await this.http.get(`${environment.artemisaExpress}/api/temario`).toPromise()
       .then((res: any) => {
-        console.log(res)
         setTimeout(() => {
           this.dataSource = new MatTableDataSource(res?.data);
           this.blockUI.stop();

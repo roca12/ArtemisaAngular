@@ -1,10 +1,13 @@
 <router-outlet>
   <mat-toolbar>
     <div class="text-center screen">
-      <mat-icon class="mr-8">brightness_5</mat-icon>
-      <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
-      </mat-slide-toggle>
-      <mat-icon>bedtime</mat-icon>
+      <div fxLayout="row" fxLayoutAlign="end none">
+        <mat-icon class="mr-8">brightness_5</mat-icon>
+        <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+        </mat-slide-toggle>
+        <mat-icon>bedtime</mat-icon>
+        <mat-icon style="margin-left: 20px">login</mat-icon>
+      </div>
     </div>
   </mat-toolbar>
   <app-spinner>
