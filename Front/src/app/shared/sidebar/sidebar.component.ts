@@ -44,7 +44,6 @@ export class SidebarComponent implements OnInit {
     this.screenWidth = window.innerWidth;
     if (this.screenWidth <= 768) {
       this.collapsed = true;
-      console.log(this.collapsed);
       this.onToogleSlidenav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
     }
   }
@@ -87,7 +86,6 @@ export class SidebarComponent implements OnInit {
             submenu: e.submenu,
           }
         });
-        console.log(this.sidebarnavItems)
       })
       .catch((e) => {
         console.log('[ERROR]');
