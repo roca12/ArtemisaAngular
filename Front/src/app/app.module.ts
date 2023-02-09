@@ -75,6 +75,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatDialogModule} from "@angular/material/dialog";
 import { DialogTemarioComponent } from './dialog-temario/dialog-temario.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {LoginComponent} from './component/login/login.component';
+import {AdministrarTemasComponent} from './component/administrar-temas/administrar-temas.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -118,7 +120,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CpTeoricaComponent,
     JuecesComponent,
     RecomendacionesComponent,
-    DialogTemarioComponent
+    DialogTemarioComponent,
+    LoginComponent,
+    AdministrarTemasComponent
   ],
   imports: [
     CommonModule,
@@ -128,7 +132,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    RouterModule.forRoot(Approutes, {useHash: false, relativeLinkResolution: 'legacy'}),
+    RouterModule.forRoot(Approutes, {relativeLinkResolution: 'legacy'}),
     PerfectScrollbarModule,
     FontAwesomeModule,
     DataTablesModule,

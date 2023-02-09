@@ -1,9 +1,11 @@
-import {Component, OnInit, Output, EventEmitter, HostListener} from '@angular/core';
-import {ROUTES} from './menu-items';
+import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {RouteInfo} from './sidebar.metadata';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {animate, style, transition, trigger} from "@angular/animations";
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import jwt_decode from 'jwt-decode';
 
 //declare var $: any;
 interface SideNavToogle {
@@ -61,13 +63,37 @@ export class SidebarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {
   }
 
   ngOnInit() {
-    this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
     this.screenWidth = window.innerWidth;
+    let perfil = 3;
+    if (localStorage.getItem('token') ?? false) {
+      const data: any = jwt_decode(localStorage.getItem('token') ?? '');
+      perfil = data?.data?.cod_perfil;
+    }
+    this.http.get(`${environment.artemisaExpress}/api/usuario/acceso/${perfil}`).toPromise()
+      .then((res: any) => {
+        this.sidebarnavItems = res.map((e: any) => {
+          return {
+            path: e.path,
+            title: e.title,
+            icon: e.icon,
+            class: e.class,
+            extralink: e.extralink,
+            submenu: e.submenu,
+          }
+        });
+        console.log(this.sidebarnavItems)
+      })
+      .catch((e) => {
+        console.log('[ERROR]');
+        console.log(e);
+      });
+
   }
 
   toogleCollapse(): void {
