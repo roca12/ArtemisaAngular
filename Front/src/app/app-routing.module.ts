@@ -33,14 +33,11 @@ import {LoginComponent} from "./component/login/login.component";
 import {AdministrarTemasComponent} from "./component/administrar-temas/administrar-temas.component";
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {
-  RoleGuardService as RoleGuard
-} from './auth/role-guard.service';
-import {
   AuthGuardService as AuthGuard
 } from './auth/auth-guard.service';
 
 export const Approutes: Routes = [
-  {path: '#', redirectTo: '', pathMatch: 'full'},
+  {path: '', redirectTo: 'index', pathMatch: 'full'},
   {
     path: '',
     component: FullComponent,
@@ -120,10 +117,6 @@ export const Approutes: Routes = [
       },
     ]
   },
-  {
-    path: 'index',
-    component: DashboardComponent
-  },
 
   {
     path: '**',
@@ -164,7 +157,6 @@ export const Approutes: Routes = [
   , {
     path: '521',
     component: Error521Component
-
   },
 
 ];
