@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule, LocationStrategy, HashLocationStrategy} from '@angular/common';
-
+import {Location, PathLocationStrategy} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -73,8 +73,8 @@ import {DARK_MODE_OPTIONS} from 'angular-dark-mode';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatCardModule} from "@angular/material/card";
 import {MatDialogModule} from "@angular/material/dialog";
-import { DialogTemarioComponent } from './dialog-temario/dialog-temario.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import {DialogTemarioComponent} from './dialog-temario/dialog-temario.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {LoginComponent} from './component/login/login.component';
 import {AdministrarTemasComponent} from './component/administrar-temas/administrar-temas.component';
 
@@ -132,7 +132,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    RouterModule.forRoot(Approutes, {relativeLinkResolution: 'legacy'}),
+    RouterModule.forRoot(Approutes, {relativeLinkResolution: 'legacy', useHash: true}),
     PerfectScrollbarModule,
     FontAwesomeModule,
     DataTablesModule,
@@ -166,9 +166,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FlexLayoutModule,
   ],
   providers: [
-    {
-      provide: LocationStrategy, useClass: HashLocationStrategy
-    },
+    Location, {provide: LocationStrategy, useClass: PathLocationStrategy},
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
