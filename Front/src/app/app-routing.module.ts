@@ -37,7 +37,6 @@ import {
 } from './auth/auth-guard.service';
 
 export const Approutes: Routes = [
-  {path: '', redirectTo: 'index', pathMatch: 'full'},
   {
     path: '',
     component: FullComponent,
@@ -51,7 +50,7 @@ export const Approutes: Routes = [
         }]
       },
       {
-        path: 'index',
+        path: '',
         pathMatch: 'full',
         component: DashboardComponent
       },
