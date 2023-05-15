@@ -1,73 +1,49 @@
-import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
-import {RouteInfo} from './sidebar.metadata';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {animate, style, transition, trigger} from "@angular/animations";
-import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
 import jwt_decode from 'jwt-decode';
+import {FormControl} from '@angular/forms';
+import {RouteInfo} from './sidebar.metadata';
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
+import {HttpClient} from "@angular/common/http";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {OverlayContainer} from '@angular/cdk/overlay';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from "../../../environments/environment";
+import {Component, EventEmitter, HostBinding, HostListener, OnInit, Output} from '@angular/core';
 
 //declare var $: any;
 interface SideNavToogle {
-  screenWidth: number;
   collapsed: boolean;
+  screenWidth: number;
 }
+
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({opacity: 0}),
-        animate('250ms', style({opacity: 1}))
-      ]),
-      transition(':leave', [
-        style({opacity: 1}),
-        animate('250ms', style({opacity: 0}))
-      ])
-    ])
-  ]
+  animations: []
 })
 export class SidebarComponent implements OnInit {
-  showMenu = '';
-  showSubMenu = '';
-  collapsed = true;
   screenWidth = 0;
+  toggleControl = new FormControl(false);
 
-  @Output() onToogleSlidenav: EventEmitter<SideNavToogle> = new EventEmitter()
-
+  @BlockUI() blockUI: NgBlockUI;
   @HostListener('window:resize', ['$event'])
-
-  resizeWindow(event: any) {
-    this.screenWidth = window.innerWidth;
-    if (this.screenWidth <= 768) {
-      this.collapsed = true;
-      this.onToogleSlidenav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
-    }
-  }
+  @HostBinding('class') className = '';
+  @Output() onToogleSlidenav: EventEmitter<SideNavToogle> = new EventEmitter()
 
   public sidebarnavItems: RouteInfo[] = [];
 
-  // this is for the open close
-  addExpandClass(element: string) {
-    if (element === this.showMenu) {
-      this.showMenu = '0';
-    } else {
-      this.showMenu = element;
-    }
-  }
-
   constructor(
-    private modalService: NgbModal,
     private router: Router,
+    private http: HttpClient,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private modalService: NgbModal,
+    private overlay: OverlayContainer
   ) {
   }
 
   ngOnInit() {
+    this.blockUI.start();
     this.screenWidth = window.innerWidth;
     let perfil = 3;
     if (localStorage.getItem('token') ?? false) {
@@ -86,22 +62,22 @@ export class SidebarComponent implements OnInit {
             submenu: e.submenu,
           }
         });
+        this.blockUI.stop();
       })
       .catch((e) => {
         console.log('[ERROR]');
         console.log(e);
+        this.blockUI.stop();
       });
-
-  }
-
-  toogleCollapse(): void {
-    this.collapsed = !this.collapsed;
-    this.onToogleSlidenav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
-  }
-
-  closeSidenav(): void {
-    this.collapsed = true;
-    this.onToogleSlidenav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+    this.toggleControl.valueChanges.subscribe((darkMode) => {
+      const darkClassName = 'darkMode';
+      this.className = darkMode ? darkClassName : '';
+      if (darkMode) {
+        this.overlay.getContainerElement().classList.add(darkClassName);
+      } else {
+        this.overlay.getContainerElement().classList.remove(darkClassName);
+      }
+    });
   }
 
   openLink(url: string, newTab = true): void {
