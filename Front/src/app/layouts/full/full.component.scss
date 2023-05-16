@@ -1,43 +1,19 @@
-.max-width {
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-@media (min-width: 1100px) {
-  .container-fluid {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-}
-
 .body {
-  width: calc(100% - 5rem) !important;
-  margin-left: 5rem;
-  z-index: 0;
+  width: calc(100% - 200px) !important;
+  margin-left: 200px;
   position: relative;
   top: 0;
   transition: all .5s ease;
-  padding: 3rem;
+  padding: 3rem 3rem 3rem 5rem;
+  z-index: -1;
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .body {
     width: 100% !important;
-    margin-top: 50px;
+    margin-top: 100px;
     margin-left: 0;
-    transition: all .5s ease;
-    padding: 0 !important;
   }
-}
-
-.body-trimmed {
-  width: calc(100% - 16.5625rem) !important;
-  margin-left: 16.5625rem;
-}
-
-.body-md-screen {
-  width: calc(100% - 5rem) !important;
-  margin-left: 5rem;
 }
 
 .icon-git {
