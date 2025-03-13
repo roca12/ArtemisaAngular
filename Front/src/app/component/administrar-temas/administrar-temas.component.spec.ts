@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AdministrarTemasComponent } from './administrar-temas.component';
+import { AdministrarTemasComponent } from "./administrar-temas.component";
 
-describe('AdministrarTemasComponent', () => {
+describe("AdministrarTemasComponent", () => {
   let component: AdministrarTemasComponent;
   let fixture: ComponentFixture<AdministrarTemasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdministrarTemasComponent ]
-    })
-    .compileComponents();
+      declarations: [AdministrarTemasComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('AdministrarTemasComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

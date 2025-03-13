@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Error410Component } from './error410.component';
+import { Error410Component } from "./error410.component";
 
-describe('Error410Component', () => {
+describe("Error410Component", () => {
   let component: Error410Component;
   let fixture: ComponentFixture<Error410Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Error410Component ]
-    })
-    .compileComponents();
+      declarations: [Error410Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('Error410Component', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

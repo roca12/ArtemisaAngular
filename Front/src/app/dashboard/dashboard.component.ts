@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import * as fas from '@fortawesome/free-solid-svg-icons';
+import { Component } from "@angular/core";
+import * as fas from "@fortawesome/free-solid-svg-icons";
 @Component({
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent {
   fain = fas.faLongArrowAltRight;
@@ -10,7 +10,5 @@ export class DashboardComponent {
   fasmile = fas.faSmile;
   facheck = fas.faCheck;
 
-  constructor() {
-
-  }
+  constructor() {}
 }

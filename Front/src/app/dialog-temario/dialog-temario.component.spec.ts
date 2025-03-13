@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DialogTemarioComponent } from './dialog-temario.component';
+import { DialogTemarioComponent } from "./dialog-temario.component";
 
-describe('DialogTemarioComponent', () => {
+describe("DialogTemarioComponent", () => {
   let component: DialogTemarioComponent;
   let fixture: ComponentFixture<DialogTemarioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogTemarioComponent ]
-    })
-    .compileComponents();
+      declarations: [DialogTemarioComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('DialogTemarioComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

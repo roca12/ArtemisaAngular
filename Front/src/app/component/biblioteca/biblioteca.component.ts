@@ -1,27 +1,31 @@
-import {AfterContentInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from "@angular/core";
 
-import {DataTableDirective} from 'angular-datatables';
-import temario from '../../../assets/jsons/temariogpc.json'
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { DataTableDirective } from "angular-datatables";
+import temario from "../../../assets/jsons/temariogpc.json";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
-import * as far from '@fortawesome/free-regular-svg-icons';
-import * as fas from '@fortawesome/free-solid-svg-icons';
-import {Subject} from 'rxjs';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogTemarioComponent} from "../../dialog-temario/dialog-temario.component";
-
+import * as far from "@fortawesome/free-regular-svg-icons";
+import * as fas from "@fortawesome/free-solid-svg-icons";
+import { Subject } from "rxjs";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogTemarioComponent } from "../../dialog-temario/dialog-temario.component";
 
 @Component({
-  selector: 'app-biblioteca',
-  templateUrl: './biblioteca.component.html',
-  styleUrls: ['./biblioteca.component.scss']
+  selector: "app-biblioteca",
+  templateUrl: "./biblioteca.component.html",
+  styleUrls: ["./biblioteca.component.scss"],
 })
 export class BibliotecaComponent implements OnInit, AfterContentInit {
-
-
   fachevron = far.faArrowAltCircleRight;
   fatodotemario = fas.faGlobeAmericas;
   fateoria = fas.faSchool;
@@ -36,191 +40,190 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   fadinamica = fas.faLightbulb;
   faotros = fas.faTerminal;
 
-
   public listatemas: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = temario;
 
   public listateoria: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listabusquedas: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listaordenamientos: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listastrings: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listamatematica: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listageometria: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listabitwise: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listagrafos: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listadp: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listaestructuras: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   public listaeotros: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
   titulotema: String = "Sin tituto disponible";
   textotema: String = "Sin texto disponible";
-  codejava: string = '';
-  codepython: string = '';
-  codecpp: string = '';
+  codejava: string = "";
+  codepython: string = "";
+  codecpp: string = "";
 
   @ViewChildren(DataTableDirective)
   dtElements: QueryList<DataTableDirective>;
@@ -228,19 +231,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   dtOptions: DataTables.Settings[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('paginatorTemario') paginatorTemario: MatPaginator;
-  @ViewChild('paginatorTeorias') paginatorTeorias: MatPaginator;
-  @ViewChild('paginatorBusquedas') paginatorBusquedas: MatPaginator;
-  @ViewChild('paginatorOrdenamiento') paginatorOrdenamiento: MatPaginator;
-  @ViewChild('paginamientoString') paginamientoString: MatPaginator;
-  @ViewChild('paginamientoBitwise') paginamientoBitwise: MatPaginator;
-  @ViewChild('paginamientoEstructuras') paginamientoEstructuras: MatPaginator;
-  @ViewChild('paginamientoMatematicas') paginamientoMatematicas: MatPaginator;
-  @ViewChild('paginamientoGeometria') paginamientoGeometria: MatPaginator;
-  @ViewChild('paginamientoGrafos') paginamientoGrafos: MatPaginator;
-  @ViewChild('paginamientoDinamica') paginamientoDinamica: MatPaginator;
-  @ViewChild('paginamientoCasos') paginamientoCasos: MatPaginator;
-
+  @ViewChild("paginatorTemario") paginatorTemario: MatPaginator;
+  @ViewChild("paginatorTeorias") paginatorTeorias: MatPaginator;
+  @ViewChild("paginatorBusquedas") paginatorBusquedas: MatPaginator;
+  @ViewChild("paginatorOrdenamiento") paginatorOrdenamiento: MatPaginator;
+  @ViewChild("paginamientoString") paginamientoString: MatPaginator;
+  @ViewChild("paginamientoBitwise") paginamientoBitwise: MatPaginator;
+  @ViewChild("paginamientoEstructuras") paginamientoEstructuras: MatPaginator;
+  @ViewChild("paginamientoMatematicas") paginamientoMatematicas: MatPaginator;
+  @ViewChild("paginamientoGeometria") paginamientoGeometria: MatPaginator;
+  @ViewChild("paginamientoGrafos") paginamientoGrafos: MatPaginator;
+  @ViewChild("paginamientoDinamica") paginamientoDinamica: MatPaginator;
+  @ViewChild("paginamientoCasos") paginamientoCasos: MatPaginator;
 
   ngOnInit(): void {
     this.dtOptions[0] = this.buildDtOptions();
@@ -289,7 +291,6 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
         default:
           this.listaeotros.push(tema);
           break;
-
       }
     }
   }
@@ -309,7 +310,9 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
       this.dataSourceBusqueda = new MatTableDataSource(this.listabusquedas);
       this.dataSourceBusqueda.paginator = this.paginatorBusquedas;
 
-      this.dataSourceOrdenamiento = new MatTableDataSource(this.listaordenamientos);
+      this.dataSourceOrdenamiento = new MatTableDataSource(
+        this.listaordenamientos,
+      );
       this.dataSourceOrdenamiento.paginator = this.paginatorOrdenamiento;
 
       this.dataSourceStringMatching = new MatTableDataSource(this.listastrings);
@@ -318,7 +321,9 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
       this.dataSourceBitwise = new MatTableDataSource(this.listabitwise);
       this.dataSourceBitwise.paginator = this.paginamientoBitwise;
 
-      this.dataSourceEstructuras = new MatTableDataSource(this.listaestructuras);
+      this.dataSourceEstructuras = new MatTableDataSource(
+        this.listaestructuras,
+      );
       this.dataSourceEstructuras.paginator = this.paginamientoEstructuras;
 
       this.dataSourceMatematicas = new MatTableDataSource(this.listamatematica);
@@ -335,7 +340,6 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
 
       this.dataSourceCasos = new MatTableDataSource(this.listaeotros);
       this.dataSourceCasos.paginator = this.paginamientoCasos;
-
     });
   }
 
@@ -344,26 +348,24 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   }
 
   private buildDtOptions(): DataTables.Settings {
-
     return {
-      pagingType: 'full_numbers',
+      pagingType: "full_numbers",
       columns: [
         {
-          title: '#',
-          orderable: true
+          title: "#",
+          orderable: true,
         },
         {
-          title: 'Tema / Algoritmo',
-          orderable: false
+          title: "Tema / Algoritmo",
+          orderable: false,
         },
         {
-          title: 'Tipo',
-
+          title: "Tipo",
         },
         {
-          title: 'Ir ',
-          orderable: false
-        }
+          title: "Ir ",
+          orderable: false,
+        },
       ],
       responsive: true,
       language: {
@@ -381,18 +383,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
           first: "Primero",
           previous: "Anterior",
           next: "Siguiente",
-          last: "Último"
+          last: "Último",
         },
         aria: {
           sortAscending: ": Activar para ordenar la tabla en orden ascendente",
-          sortDescending: ": Activar para ordenar la tabla en orden descendente"
-        }
-      }
-    }
-
+          sortDescending:
+            ": Activar para ordenar la tabla en orden descendente",
+        },
+      },
+    };
   }
 
-  closeResult: string = '';
+  closeResult: string = "";
   dataSource: MatTableDataSource<any>;
   dataSourceTeoria: MatTableDataSource<any>;
   dataSourceBusqueda: MatTableDataSource<any>;
@@ -405,11 +407,12 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   dataSourceGrafos: MatTableDataSource<any>;
   dataSourceDinamica: MatTableDataSource<any>;
   dataSourceCasos: MatTableDataSource<any>;
-  displayedColumns: String[] = ['ID', 'supergrupo', 'tipo', 'ir'];
+  displayedColumns: String[] = ["ID", "supergrupo", "tipo", "ir"];
 
-  constructor(private modalService: NgbModal, public dialog: MatDialog) {
-  }
-
+  constructor(
+    private modalService: NgbModal,
+    public dialog: MatDialog,
+  ) {}
 
   obtenerCode(type: number, ID: number): any {
     switch (type) {
@@ -456,12 +459,9 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
               aux += lista[i];
               aux += "<br></br>";
               i++;
-
             }
             return aux;
           }
-
-
         }
         break;
       }
@@ -481,9 +481,7 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
         codejava: this.codejava,
         codecpp: this.codecpp,
         codepython: this.codepython,
-      }
+      },
     });
   }
 }
-
-

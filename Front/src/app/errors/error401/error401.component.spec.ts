@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Error401Component } from './error401.component';
+import { Error401Component } from "./error401.component";
 
-describe('Error401Component', () => {
+describe("Error401Component", () => {
   let component: Error401Component;
   let fixture: ComponentFixture<Error401Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Error401Component ]
-    })
-    .compileComponents();
+      declarations: [Error401Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('Error401Component', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

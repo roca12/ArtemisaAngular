@@ -1,28 +1,38 @@
 <block-ui>
   <div fxLayout="row">
-    <mat-card fxFlex.gt-lg="66" fxFlex.md="66" fxFlex.sm="100" fxFlex.xs="100" fxFlexOffset.gt-lg="15"
-              fxFlexOffset.md="15"
-              fxFlexOffset.sm="0" fxFlexOffset.xs="0">
+    <mat-card
+      fxFlex.gt-lg="66"
+      fxFlex.md="66"
+      fxFlex.sm="100"
+      fxFlex.xs="100"
+      fxFlexOffset.gt-lg="15"
+      fxFlexOffset.md="15"
+      fxFlexOffset.sm="0"
+      fxFlexOffset.xs="0"
+    >
       <mat-card-header fxLayoutAlign="center">
-        <mat-card-title>
-          Login
-        </mat-card-title>
+        <mat-card-title> Login </mat-card-title>
         <mat-icon>person</mat-icon>
       </mat-card-header>
       <mat-card-content class="content-card" fxLayoutAlign="center">
-        <form [formGroup]="formGroupLogin" fxLayout="column" fxFlex="50" (ngSubmit)="submitForm()">
+        <form
+          [formGroup]="formGroupLogin"
+          fxLayout="column"
+          fxFlex="50"
+          (ngSubmit)="submitForm()"
+        >
           <mat-form-field>
             <mat-label>Usuario</mat-label>
-            <input type="text" formControlName="username" matInput>
-            <mat-error>
-              Ingrese un usuario valido
-            </mat-error>
+            <input type="text" formControlName="username" matInput />
+            <mat-error> Ingrese un usuario valido </mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Password</mat-label>
-            <input type="password" formControlName="password" matInput>
+            <input type="password" formControlName="password" matInput />
           </mat-form-field>
-          <button mat-raised-button style="width: 100px;" type="submit">Ingresar</button>
+          <button mat-raised-button style="width: 100px" type="submit">
+            Ingresar
+          </button>
         </form>
       </mat-card-content>
     </mat-card>

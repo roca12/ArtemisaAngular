@@ -23,7 +23,6 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [
-  ],
+  declarations: [],
 })
 export class AboutModule {}

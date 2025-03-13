@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Error400Component } from './error400.component';
+import { Error400Component } from "./error400.component";
 
-describe('Error400Component', () => {
+describe("Error400Component", () => {
   let component: Error400Component;
   let fixture: ComponentFixture<Error400Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Error400Component ]
-    })
-    .compileComponents();
+      declarations: [Error400Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('Error400Component', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

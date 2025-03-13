@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Error521Component } from './error521.component';
+import { Error521Component } from "./error521.component";
 
-describe('Error521Component', () => {
+describe("Error521Component", () => {
   let component: Error521Component;
   let fixture: ComponentFixture<Error521Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Error521Component ]
-    })
-    .compileComponents();
+      declarations: [Error521Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('Error521Component', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-recomendaciones',
-  templateUrl: './recomendaciones.component.html',
-  styleUrls: ['./recomendaciones.component.scss']
+  selector: "app-recomendaciones",
+  templateUrl: "./recomendaciones.component.html",
+  styleUrls: ["./recomendaciones.component.scss"],
 })
 export class RecomendacionesComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

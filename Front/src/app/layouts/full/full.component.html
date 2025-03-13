@@ -8,9 +8,18 @@
 <mat-drawer-container [hasBackdrop]="false">
   <mat-drawer-content>
     <app-sidebar (onToogleSlidenav)="onToogleSlidenav($event)"></app-sidebar>
-    <div id="main-wrapper" class="body" [ngClass]="getClass()" dir="ltr" data-theme="light"
-         data-layout="vertical" [attr.data-sidebartype]="sidebartype" data-sidebar-position="absolute"
-         data-header-position="absolute" data-boxed-layout="full">
+    <div
+      id="main-wrapper"
+      class="body"
+      [ngClass]="getClass()"
+      dir="ltr"
+      data-theme="light"
+      data-layout="vertical"
+      [attr.data-sidebartype]="sidebartype"
+      data-sidebar-position="absolute"
+      data-header-position="absolute"
+      data-boxed-layout="full"
+    >
       <!-- ============================================================== -->
       <!-- Page wrapper  -->
       <!-- ============================================================== -->
@@ -33,7 +42,7 @@
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
-        <footer class="footer ">
+        <footer class="footer">
           <div class="row">
             <div class="text-center">
               Desarrollado por Diego Rodríguez, Edwin Villarraga y Paula Rosero
@@ -41,7 +50,7 @@
           </div>
           <div class="row">
             <div class="text-center">
-              Proyecto Artemisa {{year}}
+              Proyecto Artemisa {{ year }}
               <a href="https://github.com/roca12/ArtemisaAngular">
                 <fa-icon [icon]="fagithub" size="2x" class="icon-git"></fa-icon>
               </a>

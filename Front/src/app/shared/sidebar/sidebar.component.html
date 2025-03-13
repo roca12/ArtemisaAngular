@@ -1,14 +1,22 @@
 <block-ui>
   <div class="sidenav">
     <div class="logo" routerLink="/">
-      <img src="assets/images/logos/propuestas logo 1 artemisa-02.png" class="light-logo" alt="homepage"
-           width="150px"/>
+      <img
+        src="assets/images/logos/propuestas logo 1 artemisa-02.png"
+        class="light-logo"
+        alt="homepage"
+        width="150px"
+      />
     </div>
 
-    <div class="item" routerLinkActive="active" *ngFor="let data of sidebarnavItems">
+    <div
+      class="item"
+      routerLinkActive="active"
+      *ngFor="let data of sidebarnavItems"
+    >
       <a [routerLink]="data.path">
         <i [class]="data.icon"></i>
-        <span id="title">{{data.title}}</span>
+        <span id="title">{{ data.title }}</span>
       </a>
     </div>
     <div class="item">
@@ -17,7 +25,10 @@
       </a>
 
       <mat-menu #menu="matMenu" xPosition="after">
-        <button mat-menu-item (click)="openLink('https://domjudgeacademicueb.com/')">
+        <button
+          mat-menu-item
+          (click)="openLink('https://domjudgeacademicueb.com/')"
+        >
           <i class="bi bi-code-square"></i>
           <span>DomJudge</span>
         </button>
@@ -25,7 +36,10 @@
           <i class="bi bi-cup-hot"></i>
           <span>CodeChef</span>
         </button>
-        <button mat-menu-item (click)="openLink('https://vjudge.net/group/cuevadelprofdiego')">
+        <button
+          mat-menu-item
+          (click)="openLink('https://vjudge.net/group/cuevadelprofdiego')"
+        >
           <mat-icon>sentiment_satisfied_alt</mat-icon>
           <span>Vjudge</span>
         </button>

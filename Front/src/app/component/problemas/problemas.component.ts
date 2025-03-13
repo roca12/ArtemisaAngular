@@ -1,45 +1,50 @@
-import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewChild } from "@angular/core";
 
-import problemas from '../../../assets/jsons/problemas.json'
+import problemas from "../../../assets/jsons/problemas.json";
 
-import * as far from '@fortawesome/free-regular-svg-icons';
-import * as fas from '@fortawesome/free-solid-svg-icons';
-import {Subject} from 'rxjs';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatSort} from "@angular/material/sort";
-import {MatPaginator} from "@angular/material/paginator";
+import * as far from "@fortawesome/free-regular-svg-icons";
+import * as fas from "@fortawesome/free-solid-svg-icons";
+import { Subject } from "rxjs";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatSort } from "@angular/material/sort";
+import { MatPaginator } from "@angular/material/paginator";
 
 @Component({
-  selector: 'app-problemas',
-  templateUrl: './problemas.component.html',
-  styleUrls: ['./problemas.component.scss']
+  selector: "app-problemas",
+  templateUrl: "./problemas.component.html",
+  styleUrls: ["./problemas.component.scss"],
 })
 export class ProblemasComponent implements OnInit, AfterContentInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-
   fachevron = far.faArrowAltCircleRight;
   falistchek = fas.faList;
 
   public listaproblemas: {
-    "id": number,
-    "titulo": string,
-    "juez": string,
-    "alias": number,
-    "dificultad": number,
-    "tema_1": string,
-    "tema_2": string,
-    "tema_3": string,
-    "tema_4": string,
-    "url": string
+    id: number;
+    titulo: string;
+    juez: string;
+    alias: number;
+    dificultad: number;
+    tema_1: string;
+    tema_2: string;
+    tema_3: string;
+    tema_4: string;
+    url: string;
   }[] = problemas;
 
   dtOptions: DataTables.Settings[] = [];
   dtTrigger: Subject<any> = new Subject<any>();
   dataSource: MatTableDataSource<any>;
-  displayedColumns: String[] = ['id', 'titulo', 'dificultad', 'tema', 'juez', 'option'];
-
+  displayedColumns: String[] = [
+    "id",
+    "titulo",
+    "dificultad",
+    "tema",
+    "juez",
+    "option",
+  ];
 
   ngOnInit(): void {
     this.dtOptions[0] = this.buildDtOptions();
@@ -59,33 +64,33 @@ export class ProblemasComponent implements OnInit, AfterContentInit {
   }
 
   private buildDtOptions(): DataTables.Settings {
-
     return {
-      pagingType: 'full_numbers',
+      pagingType: "full_numbers",
       columns: [
         {
-          title: '#',
-          orderable: true
+          title: "#",
+          orderable: true,
         },
         {
-          title: 'Titulo',
-          orderable: false
+          title: "Titulo",
+          orderable: false,
         },
         {
-          title: 'Dificultad',
-          orderable: true
+          title: "Dificultad",
+          orderable: true,
         },
         {
-          title: 'Tema',
-          orderable: true
+          title: "Tema",
+          orderable: true,
         },
         {
-          title: 'Juez',
-          orderable: true
-        }, {
-          title: 'Ir',
-          orderable: false
-        }
+          title: "Juez",
+          orderable: true,
+        },
+        {
+          title: "Ir",
+          orderable: false,
+        },
       ],
       responsive: true,
       language: {
@@ -103,20 +108,19 @@ export class ProblemasComponent implements OnInit, AfterContentInit {
           first: "Primero",
           previous: "Anterior",
           next: "Siguiente",
-          last: "Último"
+          last: "Último",
         },
         aria: {
           sortAscending: ": Activar para ordenar la tabla en orden ascendente",
-          sortDescending: ": Activar para ordenar la tabla en orden descendente"
-        }
-      }
-    }
-
+          sortDescending:
+            ": Activar para ordenar la tabla en orden descendente",
+        },
+      },
+    };
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 }

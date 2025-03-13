@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+        <h3>{{ viewDate | calendarDate: view + "ViewTitle" : "en" }}</h3>
       </div>
       <div class="col-md-4">
         <div class="btn-group">
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <br/>
+    <br />
     <div [ngSwitch]="view">
       <mwl-calendar-month-view
         *ngSwitchCase="CalendarView.Month"
@@ -94,10 +94,10 @@
 
     <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
 
-    <br/>
+    <br />
     <ng-template #modalContent let-close="close">
       <div class="modal-header">
-        <h5 class="modal-title">{{modalData.event.title}}</h5>
+        <h5 class="modal-title">{{ modalData.event.title }}</h5>
         <button type="button" class="close" (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -108,13 +108,27 @@
             <h1>Descripcion del evento</h1>
             <div [innerHTML]="modalData?.event['description']"></div>
           </div>
-          <div *ngIf="modalData?.event['url']" style="margin-top: 20px" class="text-center">
-            <button mat-raised-button class="custom-btn-dialog" (click)="redirectTo(modalData?.event['url'])">Ir</button>
+          <div
+            *ngIf="modalData?.event['url']"
+            style="margin-top: 20px"
+            class="text-center"
+          >
+            <button
+              mat-raised-button
+              class="custom-btn-dialog"
+              (click)="redirectTo(modalData?.event['url'])"
+            >
+              Ir
+            </button>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="close()"
+        >
           OK
         </button>
       </div>

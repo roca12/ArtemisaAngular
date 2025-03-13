@@ -1,11 +1,11 @@
-// 
+//
 // Custom layout variables
-// 
-@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900');
+//
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900");
 
-// 
+//
 // Theme Global setting colors
-// 
+//
 $themecolor: #2962ff;
 $themecolor-dark: #028ee1;
 $themecolor-alt: #26c6da;
@@ -19,9 +19,9 @@ $skin4: #6659f7;
 $skin5: #213233;
 $skin6: #fff;
 
-// 
+//
 // Topbar settings
-// 
+//
 
 $topbar: $theme-light;
 $topbar-height: 64px;
@@ -30,9 +30,9 @@ $topbar-navlink-font-size: 1rem;
 $topbar-navlink-height: 64px;
 $topbar-navbrand-padding: 0 10px 0 10px;
 
-// 
+//
 // Sidebar settings
-// 
+//
 
 $sidebar: $theme-light;
 $sidebar-text: #fff;
@@ -43,21 +43,21 @@ $sidebar-icons-dark: #4f5467;
 $sidebar-width-full: 250px;
 $sidebar-width-mini: 65px;
 
-// 
+//
 // Layout settings
-// 
+//
 $page-wrapper-max-width: 1300px;
 
-// 
+//
 // Common settings
-// 
+//
 $shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
 $transitions: 0.2s ease-in;
 $transparent-dark-bg: rgba(0, 0, 0, 0.05);
 
-// 
+//
 // Bootstrap override colors
-// 
+//
 $white: #fff !default;
 $gray-100: #f6fafe !default;
 $gray-200: #e9ecef !default;
@@ -105,7 +105,7 @@ $colors: (
   "gray-dark": $gray-800,
 );
 
-$primary: $primary!default;
+$primary: $primary !default;
 $secondary: $gray-600 !default;
 $success: $green !default;
 $info: $blue !default;
@@ -141,9 +141,9 @@ $theme-colors: map-merge(
   $theme-colors
 );
 
-// 
+//
 // Enable optional
-// 
+//
 $enable-caret: true !default;
 $enable-rounded: true !default;
 $enable-shadows: false !default;
@@ -154,17 +154,17 @@ $enable-grid-classes: true !default;
 $enable-print-styles: true !default;
 $enable-negative-margins: true;
 
-// 
+//
 // Body
-// 
+//
 $grid-gutter-width: 20px !default;
 $main-body-bg: #fff !default;
 $body-bg: #f2f4f5;
 $body-color: #6a7a8c !default;
 
-// 
+//
 // Typography
-// 
+//
 $font-size-base: 1rem;
 $font-family-sans-serif: "Rubik", sans-serif !default;
 $font-weight-light: 300 !default;
@@ -199,36 +199,36 @@ $display-font-sizes: (
   4: 3.5rem,
   5: 3rem,
   6: 2.5rem,
-  7: 2rem
+  7: 2rem,
 ) !default;
 
-// 
+//
 // Cards
-// 
+//
 $card-border-width: 0px !default;
 $card-border-color: transparent !default;
 $card-border-radius: 0px !default;
 $card-box-shadow: unset !default;
 
-// 
+//
 // Buttons
-// 
+//
 $btn-secondary-border: $gray-300;
 $btn-border-radius: 4px !default;
 $btn-border-radius-sm: 4px !default;
 $btn-border-radius-lg: 4px !default;
 $btn-box-shadow: none !default;
 $btn-focus-box-shadow: none !default;
-$btn-close-focus-shadow:     none !default;
+$btn-close-focus-shadow: none !default;
 
-// 
+//
 // Progressbar
-// 
+//
 $progress-bg: $gray-100;
 
-// 
+//
 // Tables
-// 
+//
 $table-bg-accent: $gray-100;
 $table-bg-hover: $gray-100;
 $table-hover-bg: $gray-100 !default;
@@ -238,9 +238,9 @@ $table-border-color: $gray-200;
 $table-striped-bg: $light !default;
 $table-group-separator-color: $gray-200;
 
-// 
+//
 // Components
-// 
+//
 $component-active-color: $white !default;
 $component-active-bg: $themecolor !default;
 $badge-pill-padding-x: 0.2em !default;
@@ -248,9 +248,9 @@ $badge-pill-padding-y: 1em !default;
 $badge-font-size: 0.75rem !default;
 $badge-font-weight: 400 !default;
 
-// 
+//
 // border
-// 
+//
 
 $border-width: 1px !default;
 $border-color: $gray-200 !default;
@@ -265,19 +265,19 @@ $dropdown-item-padding-y: 0.65rem !default;
 $dropdown-border-color: $gray-200;
 $dropdown-divider-bg: $gray-100;
 
-// 
+//
 // Progressbars
-// 
+//
 $progress-height: 5px !default;
 
-// 
+//
 // Tabs
-// 
+//
 $nav-tabs-link-active-bg: $white !default;
 
-// 
+//
 // Grid breakpoints
-// 
+//
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -286,8 +286,8 @@ $grid-breakpoints: (
   xl: 1600px,
 ) !default;
 
-// 
+//
 // Navbar
-// 
+//
 $navbar-dark-color: rgba($white, 0.8) !default;
 $navbar-dark-hover-color: rgba($white, 1) !default;
