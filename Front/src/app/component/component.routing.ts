@@ -1,7 +1,3 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
-
-
-export const ComponentsRoutes: Routes = [
-
-];
+export const ComponentsRoutes: Routes = [];

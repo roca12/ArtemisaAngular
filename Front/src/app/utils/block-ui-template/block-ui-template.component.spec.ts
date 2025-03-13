@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { BlockUiTemplateComponent } from './block-ui-template.component';
+import { BlockUiTemplateComponent } from "./block-ui-template.component";
 
-describe('BlockUiTemplateComponent', () => {
+describe("BlockUiTemplateComponent", () => {
   let component: BlockUiTemplateComponent;
   let fixture: ComponentFixture<BlockUiTemplateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BlockUiTemplateComponent ]
-    })
-    .compileComponents();
+      declarations: [BlockUiTemplateComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('BlockUiTemplateComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -14,7 +14,7 @@
   }
   .top-navbar {
     min-height: $topbar-height;
-    padding: 0px; 
+    padding: 0px;
     .navbar-header {
       line-height: $topbar-navlink-height;
       .navbar-brand {
@@ -108,7 +108,6 @@ Topbar Responsive
     }
   }
 }
-
 
 @media (max-width: 991px) {
   .topbar .navbar-collapse {

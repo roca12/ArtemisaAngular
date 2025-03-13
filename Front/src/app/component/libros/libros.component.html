@@ -1,23 +1,43 @@
 <mat-card fxLayout="row wrap" fxLayout.sm="column" fxLayoutGap="1%">
-  <mat-card class="card-content-books text-center" *ngFor="let book of bookcards" fxFlex.gt-md="49" fxFlex.gt-sm="">
+  <mat-card
+    class="card-content-books text-center"
+    *ngFor="let book of bookcards"
+    fxFlex.gt-md="49"
+    fxFlex.gt-sm=""
+  >
     <mat-card-header>
       <mat-card-title-group>
-        <mat-card-title>{{book.title}}</mat-card-title>
-        <mat-card-subtitle>{{book.author}} - {{book.year}}</mat-card-subtitle>
+        <mat-card-title>{{ book.title }}</mat-card-title>
+        <mat-card-subtitle
+          >{{ book.author }} - {{ book.year }}</mat-card-subtitle
+        >
       </mat-card-title-group>
     </mat-card-header>
-    <img alt="blogs" class="card-img-top" style="border-bottom-style: groove;border-top-style: groove;max-width: 250px"
-         [src]="sourcePath2+book.imagename">
+    <img
+      alt="blogs"
+      class="card-img-top"
+      style="
+        border-bottom-style: groove;
+        border-top-style: groove;
+        max-width: 250px;
+      "
+      [src]="sourcePath2 + book.imagename"
+    />
     <mat-card-content>
-      {{book.desc}}
+      {{ book.desc }}
     </mat-card-content>
     <mat-card-actions class="text-center">
-      <a [href]="sourcePath1+book.filename" [download]="book.filename"
-         [attr.disabled]="dwld.busy" #dwld="wmDownload" class="btn btn-card">
+      <a
+        [href]="sourcePath1 + book.filename"
+        [download]="book.filename"
+        [attr.disabled]="dwld.busy"
+        #dwld="wmDownload"
+        class="btn btn-card"
+      >
         <fa-icon [icon]="fadownload" size="1x"></fa-icon>
         Descargar
       </a>
-      <a [href]="sourcePath1+book.filename" class="btn btn-card">
+      <a [href]="sourcePath1 + book.filename" class="btn btn-card">
         <fa-icon [icon]="fadownload" size="1x"></fa-icon>
         Ver Online
       </a>

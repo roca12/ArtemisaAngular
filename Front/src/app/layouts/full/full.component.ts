@@ -1,8 +1,8 @@
-import {Component, OnInit, HostListener} from "@angular/core";
-import {Router} from "@angular/router";
-import * as fab from '@fortawesome/free-brands-svg-icons';
-import * as far from '@fortawesome/free-regular-svg-icons';
-import * as fas from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, HostListener } from "@angular/core";
+import { Router } from "@angular/router";
+import * as fab from "@fortawesome/free-brands-svg-icons";
+import * as far from "@fortawesome/free-regular-svg-icons";
+import * as fas from "@fortawesome/free-solid-svg-icons";
 
 interface SideNavToogle {
   screenWidth: number;
@@ -45,7 +45,7 @@ export class FullComponent implements OnInit {
   }
 
   handleSidebar() {
-    this.year = new Date().toString().split(' ')[3];
+    this.year = new Date().toString().split(" ")[3];
     this.innerWidth = window.innerWidth;
     if (this.innerWidth < 1170) {
       this.sidebartype = "full";
@@ -86,14 +86,18 @@ export class FullComponent implements OnInit {
   }
 
   getClass(): string {
-    let strClass = '';
+    let strClass = "";
     if (this.showMobileMenu) {
-      strClass += 'show-sidebar';
+      strClass += "show-sidebar";
     }
     if (!this.isSideNavCollapsed && this.screenWidth > 768) {
-      strClass += ' body-trimmed';
-    } else if (!this.isSideNavCollapsed && this.screenWidth <= 768 && this.screenWidth > 0) {
-      strClass += 'body-md-screen';
+      strClass += " body-trimmed";
+    } else if (
+      !this.isSideNavCollapsed &&
+      this.screenWidth <= 768 &&
+      this.screenWidth > 0
+    ) {
+      strClass += "body-md-screen";
     }
     return strClass.trim();
   }

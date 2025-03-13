@@ -1,21 +1,26 @@
 <block-ui>
   <mat-card fxLayout="row wrap" fxLayout.sm="column" fxLayoutGap="1%">
-    <mat-card *ngFor="let current of dataSource" fxFlex.gt-md="49" fxFlex.gt-sm="100" fxFlex.lt-sm="100"
-              class="card-custom">
+    <mat-card
+      *ngFor="let current of dataSource"
+      fxFlex.gt-md="49"
+      fxFlex.gt-sm="100"
+      fxFlex.lt-sm="100"
+      class="card-custom"
+    >
       <mat-card-header fxLayout="row" fxLayoutAlign="space-between none">
-        <mat-card-title>{{current.nombre}}</mat-card-title>
-        <img mat-card-sm-image [src]="current.icono">
+        <mat-card-title>{{ current.nombre }}</mat-card-title>
+        <img mat-card-sm-image [src]="current.icono" />
       </mat-card-header>
       <mat-card-content>
         <ol *ngFor="let tag of current.tags">
-          <li><span>{{tag}}</span></li>
+          <li>
+            <span>{{ tag }}</span>
+          </li>
         </ol>
       </mat-card-content>
       <mat-card-actions>
         <div style="padding-left: 20px">
-          <a [href]="current.url" class="btn">
-            Website
-          </a>
+          <a [href]="current.url" class="btn"> Website </a>
         </div>
       </mat-card-actions>
     </mat-card>

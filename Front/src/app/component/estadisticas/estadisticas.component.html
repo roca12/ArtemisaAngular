@@ -7,7 +7,11 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title style="margin-top: 10px; margin-bottom: 10px">
-            <img src="https://onlinejudge.org/templates/hm_yaml_2_5/img/ojlogo2.svg.png" width="40" height="40">
+            <img
+              src="https://onlinejudge.org/templates/hm_yaml_2_5/img/ojlogo2.svg.png"
+              width="40"
+              height="40"
+            />
             Online Judge (Anteriormente UVa)
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -16,110 +20,138 @@
             <div class="col-md-6 col-sm-12">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Username a buscar</mat-label>
-                <input matInput [(ngModel)]="usernameUva">
+                <input matInput [(ngModel)]="usernameUva" />
                 <mat-icon (click)="searchNicknameUva()" matSuffix>
                   search
                 </mat-icon>
               </mat-form-field>
             </div>
-            <div class="col-md-6 col-sm-12">
-
-            </div>
+            <div class="col-md-6 col-sm-12"></div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchUva">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Estado</mat-label>
-                <input matInput readonly [value]="uvaResponseCode">
+                <input matInput readonly [value]="uvaResponseCode" />
               </mat-form-field>
             </div>
             <div class="col-md-6 col-sm-12" [hidden]="searchUva">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Online Judge ID</mat-label>
-                <input matInput readonly [value]="uvaid">
+                <input matInput readonly [value]="uvaid" />
               </mat-form-field>
             </div>
             <div class="col-md-6 col-sm-12" [hidden]="searchUva">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Nombre</mat-label>
-                <input matInput readonly [value]="uvaname">
+                <input matInput readonly [value]="uvaname" />
               </mat-form-field>
             </div>
             <div class="col-md-6 col-sm-12" [hidden]="searchUva">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Username</mat-label>
-                <input matInput readonly [value]="uvauname">
+                <input matInput readonly [value]="uvauname" />
               </mat-form-field>
             </div>
           </div>
-          <div class="row ">
-
+          <div class="row">
             <!-- grafica uva-->
             <div class="col-md-6 col-sm-12" [hidden]="searchUva">
-              <h4 class="card-title"
-                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+              <h4
+                class="card-title"
+                style="
+                  text-align: center;
+                  font-weight: bolder;
+                  padding-top: 10px;
+                  padding-bottom: -10px;
+                "
+              >
                 Resumen de veredictos
               </h4>
 
               <div class="chart-container">
-                <canvas id="uva-chart">
-                </canvas>
+                <canvas id="uva-chart"> </canvas>
               </div>
             </div>
 
             <!-- Estadisticas -->
-            <div class="col-md-6 col-sm-12 align-items-center" [hidden]="searchUva">
-              <h4 class="card-title"
-                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+            <div
+              class="col-md-6 col-sm-12 align-items-center"
+              [hidden]="searchUva"
+            >
+              <h4
+                class="card-title"
+                style="
+                  text-align: center;
+                  font-weight: bolder;
+                  padding-top: 10px;
+                  padding-bottom: -10px;
+                "
+              >
                 Estadisticas
               </h4>
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Precisión</mat-label>
-                <input matInput readonly [value]="uvastats[0]">
+                <input matInput readonly [value]="uvastats[0]" />
               </mat-form-field>
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Problemas intentados</mat-label>
-                <input matInput readonly [value]="uvatried.size">
+                <input matInput readonly [value]="uvatried.size" />
               </mat-form-field>
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Problemas resueltos</mat-label>
-                <input matInput readonly [value]="uvasolved.size">
+                <input matInput readonly [value]="uvasolved.size" />
               </mat-form-field>
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Primer envio</mat-label>
-                <input matInput readonly [value]="uvastats[2]">
+                <input matInput readonly [value]="uvastats[2]" />
               </mat-form-field>
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Ultimo envio</mat-label>
-                <input matInput readonly [value]="uvastats[1]">
+                <input matInput readonly [value]="uvastats[1]" />
               </mat-form-field>
             </div>
-
           </div>
           <div class="col-md-12 col-sm-12" [hidden]="searchUva">
-            <h4 class="card-title"
-                style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+            <h4
+              class="card-title"
+              style="
+                text-align: center;
+                font-weight: bolder;
+                padding-top: 10px;
+                padding-bottom: -10px;
+              "
+            >
               Envíos realizados
             </h4>
             <table mat-table [dataSource]="dataSource" width="100%">
               <ng-container matColumnDef="Fecha y hora">
                 <th mat-header-cell *matHeaderCellDef>Fecha y hora</th>
-                <td mat-cell *matCellDef="let element">{{element[4]}}</td>
+                <td mat-cell *matCellDef="let element">{{ element[4] }}</td>
               </ng-container>
               <ng-container matColumnDef="# problema">
                 <th mat-header-cell *matHeaderCellDef># problema</th>
-                <td mat-cell *matCellDef="let element"> {{element[1]}} </td>
+                <td mat-cell *matCellDef="let element">{{ element[1] }}</td>
               </ng-container>
               <ng-container matColumnDef="Nombre">
                 <th mat-header-cell *matHeaderCellDef>Nombre</th>
                 <td mat-cell *matCellDef="let element">
                   <a
-                    href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{element[0]}}">{{element[2]}}</a>
-              </ng-container>
+                    href="https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=+{{
+                      element[0]
+                    }}"
+                    >{{ element[2] }}</a
+                  >
+                </td></ng-container
+              >
               <ng-container matColumnDef="Veredicto">
                 <th mat-header-cell *matHeaderCellDef>Veredicto</th>
                 <td mat-cell *matCellDef="let element">
-                  <div [ngClass]="element[3] == 'AC' ? 'text-success' : 'text-danger'">
-                    {{element[3]}}
+                  <div
+                    [ngClass]="
+                      element[3] == 'AC' ? 'text-success' : 'text-danger'
+                    "
+                  >
+                    {{ element[3] }}
                   </div>
                 </td>
               </ng-container>
@@ -127,15 +159,31 @@
                 <th mat-header-cell *matHeaderCellDef>Lenguaje</th>
                 <td mat-cell *matCellDef="let element">
                   <div
-                    [ngClass]="element[5]=='JAVA'?'text-primary':element[5]=='C++'?'text-warning':element[5]=='PYTHON'?'text-success':element[5]=='ANSI C'?'text-danger':element[5]=='C++ 11'?'text-info':'text-dark'">
-                    {{element[5]}}
+                    [ngClass]="
+                      element[5] == 'JAVA'
+                        ? 'text-primary'
+                        : element[5] == 'C++'
+                          ? 'text-warning'
+                          : element[5] == 'PYTHON'
+                            ? 'text-success'
+                            : element[5] == 'ANSI C'
+                              ? 'text-danger'
+                              : element[5] == 'C++ 11'
+                                ? 'text-info'
+                                : 'text-dark'
+                    "
+                  >
+                    {{ element[5] }}
                   </div>
                 </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 25]"
+              showFirstLastButtons
+            ></mat-paginator>
           </div>
         </div>
       </mat-expansion-panel>
@@ -144,7 +192,9 @@
           <mat-panel-title>
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_fTiGvqfzV66zYh_b9W9DnyTj6OyzY7pErg&usqp=CAU"
-              width="40" height="40">
+              width="40"
+              height="40"
+            />
             CodeChef
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -152,73 +202,93 @@
           <div class="col-md-6 col-sm-12">
             <mat-form-field appearance="outline" style="width: 100%">
               <mat-label>Username a buscar</mat-label>
-              <input matInput [(ngModel)]="usernamecc">
+              <input matInput [(ngModel)]="usernamecc" />
               <mat-icon (click)="searchNicknameCodeChef()" matSuffix>
                 search
               </mat-icon>
             </mat-form-field>
           </div>
-          <div class="row" *ngIf="codechef!=undefined">
+          <div class="row" *ngIf="codechef != undefined">
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Estado</mat-label>
-                <input matInput readonly [value]="codechefResponseCode">
+                <input matInput readonly [value]="codechefResponseCode" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Usuario</mat-label>
-                <input matInput readonly [value]="codechef.user_details.username">
+                <input
+                  matInput
+                  readonly
+                  [value]="codechef.user_details.username"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Nombre</mat-label>
-                <input matInput readonly [value]="codechef.user_details.name">
+                <input matInput readonly [value]="codechef.user_details.name" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>País</mat-label>
-                <input matInput readonly [value]="codechef.user_details.country">
+                <input
+                  matInput
+                  readonly
+                  [value]="codechef.user_details.country"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Estado</mat-label>
-                <input matInput readonly [value]="codechef.user_details.state">
+                <input
+                  matInput
+                  readonly
+                  [value]="codechef.user_details.state"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Ciudad</mat-label>
-                <input matInput readonly [value]="codechef.user_details.city">
+                <input matInput readonly [value]="codechef.user_details.city" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Nivel Academico</mat-label>
-                <input matInput readonly [value]='codechef.user_details["student/professional"]'>
+                <input
+                  matInput
+                  readonly
+                  [value]="codechef.user_details['student/professional']"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Institución</mat-label>
-                <input matInput readonly [value]='codechef.user_details.institution'>
+                <input
+                  matInput
+                  readonly
+                  [value]="codechef.user_details.institution"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rating</mat-label>
-                <input matInput readonly [value]="codechef.rating">
+                <input matInput readonly [value]="codechef.rating" />
               </mat-form-field>
             </div>
 
@@ -226,95 +296,117 @@
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Estrellas</mat-label>
 
-                <div *ngIf="codechef.stars==null">
-                  <input matInput readonly value="Sin estrellas">
+                <div *ngIf="codechef.stars == null">
+                  <input matInput readonly value="Sin estrellas" />
                 </div>
-                <div *ngIf="codechef.stars!=null">
-                  <input matInput readonly [value]="codechef.stars">
+                <div *ngIf="codechef.stars != null">
+                  <input matInput readonly [value]="codechef.stars" />
                 </div>
               </mat-form-field>
             </div>
 
-
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rating mas alto conseguido</mat-label>
-                <input matInput readonly [value]="codechef.highest_rating">
+                <input matInput readonly [value]="codechef.highest_rating" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rango global</mat-label>
-                <input matInput readonly [value]="codechef.global_rank">
+                <input matInput readonly [value]="codechef.global_rank" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rango del pais</mat-label>
-                <input matInput readonly [value]="codechef.country_rank">
+                <input matInput readonly [value]="codechef.country_rank" />
               </mat-form-field>
             </div>
-
           </div>
 
-
-          <div class="row " *ngIf="codechef!=undefined">
-
+          <div class="row" *ngIf="codechef != undefined">
             <!-- grafica uva-->
             <div class="col-md-6 col-sm-12" [hidden]="searchcc">
-              <h4 class="card-title"
-                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+              <h4
+                class="card-title"
+                style="
+                  text-align: center;
+                  font-weight: bolder;
+                  padding-top: 10px;
+                  padding-bottom: -10px;
+                "
+              >
                 Resumen de entregas
               </h4>
 
-
               <div class="chart-container">
-                <canvas id="uva-chartcc">
-                </canvas>
+                <canvas id="uva-chartcc"> </canvas>
               </div>
-
             </div>
 
             <!-- Estadisticas -->
-            <div class="col-md-6 col-sm-12 align-items-center" [hidden]="searchcc">
-              <h4 class="card-title"
-                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+            <div
+              class="col-md-6 col-sm-12 align-items-center"
+              [hidden]="searchcc"
+            >
+              <h4
+                class="card-title"
+                style="
+                  text-align: center;
+                  font-weight: bolder;
+                  padding-top: 10px;
+                  padding-bottom: -10px;
+                "
+              >
                 Estadisticas
               </h4>
 
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Problemas intentados</mat-label>
-                <input matInput readonly [value]="codechef.fully_solved.count+codechef.partially_solved.count">
+                <input
+                  matInput
+                  readonly
+                  [value]="
+                    codechef.fully_solved.count +
+                    codechef.partially_solved.count
+                  "
+                />
               </mat-form-field>
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Problemas resueltos</mat-label>
-                <input matInput readonly [value]="codechef.fully_solved.count">
+                <input
+                  matInput
+                  readonly
+                  [value]="codechef.fully_solved.count"
+                />
               </mat-form-field>
-
             </div>
 
             Totalmente resueltos
             <div *ngFor="let resuelto of codechef.fully_solved.Practice">
-              {{resuelto.name}} -> {{resuelto.link}}
+              {{ resuelto.name }} -> {{ resuelto.link }}
             </div>
-            <br>
+            <br />
 
             Parcialmente resueltos
             <div *ngFor="let resuelto of codechef.partially_solved.Practice">
-              {{resuelto.name}} -> {{resuelto.link}}
+              {{ resuelto.name }} -> {{ resuelto.link }}
             </div>
-            <br>
-
+            <br />
           </div>
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <img src="https://www.saashub.com/images/app/service_logos/22/b5705393b6b1/large.png?1545637222" width="40"
-                 height="40">
+            <img
+              src="https://www.saashub.com/images/app/service_logos/22/b5705393b6b1/large.png?1545637222"
+              width="40"
+              height="40"
+            />
             Sphere Online Judge
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -322,221 +414,239 @@
           <div class="col-md-6 col-sm-12">
             <mat-form-field appearance="outline" style="width: 100%">
               <mat-label>Username a buscar</mat-label>
-              <input matInput [(ngModel)]="usernamespoj">
+              <input matInput [(ngModel)]="usernamespoj" />
               <mat-icon (click)="searchNicknameSPOJ()" matSuffix>
                 search
               </mat-icon>
             </mat-form-field>
-
           </div>
 
-          <div class="row" *ngIf="spoj!=undefined">
-
+          <div class="row" *ngIf="spoj != undefined">
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Estado</mat-label>
-                <input matInput readonly [value]="spojResponseCode">
+                <input matInput readonly [value]="spojResponseCode" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Usuario</mat-label>
-                <input matInput readonly [value]="spoj.username">
+                <input matInput readonly [value]="spoj.username" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Plataforma</mat-label>
-                <input matInput readonly [value]="spoj.platform">
+                <input matInput readonly [value]="spoj.platform" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Puntaje</mat-label>
-                <input matInput readonly [value]="spoj.points">
+                <input matInput readonly [value]="spoj.points" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rango</mat-label>
-                <input matInput readonly [value]="spoj.rank">
+                <input matInput readonly [value]="spoj.rank" />
               </mat-form-field>
             </div>
-
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Fecha de inscripción</mat-label>
-                <input matInput readonly [value]='spoj["join data"]'>
+                <input matInput readonly [value]="spoj['join data']" />
               </mat-form-field>
             </div>
-
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Instituto</mat-label>
-                <input matInput readonly [value]="spoj.institute">
+                <input matInput readonly [value]="spoj.institute" />
               </mat-form-field>
             </div>
 
-
-            <br>
+            <br />
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
-              <h4 class="card-title"
-                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+              <h4
+                class="card-title"
+                style="
+                  text-align: center;
+                  font-weight: bolder;
+                  padding-top: 10px;
+                  padding-bottom: -10px;
+                "
+              >
                 Resumen de ejercicios completos
               </h4>
             </div>
 
             <div *ngFor="let sol of spoj.solved">
-              {{sol}} -> <a href="https://www.spoj.com/problems/{{sol}}/"> ir</a>
+              {{ sol }} ->
+              <a href="https://www.spoj.com/problems/{{ sol }}/"> ir</a>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchspoj">
-              <h4 class="card-title"
-                  style="text-align: center; font-weight: bolder; padding-top: 10px;padding-bottom: -10px;">
+              <h4
+                class="card-title"
+                style="
+                  text-align: center;
+                  font-weight: bolder;
+                  padding-top: 10px;
+                  padding-bottom: -10px;
+                "
+              >
                 Resumen de ejercicios pendientes
               </h4>
             </div>
 
             <div *ngFor="let todo of spoj.todo">
-              {{todo}} -> <a href="https://www.spoj.com/problems/{{todo}}/"> ir</a>
+              {{ todo }} ->
+              <a href="https://www.spoj.com/problems/{{ todo }}/"> ir</a>
             </div>
           </div>
         </div>
-
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             <img
               src="https://play-lh.googleusercontent.com/EkSlLWf2-04k5Y5F_MDLqoXPdo0TyZX3zKdCfsEUDqVB7INUypTOd6AVmkE_X7ej3JuR"
-              width="40" height="40">
+              width="40"
+              height="40"
+            />
             CodeForces
           </mat-panel-title>
         </mat-expansion-panel-header>
 
         <div>
-
-          <div class="row" *ngIf="codeforcesinfo!=undefined">
-
+          <div class="row" *ngIf="codeforcesinfo != undefined">
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Estado</mat-label>
-                <input matInput readonly [value]="cfResponseCode">
+                <input matInput readonly [value]="cfResponseCode" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Nombre</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.firstName">
+                <input matInput readonly [value]="codeforcesinfo.firstName" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Apellido</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.lastName">
+                <input matInput readonly [value]="codeforcesinfo.lastName" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>País</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.country">
+                <input matInput readonly [value]="codeforcesinfo.country" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
-              <img [src]="codeforcesinfo.avatar" height="100" width="100">
+              <img [src]="codeforcesinfo.avatar" height="100" width="100" />
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Ciudad</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.city">
+                <input matInput readonly [value]="codeforcesinfo.city" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rating</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.rating">
+                <input matInput readonly [value]="codeforcesinfo.rating" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Usuario</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.handle">
+                <input matInput readonly [value]="codeforcesinfo.handle" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Contribución</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.contribution">
+                <input
+                  matInput
+                  readonly
+                  [value]="codeforcesinfo.contribution"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Organización</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.organization">
+                <input
+                  matInput
+                  readonly
+                  [value]="codeforcesinfo.organization"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rating Máximo</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.maxRating">
+                <input matInput readonly [value]="codeforcesinfo.maxRating" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rango Máximo</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.maxRank">
+                <input matInput readonly [value]="codeforcesinfo.maxRank" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Rango actual</mat-label>
-                <input matInput readonly [value]="codeforcesinfo.rank">
+                <input matInput readonly [value]="codeforcesinfo.rank" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-12" [hidden]="searchcf">
               <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Tiempo de registro</mat-label>
-                <input matInput readonly [value]="cfdate">
+                <input matInput readonly [value]="cfdate" />
               </mat-form-field>
             </div>
-
           </div>
-
         </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <img src="https://leetcode.com/static/images/LeetCode_logo.png" width="40" height="40">
+            <img
+              src="https://leetcode.com/static/images/LeetCode_logo.png"
+              width="40"
+              height="40"
+            />
             LeetCode
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="accordion-body" *ngIf="leetcodeinfo!=undefined">
+        <div class="accordion-body" *ngIf="leetcodeinfo != undefined">
           https://competitive-coding-api.herokuapp.com/api/leetcode/saurabhprakash
-
         </div>
-
       </mat-expansion-panel>
     </mat-accordion>
   </mat-card>

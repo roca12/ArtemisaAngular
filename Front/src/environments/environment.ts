@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  artemisaExpress: 'https://artemisaback.netlify.app/.netlify/functions',
+  artemisaExpress: "https://artemisaback.netlify.app/.netlify/functions",
 };
 
 /*

@@ -39,7 +39,7 @@ sidebar navigation
         transition: all 0.5s;
         opacity: 0.6;
         font-weight: bold;
-        text-decoration:none;
+        text-decoration: none;
         i {
           font-style: normal;
           width: 35px;
@@ -54,11 +54,10 @@ sidebar navigation
         &:hover {
           opacity: 1;
           transition: all 0.5s;
-          background-color:#c94500;
+          background-color: #c94500;
 
           .feather {
             color: $white;
-            
           }
         }
       }
@@ -85,7 +84,6 @@ sidebar navigation
 .collapse.in {
   display: block;
 }
-
 
 @media (max-width: 991px) {
   .left-sidebar {

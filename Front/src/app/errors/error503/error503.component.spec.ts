@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Error503Component } from './error503.component';
+import { Error503Component } from "./error503.component";
 
-describe('Error503Component', () => {
+describe("Error503Component", () => {
   let component: Error503Component;
   let fixture: ComponentFixture<Error503Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Error503Component ]
-    })
-    .compileComponents();
+      declarations: [Error503Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('Error503Component', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

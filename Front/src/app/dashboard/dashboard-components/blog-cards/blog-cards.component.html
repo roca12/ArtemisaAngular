@@ -1,16 +1,17 @@
 <div class="row d-flex justify-content-center">
-  <div *ngFor='let blogcard of blogcards' class="col-md-4 col-sm-6 col-lg-3">
+  <div *ngFor="let blogcard of blogcards" class="col-md-4 col-sm-6 col-lg-3">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>{{blogcard.title}}</mat-card-title>
-        <mat-card-subtitle>{{blogcard.subtitle}}</mat-card-subtitle>
+        <mat-card-title>{{ blogcard.title }}</mat-card-title>
+        <mat-card-subtitle>{{ blogcard.subtitle }}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image [src]="blogcard.image" alt="Blogs">
+      <img mat-card-image [src]="blogcard.image" alt="Blogs" />
       <mat-card-content>
-        <p>{{blogcard.subtext}}</p>
+        <p>{{ blogcard.subtext }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button color="primary" mat-raised-button>Quiero saber más
+        <button color="primary" mat-raised-button>
+          Quiero saber más
           <mat-icon>navigate_next</mat-icon>
         </button>
       </mat-card-actions>

@@ -7,431 +7,610 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fatodotemario" style="padding-right: 5px;" size="1x"></fa-icon>
+            <fa-icon
+              [icon]="fatodotemario"
+              style="padding-right: 5px"
+              size="1x"
+            ></fa-icon>
             Todo el temario
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSource" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginatorTemario [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginatorTemario
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fateoria" style="padding-right: 5px;" size="1x"></fa-icon>
+            <fa-icon
+              [icon]="fateoria"
+              style="padding-right: 5px"
+              size="1x"
+            ></fa-icon>
             Teoría básica
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceTeoria" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceTeoria"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginatorTeorias [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginatorTeorias
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fabusquedas" style="padding-right: 5px;" size="1x"></fa-icon>
+            <fa-icon
+              [icon]="fabusquedas"
+              style="padding-right: 5px"
+              size="1x"
+            ></fa-icon>
             Algoritmos de búsqueda
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceBusqueda" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceBusqueda"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginatorBusquedas [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginatorBusquedas
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="faordenamientos" style="padding-right: 5px;"
-                     size="1x"></fa-icon>
+            <fa-icon
+              [icon]="faordenamientos"
+              style="padding-right: 5px"
+              size="1x"
+            ></fa-icon>
             Algoritmos de ordenamiento
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceOrdenamiento" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceOrdenamiento"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginatorOrdenamiento [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginatorOrdenamiento
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fastrings" style="padding-right: 5px;" size="1x">
+            <fa-icon [icon]="fastrings" style="padding-right: 5px" size="1x">
             </fa-icon>
             Manipulación de cadenas de caracteres y matching
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceStringMatching" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceStringMatching"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoString [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoString
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fabitwise" style="padding-right: 5px;" size="1x">
+            <fa-icon [icon]="fabitwise" style="padding-right: 5px" size="1x">
             </fa-icon>
             Manejo binario y bitwise
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceBitwise" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceBitwise"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoBitwise [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoBitwise
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="faestructuras" style="padding-right: 5px;" size="1x">
+            <fa-icon
+              [icon]="faestructuras"
+              style="padding-right: 5px"
+              size="1x"
+            >
             </fa-icon>
             Estructuras de datos básicas y avanzadas
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceEstructuras" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceEstructuras"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoEstructuras [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoEstructuras
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="famatematicas" style="padding-right: 5px;" size="1x">
+            <fa-icon
+              [icon]="famatematicas"
+              style="padding-right: 5px"
+              size="1x"
+            >
             </fa-icon>
             Matemáticas
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceMatematicas" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceMatematicas"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoMatematicas [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoMatematicas
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fageometria" style="padding-right: 5px;" size="1x">
+            <fa-icon [icon]="fageometria" style="padding-right: 5px" size="1x">
             </fa-icon>
             Geometría
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceGeometria" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceGeometria"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoGeometria [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoGeometria
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fagrafos" style="padding-right: 5px;" size="1x">
+            <fa-icon [icon]="fagrafos" style="padding-right: 5px" size="1x">
             </fa-icon>
             Teoría de grafos, arboles y redes
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceGrafos" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceGrafos"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoGrafos [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoGrafos
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="fadinamica" style="padding-right: 5px;" size="1x">
+            <fa-icon [icon]="fadinamica" style="padding-right: 5px" size="1x">
             </fa-icon>
             Programación dinámica
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceDinamica" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceDinamica"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoDinamica [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoDinamica
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <fa-icon [icon]="faotros" style="padding-right: 5px;" size="1x">
+            <fa-icon [icon]="faotros" style="padding-right: 5px" size="1x">
             </fa-icon>
             Generadores de casos de prueba y otros
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <table mat-table [dataSource]="dataSourceCasos" matSort style="width: 100%;" matSortActive="ID"
-               matSortDirection="asc"
-               matSortDisableClear>
+        <table
+          mat-table
+          [dataSource]="dataSourceCasos"
+          matSort
+          style="width: 100%"
+          matSortActive="ID"
+          matSortDirection="asc"
+          matSortDisableClear
+        >
           <ng-container matColumnDef="ID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
           </ng-container>
           <ng-container matColumnDef="supergrupo">
-            <th mat-header-cell *matHeaderCellDef> Tema / Algoritmo</th>
-            <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tema / Algoritmo</th>
+            <td mat-cell *matCellDef="let element">{{ element.tema }}</td>
           </ng-container>
           <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef> Tipo</th>
-            <td mat-cell *matCellDef="let element"> {{element.supergrupo}} </td>
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let element">{{ element.supergrupo }}</td>
           </ng-container>
           <ng-container matColumnDef="ir">
-            <th mat-header-cell *matHeaderCellDef> Ir</th>
+            <th mat-header-cell *matHeaderCellDef>Ir</th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn btn-success btn-sm" [id]="element.ID" (click)="openDialog(element.ID)">
+              <button
+                class="btn btn-success btn-sm"
+                [id]="element.ID"
+                (click)="openDialog(element.ID)"
+              >
                 <fa-icon [icon]="fachevron" size="1x"></fa-icon>
               </button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator #paginamientoCasos [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+        <mat-paginator
+          #paginamientoCasos
+          [pageSizeOptions]="[5, 10, 25]"
+        ></mat-paginator>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-card-content>
