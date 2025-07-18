@@ -1,22 +1,22 @@
 /**
  * UI blocking functionality for loading states
  */
-import {BlockUI, NgBlockUI} from 'ng-block-ui';
+import { BlockUI, NgBlockUI } from "ng-block-ui";
 
 /**
  * Angular core and HTTP imports
  */
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
 /**
  * Links component decorator
  * Defines the component's selector, template, and styles
  */
 @Component({
-  selector: 'app-links',
-  templateUrl: './links.component.html',
-  styleUrls: ['./links.component.scss']
+  selector: "app-links",
+  templateUrl: "./links.component.html",
+  styleUrls: ["./links.component.scss"],
 })
 /**
  * Links component class
@@ -39,24 +39,28 @@ export class LinksComponent implements OnInit {
    * Constructor for the LinksComponent
    * @param http - HttpClient for making API requests
    */
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * Fetches valuable links from the API
    * Processes the response to format tags as arrays
    */
   async obtenerLinks() {
-    await this.http.get('https://artemisaback.netlify.app/.netlify/functions/api/link-valioso').toPromise().then((response: any) => {
-      if (response?.data) {
-        // Process each link to convert comma-separated tags into arrays
-        for (const current of response['data']) {
-          current['tags'] = current['tags'].split(',');
+    await this.http
+      .get(
+        "https://artemisaback.netlify.app/.netlify/functions/api/link-valioso",
+      )
+      .toPromise()
+      .then((response: any) => {
+        if (response?.data) {
+          // Process each link to convert comma-separated tags into arrays
+          for (const current of response["data"]) {
+            current["tags"] = current["tags"].split(",");
+          }
+          // Update the data source with the processed links
+          this.dataSource = response["data"];
         }
-        // Update the data source with the processed links
-        this.dataSource = response['data'];
-      }
-    });
+      });
   }
 
   /**
@@ -74,8 +78,8 @@ export class LinksComponent implements OnInit {
 
       // Hide loading indicator after a short delay for better UX
       setTimeout(() => {
-        this.blockUI.stop()
-      }, 500)
+        this.blockUI.stop();
+      }, 500);
     });
   }
 }

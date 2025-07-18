@@ -1,43 +1,50 @@
 /**
  * Angular core and UI components
  */
-import {AfterContentInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from "@angular/core";
 
 /**
  * Third-party libraries and data
  */
-import {DataTableDirective} from 'angular-datatables';
-import temario from '../../../assets/jsons/temariogpc.json'
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { DataTableDirective } from "angular-datatables";
+import temario from "../../../assets/jsons/temariogpc.json";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
 /**
  * Icons and reactive programming
  */
-import * as far from '@fortawesome/free-regular-svg-icons';
-import * as fas from '@fortawesome/free-solid-svg-icons';
-import {Subject} from 'rxjs';
+import * as far from "@fortawesome/free-regular-svg-icons";
+import * as fas from "@fortawesome/free-solid-svg-icons";
+import { Subject } from "rxjs";
 
 /**
  * Angular Material components
  */
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {MatDialog} from "@angular/material/dialog";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatDialog } from "@angular/material/dialog";
 
 /**
  * Application components
  */
-import {DialogTemarioComponent} from "../../dialog-temario/dialog-temario.component";
+import { DialogTemarioComponent } from "../../dialog-temario/dialog-temario.component";
 
 /**
  * Biblioteca component decorator
  * Defines the component's selector, template, and styles
  */
 @Component({
-  selector: 'app-biblioteca',
-  templateUrl: './biblioteca.component.html',
-  styleUrls: ['./biblioteca.component.scss']
+  selector: "app-biblioteca",
+  templateUrl: "./biblioteca.component.html",
+  styleUrls: ["./biblioteca.component.scss"],
 })
 /**
  * Biblioteca (Library) component class
@@ -45,8 +52,6 @@ import {DialogTemarioComponent} from "../../dialog-temario/dialog-temario.compon
  * Implements OnInit for initialization and AfterContentInit for post-content initialization
  */
 export class BibliotecaComponent implements OnInit, AfterContentInit {
-
-
   /**
    * FontAwesome icons for UI elements
    */
@@ -77,7 +82,6 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   // Terminal icon for other topics
   faotros = fas.faTerminal;
 
-
   /**
    * Main list containing all topics from the JSON file
    * This is the source data that gets filtered into category-specific lists
@@ -96,18 +100,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * @property fecha_modificacion - Last modification date
    */
   public listatemas: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = temario;
 
   /**
@@ -115,18 +119,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains fundamental theoretical concepts
    */
   public listateoria: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -134,18 +138,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains various search techniques like binary search, linear search, etc.
    */
   public listabusquedas: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -153,18 +157,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains various sorting techniques like quicksort, mergesort, etc.
    */
   public listaordenamientos: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -172,18 +176,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains string matching, parsing, and other text processing algorithms
    */
   public listastrings: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -191,18 +195,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains number theory, combinatorics, and other mathematical algorithms
    */
   public listamatematica: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -210,18 +214,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains computational geometry algorithms like convex hull, line intersections, etc.
    */
   public listageometria: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -229,18 +233,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains bit manipulation techniques and algorithms
    */
   public listabitwise: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -248,18 +252,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains graph theory algorithms like DFS, BFS, shortest paths, etc.
    */
   public listagrafos: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -267,18 +271,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains optimization problems solved using dynamic programming techniques
    */
   public listadp: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -286,18 +290,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains various data structures like arrays, linked lists, trees, etc.
    */
   public listaestructuras: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
 
   /**
@@ -305,18 +309,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * Contains topics that don't fit into other categories
    */
   public listaeotros: {
-    "ID": number,
-    "supergrupo": string,
-    "tema": string,
-    "texto": string
-    "complejidad_tiempo": string
-    "java": string
-    "cpp": string
-    "py": string
-    "orden": number,
-    "suborden": number,
-    "fecha_creacion": string,
-    "fecha_modificacion": string
+    ID: number;
+    supergrupo: string;
+    tema: string;
+    texto: string;
+    complejidad_tiempo: string;
+    java: string;
+    cpp: string;
+    py: string;
+    orden: number;
+    suborden: number;
+    fecha_creacion: string;
+    fecha_modificacion: string;
   }[] = [];
   /**
    * Properties for displaying topic details in the dialog
@@ -326,11 +330,11 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   // Description text of the current topic
   textotema: String = "Sin texto disponible";
   // Java implementation code of the current topic
-  codejava: string = '';
+  codejava: string = "";
   // Python implementation code of the current topic
-  codepython: string = '';
+  codepython: string = "";
   // C++ implementation code of the current topic
-  codecpp: string = '';
+  codecpp: string = "";
 
   /**
    * References to DataTable directives in the template
@@ -357,19 +361,18 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   @ViewChild(MatSort) sort: MatSort;
 
   // Paginators for each category table
-  @ViewChild('paginatorTemario') paginatorTemario: MatPaginator;
-  @ViewChild('paginatorTeorias') paginatorTeorias: MatPaginator;
-  @ViewChild('paginatorBusquedas') paginatorBusquedas: MatPaginator;
-  @ViewChild('paginatorOrdenamiento') paginatorOrdenamiento: MatPaginator;
-  @ViewChild('paginamientoString') paginamientoString: MatPaginator;
-  @ViewChild('paginamientoBitwise') paginamientoBitwise: MatPaginator;
-  @ViewChild('paginamientoEstructuras') paginamientoEstructuras: MatPaginator;
-  @ViewChild('paginamientoMatematicas') paginamientoMatematicas: MatPaginator;
-  @ViewChild('paginamientoGeometria') paginamientoGeometria: MatPaginator;
-  @ViewChild('paginamientoGrafos') paginamientoGrafos: MatPaginator;
-  @ViewChild('paginamientoDinamica') paginamientoDinamica: MatPaginator;
-  @ViewChild('paginamientoCasos') paginamientoCasos: MatPaginator;
-
+  @ViewChild("paginatorTemario") paginatorTemario: MatPaginator;
+  @ViewChild("paginatorTeorias") paginatorTeorias: MatPaginator;
+  @ViewChild("paginatorBusquedas") paginatorBusquedas: MatPaginator;
+  @ViewChild("paginatorOrdenamiento") paginatorOrdenamiento: MatPaginator;
+  @ViewChild("paginamientoString") paginamientoString: MatPaginator;
+  @ViewChild("paginamientoBitwise") paginamientoBitwise: MatPaginator;
+  @ViewChild("paginamientoEstructuras") paginamientoEstructuras: MatPaginator;
+  @ViewChild("paginamientoMatematicas") paginamientoMatematicas: MatPaginator;
+  @ViewChild("paginamientoGeometria") paginamientoGeometria: MatPaginator;
+  @ViewChild("paginamientoGrafos") paginamientoGrafos: MatPaginator;
+  @ViewChild("paginamientoDinamica") paginamientoDinamica: MatPaginator;
+  @ViewChild("paginamientoCasos") paginamientoCasos: MatPaginator;
 
   /**
    * Angular lifecycle hook that is called after component initialization
@@ -466,7 +469,9 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
       this.dataSourceBusqueda.paginator = this.paginatorBusquedas;
 
       // Sorting algorithms table
-      this.dataSourceOrdenamiento = new MatTableDataSource(this.listaordenamientos);
+      this.dataSourceOrdenamiento = new MatTableDataSource(
+        this.listaordenamientos,
+      );
       this.dataSourceOrdenamiento.paginator = this.paginatorOrdenamiento;
 
       // String manipulation table
@@ -478,7 +483,9 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
       this.dataSourceBitwise.paginator = this.paginamientoBitwise;
 
       // Data structures table
-      this.dataSourceEstructuras = new MatTableDataSource(this.listaestructuras);
+      this.dataSourceEstructuras = new MatTableDataSource(
+        this.listaestructuras,
+      );
       this.dataSourceEstructuras.paginator = this.paginamientoEstructuras;
 
       // Mathematical algorithms table
@@ -517,26 +524,24 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    * @private
    */
   private buildDtOptions(): DataTables.Settings {
-
     return {
-      pagingType: 'full_numbers',
+      pagingType: "full_numbers",
       columns: [
         {
-          title: '#',
-          orderable: true
+          title: "#",
+          orderable: true,
         },
         {
-          title: 'Tema / Algoritmo',
-          orderable: false
+          title: "Tema / Algoritmo",
+          orderable: false,
         },
         {
-          title: 'Tipo',
-
+          title: "Tipo",
         },
         {
-          title: 'Ir ',
-          orderable: false
-        }
+          title: "Ir ",
+          orderable: false,
+        },
       ],
       responsive: true,
       language: {
@@ -554,21 +559,21 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
           first: "Primero",
           previous: "Anterior",
           next: "Siguiente",
-          last: "Último"
+          last: "Último",
         },
         aria: {
           sortAscending: ": Activar para ordenar la tabla en orden ascendente",
-          sortDescending: ": Activar para ordenar la tabla en orden descendente"
-        }
-      }
-    }
-
+          sortDescending:
+            ": Activar para ordenar la tabla en orden descendente",
+        },
+      },
+    };
   }
 
   /**
    * Result string from modal operations
    */
-  closeResult: string = '';
+  closeResult: string = "";
 
   /**
    * Data sources for Angular Material tables
@@ -602,16 +607,17 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
   /**
    * Columns to display in the tables
    */
-  displayedColumns: String[] = ['ID', 'supergrupo', 'tipo', 'ir'];
+  displayedColumns: String[] = ["ID", "supergrupo", "tipo", "ir"];
 
   /**
    * Constructor for the BibliotecaComponent
    * @param modalService - NgbModal service for displaying modal dialogs
    * @param dialog - MatDialog service for displaying Material dialogs
    */
-  constructor(private modalService: NgbModal, public dialog: MatDialog) {
-  }
-
+  constructor(
+    private modalService: NgbModal,
+    public dialog: MatDialog,
+  ) {}
 
   /**
    * Retrieves specific information about a topic based on the type parameter
@@ -690,10 +696,10 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
    */
   openDialog(ID: number) {
     // Retrieve all information about the topic
-    this.textotema = this.obtenerCode(4, ID);  // Description text
+    this.textotema = this.obtenerCode(4, ID); // Description text
     this.titulotema = this.obtenerCode(0, ID); // Topic name
-    this.codejava = this.obtenerCode(1, ID);   // Java code
-    this.codecpp = this.obtenerCode(2, ID);    // C++ code
+    this.codejava = this.obtenerCode(1, ID); // Java code
+    this.codecpp = this.obtenerCode(2, ID); // C++ code
     this.codepython = this.obtenerCode(3, ID); // Python code
 
     // Open the dialog with the retrieved information
@@ -704,7 +710,7 @@ export class BibliotecaComponent implements OnInit, AfterContentInit {
         codejava: this.codejava,
         codecpp: this.codecpp,
         codepython: this.codepython,
-      }
+      },
     });
   }
 }

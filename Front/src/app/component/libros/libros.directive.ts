@@ -8,7 +8,7 @@ import {
   HostBinding,
   HostListener,
   Inject,
-  Input
+  Input,
 } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 
@@ -29,7 +29,7 @@ import { SAMEORIGIN } from "./same-origin-token";
  */
 @Directive({
   selector: "a[download]", // Targets all anchor elements with download attribute
-  exportAs: "wmDownload"   // Allows template reference with #var="wmDownload"
+  exportAs: "wmDownload", // Allows template reference with #var="wmDownload"
 })
 /**
  * Download directive class
@@ -70,7 +70,7 @@ export class DownloadDirective {
     @Inject(SAMEORIGIN) private sameOrigin: RegExp,
     private http: HttpClient,
     private ref: ElementRef<HTMLAnchorElement>,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) {}
 
   /**
@@ -139,10 +139,10 @@ export class DownloadDirective {
       .get(this.href, { responseType: "blob" })
       .pipe(
         // Creates the URL object ready for download
-        map(blob => (this.blob = URL.createObjectURL(blob))),
+        map((blob) => (this.blob = URL.createObjectURL(blob))),
 
         // Catches possible errors such as CORS not allowing the file download
-        catchError(error => {
+        catchError((error) => {
           // Reports the error preventing the download
           console.error("Unable to download the source file", error);
 
@@ -151,9 +151,9 @@ export class DownloadDirective {
 
           // Reverts to the original href for the browser to open the file instead of downloading it
           return of(this.href);
-        })
+        }),
       )
-      .subscribe(url => {
+      .subscribe((url) => {
         // Updates the href with the blob url on success
         this.href = url;
 

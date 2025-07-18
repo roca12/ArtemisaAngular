@@ -1,20 +1,20 @@
 /**
  * Angular core imports
  */
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 /**
  * Third-party library imports
  */
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 /**
  * Application routes
  */
-import {ComponentsRoutes} from './component.routing';
+import { ComponentsRoutes } from "./component.routing";
 
 /**
  * Components module decorator
@@ -35,12 +35,10 @@ import {ComponentsRoutes} from './component.routing';
    * Components declared in this module
    * Currently empty as components are declared in their respective modules
    */
-  declarations: [
-  ]
+  declarations: [],
 })
 /**
  * Components module class
  * Serves as a container for component-related functionality
  */
-export class ComponentsModule {
-}
+export class ComponentsModule {}

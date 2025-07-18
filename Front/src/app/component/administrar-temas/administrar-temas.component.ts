@@ -1,28 +1,28 @@
 /**
  * Angular core and UI components
  */
-import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {HttpClient} from "@angular/common/http";
+import { Component, OnInit } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { HttpClient } from "@angular/common/http";
 
 /**
  * Environment configuration for API endpoints
  */
-import {environment} from "../../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 /**
  * UI blocking functionality for loading states
  */
-import {BlockUI, NgBlockUI} from "ng-block-ui";
+import { BlockUI, NgBlockUI } from "ng-block-ui";
 
 /**
  * AdministrarTemas component decorator
  * Defines the component's selector, template, and styles
  */
 @Component({
-  selector: 'app-administrar-temas',
-  templateUrl: './administrar-temas.component.html',
-  styleUrls: ['./administrar-temas.component.scss']
+  selector: "app-administrar-temas",
+  templateUrl: "./administrar-temas.component.html",
+  styleUrls: ["./administrar-temas.component.scss"],
 })
 /**
  * AdministrarTemas (Manage Topics) component class
@@ -33,7 +33,15 @@ export class AdministrarTemasComponent implements OnInit {
    * Columns to display in the topics table
    * Defines the order and visibility of columns
    */
-  displayedColumns: string[] = ['opciones', 'ID', 'supergrupo', 'tema', 'complejidad_tiempo', 'orden', 'suborden'];
+  displayedColumns: string[] = [
+    "opciones",
+    "ID",
+    "supergrupo",
+    "tema",
+    "complejidad_tiempo",
+    "orden",
+    "suborden",
+  ];
 
   /**
    * BlockUI decorator for showing loading indicator
@@ -51,8 +59,7 @@ export class AdministrarTemasComponent implements OnInit {
    * Constructor for the AdministrarTemasComponent
    * @param http - HttpClient for making API requests
    */
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * Angular lifecycle hook that is called after component initialization
@@ -64,7 +71,9 @@ export class AdministrarTemasComponent implements OnInit {
     this.blockUI.start();
 
     // Fetch topics data from API
-    await this.http.get(`${environment.artemisaExpress}/api/temario`).toPromise()
+    await this.http
+      .get(`${environment.artemisaExpress}/api/temario`)
+      .toPromise()
       .then((res: any) => {
         // Use setTimeout to ensure UI updates after data is processed
         setTimeout(() => {
@@ -72,16 +81,14 @@ export class AdministrarTemasComponent implements OnInit {
           this.dataSource = new MatTableDataSource(res?.data);
           // Hide loading indicator
           this.blockUI.stop();
-        })
+        });
       })
-      .catch(
-        (e) => {
-          // Log errors to console
-          console.log('[ERROR]');
-          console.log(e);
-          // Hide loading indicator even if there's an error
-          this.blockUI.stop();
-        }
-      );
+      .catch((e) => {
+        // Log errors to console
+        console.log("[ERROR]");
+        console.log(e);
+        // Hide loading indicator even if there's an error
+        this.blockUI.stop();
+      });
   }
 }

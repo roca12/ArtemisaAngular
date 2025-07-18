@@ -1,16 +1,16 @@
 /**
  * Imports required Angular components and FontAwesome icons
  */
-import {Component} from '@angular/core';
-import * as fas from '@fortawesome/free-solid-svg-icons';
+import { Component } from "@angular/core";
+import * as fas from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Dashboard component decorator
  * Defines the component's template and styles
  */
 @Component({
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
 })
 /**
  * Dashboard component class
@@ -41,7 +41,5 @@ export class DashboardComponent {
    * Constructor for the DashboardComponent
    * Currently empty as no dependencies are injected
    */
-  constructor() {
-
-  }
+  constructor() {}
 }

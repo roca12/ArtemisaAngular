@@ -1,36 +1,35 @@
 /**
  * Angular core and routing imports
  */
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 /**
  * Application data models
  */
-import { book, bookscards } from './books-data';
+import { book, bookscards } from "./books-data";
 
 /**
  * FontAwesome icon imports
  */
-import * as fab from '@fortawesome/free-brands-svg-icons';
-import * as far from '@fortawesome/free-regular-svg-icons';
-import * as fas from '@fortawesome/free-solid-svg-icons';
+import * as fab from "@fortawesome/free-brands-svg-icons";
+import * as far from "@fortawesome/free-regular-svg-icons";
+import * as fas from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Libros component decorator
  * Defines the component's selector, template, and styles
  */
 @Component({
-  selector: 'app-libros',
-  templateUrl: './libros.component.html',
-  styleUrls: ['./libros.component.scss']
+  selector: "app-libros",
+  templateUrl: "./libros.component.html",
+  styleUrls: ["./libros.component.scss"],
 })
 /**
  * Libros (Books) component class
  * Displays a collection of programming books and resources
  */
 export class LibrosComponent implements OnInit {
-
   /**
    * Array of book objects to display
    */
@@ -39,7 +38,7 @@ export class LibrosComponent implements OnInit {
   /**
    * Set of unique book groups/categories
    */
-  bookgroups= new Set();
+  bookgroups = new Set();
 
   /**
    * FontAwesome icons for UI elements
@@ -55,9 +54,14 @@ export class LibrosComponent implements OnInit {
    * File paths for PDF and image resources
    */
   // Path to PDF files
-  sourcePath1 = window.location.protocol + "\\\\" + window.location.host + "/assets/pdfs/";
+  sourcePath1 =
+    window.location.protocol + "\\\\" + window.location.host + "/assets/pdfs/";
   // Path to book cover images
-  sourcePath2 = window.location.protocol + "\\\\" + window.location.host + "/assets/images/libros/descargables/";
+  sourcePath2 =
+    window.location.protocol +
+    "\\\\" +
+    window.location.host +
+    "/assets/images/libros/descargables/";
 
   /**
    * Constructor for the LibrosComponent
@@ -79,7 +83,7 @@ export class LibrosComponent implements OnInit {
     });
 
     // Populate the set of unique book groups
-    this.bookcards.forEach(element => {
+    this.bookcards.forEach((element) => {
       this.bookgroups.add(element.group);
     });
   }
@@ -88,7 +92,5 @@ export class LibrosComponent implements OnInit {
    * Angular lifecycle hook that is called after component initialization
    * Currently empty but can be used for initialization logic
    */
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -1,7 +1,7 @@
 /**
  * Angular router module for defining component routes
  */
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
 /**
  * Component routes configuration
