@@ -1,3 +1,6 @@
+/**
+ * Angular and HTTP imports
+ */
 import { HttpClient } from "@angular/common/http";
 import {
   Directive,
@@ -8,25 +11,61 @@ import {
   Input
 } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+
+/**
+ * RxJS imports for reactive programming
+ */
 import { of, Subscription } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+
+/**
+ * Application tokens
+ */
 import { SAMEORIGIN } from "./same-origin-token";
 
+/**
+ * Download directive decorator
+ * Enhances anchor elements with download attribute to handle cross-origin downloads
+ */
 @Directive({
-  selector: "a[download]",
-  exportAs: "wmDownload"
+  selector: "a[download]", // Targets all anchor elements with download attribute
+  exportAs: "wmDownload"   // Allows template reference with #var="wmDownload"
 })
+/**
+ * Download directive class
+ * Provides functionality to download files from both same and cross-origin sources
+ * Handles CORS issues by fetching the file as a blob and creating an object URL
+ */
 export class DownloadDirective {
-  /* True of something went wrong attempting to download the resource */
+  /**
+   * Error state flag
+   * True if something went wrong attempting to download the resource
+   */
   public error: boolean = false;
 
-  /* True when the request is in process */
+  /**
+   * Processing state flag
+   * True when the request is in process
+   */
   public busy: boolean = false;
 
+  /**
+   * Private properties for internal directive functionality
+   */
+  // Subscription to HTTP request
   private sub: Subscription;
+  // Blob URL object reference
   private blob: any;
+  // Current href value
   private href: string;
 
+  /**
+   * Constructor for the DownloadDirective
+   * @param sameOrigin - RegExp to test if a URL is from the same origin
+   * @param http - HttpClient for making HTTP requests
+   * @param ref - Reference to the host anchor element
+   * @param sanitizer - DomSanitizer for URL sanitization
+   */
   constructor(
     @Inject(SAMEORIGIN) private sameOrigin: RegExp,
     private http: HttpClient,
@@ -34,15 +73,23 @@ export class DownloadDirective {
     private sanitizer: DomSanitizer
   ) {}
 
-  // Turns the download attribute into an input
+  /**
+   * Download attribute binding
+   * Turns the download attribute into an input property
+   */
   @HostBinding("attr.download")
   @Input()
   download: string;
 
-  // Intercepts the href
+  /**
+   * Href setter
+   * Intercepts the href attribute to handle URL management
+   * @param href - The URL to download from
+   */
   @Input("href") set source(href: string) {
     // Revokes the previous URL object if any
-    // releases an existing URL that was previously created, so the browser knows // it is no longer needed to keep a reference to this file
+    // releases an existing URL that was previously created, so the browser knows
+    // it is no longer needed to keep a reference to this file
     if (this.blob) {
       URL.revokeObjectURL(this.blob);
       this.blob = undefined;
@@ -54,12 +101,20 @@ export class DownloadDirective {
     this.href = href;
   }
 
-  // Sanitizes the href to accept both urls and blobs
+  /**
+   * Safe href getter
+   * Sanitizes the href to accept both URLs and blobs
+   * @returns A sanitized URL that bypasses Angular's security
+   */
   @HostBinding("href") get safeHref(): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(this.href);
   }
 
-  // Listens to the click event
+  /**
+   * Click event handler
+   * Manages the download process when the link is clicked
+   * @returns false to prevent default browser behavior when handling cross-origin downloads
+   */
   @HostListener("click") onClick() {
     // Do nothing on empty href
     if (!this.href || this.busy) {
@@ -113,6 +168,10 @@ export class DownloadDirective {
     return false;
   }
 
+  /**
+   * Angular lifecycle hook that is called when the directive is destroyed
+   * Cleans up resources to prevent memory leaks
+   */
   ngOnDestroy() {
     // Revokes the URL object
     if (this.blob) {
