@@ -1,0 +1,142 @@
+::ng-deep .fc .fc-col-header-cell a,
+::ng-deep .fc .fc-col-header-cell-cushion {
+  color: #232323 !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+}
+
+
+
+::ng-deep .fc-event, .fc-event-title, .fc-daygrid-event-dot {
+  color: var(--text-muted) !important;
+  white-space: normal !important;  
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  max-width: 100% !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;  
+}
+
+::ng-deep .fc .fc-daygrid-dot-event .fc-event-dot {
+  background: #D95C00 !important; 
+}
+
+::ng-deep .fc-daygrid-day-number {
+  color: #D95C00 !important;  
+  font-weight: 700;
+}
+
+::ng-deep .fc a,
+::ng-deep .fc a:active,
+::ng-deep .fc a:visited,
+::ng-deep .fc-col-header-cell-cushion {
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+::ng-deep .fc-daygrid-day-frame {
+  height: 100%;
+  overflow: hidden;
+}
+
+.dark .fc {
+  background: var(--background-dark);
+  color: var(--text-light);
+}
+
+::ng-deep .dark .fc-daygrid-day-number {
+  color: var(--secondary-dark) !important;  
+  font-weight: 700;
+}
+
+.dark .fc .fc-toolbar-title,
+.dark .fc .fc-col-header-cell-cushion {
+  color: var(--primary-dark) !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+}
+
+.dark .fc .fc-button, 
+.dark .fc .fc-button-primary {
+  background: linear-gradient(90deg, var(--primary-dark), var(--secondary-dark)) !important;
+  color: var(--text-light) !important;
+  border: none !important;
+  font-weight: 600 !important;
+  border-radius: 7px !important;
+  box-shadow: none !important;
+}
+.dark .fc .fc-button:not(:disabled):hover,
+.dark .fc .fc-button:focus {
+  background: linear-gradient(90deg, var(--secondary-dark), var(--primary-dark)) !important;
+  color: var(--primary-dark) !important;
+}
+.dark .fc .fc-button.fc-button-active, 
+.dark .fc .fc-button:active {
+  background: var(--olive-dark) !important;
+  color: var(--text-light) !important;
+}
+
+/* Días */
+.dark .fc-daygrid-day-number {
+  color: var(--secondary-dark) !important;
+  font-weight: 700;
+}
+
+/* Eventos (texto y bolita) */
+.dark .fc-event, 
+.dark .fc-event-title, 
+.dark .fc-daygrid-event-dot {
+  color: var(--text-light) !important;
+}
+.dark .fc .fc-daygrid-dot-event .fc-event-dot {
+  background: var(--primary-dark) !important;
+}
+
+/* Fondo de las celdas del calendario */
+.dark .fc-daygrid-day {
+  background: #23243c !important;
+  border-color: var(--border-dark) !important;
+}
+
+/* Día actual resaltado */
+.dark .fc-day-today {
+  background: linear-gradient(105deg, #2c2c40 0%, #3A5C6A 100%) !important;
+  border-radius: 10px;
+  color: var(--primary-dark) !important;
+}
+
+.dark .fc-day-other .fc-daygrid-day-number {
+  color: var(--text-muted) !important;
+}
+
+/* Quita subrayado de los links */
+.dark .fc a,
+.dark .fc a:active,
+.dark .fc a:visited,
+.dark .fc-col-header-cell-cushion {
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .dark .fc .fc-col-header {
+  background: var(--secondary-dark);
+  color:var(--text-light)
+}
+
+::ng-deep .fc-theme-standard td, 
+::ng-deep .fc-theme-standard th,
+::ng-deep .fc-theme-standard .fc-scrollgrid {
+  border-color: var(--text-muted) !important;
+}
+
+::ng-deep .dark .fc-theme-standard td, 
+::ng-deep .dark .fc-theme-standard th,
+::ng-deep .dark .fc-theme-standard .fc-scrollgrid {
+  border-color: var(--border-dark) !important;
+}
+
+.calendar-container {
+  margin: 0 auto;
+  max-width: 90%;         /* O el ancho máximo que prefieras */
+  padding: 1rem 0;
+}

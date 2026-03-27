@@ -1,0 +1,34 @@
+<div [class.dark]="theme.isDark()" [class.light] = "!theme.isDark()" id="theme-container">
+  <div class="container">
+    <div class="logo-container">
+      <img [src]="theme.isDark()? 'assets/images/logos/propuestas logo 1 artemisa-02.png': 'assets/images/logos/propuestas_logo_1_artemisa_Mesa_de_trabajo_1.png'">
+    </div>
+    <div class="forms-container">
+      <h1>Ingreso</h1>
+      <form [formGroup]="loginForm">
+        <div class = "password-wrapper"> 
+          <input formControlName="usuario" type="text" placeholder="Nombre de usuario"/>
+          <small class="text-danger" *ngIf="loginForm.get('usuario')?.errors?.['required'] && loginForm.get('usuario')?.touched">El nombre de usuario es obligatorio.</small>
+        </div>
+        
+        <div class="password-wrapper">
+          <input formControlName="contrasenia"  [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" />
+          <small class="text-danger" *ngIf="loginForm.get('contrasenia')?.errors?.['required'] && loginForm.get('contrasenia')?.touched">La contraseña es obligatoria.</small>
+          <span class="toggle-eye" (click)="togglePassword()">
+            <fa-icon [icon]="(showPassword)?faEyeSlash:faEye"></fa-icon>
+          </span>
+        </div>
+        <div class="d-flex justify-content-center my-3">
+          <ngx-recaptcha2 [siteKey]="'6Le_WHArAAAAAFqukiJOxTKnkGHW6HEg0i7zs0ff'"
+                          [useGlobalDomain]="false"
+                          [theme]="theme.isDark() ? 'dark' : 'light'"
+                          formControlName="recaptcha"
+                          (success)="onRecaptchaResolved($event)"
+          ></ngx-recaptcha2>
+        </div>
+        <button type="submit" [disabled]="loginForm.invalid" (click) ="login()">Ingresar</button>
+        <p class="register-text">¿Aún no tienes cuenta? <a routerLink="/registrar">Regístrate</a></p>
+      </form>
+    </div>
+  </div>
+</div>

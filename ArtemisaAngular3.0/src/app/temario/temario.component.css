@@ -1,0 +1,477 @@
+/* Custom Scrollbar - Light Theme */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Custom Scrollbar - Dark Theme */
+.dark ::-webkit-scrollbar {
+  width: 12px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--background-dark, #2d2d2d);
+  border-radius: 6px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--blue-dark, #4a5568);
+  border-radius: 6px;
+  border: 2px solid var(--background-dark, #2d2d2d);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark, #5a6578);
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.dark * {
+  scrollbar-color: var(--blue-dark, #4a5568) var(--background-dark, #2d2d2d);
+}
+
+#theme-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 15%;
+  min-width: 250px;
+  padding: 20px;
+  background: linear-gradient(80deg, var(--primary-dark), var(--secondary-dark));
+  color: var(--text-light);
+  height: 100vh;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+/* Specific scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.dark .sidebar {
+  background: linear-gradient(80deg, var(--blue-dark), var(--background-dark));
+  color: var(--text-light);
+}
+
+.sidebar h2 {
+  color: var(--text-light);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--text-muted);
+  font-weight: bolder;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.filter-container {
+  padding-left: 1rem;
+}
+
+.form-check {
+  padding: 10px;
+}
+
+.form-check-input {
+  background: var(--primary-dark);
+  border: 2px solid var(--text-light) !important;
+}
+
+.dark .form-check-input {
+  background-color: var(--blue-dark) !important;
+}
+
+.form-check-input:checked {
+  border: 2px solid lightgreen !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='lightgreen' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+
+.form-check-label {
+  color: var(--text-light) !important;
+  font-weight: bold;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.form-check-input:checked + .form-check-label {
+  color: var(--olive-dark) !important;
+}
+
+.dark .form-check-input:checked + .form-check-label {
+  color: lightgreen !important;
+}
+
+.main-container {
+  width: 85%;
+  flex: 1;
+  padding: 20px;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Specific scrollbar for main container */
+.main-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.main-container::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.main-container::-webkit-scrollbar-thumb {
+  background: #dee2e6;
+  border-radius: 5px;
+}
+
+.main-container::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd;
+}
+
+.dark .main-container {
+  background: linear-gradient(180deg, var(--border-dark), var(--background-dark));
+}
+
+.dark .main-container::-webkit-scrollbar-track {
+  background: var(--border-dark, #3a3a3a);
+}
+
+.dark .main-container::-webkit-scrollbar-thumb {
+  background: var(--blue-dark, #4a5568);
+}
+
+.dark .main-container::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark, #5a6578);
+}
+
+.main-container h3 {
+  color: var(--background-dark);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--text-muted);
+  font-weight: bolder;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  width: 100%;
+}
+
+.dark .main-container h3 {
+  color: var(--text-muted);
+}
+
+.accordion-item {
+  border: none;
+  border-bottom: var(--blue-dark) 1.5px solid;
+}
+
+.dark .accordion-item {
+  border-color: var(--olive-dark);
+  background-color: var(--border-dark);
+}
+
+.accordion-button {
+  background-color: transparent;
+  color: var(--background-dark);
+  font-weight: bold;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.dark .accordion-button {
+  color: var(--text-light);
+}
+
+.accordion-button p {
+  background-color: transparent;
+  color: green;
+  font-weight: bold;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  margin-top: 0.5rem;
+}
+
+.accordion-header {
+  height: auto;
+  min-height: 100px;
+}
+
+.dark .texto {
+  color: var(--text-muted);
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  overflow-x: auto;
+}
+
+/* Custom scrollbar for pre elements */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.dark pre::-webkit-scrollbar-track {
+  background: var(--background-dark);
+}
+
+.dark pre::-webkit-scrollbar-thumb {
+  background: var(--blue-dark);
+}
+
+.complejidad {
+  color: var(--text-muted);
+  font-weight: bold;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  margin-left: 1rem;
+}
+
+.editor-container {
+  min-height: 120px;
+  max-height: 500px;
+  margin: 1rem 0;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: clamp(0.9rem, 1.8vw, 1.06rem);
+  overflow: auto;
+}
+
+/* Custom scrollbar for editor */
+.editor-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.editor-container::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
+.editor-container::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+.editor-container::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+.logo-image {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--primary-dark);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.dark .mobile-menu-toggle {
+  background: var(--blue-dark);
+}
+
+/* Overlay for mobile menu */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 20%;
+    min-width: 200px;
+  }
+
+  .main-container {
+    width: 80%;
+  }
+
+  .accordion-header {
+    min-height: 80px;
+  }
+
+  .editor-container {
+    min-height: 100px;
+    max-height: 400px;
+  }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+  #theme-container {
+    flex-direction: column;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .mobile-overlay.active {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .main-container {
+    width: 100%;
+    padding: 60px 15px 20px;
+    margin-left: 0;
+    max-height: calc(100vh - 60px);
+  }
+
+  .accordion-button {
+    font-size: 1rem;
+  }
+
+  .accordion-header {
+    min-height: 60px;
+  }
+
+  .editor-container {
+    min-height: 80px;
+    max-height: 300px;
+    font-size: 0.9rem;
+  }
+
+  .complejidad {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .logo-image {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+/* Mobile Small */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .main-container {
+    padding: 60px 10px 20px;
+  }
+
+  .accordion-header {
+    min-height: 50px;
+  }
+
+  .editor-container {
+    min-height: 60px;
+    max-height: 250px;
+    font-size: 0.8rem;
+  }
+
+  .form-check {
+    padding: 8px;
+  }
+
+  .form-check-label {
+    font-size: 0.9rem;
+  }
+
+  .logo-image {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .sidebar {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    min-width: 180px;
+  }
+}

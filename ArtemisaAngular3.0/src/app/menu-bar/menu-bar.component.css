@@ -1,0 +1,246 @@
+
+
+.logo-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+.profile-button:hover{
+  background-color: var(--border-dark);
+  transition: background-color 0.5s ease;
+}
+
+.logo-container img{
+  width: 50%;
+  max-width: 300px;
+  min-width: 85px;
+  height: 70%;
+  object-fit: contain;
+  padding-bottom: 1rem;
+}
+
+.nav-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-container a{
+  text-decoration:none;
+  color:var(--teal-dark);
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-container a:hover{
+  color: var(--secondary-dark);
+}
+
+
+
+.menu-bar{
+  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2); /* solo abajo */
+  background-color: var(--text-light);
+  border-radius: 6px; /* opcional */
+  width: 100vw;
+}
+
+.dark .menu-bar{
+  background-color:var(--background-dark); /* resplandor suave */
+}
+
+/* Manejo de Dark-Mode*/
+.darkmode-container{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--text-light);
+  padding-right: 10%;
+}
+
+.dark-mode{
+  width: 60px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  background-color: var(--text-light);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); /* borde sombreado */
+}
+
+.dark-mode .circle{
+  width: 40%;
+  height: 80%;
+  border-radius:50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--text-light);
+  transform: translateX(10%);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+
+
+.dark-mode .circle ion-icon{
+  width: 70%;
+  height:70%;
+  position: absolute;
+  transition: transform 0.5s ease;
+}
+
+.dark-mode .circle .moon{
+  transform: translateY(-120%);
+}
+
+.dark .darkmode-container .dark-mode{
+  background: var(--border-dark);
+}
+
+
+
+.dark .darkmode-container .circle{
+  transform: translateX(140%);
+  background-color: var(--background-dark);
+}
+
+.dark .darkmode-container .circle .moon{
+  transform: translateX(0);
+  color:var(--text-light);
+}
+
+.dark-mode .circle .sun{
+  color:var(--secondary-dark);
+}
+.dark .darkmode-container .circle .sun{
+  transform: translateY(120%);
+
+}
+
+.nav-container-bottom{
+  display: flex;
+  align-items: center;
+  padding-right: 2rem;
+  height: 50px;
+  background-color: var(--text-light);
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+
+button{
+  background-color:var(--secondary-dark);
+  color: var(--text-light);
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 1rem;
+  margin-right: 2rem;
+  transition: background-color 0.5s ease;
+}
+
+.dark button{
+  background-color: var(--blue-dark);
+}
+
+.profile-button:hover{
+  background-color: var(--secondary-dark);
+  transition: background-color 0.5s ease;
+}
+
+button:hover{
+  background-color: var(--olive-dark);
+  transition: background-color 0.5s ease;
+}
+
+
+
+
+.dark {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+
+.dark .nav-container,
+.dark .nav-container-bottom,
+.dark .darkmode-container{
+  background-color:var(--background-dark);
+}
+
+
+
+.dark .nav-container a {
+  color: var(--text-light);
+}
+
+
+.dark .nav-container a:hover {
+  color:var(--primary-dark);
+}
+
+
+.dark button:hover {
+  background-color: var(--olive-dark);
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .logo-container {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .nav-container a {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
+    text-align: center;
+  }
+
+  .menu-bar {
+    padding: 1rem;
+    justify-content: center;
+  }
+
+  .nav-container-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .darkmode-container {
+    justify-content: center;
+  }
+
+  button {
+    width: 50%;
+    padding: 0.75rem;
+    margin: 0;
+  }
+
+
+}
+
+
+
