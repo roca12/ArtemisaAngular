@@ -8,9 +8,8 @@ describe('MenuBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuBarComponent]
-    })
-    .compileComponents();
+      imports: [MenuBarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MenuBarComponent);
     component = fixture.componentInstance;

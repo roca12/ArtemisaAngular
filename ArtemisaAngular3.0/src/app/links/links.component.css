@@ -66,7 +66,9 @@
   padding: 1.4rem 1.6rem;
   border-radius: 12px;
   background-color: var(--text-light);
-  box-shadow: 0 2px 12px #00000008, 0 1.5px 4px #00000010;
+  box-shadow:
+    0 2px 12px #00000008,
+    0 1.5px 4px #00000010;
   transition: all 0.3s ease;
   min-height: 140px;
   overflow: hidden;
@@ -75,7 +77,9 @@
 .dark .card {
   background-color: var(--border-dark);
   color: var(--text-light);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3), 0 1.5px 4px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.3),
+    0 1.5px 4px rgba(0, 0, 0, 0.2);
 }
 
 .card:hover {
@@ -337,7 +341,7 @@
 }
 
 /* High contrast mode support */
-@media (prefers-contrast:more) {
+@media (prefers-contrast: more) {
   .card {
     border: 2px solid var(--background-dark);
   }

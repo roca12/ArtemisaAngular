@@ -60,7 +60,11 @@
   width: 15%;
   min-width: 250px;
   padding: 20px;
-  background: linear-gradient(80deg, var(--primary-dark), var(--secondary-dark));
+  background: linear-gradient(
+    80deg,
+    var(--primary-dark),
+    var(--secondary-dark)
+  );
   color: var(--text-light);
   height: 100vh;
   overflow-y: auto;
@@ -164,7 +168,11 @@
 }
 
 .dark .main-container {
-  background: linear-gradient(180deg, var(--border-dark), var(--background-dark));
+  background: linear-gradient(
+    180deg,
+    var(--border-dark),
+    var(--background-dark)
+  );
 }
 
 .dark .main-container::-webkit-scrollbar-track {
@@ -462,7 +470,6 @@ pre::-webkit-scrollbar-thumb {
     margin-right: 5px;
   }
 }
-
 
 @media (max-width: 1200px) {
   .sidebar {

@@ -8,7 +8,11 @@
   z-index: 100;
   width: 15%;
   padding: 20px;
-  background: linear-gradient(80deg, var(--primary-dark), var(--secondary-dark));
+  background: linear-gradient(
+    80deg,
+    var(--primary-dark),
+    var(--secondary-dark)
+  );
   color: var(--text-light);
   height: 100%;
 }
@@ -70,9 +74,12 @@
   color: lightgreen !important;
 }
 
-
 .mat-mdc-option {
-  background: linear-gradient(80deg, var(--primary-dark), var(--secondary-dark));
+  background: linear-gradient(
+    80deg,
+    var(--primary-dark),
+    var(--secondary-dark)
+  );
   color: white !important;
 }
 
@@ -104,7 +111,6 @@
   color: #333 !important;
 }
 
-
 .main-container {
   width: 85%;
   padding: 20px;
@@ -113,7 +119,11 @@
 }
 
 .dark .main-container {
-  background: linear-gradient(180deg, var(--border-dark), var(--background-dark));
+  background: linear-gradient(
+    180deg,
+    var(--border-dark),
+    var(--background-dark)
+  );
 }
 
 .main-container h3 {
@@ -207,7 +217,7 @@
 }
 
 .dark .aprendiz {
-  background-color: #F36C19FF;
+  background-color: #f36c19ff;
 }
 
 .basica {
@@ -319,7 +329,10 @@
   border: 1.5px solid var(--text-muted);
   color: var(--text-light);
   background-color: transparent;
-  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
   user-select: none;
   line-height: 1.4;
 }

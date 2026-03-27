@@ -8,9 +8,8 @@ describe('ModalMailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalMailComponent]
-    })
-    .compileComponents();
+      imports: [ModalMailComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModalMailComponent);
     component = fixture.componentInstance;

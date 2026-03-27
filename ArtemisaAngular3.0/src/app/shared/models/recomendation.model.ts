@@ -1,4 +1,4 @@
 export interface Recomendation {
-  data:string;
-  type:string;
+  data: string;
+  type: string;
 }

@@ -1,20 +1,63 @@
-<div  [class.dark]="theme.isDark()" [class.light]="!theme.isDark()" class="modal-content-custom">
-<div class="modal-header">
-      <h4 class="modal-title">Verificación de correo</h4>
-    </div>
-    <div class="modal-body">
-      <p>Ingresa el código de verificación enviado a tu correo:</p>
-      <form [formGroup]="validationForm" class="d-flex justify-content-center gap-2">
-        <input type="text" maxlength="1" formControlName = "num1" class="form-control text-center" style="width: 50px;">
-        <input type="text" maxlength="1" formControlName = "num2" class="form-control text-center" style="width: 50px;">
-        <input type="text" maxlength="1" formControlName = "num3" class="form-control text-center" style="width: 50px;">
-        <input type="text" maxlength="1" formControlName = "num4" class="form-control text-center" style="width: 50px;">
-      </form >
-      <p class="text-center mt-2">Si no recibiste el código, puedes reenviarlo.</p>
-      <p class="text-center">Recuerda que el código es válido durante 5 minutos</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" (click)="reenviarCodigo()" >Reenviar codigo</button>
-      <button class="btn btn-primary" (click)="enviarCodigo()" [disabled]="validationForm.invalid">Verificar</button>
-    </div>
+<div
+  [class.dark]="theme.isDark()"
+  [class.light]="!theme.isDark()"
+  class="modal-content-custom"
+>
+  <div class="modal-header">
+    <h4 class="modal-title">Verificación de correo</h4>
+  </div>
+  <div class="modal-body">
+    <p>Ingresa el código de verificación enviado a tu correo:</p>
+    <form
+      [formGroup]="validationForm"
+      class="d-flex justify-content-center gap-2"
+    >
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="num1"
+        class="form-control text-center"
+        style="width: 50px"
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="num2"
+        class="form-control text-center"
+        style="width: 50px"
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="num3"
+        class="form-control text-center"
+        style="width: 50px"
+      />
+      <input
+        type="text"
+        maxlength="1"
+        formControlName="num4"
+        class="form-control text-center"
+        style="width: 50px"
+      />
+    </form>
+    <p class="text-center mt-2">
+      Si no recibiste el código, puedes reenviarlo.
+    </p>
+    <p class="text-center">
+      Recuerda que el código es válido durante 5 minutos
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="reenviarCodigo()">
+      Reenviar codigo
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="enviarCodigo()"
+      [disabled]="validationForm.invalid"
+    >
+      Verificar
+    </button>
+  </div>
 </div>

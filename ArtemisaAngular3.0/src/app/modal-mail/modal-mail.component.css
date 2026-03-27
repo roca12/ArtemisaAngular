@@ -3,8 +3,6 @@
   color: var(--text-muted);
 }
 
-
-
 /* Opcional: mejora inputs en modo oscuro */
 .dark input.form-control {
   background-color: var(--text-muted);

@@ -3,27 +3,24 @@ body.dark {
   color: var(--text-light);
 }
 
-.dark{
+.dark {
   color: var(--text-light);
 }
 
-
-
-.footer{
+.footer {
   text-align: center;
 }
 
-.footer p{
-  font-family: Arial, Helvetica, sans-serif ;
+.footer p {
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
 }
 
-fa-icon{
+fa-icon {
   color: var(--primary-dark);
   width: 40px;
 }
 
-body.dark .footer p{
+body.dark .footer p {
   color: var(--text-light) !important;
 }
-

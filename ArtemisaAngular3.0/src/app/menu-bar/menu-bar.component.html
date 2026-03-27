@@ -1,26 +1,30 @@
-<div [class.dark]="theme.isDark()"  [class.light] = "!theme.isDark()">
-  <div class = "menu-bar">
-    <nav class = "nav-container">
-      <div class = "logo-container">
-        <img [src]="theme.isDark()? 'assets/images/logos/propuestas logo 1 artemisa-02.png': 'assets/images/logos/propuestas_logo_1_artemisa_Mesa_de_trabajo_1.png'"
-             alt='Logo Artemisa'>
+<div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
+  <div class="menu-bar">
+    <nav class="nav-container">
+      <div class="logo-container">
+        <img
+          [src]="
+            theme.isDark()
+              ? 'assets/images/logos/propuestas logo 1 artemisa-02.png'
+              : 'assets/images/logos/propuestas_logo_1_artemisa_Mesa_de_trabajo_1.png'
+          "
+          alt="Logo Artemisa"
+        />
       </div>
-      <a routerLink='/'>Inicio</a>
-      <a routerLink='/temario'>Temario</a>
+      <a routerLink="/">Inicio</a>
+      <a routerLink="/temario">Temario</a>
 
-
-      <a routerLink='/problemas'>Problemas</a>
-      <a routerLink='/links'>Links</a>
-      <a routerLink='/calendar'>Calendario</a>
-        <div class="darkmode-container">
-          <div class="dark-mode" (click)="toggleDarkMode()">
-            <div class = "circle">
-              <ion-icon class = "sun" name="sunny"></ion-icon>
-              <ion-icon class="moon" name="moon"></ion-icon>
-
-            </div>
+      <a routerLink="/problemas">Problemas</a>
+      <a routerLink="/links">Links</a>
+      <a routerLink="/calendar">Calendario</a>
+      <div class="darkmode-container">
+        <div class="dark-mode" (click)="toggleDarkMode()">
+          <div class="circle">
+            <ion-icon class="sun" name="sunny"></ion-icon>
+            <ion-icon class="moon" name="moon"></ion-icon>
           </div>
         </div>
+      </div>
 
       <!--
       <button *ngIf = "isLoggedIn()" >
@@ -32,7 +36,3 @@
     </nav>
   </div>
 </div>
-
-
-
-

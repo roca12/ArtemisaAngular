@@ -8,9 +8,8 @@ describe('TemarioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TemarioComponent]
-    })
-    .compileComponents();
+      imports: [TemarioComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TemarioComponent);
     component = fixture.componentInstance;

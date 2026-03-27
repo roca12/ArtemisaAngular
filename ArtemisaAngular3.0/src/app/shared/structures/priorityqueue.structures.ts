@@ -1,7 +1,7 @@
 type Item<T> = {
   value: T;
   priority: number;
-}
+};
 
 export class PriorityQueue<T> {
   private items: Item<T>[] = [];
@@ -21,10 +21,12 @@ export class PriorityQueue<T> {
     }
   }
 
-  find(data: T){
-    return this.items.find(item =>
-      (item.value as any).data === (data as any).data &&
-      (item.value as any).type === (data as any).type);
+  find(data: T) {
+    return this.items.find(
+      (item) =>
+        (item.value as any).data === (data as any).data &&
+        (item.value as any).type === (data as any).type,
+    );
   }
 
   dequeue(): T | undefined {
@@ -44,21 +46,27 @@ export class PriorityQueue<T> {
   }
 
   forEach(callback: (item: T, index: number, array: T[]) => void): void {
-    this.items.forEach(obj => callback(obj.value, this.items.indexOf(obj), this.items.map(x => x.value)));
+    this.items.forEach((obj) =>
+      callback(
+        obj.value,
+        this.items.indexOf(obj),
+        this.items.map((x) => x.value),
+      ),
+    );
   }
 
   [Symbol.iterator](): Iterator<T> {
     let index = 0;
 
-    const values = this.items.map(obj => obj.value);
+    const values = this.items.map((obj) => obj.value);
     return {
       next: () => {
-        if(index<values.length){
-          return {value: values[index++], done: false};
-        }else{
-          return {value: undefined, done: true}
+        if (index < values.length) {
+          return { value: values[index++], done: false };
+        } else {
+          return { value: undefined, done: true };
         }
-      }
-    }
+      },
+    };
   }
 }

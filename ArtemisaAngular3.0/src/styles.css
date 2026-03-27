@@ -1,11 +1,12 @@
-*{
-  margin:0;
-  padding:0;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body, html {
+body,
+html {
   overflow: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
@@ -15,7 +16,7 @@ html::-webkit-scrollbar {
   display: none; /* Chrome, Safari y Opera */
 }
 
-.dark{
+.dark {
   background-color: var(--background-dark);
 }
 
@@ -24,20 +25,22 @@ html::-webkit-scrollbar {
 }
 
 :root {
-  --background-dark: #1E1E1E;
-  --text-light: #F0F0F0;
-  --text-muted: #B0B0B0;
-  --primary-dark: #D95C00;
-  --secondary-dark: #C08C4A;
-  --olive-dark: #6A7852;
-  --blue-dark: #3A5C6A;
-  --teal-dark: #1F5E67;
+  --background-dark: #1e1e1e;
+  --text-light: #f0f0f0;
+  --text-muted: #b0b0b0;
+  --primary-dark: #d95c00;
+  --secondary-dark: #c08c4a;
+  --olive-dark: #6a7852;
+  --blue-dark: #3a5c6a;
+  --teal-dark: #1f5e67;
   --border-dark: #303030;
-
-
 }
 
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
