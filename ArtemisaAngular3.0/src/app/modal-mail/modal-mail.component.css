@@ -1,0 +1,11 @@
+.dark {
+  background-color: var(--background-dark);
+  color: var(--text-muted);
+}
+
+/* Opcional: mejora inputs en modo oscuro */
+.dark input.form-control {
+  background-color: var(--text-muted);
+  color: var(--border-dark);
+  border: 1px solid #555;
+}

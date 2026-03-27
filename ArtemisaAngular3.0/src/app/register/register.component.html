@@ -1,0 +1,136 @@
+<div
+  [class.dark]="theme.isDark()"
+  [class.light]="!theme.isDark()"
+  id="theme-container"
+>
+  <div class="container">
+    <div class="logo-container">
+      <img
+        [src]="
+          theme.isDark()
+            ? 'assets/images/logos/propuestas logo 1 artemisa-02.png'
+            : 'assets/images/logos/propuestas_logo_1_artemisa_Mesa_de_trabajo_1.png'
+        "
+      />
+    </div>
+    <div class="forms-container">
+      <h1>Registro</h1>
+      <form [formGroup]="registerForm" #formRef="ngForm">
+        <div class="password-wrapper">
+          <input
+            type="text"
+            placeholder="Nombre de usuario"
+            formControlName="username"
+          />
+          <div
+            *ngIf="
+              registerForm.get('username')?.touched &&
+              registerForm.get('username')?.invalid
+            "
+            class="text-danger"
+          >
+            <small *ngIf="registerForm.get('username')?.errors?.['required']"
+              >El nombre de usuario es obligatorio.</small
+            >
+            <small *ngIf="registerForm.get('username')?.errors?.['minlength']"
+              >Mínimo 3 caracteres.</small
+            >
+            <small *ngIf="registerForm.get('username')?.errors?.['maxlength']"
+              >Máximo 20 caracteres.</small
+            >
+            <small *ngIf="registerForm.get('username')?.errors?.['pattern']"
+              >No puedes utilizar símbolos para tu nombre de usuario</small
+            >
+          </div>
+        </div>
+        <div class="password-wrapper">
+          <input
+            type="text"
+            placeholder="Correo@ejemplo.com"
+            formControlName="email"
+          />
+          <div
+            *ngIf="
+              registerForm.get('email')?.touched &&
+              registerForm.get('email')?.invalid
+            "
+            class="text-danger"
+          >
+            <small *ngIf="registerForm.get('email')?.errors?.['required']"
+              >El correo electrónico es obligatorio.</small
+            >
+            <small *ngIf="registerForm.get('email')?.errors?.['email']"
+              >El correo electrónico no es válido.</small
+            >
+          </div>
+        </div>
+
+        <div class="password-wrapper">
+          <input
+            #nombreInput
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Contraseña"
+            formControlName="password"
+          />
+          <div
+            *ngIf="
+              registerForm.get('password')?.touched &&
+              registerForm.get('password')?.invalid
+            "
+            class="text-danger"
+          >
+            <small *ngIf="registerForm.get('password')?.errors?.['required']">
+              La contraseña es obligatoria.
+            </small>
+            <small *ngIf="registerForm.get('password')?.errors?.['pattern']">
+              Debe tener al menos 10 caracteres, una mayúscula, una minúscula,
+              un número y un símbolo (&#64;#$!%*?&).
+            </small>
+          </div>
+          <span class="toggle-eye" (click)="togglePassword()">
+            <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+          </span>
+        </div>
+        <div class="password-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Confirmar contraseña"
+            formControlName="passwordConfirm"
+          />
+          <div
+            *ngIf="
+              registerForm.hasError('passwordsMismatch') &&
+              registerForm.get('passwordConfirm')?.touched
+            "
+            class="text-danger"
+          >
+            <small>Las contraseñas no coinciden.</small>
+          </div>
+          <span class="toggle-eye" (click)="togglePassword()">
+            <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+          </span>
+        </div>
+        <div class="d-flex justify-content-center my-3">
+          <ngx-recaptcha2
+            #captchaRef
+            [siteKey]="'6Le_WHArAAAAAFqukiJOxTKnkGHW6HEg0i7zs0ff'"
+            [useGlobalDomain]="false"
+            [theme]="theme.isDark() ? 'dark' : 'light'"
+            formControlName="recaptcha"
+            (success)="onRecaptchaResolved($event)"
+          ></ngx-recaptcha2>
+        </div>
+        <button
+          [disabled]="registerForm.invalid"
+          (click)="register()"
+          type="submit"
+        >
+          Registrar
+        </button>
+        <p class="register-text">
+          ¿Ya tienes cuenta? <a routerLink="/login">Iniciar Sesión</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
