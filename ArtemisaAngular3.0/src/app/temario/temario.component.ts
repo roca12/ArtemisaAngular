@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnChanges,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { SyllabusService } from '../services/syllabus.service';
 import { Temario } from '../shared/models/temario.model';
 import { ToastrService } from 'ngx-toastr';
@@ -10,33 +19,29 @@ import { python } from '@codemirror/lang-python';
 import { java } from '@codemirror/lang-java';
 import { cpp } from '@codemirror/lang-cpp';
 import { EditorView } from '@codemirror/view';
-import {materialDark} from '@ddietr/codemirror-themes/material-dark'
+import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { ActivatedRoute } from '@angular/router';
-import {RecomendationService} from '../services/recomendation.service';
+import { RecomendationService } from '../services/recomendation.service';
 
 @Component({
   selector: 'app-temario',
   standalone: true,
-  imports: [
-    NgFor,
-    FormsModule,
-    NgbAccordionModule,
-    NgIf
-],
+  imports: [NgFor, FormsModule, NgbAccordionModule, NgIf],
   templateUrl: './temario.component.html',
-  styleUrl: './temario.component.css'
+  styleUrl: './temario.component.css',
 })
-export class TemarioComponent implements AfterViewInit, OnInit{
+export class TemarioComponent implements AfterViewInit, OnInit {
+  @ViewChildren('editorContainerJava')
+  editorContainersJava!: QueryList<ElementRef>;
+  @ViewChildren('editorContainerCpp')
+  editorContainersCpp!: QueryList<ElementRef>;
+  @ViewChildren('editorContainerPython')
+  editorContainersPython!: QueryList<ElementRef>;
 
-  @ViewChildren('editorContainerJava') editorContainersJava!: QueryList<ElementRef>;
-  @ViewChildren('editorContainerCpp') editorContainersCpp!: QueryList<ElementRef>;
-  @ViewChildren('editorContainerPython') editorContainersPython!: QueryList<ElementRef>;
-
-  temario: Temario [] =[];
+  temario: Temario[] = [];
   superGrupos: string[] = [];
 
   ngAfterViewInit(): void {
-
     this.initializeTemario();
     this.initializeSupergrupos();
     this.editorContainersJava.changes.subscribe(() => {
@@ -48,55 +53,47 @@ export class TemarioComponent implements AfterViewInit, OnInit{
     this.editorContainersPython.changes.subscribe(() => {
       this.initPythonEditors();
     });
-
   }
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params => {
+    this.route.queryParamMap.subscribe((params) => {
       const filtro = params.get('filtro');
       if (filtro) {
         this.filtrosSeleccionados[filtro] = true;
       }
     });
-
   }
-
-
 
   constructor(
     private syllabus: SyllabusService,
     private toastService: ToastrService,
     public theme: ThemeService,
     private route: ActivatedRoute,
-    private recoService:RecomendationService
-  ) {
-
-
-
-   }
+    private recoService: RecomendationService,
+  ) {}
 
   filtrosSeleccionados: { [key: string]: boolean } = {};
 
-  initializeTemario(){
+  initializeTemario() {
     this.syllabus.getSyllabus().subscribe({
       next: (response) => {
         this.temario = response.data as Temario[];
       },
       error: (error) => {
         this.toastService.error('Error al obtener el temario', 'Error');
-      }
+      },
     });
   }
 
   initJavaEditors() {
     if (this.editorContainersJava) {
       this.editorContainersJava.forEach((container) => {
-       const codigo = container.nativeElement.getAttribute('data-codigo');
+        const codigo = container.nativeElement.getAttribute('data-codigo');
         if (codigo.trim !== '') {
           new EditorView({
             parent: container.nativeElement,
             doc: codigo,
-            extensions: [materialDark, java(), EditorView.editable.of(false)]
+            extensions: [materialDark, java(), EditorView.editable.of(false)],
           });
         }
       });
@@ -111,7 +108,7 @@ export class TemarioComponent implements AfterViewInit, OnInit{
           new EditorView({
             parent: container.nativeElement,
             doc: codigo,
-            extensions: [materialDark, cpp(), EditorView.editable.of(false)]
+            extensions: [materialDark, cpp(), EditorView.editable.of(false)],
           });
         }
       });
@@ -125,8 +122,8 @@ export class TemarioComponent implements AfterViewInit, OnInit{
         if (codigo.trim !== '') {
           new EditorView({
             parent: container.nativeElement,
-            doc:codigo,
-            extensions: [materialDark, python(), EditorView.editable.of(false)]
+            doc: codigo,
+            extensions: [materialDark, python(), EditorView.editable.of(false)],
           });
         }
       });
@@ -134,13 +131,14 @@ export class TemarioComponent implements AfterViewInit, OnInit{
   }
 
   temarioFiltrado() {
-  const activos = Object.entries(this.filtrosSeleccionados)
-    .filter(([_, val]) => val)
-    .map(([key, _]) => key);
+    const activos = Object.entries(this.filtrosSeleccionados)
+      .filter(([_, val]) => val)
+      .map(([key, _]) => key);
     if (activos.length === 0) return this.temario;
-  return this.temario.filter(t => activos.includes(t.supergrupo)).concat(
-    this.temario.filter(t => activos.includes(t.tema)));
-}
+    return this.temario
+      .filter((t) => activos.includes(t.supergrupo))
+      .concat(this.temario.filter((t) => activos.includes(t.tema)));
+  }
 
   initializeSupergrupos() {
     this.syllabus.getSuperGrupos().subscribe({
@@ -149,18 +147,15 @@ export class TemarioComponent implements AfterViewInit, OnInit{
       },
       error: (error) => {
         this.toastService.error('Error al obtener los supergrupos', 'Error');
-      }
+      },
     });
   }
 
   formateaTexto(texto: string): string {
+    if (/<\/?[a-z][\s\S]*>/i.test(texto)) {
+      return texto;
+    }
 
-  if (/<\/?[a-z][\s\S]*>/i.test(texto)) {
-    return texto;
+    return texto.replace(/\n/g, '<br><br>');
   }
-
-  return texto.replace(/\n/g, '<br><br>');
-}
-
-
 }

@@ -1,19 +1,15 @@
-
-
-.logo-container{
+.logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
-
-.profile-button:hover{
+.profile-button:hover {
   background-color: var(--border-dark);
   transition: background-color 0.5s ease;
 }
 
-.logo-container img{
+.logo-container img {
   width: 50%;
   max-width: 300px;
   min-width: 85px;
@@ -22,38 +18,36 @@
   padding-bottom: 1rem;
 }
 
-.nav-container{
+.nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav-container a{
-  text-decoration:none;
-  color:var(--teal-dark);
+.nav-container a {
+  text-decoration: none;
+  color: var(--teal-dark);
   font-weight: bold;
   transition: color 0.3s;
 }
 
-.nav-container a:hover{
+.nav-container a:hover {
   color: var(--secondary-dark);
 }
 
-
-
-.menu-bar{
+.menu-bar {
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2); /* solo abajo */
   background-color: var(--text-light);
   border-radius: 6px; /* opcional */
   width: 100vw;
 }
 
-.dark .menu-bar{
-  background-color:var(--background-dark); /* resplandor suave */
+.dark .menu-bar {
+  background-color: var(--background-dark); /* resplandor suave */
 }
 
 /* Manejo de Dark-Mode*/
-.darkmode-container{
+.darkmode-container {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -62,7 +56,7 @@
   padding-right: 10%;
 }
 
-.dark-mode{
+.dark-mode {
   width: 60px;
   height: 30px;
   display: flex;
@@ -73,10 +67,10 @@
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); /* borde sombreado */
 }
 
-.dark-mode .circle{
+.dark-mode .circle {
   width: 40%;
   height: 80%;
-  border-radius:50%;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,44 +82,39 @@
   transition: transform 0.5s ease;
 }
 
-
-
-.dark-mode .circle ion-icon{
+.dark-mode .circle ion-icon {
   width: 70%;
-  height:70%;
+  height: 70%;
   position: absolute;
   transition: transform 0.5s ease;
 }
 
-.dark-mode .circle .moon{
+.dark-mode .circle .moon {
   transform: translateY(-120%);
 }
 
-.dark .darkmode-container .dark-mode{
+.dark .darkmode-container .dark-mode {
   background: var(--border-dark);
 }
 
-
-
-.dark .darkmode-container .circle{
+.dark .darkmode-container .circle {
   transform: translateX(140%);
   background-color: var(--background-dark);
 }
 
-.dark .darkmode-container .circle .moon{
+.dark .darkmode-container .circle .moon {
   transform: translateX(0);
-  color:var(--text-light);
+  color: var(--text-light);
 }
 
-.dark-mode .circle .sun{
-  color:var(--secondary-dark);
+.dark-mode .circle .sun {
+  color: var(--secondary-dark);
 }
-.dark .darkmode-container .circle .sun{
+.dark .darkmode-container .circle .sun {
   transform: translateY(120%);
-
 }
 
-.nav-container-bottom{
+.nav-container-bottom {
   display: flex;
   align-items: center;
   padding-right: 2rem;
@@ -135,9 +124,8 @@
   gap: 1rem;
 }
 
-
-button{
-  background-color:var(--secondary-dark);
+button {
+  background-color: var(--secondary-dark);
   color: var(--text-light);
   border: none;
   border-radius: 6px;
@@ -148,46 +136,38 @@ button{
   transition: background-color 0.5s ease;
 }
 
-.dark button{
+.dark button {
   background-color: var(--blue-dark);
 }
 
-.profile-button:hover{
+.profile-button:hover {
   background-color: var(--secondary-dark);
   transition: background-color 0.5s ease;
 }
 
-button:hover{
+button:hover {
   background-color: var(--olive-dark);
   transition: background-color 0.5s ease;
 }
-
-
-
 
 .dark {
   background-color: var(--background-dark);
   color: var(--text-light);
 }
 
-
 .dark .nav-container,
 .dark .nav-container-bottom,
-.dark .darkmode-container{
-  background-color:var(--background-dark);
+.dark .darkmode-container {
+  background-color: var(--background-dark);
 }
-
-
 
 .dark .nav-container a {
   color: var(--text-light);
 }
 
-
 .dark .nav-container a:hover {
-  color:var(--primary-dark);
+  color: var(--primary-dark);
 }
-
 
 .dark button:hover {
   background-color: var(--olive-dark);
@@ -206,7 +186,6 @@ button:hover{
     width: 100%;
     justify-content: center;
     align-items: center;
-
   }
 
   .nav-container a {
@@ -238,9 +217,4 @@ button:hover{
     padding: 0.75rem;
     margin: 0;
   }
-
-
 }
-
-
-

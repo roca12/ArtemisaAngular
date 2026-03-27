@@ -1,15 +1,23 @@
 <app-menu-bar></app-menu-bar>
 
 <main>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>
 
-<div class="footer" [ngClass]="{'dark': theme.isDark()}">
+<div class="footer" [ngClass]="{ dark: theme.isDark() }">
   <p>
-    Desarrollado por Diego Rodríguez y Juan Diego González <br>
+    Desarrollado por Diego Rodríguez y Juan Diego González <br />
     Proyecto Artemisa 2026
-    <a [href]="'https://github.com/roca12/ArtemisaAngular'" target="_blank" style="color: inherit; text-decoration: none;">
-      <fa-icon [icon]="faGithub" size="lg" style="margin-left: 0.3rem;"></fa-icon>
+    <a
+      [href]="'https://github.com/roca12/ArtemisaAngular'"
+      target="_blank"
+      style="color: inherit; text-decoration: none"
+    >
+      <fa-icon
+        [icon]="faGithub"
+        size="lg"
+        style="margin-left: 0.3rem"
+      ></fa-icon>
     </a>
   </p>
 </div>

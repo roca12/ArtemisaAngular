@@ -1,25 +1,37 @@
-<div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()" id="theme-container">
+<div
+  [class.dark]="theme.isDark()"
+  [class.light]="!theme.isDark()"
+  id="theme-container"
+>
   <div class="sidebar">
     <h2>Filtros</h2>
     <div class="filter-container">
-
       <h3>Temas</h3>
       <div class="form-check" *ngFor="let tema of listarTemas()">
-        <input class="form-check-input" type="checkbox" [id]="tema" [value]="tema"
-               [(ngModel)]="filtrosSeleccionados[tema]"
-               (change)="onTemaChange()">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [id]="tema"
+          [value]="tema"
+          [(ngModel)]="filtrosSeleccionados[tema]"
+          (change)="onTemaChange()"
+        />
         <label class="form-check-label" [for]="tema">
-          {{tema}}
+          {{ tema }}
         </label>
       </div>
 
       <h3>Subtemas</h3>
-      <div class="chips-container" *ngIf="listarSubtemas().length > 0; else sinSubtemas">
+      <div
+        class="chips-container"
+        *ngIf="listarSubtemas().length > 0; else sinSubtemas"
+      >
         <span
           *ngFor="let subtema of listarSubtemas()"
           class="chip"
           [class.chip-activo]="isSubtemaActivo(subtema)"
-          (click)="toggleSubtema(subtema)">
+          (click)="toggleSubtema(subtema)"
+        >
           {{ subtema }}
         </span>
       </div>
@@ -29,22 +41,31 @@
 
       <h3>Dificultad</h3>
       <div class="form-check" *ngFor="let dificultad of listarDificultades()">
-        <input class="form-check-input" type="checkbox" [id]="dificultad" [value]="dificultad"
-               [(ngModel)]="filtrosSeleccionados[dificultad]">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [id]="dificultad"
+          [value]="dificultad"
+          [(ngModel)]="filtrosSeleccionados[dificultad]"
+        />
         <label class="form-check-label" [for]="dificultad">
-          {{dificultad}}
+          {{ dificultad }}
         </label>
       </div>
 
       <h3>Juez</h3>
       <div class="form-check" *ngFor="let juez of listarJueces()">
-        <input class="form-check-input" type="checkbox" [id]="juez" [value]="juez"
-               [(ngModel)]="filtrosSeleccionados[juez]">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [id]="juez"
+          [value]="juez"
+          [(ngModel)]="filtrosSeleccionados[juez]"
+        />
         <label class="form-check-label" [for]="juez">
-          {{juez}}
+          {{ juez }}
         </label>
       </div>
-
     </div>
   </div>
 
@@ -54,14 +75,17 @@
       <div *ngFor="let problema of filterProblems(); let i = index">
         <h2>
           <button class="accordion-button" type="button">
-            <p class="titulo">{{problema.titulo}}</p>
+            <p class="titulo">{{ problema.titulo }}</p>
             <div class="temas">
               <p *ngIf="problema.tema_1">{{ problema.tema_1 }}</p>
               <p *ngIf="problema.tema_2">{{ problema.tema_2 }}</p>
               <p *ngIf="problema.tema_3">{{ problema.tema_3 }}</p>
               <p *ngIf="problema.tema_4">{{ problema.tema_4 }}</p>
             </div>
-            <div class="dificultad" [ngSwitch]="determinarNivel(problema.dificultad)">
+            <div
+              class="dificultad"
+              [ngSwitch]="determinarNivel(problema.dificultad)"
+            >
               <p class="aprendiz" *ngSwitchCase="'Aprendíz'">APRENDÍZ</p>
               <p class="basica" *ngSwitchCase="'Básica'">BÁSICA</p>
               <p class="intermedia" *ngSwitchCase="'Intermedia'">INTERMEDIA</p>
@@ -69,7 +93,7 @@
               <p class="elite" *ngSwitchCase="'Élite'">ÉLITE</p>
             </div>
             <div class="juez">
-              <p>{{problema.juez}}</p>
+              <p>{{ problema.juez }}</p>
             </div>
             <a class="boton-problema" [href]="problema.url">Ver</a>
           </button>

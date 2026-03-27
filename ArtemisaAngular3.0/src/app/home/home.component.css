@@ -60,14 +60,15 @@
   -ms-overflow-style: none;
 }
 
-.dark .search-container{
-  background: linear-gradient(180deg, var(--border-dark), var(--background-dark));
+.dark .search-container {
+  background: linear-gradient(
+    180deg,
+    var(--border-dark),
+    var(--background-dark)
+  );
 }
 
-
-
-
-.search-container{
+.search-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,28 +76,26 @@
   height: 20vh;
 }
 
-.search{
-  position:relative;
+.search {
+  position: relative;
   padding: 5px 5px 5px 20px;
 }
-
 
 .dark {
   background-color: var(--background-dark);
   color: var(--text-light);
 }
 
-.dark .cards-container{
+.dark .cards-container {
   background-color: var(--background-dark);
   color: var(--text-light);
 }
 
-
-.search input{
+.search input {
   position: relative;
   width: 0;
   height: 60px;
-  padding:  20px;
+  padding: 20px;
   font-size: 1rem;
   font-weight: bolder;
   color: var(--background-dark);
@@ -107,42 +106,40 @@
   max-width: 500px;
 }
 
-.btn{
-  position:absolute;
-  top:0;
-  right:0;
+.btn {
+  position: absolute;
+  top: 0;
+  right: 0;
   background: var(--primary-dark);
-  width:75px;
-  height:75px;
+  width: 75px;
+  height: 75px;
   line-height: 65px;
   align-items: center;
   text-align: center;
-  color:var(--text-light);
-  font-size:20px;
+  color: var(--text-light);
+  font-size: 20px;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.dark .btn{
+.dark .btn {
   background: var(--teal-dark);
 }
 
-.search:hover input{
+.search:hover input {
   width: 80vw;
-
 }
 
-.search input:focus{
+.search input:focus {
   width: 80vw;
 }
 
 .search input:focus ~ .recomendations-list,
-.search .recomendations-list:hover{
+.search .recomendations-list:hover {
   width: 100%;
   border: 1px solid #ddd;
-  box-shadow: 0 4px 18px rgba(60,60,80,0.15);
+  box-shadow: 0 4px 18px rgba(60, 60, 80, 0.15);
 }
-
 
 .card {
   color: var(--text-light);
@@ -171,7 +168,7 @@
   margin-bottom: 1rem;
 }
 
-a{
+a {
   display: inline-block;
 }
 
@@ -183,7 +180,9 @@ a{
   border-radius: 999px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .card button:hover {
@@ -204,15 +203,11 @@ a{
   font-size: 1.5rem;
 }
 
-
-
-.books-container{
+.books-container {
   align-items: flex-start;
   justify-content: center;
   width: 100vw;
 }
-
-
 
 .book-card {
   border-radius: 15px;
@@ -230,19 +225,19 @@ a{
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
-.dark .book-card{
+.dark .book-card {
   background: #232323;
   color: var(--text-light);
   box-shadow: 0 8px 16px rgba(70, 70, 70, 0.4);
 }
 
-.book-card img{
+.book-card img {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 1rem;
 }
 
-.book-card p{
+.book-card p {
   font-size: 1rem;
   font-weight: bold;
   color: var(--background-dark);
@@ -255,21 +250,21 @@ a{
   border-bottom: 1px solid var(--background-dark);
 }
 
-.dark .book-card p{
-  color:var(--text-light);
+.dark .book-card p {
+  color: var(--text-light);
 }
 
-.card-btns{
+.card-btns {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-top:1px solid var(--text-light);
+  border-top: 1px solid var(--text-light);
   width: 100%;
 }
 
-.card-btns button{
+.card-btns button {
   padding: 0.5rem;
   width: 40%;
   background: var(--primary-dark);
@@ -278,21 +273,22 @@ a{
   font-weight: bold;
   cursor: pointer;
   font-size: 0.6rem;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
   border: none !important;
 }
 
-.dark .card-btns button{
+.dark .card-btns button {
   background: var(--teal-dark);
-
 }
 
-.card-btns button:hover{
+.card-btns button:hover {
   background-color: var(--olive-dark);
   color: var(--text-light);
 }
 
-.dark .card-btns button:hover{
+.dark .card-btns button:hover {
   background-color: var(--olive-dark);
   color: var(--text-light);
 }
@@ -362,7 +358,7 @@ a{
 
   .books-carousel {
     gap: 1rem;
-    padding:0;
+    padding: 0;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     border-radius: 15px;
   }
@@ -441,13 +437,12 @@ a{
 
 .recomendations-list li:hover {
   background: #f6f8fc;
-
 }
 
 .dark .recomendations-list {
   background: var(--background-dark);
   border: 1px solid var(--border-dark);
-  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 }
 
 .dark .recomendations-list li {

@@ -3,7 +3,7 @@ export interface Problema {
   titulo: string;
   juez: string;
   alias: string;
-  dificultad:number;
+  dificultad: number;
   tema_1: string;
   tema_2: string;
   tema_3: string;

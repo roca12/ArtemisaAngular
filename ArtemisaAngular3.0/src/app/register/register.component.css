@@ -1,5 +1,3 @@
-
-
 #theme-container {
   display: flex;
   justify-content: center;
@@ -7,8 +5,12 @@
   height: 90vh;
 }
 
-.dark{
-  background: linear-gradient(180deg, var(--border-dark),var(--background-dark));
+.dark {
+  background: linear-gradient(
+    180deg,
+    var(--border-dark),
+    var(--background-dark)
+  );
 }
 
 .text-danger {
@@ -16,8 +18,6 @@
   font-size: 0.9rem;
   padding: 0;
 }
-
-
 
 .container {
   display: grid;
@@ -33,14 +33,14 @@
 
 /* Logo */
 .logo-container {
-  background: linear-gradient(180deg, var(--text-muted),var(--primary-dark));
+  background: linear-gradient(180deg, var(--text-muted), var(--primary-dark));
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
 }
 
-.dark .logo-container{
+.dark .logo-container {
   background: linear-gradient(180deg, var(--blue-dark), var(--background-dark));
 }
 
@@ -60,7 +60,7 @@
   padding: 2rem;
 }
 
-.dark .forms-container{
+.dark .forms-container {
   background: var(--background-dark);
 }
 
@@ -70,22 +70,20 @@
   color: #333;
 }
 
-.dark .forms-container h1{
+.dark .forms-container h1 {
   color: var(--text-light);
 }
-.dark .forms-container a{
+.dark .forms-container a {
   color: var(--olive-dark);
 }
 
-.dark .forms-container a:hover{
+.dark .forms-container a:hover {
   color: var(--teal-dark);
 }
 
-.dark .forms-container p{
+.dark .forms-container p {
   color: var(--text-light);
 }
-
-
 
 form {
   width: 100%;
@@ -118,25 +116,23 @@ form button {
   padding: 0.75rem 1rem;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(180deg, var(--text-muted),var(--primary-dark));
+  background: linear-gradient(180deg, var(--text-muted), var(--primary-dark));
   color: white;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.5s ease;
-
 }
 
-.dark form button{
+.dark form button {
   background: linear-gradient(180deg, var(--blue-dark), var(--background-dark));
 }
 
 form button:hover {
-  background: linear-gradient(180deg, var(--teal-dark),var(--olive-dark));
+  background: linear-gradient(180deg, var(--teal-dark), var(--olive-dark));
 }
 
-
 .dark form button:hover {
-  background: linear-gradient(180deg, var(--teal-dark),var(--olive-dark));
+  background: linear-gradient(180deg, var(--teal-dark), var(--olive-dark));
 }
 
 .password-wrapper {
@@ -175,15 +171,13 @@ form button:hover {
   text-decoration: underline;
 }
 
-
-
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
     height: 50vh;
   }
 
-  .logo-container{
+  .logo-container {
     display: none;
   }
 }
