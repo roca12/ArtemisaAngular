@@ -1,3 +1,5 @@
+<app-spinner *ngIf="loading" message="Cargando problemas..." [fullscreen] = "true"></app-spinner>
+<div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
 <div
   [class.dark]="theme.isDark()"
   [class.light]="!theme.isDark()"

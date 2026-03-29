@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProblemService } from '../services/problem.service';
 import { Problema } from '../shared/models/problema.model';
 import { ActivatedRoute } from '@angular/router';
+import {SpinnerComponent} from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-problemas',
@@ -16,11 +17,13 @@ import { ActivatedRoute } from '@angular/router';
     FormsModule,
     NgSwitchCase,
     NgSwitch,
+    SpinnerComponent,
   ],
   templateUrl: './problemas.component.html',
   styleUrl: './problemas.component.css',
 })
 export class ProblemasComponent implements OnInit {
+  loading = true;
   constructor(
     public theme: ThemeService,
     public problemService: ProblemService,
@@ -35,6 +38,7 @@ export class ProblemasComponent implements OnInit {
     this.problemService.getProblems().subscribe({
       next: (response) => {
         this.problems = response.data as Problema[];
+        this.loading = false;
       },
       error: (error) => {
         console.error('Error al obtener los problemas:', error);
