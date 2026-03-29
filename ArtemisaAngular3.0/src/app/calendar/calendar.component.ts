@@ -40,7 +40,6 @@ export class CalendarComponent implements OnInit {
       let eventos: any[] = [];
       for (const calendario of res) {
         if (calendario.items) {
-          console.log(calendario.items);
           eventos = eventos.concat(
             calendario.items.map((item: any) => ({
               title: item.summary,
