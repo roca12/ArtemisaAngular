@@ -27,15 +27,24 @@ import { Router } from '@angular/router';
 import { PriorityQueue } from '../shared/structures/priorityqueue.structures';
 import { RecomendationService } from '../services/recomendation.service';
 import { Recomendation } from '../shared/models/recomendation.model';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FontAwesomeModule, NgbCarouselModule, NgFor, SlicePipe, NgIf],
+  imports: [
+    FontAwesomeModule,
+    NgbCarouselModule,
+    NgFor,
+    SlicePipe,
+    NgIf,
+    SpinnerComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements AfterViewInit, OnInit {
+  loading = true;
   active: boolean = localStorage.getItem('darkMode') === 'true';
   cache: Map<string, PriorityQueue<Recomendation>> = new Map();
 
@@ -143,43 +152,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
     this.search(reco.data);
   }
 
-  filterRecomendations(cadena: string) {
-    if (this.cache.has(cadena)) return this.cache.get(cadena)!;
-    let recomendations = new PriorityQueue<Recomendation>();
-    this.recomendationsService.getRecomendations().forEach((rec) => {
-      let priorityList = [];
-      let totalPriority = 0;
-      const palabra1 = cadena.split(' ');
-      const palabra2 = rec.data.split(' ');
-      for (let i = 0; i < palabra1.length; i++) {
-        for (let j = 0; j < palabra2.length; j++) {
-          priorityList.push(
-            palabra1[i].length >= palabra2[j].length
-              ? 1 -
-                  this.calcularSimilitudes(palabra1[i], palabra2[j]) /
-                    palabra1[i].length
-              : 1 -
-                  this.calcularSimilitudes(palabra2[j], palabra1[i]) /
-                    palabra2[j].length,
-          );
-        }
-      }
-      totalPriority =
-        priorityList.reduce((a, b) => a + b, 0) / priorityList.length;
-
-      if (totalPriority >= 0.3 && recomendations.find(rec) === undefined) {
-        recomendations.enqueue(rec, totalPriority);
-      }
-    });
-
-    this.cache.set(cadena, recomendations);
-    return recomendations;
-  }
-
   ngOnInit(): void {
     this.bookService.getLibros().subscribe({
       next: (data) => {
         this.libros = data;
+        this.loading = false;
       },
     });
   }
@@ -244,24 +221,83 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   calcularSimilitudes(texto1: string, texto2: string): number {
-    const filas = texto1.length + 1;
-    const columnas = texto2.length + 1;
-    const matriz = Array.from({ length: filas }, () => Array(columnas).fill(0));
+    const s1 = texto1.toLowerCase();
+    const s2 = texto2.toLowerCase();
+    const m = s1.length;
+    const n = s2.length;
 
-    for (let i = 0; i < filas; i++) matriz[i][0] = i;
-    for (let j = 0; j < columnas; j++) matriz[0][j] = j;
+    if (m === 0) return n;
+    if (n === 0) return m;
 
-    for (let i = 1; i < filas; i++) {
-      for (let j = 1; j < columnas; j++) {
-        const costo = texto1[i - 1] === texto2[j - 1] ? 0 : 1;
-        matriz[i][j] = Math.min(
-          matriz[i - 1][j] + 1,
-          matriz[i][j - 1] + 1,
-          matriz[i - 1][j - 1] + costo,
-        );
+    let prev = Array.from({ length: n + 1 }, (_, i) => i);
+    let curr = new Array(n + 1).fill(0);
+
+    for (let i = 1; i <= m; i++) {
+      curr[0] = i;
+      for (let j = 1; j <= n; j++) {
+        const costo = s1[i - 1] === s2[j - 1] ? 0 : 1;
+        curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + costo);
       }
+      [prev, curr] = [curr, prev];
     }
-    return matriz[texto1.length][texto2.length];
+
+    return prev[n];
+  }
+
+  private similitudPalabras(a: string, b: string): number {
+    const a2 = a.toLowerCase();
+    const b2 = b.toLowerCase();
+
+    if (a2.startsWith(b2) || b2.startsWith(a2)) return 1;
+
+    const dist = this.calcularSimilitudes(a2, b2);
+    const maxLen = Math.max(a2.length, b2.length);
+    return 1 - dist / maxLen;
+  }
+
+  private similitudFrases(consulta: string, candidato: string): number {
+    const palabrasConsulta = consulta
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+    const palabrasCandidato = candidato
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+
+    const scoresPorPalabraCandidato = palabrasCandidato.map((pc) =>
+      Math.max(...palabrasConsulta.map((pq) => this.similitudPalabras(pq, pc))),
+    );
+
+    const scoreBase =
+      scoresPorPalabraCandidato.reduce((a, b) => a + b, 0) /
+      scoresPorPalabraCandidato.length;
+
+    const prefixBonus = candidato
+      .toLowerCase()
+      .startsWith(consulta.toLowerCase().trim())
+      ? 0.15
+      : 0;
+
+    return Math.min(1, scoreBase + prefixBonus);
+  }
+
+  filterRecomendations(cadena: string): PriorityQueue<Recomendation> {
+    const query = cadena.trim();
+    if (!query) return new PriorityQueue<Recomendation>();
+    if (this.cache.has(query)) return this.cache.get(query)!;
+
+    const result = new PriorityQueue<Recomendation>();
+
+    this.recomendationsService.getRecomendations().forEach((rec) => {
+      const score = this.similitudFrases(query, rec.data);
+      if (score >= 0.3 && result.find(rec) === undefined) {
+        result.enqueue(rec, score);
+      }
+    });
+
+    this.cache.set(query, result);
+    return result;
   }
 
   protected readonly faTextWidth = faTextWidth;
