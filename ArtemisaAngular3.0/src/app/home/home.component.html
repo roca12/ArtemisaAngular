@@ -1,4 +1,8 @@
-<app-spinner *ngIf="loading" message="Cargando..." [fullscreen] = "true"></app-spinner>
+<app-spinner
+  *ngIf="loading"
+  message="Cargando..."
+  [fullscreen]="true"
+></app-spinner>
 <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
   <div class="search-container">
     <div class="search">
