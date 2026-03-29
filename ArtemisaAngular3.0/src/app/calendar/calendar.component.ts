@@ -6,10 +6,11 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { ThemeService } from '../services/theme.service';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-calendar',
-  imports: [FullCalendarModule],
+  imports: [FullCalendarModule, SpinnerComponent],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
 })
@@ -19,6 +20,7 @@ export class CalendarComponent implements OnInit {
     public theme: ThemeService,
   ) {}
 
+  loading: boolean = true;
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, bootstrap5Plugin],
     initialView: 'dayGridMonth',
@@ -35,20 +37,20 @@ export class CalendarComponent implements OnInit {
       let eventos: any[] = [];
       for (const calendario of res) {
         if (calendario.items) {
-          console.log(calendario.items);
           eventos = eventos.concat(
             calendario.items.map((item: any) => ({
               title: item.summary,
               start: item.start?.dateTime || item.start?.date,
               end: item.end?.dateTime || item.end?.date,
               url: item.url,
-              color: '#1F5E67', // Color del evento
+              color: '#1F5E67',
               description: item.description,
             })),
           );
         }
       }
       this.calendarOptions.events = eventos;
+      this.loading = false;
     });
   }
 }
