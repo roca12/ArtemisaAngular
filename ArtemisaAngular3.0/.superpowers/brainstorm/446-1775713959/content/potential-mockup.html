@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artemisa — Full Potential Preview</title>
+<style>
+  :root {
+    --bg: #1e1e1e;
+    --bg2: #252525;
+    --border: #333;
+    --text: #f0f0f0;
+    --muted: #999;
+    --orange: #d95c00;
+    --orange-light: #f06a00;
+    --gold: #c08c4a;
+    --teal: #1f5e67;
+    --teal-light: #267a85;
+    --olive: #6a7852;
+    --blue: #3a5c6a;
+    --card1: linear-gradient(135deg, #5a5eb7, #7075ea);
+    --card2: linear-gradient(135deg, #4caf97, #51c6ab);
+    --card3: linear-gradient(135deg, #25879c, #54c3db);
+    --card4: linear-gradient(135deg, #af6160, #ca8989);
+    --card5: linear-gradient(135deg, #674a98, #a594c3);
+    --card6: linear-gradient(135deg, #cc733e, #eaa378);
+    --card7: linear-gradient(135deg, #4572b6, #789eda);
+    --card8: linear-gradient(135deg, #f1637c, #e399a6);
+    --card9: linear-gradient(135deg, #5a5eb7, #7075ea);
+    --card10: linear-gradient(135deg, #4caf97, #51c6ab);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+  body { background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    position: sticky; top:0; z-index:100;
+    background: rgba(30,30,30,0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 0 2rem;
+    display: flex; align-items: center; height: 64px;
+    gap: 2rem;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  }
+  .navbar-logo { height: 38px; display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
+  .navbar-logo .logo-icon {
+    width:36px; height:36px; border-radius:10px;
+    background: var(--orange);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; font-weight:900; color:#fff;
+    box-shadow: 0 0 16px rgba(217,92,0,0.5);
+  }
+  .navbar-logo span { font-size:1.2rem; font-weight:700; color:var(--text); letter-spacing:0.5px; }
+  .nav-links { display:flex; gap:0.25rem; flex:1; }
+  .nav-link {
+    padding: 0.4rem 0.9rem; border-radius:8px;
+    text-decoration:none; color:var(--muted);
+    font-size:0.875rem; font-weight:500;
+    transition: all 0.2s;
+  }
+  .nav-link:hover { color:var(--text); background:rgba(255,255,255,0.06); }
+  .nav-link.active { color:var(--orange); background:rgba(217,92,0,0.12); }
+  .nav-right { display:flex; align-items:center; gap:1rem; margin-left:auto; }
+  .search-pill {
+    display:flex; align-items:center; gap:0.5rem;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:999px; padding:0.35rem 1rem;
+    color:var(--muted); font-size:0.8rem; cursor:pointer;
+    transition: all 0.2s; width:200px;
+  }
+  .search-pill:hover { background:rgba(255,255,255,0.1); border-color:var(--orange); color:var(--text); }
+  .search-pill .kbd { font-size:0.65rem; border:1px solid rgba(255,255,255,0.15); border-radius:4px; padding:1px 5px; margin-left:auto; }
+  .toggle {
+    width:44px; height:24px; border-radius:999px;
+    background:var(--teal); position:relative; cursor:pointer;
+    border:none; transition:background 0.3s;
+  }
+  .toggle::after {
+    content:''; position:absolute; width:18px; height:18px;
+    border-radius:50%; background:#fff; top:3px; right:3px;
+    transition:transform 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 2rem 3rem;
+    text-align:center;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(217,92,0,0.12) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:rgba(217,92,0,0.15); border:1px solid rgba(217,92,0,0.3);
+    border-radius:999px; padding:0.3rem 0.9rem; font-size:0.75rem;
+    color:var(--orange); margin-bottom:1.25rem; font-weight:600; letter-spacing:0.5px;
+  }
+  .hero h1 { font-size:clamp(2rem,5vw,3.2rem); font-weight:800; line-height:1.15; margin-bottom:1rem; }
+  .hero h1 span { color:var(--orange); }
+  .hero p { color:var(--muted); max-width:520px; margin:0 auto 2rem; font-size:1rem; line-height:1.6; }
+  .hero-search {
+    display:flex; align-items:center; gap:0;
+    max-width:540px; margin:0 auto;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+    border-radius:14px; padding:0.5rem 0.5rem 0.5rem 1.25rem;
+    transition:all 0.2s;
+  }
+  .hero-search:focus-within { border-color:var(--orange); background:rgba(255,255,255,0.09); box-shadow:0 0 0 3px rgba(217,92,0,0.15); }
+  .hero-search input { flex:1; background:none; border:none; outline:none; color:var(--text); font-size:0.95rem; }
+  .hero-search input::placeholder { color:var(--muted); }
+  .hero-search button {
+    background:var(--orange); border:none; border-radius:10px;
+    color:#fff; padding:0.55rem 1.25rem; font-weight:600; font-size:0.875rem;
+    cursor:pointer; transition:background 0.2s;
+    white-space:nowrap;
+  }
+  .hero-search button:hover { background:var(--orange-light); }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display:flex; justify-content:center; gap:3rem;
+    padding:1.5rem 2rem; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    background:var(--bg2);
+  }
+  .stat { text-align:center; }
+  .stat-num { font-size:1.5rem; font-weight:800; color:var(--orange); }
+  .stat-label { font-size:0.75rem; color:var(--muted); margin-top:0.15rem; }
+
+  /* ── SECTION HEADER ── */
+  .section { padding:2.5rem 2rem; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; }
+  .section-title { font-size:1.15rem; font-weight:700; display:flex; align-items:center; gap:0.5rem; }
+  .section-title::before { content:''; width:4px; height:1.2em; background:var(--orange); border-radius:2px; display:inline-block; }
+  .see-all { font-size:0.8rem; color:var(--orange); text-decoration:none; font-weight:500; }
+  .see-all:hover { text-decoration:underline; }
+
+  /* ── TOPIC CARDS ── */
+  .topic-grid {
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); gap:1rem;
+  }
+  .topic-card {
+    border-radius:16px; padding:1.4rem 1rem; display:flex; flex-direction:column;
+    align-items:center; gap:0.6rem; cursor:pointer; position:relative; overflow:hidden;
+    transition:transform 0.25s, box-shadow 0.25s;
+    box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  }
+  .topic-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,0.4); }
+  .topic-card .icon { font-size:1.6rem; }
+  .topic-card h3 { font-size:0.82rem; font-weight:700; text-align:center; color:#fff; line-height:1.3; }
+  .topic-card .arrow-btn {
+    background:rgba(255,255,255,0.2); border:none; color:#fff;
+    border-radius:999px; padding:0.3rem 0.9rem; font-size:0.72rem; font-weight:600;
+    cursor:pointer; margin-top:0.3rem; transition:background 0.2s;
+  }
+  .topic-card .arrow-btn:hover { background:rgba(255,255,255,0.35); }
+  .topic-card::after {
+    content:''; position:absolute; top:-30%; right:-20%;
+    width:80px; height:80px; border-radius:50%;
+    background:rgba(255,255,255,0.07);
+  }
+
+  /* ── BOOK CAROUSEL ── */
+  .books-row { display:flex; gap:1rem; overflow-x:auto; padding-bottom:0.5rem; scrollbar-width:none; }
+  .books-row::-webkit-scrollbar { display:none; }
+  .book-card-new {
+    flex:0 0 160px; border-radius:14px; background:var(--bg2);
+    border:1px solid var(--border); overflow:hidden;
+    transition:transform 0.2s, box-shadow 0.2s;
+    cursor:pointer;
+  }
+  .book-card-new:hover { transform:translateY(-4px); box-shadow:0 10px 28px rgba(0,0,0,0.5); border-color:var(--orange); }
+  .book-img { width:100%; height:200px; object-fit:cover; background:linear-gradient(135deg,#2a2a2a,#333); display:flex; align-items:center; justify-content:center; font-size:3rem; }
+  .book-info { padding:0.75rem; }
+  .book-info p { font-size:0.75rem; font-weight:600; color:var(--text); line-height:1.3; margin-bottom:0.5rem; }
+  .book-actions { display:flex; gap:0.4rem; }
+  .book-btn { flex:1; padding:0.35rem; border-radius:8px; border:none; font-size:0.65rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+  .book-btn.primary { background:var(--orange); color:#fff; }
+  .book-btn.primary:hover { background:var(--orange-light); }
+  .book-btn.secondary { background:rgba(255,255,255,0.07); color:var(--text); border:1px solid var(--border); }
+  .book-btn.secondary:hover { background:rgba(255,255,255,0.12); }
+
+  /* ── PROBLEMAS PREVIEW ── */
+  .problem-list { display:flex; flex-direction:column; gap:0.5rem; }
+  .problem-row {
+    display:flex; align-items:center; gap:1rem;
+    background:var(--bg2); border:1px solid var(--border);
+    border-radius:12px; padding:0.85rem 1.1rem;
+    transition:all 0.2s; cursor:pointer;
+  }
+  .problem-row:hover { border-color:var(--orange); background:rgba(217,92,0,0.06); transform:translateX(3px); }
+  .problem-title { flex:1; font-size:0.875rem; font-weight:600; }
+  .problem-tags { display:flex; gap:0.4rem; }
+  .tag { font-size:0.65rem; padding:0.2rem 0.55rem; border-radius:6px; font-weight:600; }
+  .tag.tema { background:rgba(31,94,103,0.4); color:#54c3db; border:1px solid rgba(84,195,219,0.25); }
+  .tag.dif-aprendiz { background:rgba(106,120,82,0.4); color:#a8bc86; border:1px solid rgba(168,188,134,0.25); }
+  .tag.dif-basica { background:rgba(58,92,106,0.4); color:#7ab8cc; border:1px solid rgba(122,184,204,0.25); }
+  .tag.dif-intermedia { background:rgba(192,140,74,0.3); color:#e0b870; border:1px solid rgba(224,184,112,0.25); }
+  .tag.dif-avanzada { background:rgba(217,92,0,0.3); color:#f0894a; border:1px solid rgba(240,137,74,0.25); }
+  .tag.dif-elite { background:rgba(175,97,96,0.35); color:#f0908f; border:1px solid rgba(240,144,143,0.25); }
+  .tag.juez { background:rgba(255,255,255,0.06); color:var(--muted); border:1px solid var(--border); }
+  .problem-link { font-size:0.75rem; padding:0.35rem 0.85rem; border-radius:8px; background:var(--orange); color:#fff; text-decoration:none; font-weight:600; white-space:nowrap; transition:background 0.2s; }
+  .problem-link:hover { background:var(--orange-light); }
+
+  /* ── TEMARIO PREVIEW ── */
+  .accordion-item { border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:0.5rem; }
+  .accordion-header {
+    display:flex; align-items:center; gap:1rem; padding:1rem 1.25rem;
+    background:var(--bg2); cursor:pointer; transition:background 0.2s;
+  }
+  .accordion-header:hover { background:rgba(255,255,255,0.04); }
+  .accordion-header.open { background:rgba(217,92,0,0.08); border-bottom:1px solid rgba(217,92,0,0.2); }
+  .acc-icon { font-size:1.1rem; }
+  .acc-title { flex:1; font-size:0.875rem; font-weight:600; }
+  .acc-meta { display:flex; gap:0.5rem; align-items:center; }
+  .acc-group { font-size:0.7rem; color:var(--muted); }
+  .acc-complexity { font-size:0.65rem; padding:0.15rem 0.5rem; border-radius:6px; background:rgba(217,92,0,0.2); color:var(--orange); border:1px solid rgba(217,92,0,0.3); font-weight:600; }
+  .acc-chevron { color:var(--muted); font-size:0.8rem; transition:transform 0.2s; }
+  .accordion-header.open .acc-chevron { transform:rotate(90deg); color:var(--orange); }
+  .accordion-body { padding:1.25rem; background:rgba(0,0,0,0.2); font-size:0.85rem; color:var(--muted); line-height:1.6; }
+  .code-block { background:#111; border-radius:10px; padding:1rem; font-family:monospace; font-size:0.78rem; margin-top:0.75rem; border:1px solid #2a2a2a; overflow-x:auto; }
+  .code-lang { display:flex; align-items:center; gap:0.4rem; margin-bottom:0.4rem; font-size:0.7rem; color:var(--muted); }
+  .code-dot { width:8px; height:8px; border-radius:50%; }
+
+  /* ── MOBILE DRAWER PREVIEW ── */
+  .mobile-preview {
+    max-width:320px; margin:0 auto;
+    border:2px solid var(--border); border-radius:28px; overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  }
+  .mobile-navbar {
+    background:rgba(30,30,30,0.92); backdrop-filter:blur(18px);
+    padding:0.75rem 1rem; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,0.07);
+  }
+  .mobile-logo { font-size:0.9rem; font-weight:800; color:var(--text); display:flex; align-items:center; gap:0.4rem; }
+  .mobile-logo .dot { width:10px; height:10px; border-radius:3px; background:var(--orange); }
+  .hamburger { display:flex; flex-direction:column; gap:4px; cursor:pointer; }
+  .hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; }
+  .mobile-content { background:var(--bg); padding:1rem; }
+  .mobile-hero { text-align:center; padding:1.5rem 0.5rem; }
+  .mobile-hero h2 { font-size:1.1rem; font-weight:800; margin-bottom:0.5rem; }
+  .mobile-hero h2 span { color:var(--orange); }
+  .mobile-search { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:0.5rem 0.75rem; font-size:0.75rem; color:var(--muted); display:flex; align-items:center; gap:0.4rem; margin-bottom:1rem; }
+  .mobile-cards { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
+  .mobile-card { border-radius:12px; padding:0.75rem; text-align:center; }
+  .mobile-card .mci { font-size:1.2rem; margin-bottom:0.3rem; }
+  .mobile-card p { font-size:0.6rem; font-weight:700; color:#fff; }
+
+  /* ── DRAWER (overlay) ── */
+  .drawer-preview {
+    max-width:320px; margin:0 auto; position:relative;
+    border:2px solid var(--border); border-radius:28px; overflow:hidden;
+  }
+  .drawer-bg { background:var(--bg); padding:1rem; filter:brightness(0.4); }
+  .drawer-overlay {
+    position:absolute; top:0; right:0; bottom:0; width:72%;
+    background:var(--bg2); border-left:1px solid var(--border);
+    padding:2rem 1.25rem; display:flex; flex-direction:column; gap:1.25rem;
+  }
+  .drawer-link { font-size:0.85rem; font-weight:600; color:var(--text); display:flex; align-items:center; gap:0.5rem; }
+  .drawer-link.active { color:var(--orange); }
+  .drawer-link .dl-icon { width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-size:0.9rem; }
+  .drawer-link.active .dl-icon { background:rgba(217,92,0,0.15); }
+  .drawer-close { position:absolute; top:1rem; right:1rem; background:rgba(255,255,255,0.08); border:none; border-radius:50%; width:28px; height:28px; color:var(--text); font-size:1rem; cursor:pointer; }
+
+  /* ── LABELS ── */
+  .feature-label {
+    display:inline-block; font-size:0.7rem; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; color:var(--orange); margin-bottom:0.5rem;
+  }
+
+  /* ── LAYOUT ── */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  .split-demo { display:flex; gap:2rem; align-items:flex-start; }
+  .divider { border:none; border-top:1px solid var(--border); margin:0; }
+  .page-label {
+    text-align:center; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;
+    color:var(--muted); margin-bottom:2rem; padding-top:0.5rem;
+  }
+
+  @media(max-width:640px) { .two-col { grid-template-columns:1fr; } .stats-bar { gap:1.5rem; } }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════ NAVBAR ══════════════════════════════════ -->
+<nav class="navbar">
+  <a class="navbar-logo" href="#">
+    <div class="logo-icon">A</div>
+    <span>Artemisa</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link active" href="#">Inicio</a>
+    <a class="nav-link" href="#">Temario</a>
+    <a class="nav-link" href="#">Problemas</a>
+    <a class="nav-link" href="#">Links</a>
+    <a class="nav-link" href="#">Calendario</a>
+  </div>
+  <div class="nav-right">
+    <div class="search-pill">🔍 Buscar... <span class="kbd">⌘K</span></div>
+    <button class="toggle" title="Dark/Light mode"></button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">🏆 Plataforma de Programación Competitiva</div>
+  <h1>Domina los algoritmos.<br><span>Gana las competencias.</span></h1>
+  <p>Teoría, código en Java/C++/Python, y problemas clasificados por tema y dificultad — todo en un solo lugar.</p>
+  <div class="hero-search">
+    <input type="text" placeholder="Buscar tema, algoritmo, problema...">
+    <button>Buscar →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ STATS ══════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Categorías de Temario</div></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Problemas Clasificados</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Lenguajes (Java · C++ · Python)</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Niveles de Dificultad</div></div>
+</div>
+
+<!-- ══════════════════════════════════ TOPICS ══════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Temario</div>
+    <a class="see-all" href="#">Ver todo →</a>
+  </div>
+  <div class="topic-grid">
+    <div class="topic-card" style="background:var(--card1)"><div class="icon">📚</div><h3>Teoría Básica</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card2)"><div class="icon">🔍</div><h3>Búsquedas</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card3)"><div class="icon">↕️</div><h3>Ordenamientos</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card4)"><div class="icon">🔤</div><h3>Strings</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card5)"><div class="icon">⟨⟩</div><h3>BitWise</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card6)"><div class="icon">➕</div><h3>Matemáticas</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card7)"><div class="icon">📐</div><h3>Geometría</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card8)"><div class="icon">🕸️</div><h3>Grafos y Redes</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card9)"><div class="icon">⚡</div><h3>Prog. Dinámica</h3><button class="arrow-btn">Ver →</button></div>
+    <div class="topic-card" style="background:var(--card10)"><div class="icon">🧪</div><h3>Generadores</h3><button class="arrow-btn">Ver →</button></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════ LIBROS ══════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Libros Descargables</div>
+    <a class="see-all" href="#">Ver todos →</a>
+  </div>
+  <div class="books-row">
+    <div class="book-card-new"><div class="book-img">📘</div><div class="book-info"><p>Competitive Programming 4</p><div class="book-actions"><button class="book-btn primary">⬇ PDF</button><button class="book-btn secondary">Ver →</button></div></div></div>
+    <div class="book-card-new"><div class="book-img">📗</div><div class="book-info"><p>Introduction to Algorithms (CLRS)</p><div class="book-actions"><button class="book-btn primary">⬇ PDF</button><button class="book-btn secondary">Ver →</button></div></div></div>
+    <div class="book-card-new"><div class="book-img">📙</div><div class="book-info"><p>Guide to CP — Antti Laaksonen</p><div class="book-actions"><button class="book-btn primary">⬇ PDF</button><button class="book-btn secondary">Ver →</button></div></div></div>
+    <div class="book-card-new"><div class="book-img">📕</div><div class="book-info"><p>Algorithm Design Manual</p><div class="book-actions"><button class="book-btn primary">⬇ PDF</button><button class="book-btn secondary">Ver →</button></div></div></div>
+    <div class="book-card-new"><div class="book-img">📔</div><div class="book-info"><p>The Art of Problem Solving</p><div class="book-actions"><button class="book-btn primary">⬇ PDF</button><button class="book-btn secondary">Ver →</button></div></div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════ PROBLEMAS ══════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Problemas</div>
+    <a class="see-all" href="#">Ver todos →</a>
+  </div>
+  <div class="problem-list">
+    <div class="problem-row">
+      <div class="problem-title">Two Sum</div>
+      <div class="problem-tags"><span class="tag tema">Búsquedas</span><span class="tag dif-aprendiz">Aprendíz</span><span class="tag juez">LeetCode</span></div>
+      <a class="problem-link" href="#">Ver →</a>
+    </div>
+    <div class="problem-row">
+      <div class="problem-title">Dijkstra Shortest Path</div>
+      <div class="problem-tags"><span class="tag tema">Grafos</span><span class="tag dif-avanzada">Avanzada</span><span class="tag juez">Codeforces</span></div>
+      <a class="problem-link" href="#">Ver →</a>
+    </div>
+    <div class="problem-row">
+      <div class="problem-title">Longest Common Subsequence</div>
+      <div class="problem-tags"><span class="tag tema">DP</span><span class="tag dif-intermedia">Intermedia</span><span class="tag juez">AtCoder</span></div>
+      <a class="problem-link" href="#">Ver →</a>
+    </div>
+    <div class="problem-row">
+      <div class="problem-title">Z-Algorithm String Matching</div>
+      <div class="problem-tags"><span class="tag tema">Strings</span><span class="tag dif-elite">Élite</span><span class="tag juez">UVa</span></div>
+      <a class="problem-link" href="#">Ver →</a>
+    </div>
+    <div class="problem-row">
+      <div class="problem-title">Matrix Exponentiation</div>
+      <div class="problem-tags"><span class="tag tema">Matemáticas</span><span class="tag dif-avanzada">Avanzada</span><span class="tag juez">SPOJ</span></div>
+      <a class="problem-link" href="#">Ver →</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════ TEMARIO ACCORDION ══════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Temario — Vista de Aprendizaje</div>
+  </div>
+  <div>
+    <div class="accordion-item">
+      <div class="accordion-header open">
+        <span class="acc-icon">🔍</span>
+        <span class="acc-title">Binary Search</span>
+        <div class="acc-meta">
+          <span class="acc-group">Búsquedas</span>
+          <span class="acc-complexity">O(log n)</span>
+        </div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Algoritmo de búsqueda eficiente sobre arreglos ordenados. Divide el espacio de búsqueda a la mitad en cada paso.</p>
+        <div class="code-block">
+          <div class="code-lang"><span class="code-dot" style="background:#f0a500"></span>Java</div>
+          <code style="color:#a8ff78">int</code><code style="color:#ddd"> binarySearch(</code><code style="color:#a8ff78">int</code><code style="color:#ddd">[] arr, </code><code style="color:#a8ff78">int</code><code style="color:#ddd"> target) {<br>&nbsp;&nbsp;</code><code style="color:#a8ff78">int</code><code style="color:#ddd"> lo = 0, hi = arr.length - 1;<br>&nbsp;&nbsp;</code><code style="color:#79b8ff">while</code><code style="color:#ddd"> (lo &lt;= hi) {<br>&nbsp;&nbsp;&nbsp;&nbsp;</code><code style="color:#a8ff78">int</code><code style="color:#ddd"> mid = lo + (hi - lo) / 2;<br>&nbsp;&nbsp;&nbsp;&nbsp;</code><code style="color:#79b8ff">if</code><code style="color:#ddd"> (arr[mid] == target) </code><code style="color:#79b8ff">return</code><code style="color:#ddd"> mid;<br>&nbsp;&nbsp;&nbsp;&nbsp;</code><code style="color:#79b8ff">else if</code><code style="color:#ddd"> (arr[mid] &lt; target) lo = mid + 1;<br>&nbsp;&nbsp;&nbsp;&nbsp;</code><code style="color:#79b8ff">else</code><code style="color:#ddd"> hi = mid - 1;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;</code><code style="color:#79b8ff">return</code><code style="color:#ddd"> -1;<br>}</code>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span class="acc-icon">🕸️</span>
+        <span class="acc-title">BFS — Breadth-First Search</span>
+        <div class="acc-meta">
+          <span class="acc-group">Grafos</span>
+          <span class="acc-complexity">O(V+E)</span>
+        </div>
+        <span class="acc-chevron">▶</span>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span class="acc-icon">⚡</span>
+        <span class="acc-title">Knapsack 0/1</span>
+        <div class="acc-meta">
+          <span class="acc-group">Prog. Dinámica</span>
+          <span class="acc-complexity">O(n·W)</span>
+        </div>
+        <span class="acc-chevron">▶</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════ MOBILE PREVIEWS ══════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Experiencia Mobile</div>
+  </div>
+  <div class="two-col" style="align-items:start; max-width:700px; margin:0 auto;">
+
+    <div>
+      <p class="page-label">Navbar + Home</p>
+      <div class="mobile-preview">
+        <div class="mobile-navbar">
+          <div class="mobile-logo"><div class="dot"></div>Artemisa</div>
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+        <div class="mobile-content">
+          <div class="mobile-hero">
+            <h2>Domina los<br><span>algoritmos.</span></h2>
+            <div class="mobile-search">🔍 Buscar tema o problema...</div>
+          </div>
+          <div class="mobile-cards">
+            <div class="mobile-card" style="background:var(--card1)"><div class="mci">📚</div><p>Teoría Básica</p></div>
+            <div class="mobile-card" style="background:var(--card2)"><div class="mci">🔍</div><p>Búsquedas</p></div>
+            <div class="mobile-card" style="background:var(--card3)"><div class="mci">↕️</div><p>Ordenamientos</p></div>
+            <div class="mobile-card" style="background:var(--card5)"><div class="mci">⟨⟩</div><p>BitWise</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="page-label">Menú Drawer abierto</p>
+      <div class="drawer-preview">
+        <div class="drawer-bg mobile-preview" style="border:none; border-radius:0;">
+          <div class="mobile-navbar">
+            <div class="mobile-logo"><div class="dot"></div>Artemisa</div>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+          </div>
+          <div class="mobile-content">
+            <div class="mobile-hero">
+              <h2>Domina los<br><span>algoritmos.</span></h2>
+            </div>
+          </div>
+        </div>
+        <div class="drawer-overlay">
+          <button class="drawer-close">✕</button>
+          <div class="drawer-link active"><div class="dl-icon">🏠</div>Inicio</div>
+          <div class="drawer-link"><div class="dl-icon">📖</div>Temario</div>
+          <div class="drawer-link"><div class="dl-icon">🧩</div>Problemas</div>
+          <div class="drawer-link"><div class="dl-icon">🔗</div>Links</div>
+          <div class="drawer-link"><div class="dl-icon">📅</div>Calendario</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
