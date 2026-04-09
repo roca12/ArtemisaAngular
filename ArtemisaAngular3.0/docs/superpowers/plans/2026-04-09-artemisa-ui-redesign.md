@@ -14,24 +14,25 @@
 
 ## File Map
 
-| File | What changes |
-|---|---|
-| `src/styles.css` | Add light-mode surface tokens to `:root` |
-| `src/app/menu-bar/menu-bar.component.ts` | Add `drawerOpen`, `toggleDrawer()`, `closeDrawer()`, inject `Router` for active link |
-| `src/app/menu-bar/menu-bar.component.html` | Glassmorphism bar, active `routerLinkActive`, hamburger button, slide-in drawer |
-| `src/app/menu-bar/menu-bar.component.css` | Full rewrite of nav styles; drawer; mobile breakpoint |
-| `src/app/home/home.component.html` | Add hero + stats bar above existing content; remove standalone search-container |
-| `src/app/home/home.component.css` | Hero + stats styles; modernize book card; keep existing card/search/carousel rules |
-| `src/app/temario/temario.component.html` | Wrap accordion header content in icon-box + chevron structure |
-| `src/app/temario/temario.component.css` | Icon-box, chevron, complexity badge, mobile sidebar toggle |
-| `src/app/problemas/problemas.component.html` | Wrap each problem in a `.problem-row` card div; replace `<h2>` structure |
-| `src/app/problemas/problemas.component.css` | Row card styles, color-coded difficulty tags, hover state |
+| File                                         | What changes                                                                         |
+| -------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `src/styles.css`                             | Add light-mode surface tokens to `:root`                                             |
+| `src/app/menu-bar/menu-bar.component.ts`     | Add `drawerOpen`, `toggleDrawer()`, `closeDrawer()`, inject `Router` for active link |
+| `src/app/menu-bar/menu-bar.component.html`   | Glassmorphism bar, active `routerLinkActive`, hamburger button, slide-in drawer      |
+| `src/app/menu-bar/menu-bar.component.css`    | Full rewrite of nav styles; drawer; mobile breakpoint                                |
+| `src/app/home/home.component.html`           | Add hero + stats bar above existing content; remove standalone search-container      |
+| `src/app/home/home.component.css`            | Hero + stats styles; modernize book card; keep existing card/search/carousel rules   |
+| `src/app/temario/temario.component.html`     | Wrap accordion header content in icon-box + chevron structure                        |
+| `src/app/temario/temario.component.css`      | Icon-box, chevron, complexity badge, mobile sidebar toggle                           |
+| `src/app/problemas/problemas.component.html` | Wrap each problem in a `.problem-row` card div; replace `<h2>` structure             |
+| `src/app/problemas/problemas.component.css`  | Row card styles, color-coded difficulty tags, hover state                            |
 
 ---
 
 ## Task 1 — Global light-mode tokens (`styles.css`)
 
 **Files:**
+
 - Modify: `src/styles.css`
 
 - [ ] **Step 1: Add light-mode surface tokens to `:root`**
@@ -77,6 +78,7 @@ git commit -m "style: add light-mode surface tokens to global styles"
 ## Task 2 — Navbar TypeScript (`menu-bar.component.ts`)
 
 **Files:**
+
 - Modify: `src/app/menu-bar/menu-bar.component.ts`
 
 - [ ] **Step 1: Add drawer state and inject Router**
@@ -84,22 +86,19 @@ git commit -m "style: add light-mode surface tokens to global styles"
 Replace the entire file content with:
 
 ```typescript
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnInit } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
-import { ThemeService } from '../services/theme.service';
-import { AuthService } from '../services/auth.service';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faBolt, faHouse, faBookOpen, faPuzzlePiece,
-  faLink, faCalendar, faBars, faXmark, faSun, faMoon
-} from '@fortawesome/free-solid-svg-icons';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnInit } from "@angular/core";
+import { RouterModule, Router } from "@angular/router";
+import { ThemeService } from "../services/theme.service";
+import { AuthService } from "../services/auth.service";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { faBolt, faHouse, faBookOpen, faPuzzlePiece, faLink, faCalendar, faBars, faXmark, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-menu-bar',
+  selector: "app-menu-bar",
   imports: [RouterModule, FontAwesomeModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './menu-bar.component.html',
-  styleUrl: './menu-bar.component.css',
+  templateUrl: "./menu-bar.component.html",
+  styleUrl: "./menu-bar.component.css",
 })
 export class MenuBarComponent implements OnInit {
   drawerOpen = false;
@@ -133,7 +132,7 @@ export class MenuBarComponent implements OnInit {
     this.drawerOpen = false;
   }
 
-  @HostListener('document:keydown.escape')
+  @HostListener("document:keydown.escape")
   onEscape() {
     this.drawerOpen = false;
   }
@@ -171,6 +170,7 @@ git commit -m "feat(navbar): add drawer state, FA icons, Router injection"
 ## Task 3 — Navbar HTML (`menu-bar.component.html`)
 
 **Files:**
+
 - Modify: `src/app/menu-bar/menu-bar.component.html`
 
 - [ ] **Step 1: Replace template**
@@ -180,11 +180,7 @@ Replace the entire file with:
 ```html
 <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
   <!-- Drawer backdrop -->
-  <div
-    class="drawer-backdrop"
-    [class.open]="drawerOpen"
-    (click)="closeDrawer()"
-  ></div>
+  <div class="drawer-backdrop" [class.open]="drawerOpen" (click)="closeDrawer()"></div>
 
   <!-- Slide-in drawer (mobile) -->
   <nav class="drawer" [class.open]="drawerOpen" role="dialog" aria-label="Menú">
@@ -197,19 +193,24 @@ Replace the entire file with:
     </div>
     <div class="drawer-links">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faHouse"></fa-icon></div> Inicio
+        <div class="dl-icon"><fa-icon [icon]="faHouse"></fa-icon></div>
+        Inicio
       </a>
       <a routerLink="/temario" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faBookOpen"></fa-icon></div> Temario
+        <div class="dl-icon"><fa-icon [icon]="faBookOpen"></fa-icon></div>
+        Temario
       </a>
       <a routerLink="/problemas" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faPuzzlePiece"></fa-icon></div> Problemas
+        <div class="dl-icon"><fa-icon [icon]="faPuzzlePiece"></fa-icon></div>
+        Problemas
       </a>
       <a routerLink="/links" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faLink"></fa-icon></div> Links
+        <div class="dl-icon"><fa-icon [icon]="faLink"></fa-icon></div>
+        Links
       </a>
       <a routerLink="/calendar" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faCalendar"></fa-icon></div> Calendario
+        <div class="dl-icon"><fa-icon [icon]="faCalendar"></fa-icon></div>
+        Calendario
       </a>
     </div>
   </nav>
@@ -225,21 +226,11 @@ Replace the entire file with:
 
       <!-- Desktop links -->
       <div class="nav-links">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link">
-          <fa-icon [icon]="faHouse"></fa-icon> Inicio
-        </a>
-        <a routerLink="/temario" routerLinkActive="active" class="nav-link">
-          <fa-icon [icon]="faBookOpen"></fa-icon> Temario
-        </a>
-        <a routerLink="/problemas" routerLinkActive="active" class="nav-link">
-          <fa-icon [icon]="faPuzzlePiece"></fa-icon> Problemas
-        </a>
-        <a routerLink="/links" routerLinkActive="active" class="nav-link">
-          <fa-icon [icon]="faLink"></fa-icon> Links
-        </a>
-        <a routerLink="/calendar" routerLinkActive="active" class="nav-link">
-          <fa-icon [icon]="faCalendar"></fa-icon> Calendario
-        </a>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link"> <fa-icon [icon]="faHouse"></fa-icon> Inicio </a>
+        <a routerLink="/temario" routerLinkActive="active" class="nav-link"> <fa-icon [icon]="faBookOpen"></fa-icon> Temario </a>
+        <a routerLink="/problemas" routerLinkActive="active" class="nav-link"> <fa-icon [icon]="faPuzzlePiece"></fa-icon> Problemas </a>
+        <a routerLink="/links" routerLinkActive="active" class="nav-link"> <fa-icon [icon]="faLink"></fa-icon> Links </a>
+        <a routerLink="/calendar" routerLinkActive="active" class="nav-link"> <fa-icon [icon]="faCalendar"></fa-icon> Calendario </a>
       </div>
 
       <!-- Right side -->
@@ -279,6 +270,7 @@ git commit -m "feat(navbar): glassmorphism header, hamburger, drawer, active lin
 ## Task 4 — Navbar CSS (`menu-bar.component.css`)
 
 **Files:**
+
 - Modify: `src/app/menu-bar/menu-bar.component.css`
 
 - [ ] **Step 1: Replace entire CSS file**
@@ -287,8 +279,14 @@ Replace the entire file with:
 
 ```css
 /* ── Wrapper ── */
-.dark { background-color: var(--background-dark); color: var(--text-light); }
-.light { background-color: var(--bg-light); color: var(--text-dark); }
+.dark {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+.light {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
 
 /* ── Main bar ── */
 .menu-bar {
@@ -346,7 +344,9 @@ Replace the entire file with:
   letter-spacing: 0.3px;
 }
 
-.dark .navbar-logo span { color: var(--text-light); }
+.dark .navbar-logo span {
+  color: var(--text-light);
+}
 
 /* ── Desktop links ── */
 .nav-links {
@@ -365,7 +365,9 @@ Replace the entire file with:
   color: var(--muted-light);
   font-size: 0.85rem;
   font-weight: 500;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .nav-link:hover {
@@ -373,8 +375,13 @@ Replace the entire file with:
   background: rgba(0, 0, 0, 0.05);
 }
 
-.dark .nav-link { color: var(--text-muted); }
-.dark .nav-link:hover { color: var(--text-light); background: rgba(255, 255, 255, 0.06); }
+.dark .nav-link {
+  color: var(--text-muted);
+}
+.dark .nav-link:hover {
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.06);
+}
 
 .nav-link.active {
   color: var(--primary-dark);
@@ -451,9 +458,15 @@ Replace the entire file with:
   transition: background 0.2s;
 }
 
-.dark .hamburger-btn { color: var(--text-light); }
-.hamburger-btn:hover { background: rgba(0, 0, 0, 0.07); }
-.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.08); }
+.dark .hamburger-btn {
+  color: var(--text-light);
+}
+.hamburger-btn:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+.dark .hamburger-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
 
 /* ── Drawer backdrop ── */
 .drawer-backdrop {
@@ -516,8 +529,13 @@ Replace the entire file with:
   transition: background 0.2s;
 }
 
-.dark .drawer-close { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
-.drawer-close:hover { background: rgba(0, 0, 0, 0.12); }
+.dark .drawer-close {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+.drawer-close:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
 
 .drawer-logo {
   display: flex;
@@ -528,7 +546,9 @@ Replace the entire file with:
   border-bottom: 1px solid var(--border-light);
 }
 
-.dark .drawer-logo { border-bottom-color: var(--border-dark); }
+.dark .drawer-logo {
+  border-bottom-color: var(--border-dark);
+}
 
 .drawer-logo .logo-icon {
   width: 32px;
@@ -548,7 +568,9 @@ Replace the entire file with:
   color: var(--text-dark);
 }
 
-.dark .drawer-logo span { color: var(--text-light); }
+.dark .drawer-logo span {
+  color: var(--text-light);
+}
 
 .drawer-links {
   display: flex;
@@ -566,15 +588,26 @@ Replace the entire file with:
   color: var(--text-dark);
   font-size: 0.9rem;
   font-weight: 600;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
-.dark .drawer-link { color: var(--text-light); }
+.dark .drawer-link {
+  color: var(--text-light);
+}
 
-.drawer-link:hover { background: rgba(0, 0, 0, 0.05); }
-.dark .drawer-link:hover { background: rgba(255, 255, 255, 0.06); }
+.drawer-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.dark .drawer-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
 
-.drawer-link.active { color: var(--primary-dark); background: rgba(217, 92, 0, 0.08); }
+.drawer-link.active {
+  color: var(--primary-dark);
+  background: rgba(217, 92, 0, 0.08);
+}
 
 .dl-icon {
   width: 32px;
@@ -589,7 +622,10 @@ Replace the entire file with:
   flex-shrink: 0;
 }
 
-.dark .dl-icon { background: rgba(255, 255, 255, 0.06); color: var(--text-muted); }
+.dark .dl-icon {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+}
 
 .drawer-link.active .dl-icon {
   background: rgba(217, 92, 0, 0.12);
@@ -598,9 +634,18 @@ Replace the entire file with:
 
 /* ── Mobile breakpoint ── */
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .hamburger-btn { display: flex; align-items: center; justify-content: center; }
-  .nav-container { padding: 0 1rem; gap: 0.75rem; }
+  .nav-links {
+    display: none;
+  }
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-container {
+    padding: 0 1rem;
+    gap: 0.75rem;
+  }
 }
 ```
 
@@ -620,6 +665,7 @@ git commit -m "style(navbar): glassmorphism, drawer, active links, dark/light po
 ## Task 5 — Home HTML: hero + stats bar (`home.component.html`)
 
 **Files:**
+
 - Modify: `src/app/home/home.component.html`
 
 - [ ] **Step 1: Add hero + stats before the existing search-container, remove old search-container**
@@ -629,38 +675,24 @@ Replace the entire file with:
 ```html
 <app-spinner *ngIf="loading" message="Cargando..." [fullscreen]="true"></app-spinner>
 <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
-
   <!-- Hero -->
   <div class="hero-section">
     <div class="hero-badge">
       <fa-icon [icon]="faTrophy"></fa-icon>
       Plataforma de Programación Competitiva
     </div>
-    <h1>Domina los algoritmos.<br><span class="hero-accent">Gana las competencias.</span></h1>
+    <h1>Domina los algoritmos.<br /><span class="hero-accent">Gana las competencias.</span></h1>
     <p class="hero-subtitle">Teoría, código en Java / C++ / Python, y problemas clasificados por tema y dificultad.</p>
 
     <!-- Search (moved here from standalone section) -->
     <div class="hero-search">
       <fa-icon [icon]="faMagnifyingGlass" class="search-icon"></fa-icon>
-      <input
-        #inputSearch
-        type="text"
-        placeholder="Buscar tema, algoritmo, problema..."
-        (keydown.enter)="search(inputSearch.value)"
-      />
-      <button (click)="search(inputSearch.value)">
-        <fa-icon [icon]="faArrowRight"></fa-icon> Buscar
-      </button>
+      <input #inputSearch type="text" placeholder="Buscar tema, algoritmo, problema..." (keydown.enter)="search(inputSearch.value)" />
+      <button (click)="search(inputSearch.value)"><fa-icon [icon]="faArrowRight"></fa-icon> Buscar</button>
       <!-- Autocomplete dropdown -->
-      <div
-        class="recomendations-list"
-        *ngIf="getValorInput() != '' && filterRecomendations(getValorInput()).size() > 0"
-      >
+      <div class="recomendations-list" *ngIf="getValorInput() != '' && filterRecomendations(getValorInput()).size() > 0">
         <ul>
-          <li
-            *ngFor="let reco of Array.from(filterRecomendations(getValorInput())) | slice: 0 : 7"
-            (click)="autocompletar(reco)"
-          >
+          <li *ngFor="let reco of Array.from(filterRecomendations(getValorInput())) | slice: 0 : 7" (click)="autocompletar(reco)">
             {{ reco.data }}
             <span class="badge">{{ reco.type }}</span>
           </li>
@@ -671,10 +703,22 @@ Replace the entire file with:
 
   <!-- Stats bar -->
   <div class="stats-bar">
-    <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Categorías de Temario</div></div>
-    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Lenguajes Disponibles</div></div>
-    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Niveles de Dificultad</div></div>
-    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Problemas Clasificados</div></div>
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Categorías de Temario</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Lenguajes Disponibles</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Niveles de Dificultad</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Problemas Clasificados</div>
+    </div>
   </div>
 
   <!-- Books carousel -->
@@ -689,17 +733,10 @@ Replace the entire file with:
       <div class="books-carousel" #carousel>
         <div class="book-card" *ngFor="let libro of libros">
           <p>{{ libro.titulo }}</p>
-          <img
-            [src]="'assets/images/libros/descargables/' + libro.imagen"
-            alt="{{ libro.titulo }}"
-          />
+          <img [src]="'assets/images/libros/descargables/' + libro.imagen" alt="{{ libro.titulo }}" />
           <div class="card-btns">
-            <button (click)="descargarLibro(libro.archivoPdf)">
-              <fa-icon [icon]="faDownload"></fa-icon> Descargar
-            </button>
-            <button (click)="verPdf(libro.archivoPdf)">
-              Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-            </button>
+            <button (click)="descargarLibro(libro.archivoPdf)"><fa-icon [icon]="faDownload"></fa-icon> Descargar</button>
+            <button (click)="verPdf(libro.archivoPdf)">Ver <fa-icon [icon]="faArrowRight"></fa-icon></button>
           </div>
         </div>
       </div>
@@ -767,7 +804,6 @@ Replace the entire file with:
       </div>
     </div>
   </div>
-
 </div>
 ```
 
@@ -776,12 +812,7 @@ Replace the entire file with:
 In `src/app/home/home.component.ts`, add these imports to the existing `@fortawesome/free-solid-svg-icons` import line:
 
 ```typescript
-import {
-  faArrowUpShortWide, faCode, faCodeCompare, faDiagramProject,
-  faMagnifyingGlass, faPenRuler, faPlusMinus, faSchool,
-  faSquareBinary, faTextWidth,
-  faTrophy, faArrowRight, faDownload, faChevronLeft, faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpShortWide, faCode, faCodeCompare, faDiagramProject, faMagnifyingGlass, faPenRuler, faPlusMinus, faSchool, faSquareBinary, faTextWidth, faTrophy, faArrowRight, faDownload, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 ```
 
 Then add the new icon properties at the bottom of the class (before `protected readonly Array = Array`):
@@ -810,6 +841,7 @@ git commit -m "feat(home): add hero section, stats bar, FA icons in carousel but
 ## Task 6 — Home CSS (`home.component.css`)
 
 **Files:**
+
 - Modify: `src/app/home/home.component.css`
 
 - [ ] **Step 1: Add hero and stats styles at the top of the file**
@@ -848,9 +880,13 @@ Open `src/app/home/home.component.css`. Prepend the following **before** the exi
   color: var(--background-dark);
 }
 
-.dark .hero-section h1 { color: var(--text-light); }
+.dark .hero-section h1 {
+  color: var(--text-light);
+}
 
-.hero-accent { color: var(--primary-dark); }
+.hero-accent {
+  color: var(--primary-dark);
+}
 
 .hero-subtitle {
   color: var(--text-muted);
@@ -871,7 +907,9 @@ Open `src/app/home/home.component.css`. Prepend the following **before** the exi
   border-radius: 14px;
   padding: 0.5rem 0.5rem 0.5rem 1.25rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   position: relative;
 }
 
@@ -903,8 +941,12 @@ Open `src/app/home/home.component.css`. Prepend the following **before** the exi
   min-width: 0;
 }
 
-.dark .hero-search input { color: var(--text-light); }
-.hero-search input::placeholder { color: var(--text-muted); }
+.dark .hero-search input {
+  color: var(--text-light);
+}
+.hero-search input::placeholder {
+  color: var(--text-muted);
+}
 
 .hero-search button {
   display: flex;
@@ -923,7 +965,9 @@ Open `src/app/home/home.component.css`. Prepend the following **before** the exi
   flex-shrink: 0;
 }
 
-.hero-search button:hover { background: #f06a00; }
+.hero-search button:hover {
+  background: #f06a00;
+}
 
 /* ── Stats bar ── */
 .stats-bar {
@@ -941,7 +985,9 @@ Open `src/app/home/home.component.css`. Prepend the following **before** the exi
   border-color: rgba(255, 255, 255, 0.06);
 }
 
-.stat { text-align: center; }
+.stat {
+  text-align: center;
+}
 
 .stat-num {
   font-size: 1.5rem;
@@ -972,7 +1018,7 @@ Open `src/app/home/home.component.css`. Prepend the following **before** the exi
 }
 
 .section-title::before {
-  content: '';
+  content: "";
   width: 4px;
   height: 1.2em;
   background: var(--primary-dark);
@@ -980,8 +1026,9 @@ Open `src/app/home/home.component.css`. Prepend the following **before** the exi
   display: inline-block;
 }
 
-.dark .section-title { color: var(--text-light); }
-
+.dark .section-title {
+  color: var(--text-light);
+}
 ```
 
 - [ ] **Step 2: Update `.book-card` height and button styles in the same file**
@@ -995,7 +1042,10 @@ Find the `.book-card` rule (around line 212 of the original file, now shifted do
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
   text-align: center;
   background: var(--text-light);
   padding: 1rem;
@@ -1042,19 +1092,19 @@ Find `.card-btns button` and ensure it reads:
 Add inside the existing `@media (max-width: 768px)` block:
 
 ```css
-  .stats-bar {
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    padding: 1rem;
-  }
+.stats-bar {
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
 
-  .hero-section {
-    padding: 2.5rem 1rem 2rem;
-  }
+.hero-section {
+  padding: 2.5rem 1rem 2rem;
+}
 
-  .hero-search {
-    padding: 0.4rem 0.4rem 0.4rem 1rem;
-  }
+.hero-search {
+  padding: 0.4rem 0.4rem 0.4rem 1rem;
+}
 ```
 
 - [ ] **Step 5: Verify**
@@ -1073,11 +1123,13 @@ git commit -m "style(home): hero section, stats bar, modernized book card hover"
 ## Task 7 — Temario HTML: icon boxes + chevrons (`temario.component.html`)
 
 **Files:**
+
 - Modify: `src/app/temario/temario.component.html`
 
 - [ ] **Step 1: Replace accordion button content structure**
 
 The current accordion button is:
+
 ```html
 <button ngbAccordionButton class="accordion-button" type="button">
   {{ tema.tema }}
@@ -1109,8 +1161,8 @@ Replace only that button (keep all surrounding `ngbAccordion` structure intact):
 Open `src/app/temario/temario.component.ts`. Add FontAwesomeModule to imports and add icon properties. The file should include:
 
 ```typescript
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBook, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { faBook, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 ```
 
 Add `FontAwesomeModule` to the `imports` array of the component decorator, and add to the class body:
@@ -1136,6 +1188,7 @@ git commit -m "feat(temario): icon boxes and chevron in accordion headers"
 ## Task 8 — Temario CSS: accordion polish (`temario.component.css`)
 
 **Files:**
+
 - Modify: `src/app/temario/temario.component.css`
 
 - [ ] **Step 1: Add icon box, chevron, complexity badge, and meta layout styles**
@@ -1161,7 +1214,9 @@ Append to the end of `src/app/temario/temario.component.css`:
   color: var(--text-muted);
   font-size: 0.85rem;
   flex-shrink: 0;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .dark .acc-icon-box {
@@ -1206,7 +1261,9 @@ Append to the end of `src/app/temario/temario.component.css`:
 .acc-chevron {
   font-size: 0.75rem;
   color: var(--text-muted);
-  transition: transform 0.2s, color 0.2s;
+  transition:
+    transform 0.2s,
+    color 0.2s;
   flex-shrink: 0;
 }
 
@@ -1232,6 +1289,7 @@ git commit -m "style(temario): icon box, chevron rotation, complexity badge"
 ## Task 9 — Problemas HTML: card rows + difficulty tags (`problemas.component.html`)
 
 **Files:**
+
 - Modify: `src/app/problemas/problemas.component.html`
 
 - [ ] **Step 1: Replace the problem list structure**
@@ -1256,9 +1314,7 @@ Find the `<div class="accordion-container">` block and replace it with:
       <span class="tag dif-elite" *ngSwitchCase="'Élite'">Élite</span>
     </div>
     <span class="tag tag-juez">{{ problema.juez }}</span>
-    <a class="ver-btn" [href]="problema.url" target="_blank">
-      Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-    </a>
+    <a class="ver-btn" [href]="problema.url" target="_blank"> Ver <fa-icon [icon]="faArrowRight"></fa-icon> </a>
   </div>
 </div>
 ```
@@ -1268,8 +1324,8 @@ Find the `<div class="accordion-container">` block and replace it with:
 Open `src/app/problemas/problemas.component.ts`. Add:
 
 ```typescript
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 ```
 
 Add `FontAwesomeModule` to the component's `imports` array and add to the class body:
@@ -1294,6 +1350,7 @@ git commit -m "feat(problemas): card row layout, color-coded difficulty tags, FA
 ## Task 10 — Problemas CSS: row cards + tag colors (`problemas.component.css`)
 
 **Files:**
+
 - Modify: `src/app/problemas/problemas.component.css`
 
 - [ ] **Step 1: Append new styles to end of `problemas.component.css`**
@@ -1315,7 +1372,10 @@ git commit -m "feat(problemas): card row layout, color-coded difficulty tags, FA
   border: 1px solid var(--border-light, #e4e4e7);
   border-radius: 12px;
   padding: 0.85rem 1.1rem;
-  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.2s;
   cursor: default;
   flex-wrap: wrap;
 }
@@ -1343,7 +1403,9 @@ git commit -m "feat(problemas): card row layout, color-coded difficulty tags, FA
   min-width: 120px;
 }
 
-.dark .problem-title { color: var(--text-light); }
+.dark .problem-title {
+  color: var(--text-light);
+}
 
 .problem-tags {
   display: flex;
@@ -1462,7 +1524,9 @@ git commit -m "feat(problemas): card row layout, color-coded difficulty tags, FA
   flex-shrink: 0;
 }
 
-.ver-btn:hover { background: #f06a00; }
+.ver-btn:hover {
+  background: #f06a00;
+}
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
@@ -1472,7 +1536,9 @@ git commit -m "feat(problemas): card row layout, color-coded difficulty tags, FA
     gap: 0.6rem;
   }
 
-  .ver-btn { margin-left: 0; }
+  .ver-btn {
+    margin-left: 0;
+  }
 }
 ```
 
@@ -1492,6 +1558,7 @@ git commit -m "style(problemas): card rows, color-coded difficulty tags, hover s
 ## Self-Review
 
 **Spec coverage:**
+
 - [x] Glassmorphism navbar → Task 3/4
 - [x] Hamburger + drawer → Task 2/3/4
 - [x] Active route highlight → Task 3/4

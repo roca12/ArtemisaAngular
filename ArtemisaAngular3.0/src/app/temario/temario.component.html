@@ -1,4 +1,8 @@
-<app-spinner *ngIf="loading" message="Cargando temario..." [fullscreen] = "true"></app-spinner>
+<app-spinner
+  *ngIf="loading"
+  message="Cargando temario..."
+  [fullscreen]="true"
+></app-spinner>
 <div
   [class.dark]="theme.isDark()"
   [class.light]="!theme.isDark()"
@@ -38,7 +42,9 @@
             <span class="acc-title">{{ tema.tema }}</span>
             <div class="acc-meta">
               <span class="acc-group">{{ tema.supergrupo }}</span>
-              <span class="acc-complexity" *ngIf="tema.complejidad_tiempo">{{ tema.complejidad_tiempo }}</span>
+              <span class="acc-complexity" *ngIf="tema.complejidad_tiempo">{{
+                tema.complejidad_tiempo
+              }}</span>
             </div>
             <fa-icon [icon]="faChevronRight" class="acc-chevron"></fa-icon>
           </button>

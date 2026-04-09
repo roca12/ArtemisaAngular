@@ -22,14 +22,21 @@ import { EditorView } from '@codemirror/view';
 import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { ActivatedRoute } from '@angular/router';
 import { RecomendationService } from '../services/recomendation.service';
-import {SpinnerComponent} from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBook, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-temario',
   standalone: true,
-  imports: [NgFor, FormsModule, NgbAccordionModule, NgIf, SpinnerComponent, FontAwesomeModule],
+  imports: [
+    NgFor,
+    FormsModule,
+    NgbAccordionModule,
+    NgIf,
+    SpinnerComponent,
+    FontAwesomeModule,
+  ],
   templateUrl: './temario.component.html',
   styleUrl: './temario.component.css',
 })

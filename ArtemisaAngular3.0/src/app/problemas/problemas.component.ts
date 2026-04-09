@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProblemService } from '../services/problem.service';
 import { Problema } from '../shared/models/problema.model';
 import { ActivatedRoute } from '@angular/router';
-import {SpinnerComponent} from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 

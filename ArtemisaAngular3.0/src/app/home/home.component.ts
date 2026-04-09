@@ -32,12 +32,19 @@ import { Router } from '@angular/router';
 import { PriorityQueue } from '../shared/structures/priorityqueue.structures';
 import { RecomendationService } from '../services/recomendation.service';
 import { Recomendation } from '../shared/models/recomendation.model';
-import {SpinnerComponent} from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FontAwesomeModule, NgbCarouselModule, NgFor, SlicePipe, NgIf, SpinnerComponent],
+  imports: [
+    FontAwesomeModule,
+    NgbCarouselModule,
+    NgFor,
+    SlicePipe,
+    NgIf,
+    SpinnerComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -234,11 +241,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       curr[0] = i;
       for (let j = 1; j <= n; j++) {
         const costo = s1[i - 1] === s2[j - 1] ? 0 : 1;
-        curr[j] = Math.min(
-          prev[j] + 1,
-          curr[j - 1] + 1,
-          prev[j - 1] + costo,
-        );
+        curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + costo);
       }
       [prev, curr] = [curr, prev];
     }
@@ -246,11 +249,9 @@ export class HomeComponent implements AfterViewInit, OnInit {
     return prev[n];
   }
 
-
   private similitudPalabras(a: string, b: string): number {
     const a2 = a.toLowerCase();
     const b2 = b.toLowerCase();
-
 
     if (a2.startsWith(b2) || b2.startsWith(a2)) return 1;
 
@@ -259,10 +260,15 @@ export class HomeComponent implements AfterViewInit, OnInit {
     return 1 - dist / maxLen;
   }
 
-
   private similitudFrases(consulta: string, candidato: string): number {
-    const palabrasConsulta   = consulta.toLowerCase().split(/\s+/).filter(Boolean);
-    const palabrasCandidato  = candidato.toLowerCase().split(/\s+/).filter(Boolean);
+    const palabrasConsulta = consulta
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+    const palabrasCandidato = candidato
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
 
     const scoresPorPalabraCandidato = palabrasCandidato.map((pc) =>
       Math.max(...palabrasConsulta.map((pq) => this.similitudPalabras(pq, pc))),
@@ -272,8 +278,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
       scoresPorPalabraCandidato.reduce((a, b) => a + b, 0) /
       scoresPorPalabraCandidato.length;
 
-    const prefixBonus =
-      candidato.toLowerCase().startsWith(consulta.toLowerCase().trim()) ? 0.15 : 0;
+    const prefixBonus = candidato
+      .toLowerCase()
+      .startsWith(consulta.toLowerCase().trim())
+      ? 0.15
+      : 0;
 
     return Math.min(1, scoreBase + prefixBonus);
   }

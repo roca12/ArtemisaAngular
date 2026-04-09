@@ -7,8 +7,18 @@
   ></div>
 
   <!-- Slide-in drawer (mobile) -->
-  <nav class="drawer" [class.open]="drawerOpen" role="dialog" aria-modal="true" aria-label="Menú">
-    <button class="drawer-close" (click)="closeDrawer()" aria-label="Cerrar menú">
+  <nav
+    class="drawer"
+    [class.open]="drawerOpen"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menú"
+  >
+    <button
+      class="drawer-close"
+      (click)="closeDrawer()"
+      aria-label="Cerrar menú"
+    >
       <fa-icon [icon]="faXmark"></fa-icon>
     </button>
     <div class="drawer-logo">
@@ -16,20 +26,51 @@
       <span>Artemisa</span>
     </div>
     <div class="drawer-links">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faHouse"></fa-icon></div> Inicio
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faHouse"></fa-icon></div>
+        Inicio
       </a>
-      <a routerLink="/temario" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faBookOpen"></fa-icon></div> Temario
+      <a
+        routerLink="/temario"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faBookOpen"></fa-icon></div>
+        Temario
       </a>
-      <a routerLink="/problemas" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faPuzzlePiece"></fa-icon></div> Problemas
+      <a
+        routerLink="/problemas"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faPuzzlePiece"></fa-icon></div>
+        Problemas
       </a>
-      <a routerLink="/links" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faLink"></fa-icon></div> Links
+      <a
+        routerLink="/links"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faLink"></fa-icon></div>
+        Links
       </a>
-      <a routerLink="/calendar" routerLinkActive="active" (click)="closeDrawer()" class="drawer-link">
-        <div class="dl-icon"><fa-icon [icon]="faCalendar"></fa-icon></div> Calendario
+      <a
+        routerLink="/calendar"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faCalendar"></fa-icon></div>
+        Calendario
       </a>
     </div>
   </nav>
@@ -42,7 +83,12 @@
         <span>Artemisa</span>
       </a>
       <div class="nav-links">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
+        >
           <fa-icon [icon]="faHouse"></fa-icon> Inicio
         </a>
         <a routerLink="/temario" routerLinkActive="active" class="nav-link">
@@ -59,14 +105,25 @@
         </a>
       </div>
       <div class="nav-right">
-        <button class="theme-toggle" (click)="toggleDarkMode()" [attr.aria-label]="theme.isDark() ? 'Activar modo claro' : 'Activar modo oscuro'">
+        <button
+          class="theme-toggle"
+          (click)="toggleDarkMode()"
+          [attr.aria-label]="
+            theme.isDark() ? 'Activar modo claro' : 'Activar modo oscuro'
+          "
+        >
           <div class="toggle-track" [class.dark-active]="theme.isDark()">
             <div class="toggle-thumb">
               <fa-icon [icon]="theme.isDark() ? faMoon : faSun"></fa-icon>
             </div>
           </div>
         </button>
-        <button class="hamburger-btn" (click)="toggleDrawer()" aria-label="Abrir menú" [attr.aria-expanded]="drawerOpen">
+        <button
+          class="hamburger-btn"
+          (click)="toggleDrawer()"
+          aria-label="Abrir menú"
+          [attr.aria-expanded]="drawerOpen"
+        >
           <fa-icon [icon]="faBars"></fa-icon>
         </button>
       </div>

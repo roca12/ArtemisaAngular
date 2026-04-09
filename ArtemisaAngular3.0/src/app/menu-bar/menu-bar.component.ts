@@ -1,11 +1,24 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 import { AuthService } from '../services/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-  faBolt, faHouse, faBookOpen, faPuzzlePiece,
-  faLink, faCalendar, faBars, faXmark, faSun, faMoon
+  faBolt,
+  faHouse,
+  faBookOpen,
+  faPuzzlePiece,
+  faLink,
+  faCalendar,
+  faBars,
+  faXmark,
+  faSun,
+  faMoon,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

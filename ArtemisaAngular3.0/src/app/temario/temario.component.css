@@ -499,7 +499,9 @@ pre::-webkit-scrollbar-thumb {
   color: var(--text-muted);
   font-size: 0.85rem;
   flex-shrink: 0;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .dark .acc-icon-box {
@@ -549,7 +551,9 @@ pre::-webkit-scrollbar-thumb {
 .acc-chevron {
   font-size: 0.75rem;
   color: var(--text-muted);
-  transition: transform 0.2s, color 0.2s;
+  transition:
+    transform 0.2s,
+    color 0.2s;
   flex-shrink: 0;
 }
 
