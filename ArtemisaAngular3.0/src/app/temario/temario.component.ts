@@ -22,11 +22,14 @@ import { EditorView } from '@codemirror/view';
 import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { ActivatedRoute } from '@angular/router';
 import { RecomendationService } from '../services/recomendation.service';
+import {SpinnerComponent} from '../shared/spinner/spinner.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faBook, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-temario',
   standalone: true,
-  imports: [NgFor, FormsModule, NgbAccordionModule, NgIf],
+  imports: [NgFor, FormsModule, NgbAccordionModule, NgIf, SpinnerComponent, FontAwesomeModule],
   templateUrl: './temario.component.html',
   styleUrl: './temario.component.css',
 })
@@ -38,6 +41,7 @@ export class TemarioComponent implements AfterViewInit, OnInit {
   @ViewChildren('editorContainerPython')
   editorContainersPython!: QueryList<ElementRef>;
 
+  loading = true;
   temario: Temario[] = [];
   superGrupos: string[] = [];
 
@@ -78,6 +82,7 @@ export class TemarioComponent implements AfterViewInit, OnInit {
     this.syllabus.getSyllabus().subscribe({
       next: (response) => {
         this.temario = response.data as Temario[];
+        this.loading = true;
       },
       error: (error) => {
         this.toastService.error('Error al obtener el temario', 'Error');
@@ -158,4 +163,7 @@ export class TemarioComponent implements AfterViewInit, OnInit {
 
     return texto.replace(/\n/g, '<br><br>');
   }
+
+  protected readonly faBook = faBook;
+  protected readonly faChevronRight = faChevronRight;
 }
