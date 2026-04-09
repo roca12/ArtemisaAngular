@@ -7,8 +7,8 @@ export class PriorityQueue<T> {
   private items: Item<T>[] = [];
 
   private parentOf = (i: number) => Math.floor((i - 1) / 2);
-  private leftOf   = (i: number) => 2 * i + 1;
-  private rightOf  = (i: number) => 2 * i + 2;
+  private leftOf = (i: number) => 2 * i + 1;
+  private rightOf = (i: number) => 2 * i + 2;
 
   private swap(a: number, b: number): void {
     [this.items[a], this.items[b]] = [this.items[b], this.items[a]];
@@ -28,11 +28,16 @@ export class PriorityQueue<T> {
 
     while (true) {
       let largest = i;
-      const left  = this.leftOf(i);
+      const left = this.leftOf(i);
       const right = this.rightOf(i);
 
-      if (left  < n && this.items[left].priority  > this.items[largest].priority) largest = left;
-      if (right < n && this.items[right].priority > this.items[largest].priority) largest = right;
+      if (left < n && this.items[left].priority > this.items[largest].priority)
+        largest = left;
+      if (
+        right < n &&
+        this.items[right].priority > this.items[largest].priority
+      )
+        largest = right;
       if (largest === i) break;
 
       this.swap(i, largest);
@@ -50,7 +55,7 @@ export class PriorityQueue<T> {
 
     return this.items.find(({ value }) => {
       const v = value as Record<string, unknown>;
-      return v["data"] === target["data"] && v["type"] === target["type"];
+      return v['data'] === target['data'] && v['type'] === target['type'];
     });
   }
 
