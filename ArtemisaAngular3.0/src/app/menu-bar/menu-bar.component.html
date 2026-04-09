@@ -7,7 +7,7 @@
   ></div>
 
   <!-- Slide-in drawer (mobile) -->
-  <nav class="drawer" [class.open]="drawerOpen" role="dialog" aria-label="Menú">
+  <nav class="drawer" [class.open]="drawerOpen" role="dialog" aria-modal="true" aria-label="Menú">
     <button class="drawer-close" (click)="closeDrawer()" aria-label="Cerrar menú">
       <fa-icon [icon]="faXmark"></fa-icon>
     </button>
@@ -66,7 +66,7 @@
             </div>
           </div>
         </button>
-        <button class="hamburger-btn" (click)="toggleDrawer()" aria-label="Abrir menú">
+        <button class="hamburger-btn" (click)="toggleDrawer()" aria-label="Abrir menú" [attr.aria-expanded]="drawerOpen">
           <fa-icon [icon]="faBars"></fa-icon>
         </button>
       </div>

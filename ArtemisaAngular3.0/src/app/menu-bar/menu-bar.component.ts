@@ -17,6 +17,7 @@ import {
 })
 export class MenuBarComponent implements OnInit {
   drawerOpen = false;
+  private lastFocusedElement: HTMLElement | null = null;
 
   protected readonly faBolt = faBolt;
   protected readonly faHouse = faHouse;
@@ -39,11 +40,16 @@ export class MenuBarComponent implements OnInit {
   }
 
   toggleDrawer() {
+    if (!this.drawerOpen) {
+      this.lastFocusedElement = document.activeElement as HTMLElement;
+    }
     this.drawerOpen = !this.drawerOpen;
   }
 
   closeDrawer() {
     this.drawerOpen = false;
+    this.lastFocusedElement?.focus();
+    this.lastFocusedElement = null;
   }
 
   @HostListener('document:keydown.escape')

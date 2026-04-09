@@ -119,15 +119,20 @@
 .hamburger-btn:hover { background: rgba(0, 0, 0, 0.07); }
 .dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.08); }
 .drawer-backdrop {
-  display: none;
+  visibility: hidden;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   z-index: 299;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, visibility 0s 0.3s;
 }
-.drawer-backdrop.open { display: block; opacity: 1; }
+
+.drawer-backdrop.open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s, visibility 0s;
+}
 .drawer {
   position: fixed;
   top: 0;
