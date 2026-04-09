@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { LinkService } from '../services/link.service';
 import { Link } from '../shared/models/link.model';
-import {NgFor, NgIf} from '@angular/common';
-import {SpinnerComponent} from '../shared/spinner/spinner.component';
+import { NgFor, NgIf } from '@angular/common';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-links',

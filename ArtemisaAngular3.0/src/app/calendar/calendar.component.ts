@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { ThemeService } from '../services/theme.service';
-import {SpinnerComponent} from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-calendar',
@@ -15,13 +15,12 @@ import {SpinnerComponent} from '../shared/spinner/spinner.component';
   styleUrl: './calendar.component.css',
 })
 export class CalendarComponent implements OnInit {
-
   constructor(
     private calendarService: CalendarService,
     public theme: ThemeService,
   ) {}
 
-  loading: boolean =  true;
+  loading: boolean = true;
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, bootstrap5Plugin],
     initialView: 'dayGridMonth',
@@ -32,8 +31,6 @@ export class CalendarComponent implements OnInit {
     },
     height: 'auto',
   };
-
-
 
   ngOnInit(): void {
     this.calendarService.obtenerCalendario().subscribe((res) => {
