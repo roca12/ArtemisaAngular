@@ -20,6 +20,11 @@ html::-webkit-scrollbar {
   background-color: var(--background-dark);
 }
 
+.light {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
 .toast {
   box-shadow: none !important;
 }
@@ -34,6 +39,15 @@ html::-webkit-scrollbar {
   --blue-dark: #3a5c6a;
   --teal-dark: #1f5e67;
   --border-dark: #303030;
+}
+
+/* Light-mode surface tokens */
+:root {
+  --surface-light: #ffffff;
+  --bg-light: #f5f5f7;
+  --border-light: #e4e4e7;
+  --text-dark: #1a1a1a;
+  --muted-light: #6b7280;
 }
 
 html,
