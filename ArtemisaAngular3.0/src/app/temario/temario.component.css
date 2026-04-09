@@ -215,9 +215,7 @@
   background-color: transparent;
   color: var(--background-dark);
   font-weight: bold;
-  display: inline-block;
   width: 100%;
-  text-align: left;
   font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
@@ -481,4 +479,85 @@ pre::-webkit-scrollbar-thumb {
   .sidebar {
     min-width: 180px;
   }
+}
+
+/* ── Accordion header layout ── */
+.accordion-button {
+  display: flex !important;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.acc-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.dark .acc-icon-box {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* ngb adds .accordion-button:not(.collapsed) when open */
+.accordion-button:not(.collapsed) .acc-icon-box {
+  background: rgba(217, 92, 0, 0.15);
+  color: var(--primary-dark);
+}
+
+.acc-title {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.acc-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.acc-group {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.acc-complexity {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(217, 92, 0, 0.12);
+  color: var(--primary-dark);
+  border: 1px solid rgba(217, 92, 0, 0.25);
+}
+
+.dark .acc-complexity {
+  background: rgba(217, 92, 0, 0.22);
+  border-color: rgba(217, 92, 0, 0.45);
+}
+
+.acc-chevron {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition:
+    transform 0.2s,
+    color 0.2s;
+  flex-shrink: 0;
+}
+
+.accordion-button:not(.collapsed) .acc-chevron {
+  transform: rotate(90deg);
+  color: var(--primary-dark);
 }

@@ -1,38 +1,132 @@
 <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
-  <div class="menu-bar">
+  <!-- Drawer backdrop -->
+  <div
+    class="drawer-backdrop"
+    [class.open]="drawerOpen"
+    (click)="closeDrawer()"
+  ></div>
+
+  <!-- Slide-in drawer (mobile) -->
+  <nav
+    class="drawer"
+    [class.open]="drawerOpen"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menú"
+  >
+    <button
+      class="drawer-close"
+      (click)="closeDrawer()"
+      aria-label="Cerrar menú"
+    >
+      <fa-icon [icon]="faXmark"></fa-icon>
+    </button>
+    <div class="drawer-logo">
+      <div class="logo-icon"><fa-icon [icon]="faBolt"></fa-icon></div>
+      <span>Artemisa</span>
+    </div>
+    <div class="drawer-links">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faHouse"></fa-icon></div>
+        Inicio
+      </a>
+      <a
+        routerLink="/temario"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faBookOpen"></fa-icon></div>
+        Temario
+      </a>
+      <a
+        routerLink="/problemas"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faPuzzlePiece"></fa-icon></div>
+        Problemas
+      </a>
+      <a
+        routerLink="/links"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faLink"></fa-icon></div>
+        Links
+      </a>
+      <a
+        routerLink="/calendar"
+        routerLinkActive="active"
+        (click)="closeDrawer()"
+        class="drawer-link"
+      >
+        <div class="dl-icon"><fa-icon [icon]="faCalendar"></fa-icon></div>
+        Calendario
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main navbar -->
+  <header class="menu-bar">
     <nav class="nav-container">
-      <div class="logo-container">
-        <img
-          [src]="
-            theme.isDark()
-              ? 'assets/images/logos/propuestas logo 1 artemisa-02.png'
-              : 'assets/images/logos/propuestas_logo_1_artemisa_Mesa_de_trabajo_1.png'
+      <a routerLink="/" class="navbar-logo">
+        <div class="logo-icon"><fa-icon [icon]="faBolt"></fa-icon></div>
+        <span>Artemisa</span>
+      </a>
+      <div class="nav-links">
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
+        >
+          <fa-icon [icon]="faHouse"></fa-icon> Inicio
+        </a>
+        <a routerLink="/temario" routerLinkActive="active" class="nav-link">
+          <fa-icon [icon]="faBookOpen"></fa-icon> Temario
+        </a>
+        <a routerLink="/problemas" routerLinkActive="active" class="nav-link">
+          <fa-icon [icon]="faPuzzlePiece"></fa-icon> Problemas
+        </a>
+        <a routerLink="/links" routerLinkActive="active" class="nav-link">
+          <fa-icon [icon]="faLink"></fa-icon> Links
+        </a>
+        <a routerLink="/calendar" routerLinkActive="active" class="nav-link">
+          <fa-icon [icon]="faCalendar"></fa-icon> Calendario
+        </a>
+      </div>
+      <div class="nav-right">
+        <button
+          class="theme-toggle"
+          (click)="toggleDarkMode()"
+          [attr.aria-label]="
+            theme.isDark() ? 'Activar modo claro' : 'Activar modo oscuro'
           "
-          alt="Logo Artemisa"
-        />
-      </div>
-      <a routerLink="/">Inicio</a>
-      <a routerLink="/temario">Temario</a>
-
-      <a routerLink="/problemas">Problemas</a>
-      <a routerLink="/links">Links</a>
-      <a routerLink="/calendar">Calendario</a>
-      <div class="darkmode-container">
-        <div class="dark-mode" (click)="toggleDarkMode()">
-          <div class="circle">
-            <ion-icon class="sun" name="sunny"></ion-icon>
-            <ion-icon class="moon" name="moon"></ion-icon>
+        >
+          <div class="toggle-track" [class.dark-active]="theme.isDark()">
+            <div class="toggle-thumb">
+              <fa-icon [icon]="theme.isDark() ? faMoon : faSun"></fa-icon>
+            </div>
           </div>
-        </div>
+        </button>
+        <button
+          class="hamburger-btn"
+          (click)="toggleDrawer()"
+          aria-label="Abrir menú"
+          [attr.aria-expanded]="drawerOpen"
+        >
+          <fa-icon [icon]="faBars"></fa-icon>
+        </button>
       </div>
-
-      <!--
-      <button *ngIf = "isLoggedIn()" >
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <a routerLink="/perfil">Perfil</a>
-      </button>
-      <button *ngIf = "!isLoggedIn()" routerLink="/login">Iniciar Sesión</button>
-      -->
     </nav>
-  </div>
+  </header>
 </div>
