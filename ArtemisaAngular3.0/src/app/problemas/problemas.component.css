@@ -374,7 +374,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: #fff;
+  background: var(--surface-light, #fff);
   border: 1px solid var(--border-light, #e4e4e7);
   border-radius: 12px;
   padding: 0.85rem 1.1rem;
@@ -396,6 +396,7 @@
 
 .dark .problem-row:hover {
   background: rgba(217, 92, 0, 0.07);
+  border-color: rgba(217, 92, 0, 0.4);
 }
 
 .problem-title {
@@ -416,6 +417,8 @@
 
 /* ── Tags ── */
 .tag {
+  display: inline-block;
+  line-height: 1.4;
   font-size: 0.65rem;
   font-weight: 600;
   padding: 0.2rem 0.55rem;
@@ -485,7 +488,7 @@
 
 .dif-elite {
   background: rgba(175, 97, 96, 0.12);
-  color: #9a3838;
+  color: #8a2a2a;
   border: 1px solid rgba(175, 97, 96, 0.2);
 }
 
@@ -514,7 +517,7 @@
   gap: 0.35rem;
   font-size: 0.75rem;
   padding: 0.35rem 0.85rem;
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--primary-dark);
   color: #fff;
   text-decoration: none;
@@ -526,6 +529,7 @@
 }
 
 .ver-btn:hover { background: #f06a00; }
+.dark .ver-btn:hover { background: #e06000; }
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
