@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnInit } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 import { AuthService } from '../services/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -18,21 +18,20 @@ import {
 export class MenuBarComponent implements OnInit {
   drawerOpen = false;
 
-  faBolt = faBolt;
-  faHouse = faHouse;
-  faBookOpen = faBookOpen;
-  faPuzzlePiece = faPuzzlePiece;
-  faLink = faLink;
-  faCalendar = faCalendar;
-  faBars = faBars;
-  faXmark = faXmark;
-  faSun = faSun;
-  faMoon = faMoon;
+  protected readonly faBolt = faBolt;
+  protected readonly faHouse = faHouse;
+  protected readonly faBookOpen = faBookOpen;
+  protected readonly faPuzzlePiece = faPuzzlePiece;
+  protected readonly faLink = faLink;
+  protected readonly faCalendar = faCalendar;
+  protected readonly faBars = faBars;
+  protected readonly faXmark = faXmark;
+  protected readonly faSun = faSun;
+  protected readonly faMoon = faMoon;
 
   constructor(
     public theme: ThemeService,
     private authService: AuthService,
-    public router: Router,
   ) {}
 
   toggleDarkMode() {
