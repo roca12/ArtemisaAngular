@@ -215,9 +215,7 @@
   background-color: transparent;
   color: var(--background-dark);
   font-weight: bold;
-  display: inline-block;
   width: 100%;
-  text-align: left;
   font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
@@ -541,6 +539,11 @@ pre::-webkit-scrollbar-thumb {
   background: rgba(217, 92, 0, 0.12);
   color: var(--primary-dark);
   border: 1px solid rgba(217, 92, 0, 0.25);
+}
+
+.dark .acc-complexity {
+  background: rgba(217, 92, 0, 0.22);
+  border-color: rgba(217, 92, 0, 0.45);
 }
 
 .acc-chevron {
