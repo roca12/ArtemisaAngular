@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { ThemeService } from '../services/theme.service';
-import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-calendar',

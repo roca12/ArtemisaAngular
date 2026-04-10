@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
 import { PriorityQueue } from '../shared/structures/priorityqueue.structures';
 import { RecomendationService } from '../services/recomendation.service';
 import { Recomendation } from '../shared/models/recomendation.model';
-import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-home',
