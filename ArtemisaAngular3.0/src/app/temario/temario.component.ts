@@ -9,8 +9,7 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { RecomendationService } from '../services/recomendation.service';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
-import {TemaDetalleComponent} from '../shared/components/tema-detalle/tema-detalle.component';
-
+import { TemaDetalleComponent } from '../shared/components/tema-detalle/tema-detalle.component';
 
 @Component({
   selector: 'app-temario',
@@ -47,7 +46,6 @@ export class TemarioComponent implements OnInit {
     this.leerFiltroDeRuta();
   }
 
-
   private leerFiltroDeRuta(): void {
     this.route.queryParamMap.subscribe((params) => {
       const filtro = params.get('filtro');
@@ -81,12 +79,11 @@ export class TemarioComponent implements OnInit {
     });
   }
 
-
   temarioFiltrado(): Temario[] {
     const activos = this.filtrosActivos();
     if (activos.length === 0) return this.temario;
     return this.temario.filter(
-      (t) => activos.includes(t.supergrupo) || activos.includes(t.tema)
+      (t) => activos.includes(t.supergrupo) || activos.includes(t.tema),
     );
   }
 

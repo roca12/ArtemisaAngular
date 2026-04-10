@@ -38,10 +38,9 @@ const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
   selector: 'app-codigo',
   imports: [],
   templateUrl: './codigo.component.html',
-  styleUrl: './codigo.component.css'
+  styleUrl: './codigo.component.css',
 })
-
-export class CodigoComponent implements AfterViewInit, OnDestroy{
+export class CodigoComponent implements AfterViewInit, OnDestroy {
   @Input() language!: Language;
   @Input() codigo: string | null = null;
   @ViewChild('editorContainer') editorContainer?: ElementRef;
