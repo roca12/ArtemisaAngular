@@ -68,14 +68,12 @@ export class TemarioComponent implements AfterViewInit, OnInit {
       this.initCppEditors();
       cpp = true;
       this.loading = java && cpp && python;
-
     });
     this.editorContainersPython.changes.subscribe(() => {
       this.initPythonEditors();
       python = true;
       this.loading = java && cpp && python;
     });
-
   }
 
   ngOnInit(): void {
@@ -87,7 +85,6 @@ export class TemarioComponent implements AfterViewInit, OnInit {
         this.loading = false;
       }
     });
-
   }
 
   constructor(
@@ -96,7 +93,7 @@ export class TemarioComponent implements AfterViewInit, OnInit {
     public theme: ThemeService,
     private route: ActivatedRoute,
     private recoService: RecomendationService,
-  ) { }
+  ) {}
 
   filtrosSeleccionados: { [key: string]: boolean } = {};
 
