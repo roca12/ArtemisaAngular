@@ -22,7 +22,7 @@ import { EditorView } from '@codemirror/view';
 import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { ActivatedRoute } from '@angular/router';
 import { RecomendationService } from '../services/recomendation.service';
-import {SpinnerComponent} from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-temario',
