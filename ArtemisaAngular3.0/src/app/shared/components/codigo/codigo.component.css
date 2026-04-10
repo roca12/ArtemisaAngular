@@ -1,0 +1,13 @@
+.logo-image {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .logo-image {
+    width: 25px;
+    height: 25px;
+  }
+}

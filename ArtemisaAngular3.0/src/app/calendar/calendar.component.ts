@@ -7,6 +7,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { ThemeService } from '../services/theme.service';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
+import {
+  CalendarEvent,
+  GoogleCalendar,
+  GoogleCalendarItem,
+} from '../shared/models/calendar.model';
 
 @Component({
   selector: 'app-calendar',
@@ -20,7 +25,8 @@ export class CalendarComponent implements OnInit {
     public theme: ThemeService,
   ) {}
 
-  loading: boolean = true;
+  loading = true;
+
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, bootstrap5Plugin],
     initialView: 'dayGridMonth',
@@ -33,24 +39,28 @@ export class CalendarComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.calendarService.obtenerCalendario().subscribe((res) => {
-      let eventos: any[] = [];
-      for (const calendario of res) {
-        if (calendario.items) {
-          eventos = eventos.concat(
-            calendario.items.map((item: any) => ({
-              title: item.summary,
-              start: item.start?.dateTime || item.start?.date,
-              end: item.end?.dateTime || item.end?.date,
-              url: item.url,
-              color: '#1F5E67',
-              description: item.description,
-            })),
-          );
-        }
-      }
-      this.calendarOptions.events = eventos;
+    this.calendarService.obtenerCalendario().subscribe((res: GoogleCalendar[]) => {
+      this.calendarOptions.events = this.mapearEventos(res);
       this.loading = false;
     });
+  }
+
+
+
+  private mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
+    return calendarios.flatMap((calendario) =>
+      (calendario.items ?? []).map((item) => this.mapearItem(item))
+    );
+  }
+
+  private mapearItem(item: GoogleCalendarItem): CalendarEvent {
+    return {
+      title: item.summary,
+      start: item.start?.dateTime ?? item.start?.date,
+      end: item.end?.dateTime ?? item.end?.date,
+      url: item.url,
+      color: '#1F5E67',
+      description: item.description,
+    };
   }
 }
