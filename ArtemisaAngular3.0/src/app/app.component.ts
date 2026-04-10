@@ -12,9 +12,18 @@ import { NgClass } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
   title = 'ArtemisaAngular3.0';
   constructor(public theme: ThemeService) {}
+
+  ngAfterViewInit(){
+    const splash = document.getElementById('app-splash');
+    if (!splash) return;
+    requestAnimationFrame(() => {
+      splash.classList.add('splash-hidden');
+      setTimeout(() => splash.remove(), 800);
+    });
+  }
 
   protected readonly faGithub = faGithub;
 }
