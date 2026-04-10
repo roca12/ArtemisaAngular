@@ -4,32 +4,12 @@
   [fullscreen]="true"
 ></app-spinner>
 <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
-  <!-- Hero -->
-  <div class="hero-section">
-    <div class="hero-badge">
-      <fa-icon [icon]="faTrophy"></fa-icon>
-      Plataforma de Programación Competitiva
-    </div>
-    <h1>
-      Domina los algoritmos.<br /><span class="hero-accent"
-        >Gana las competencias.</span
-      >
-    </h1>
-    <p class="hero-subtitle">
-      Teoría, código en Java / C++ / Python, y problemas clasificados por tema y
-      dificultad.
-    </p>
-    <div class="hero-search">
-      <fa-icon [icon]="faMagnifyingGlass" class="search-icon"></fa-icon>
-      <input
-        #inputSearch
-        type="text"
-        placeholder="Buscar tema, algoritmo, problema..."
-        (keydown.enter)="search(inputSearch.value)"
-      />
-      <button (click)="search(inputSearch.value)">
-        <fa-icon [icon]="faArrowRight"></fa-icon> Buscar
-      </button>
+  <div class="search-container">
+    <div class="search">
+      <input #inputSearch type="text" placeholder="Buscar" required />
+      <div class="btn" (click)="search(inputSearch.value)">
+        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+      </div>
       <div
         class="recomendations-list"
         *ngIf="
@@ -40,7 +20,7 @@
         <ul>
           <li
             *ngFor="
-              let reco of Array.from(filterRecomendations(getValorInput()))
+              let reco of Array.from(this.filterRecomendations(getValorInput()))
                 | slice: 0 : 7
             "
             (click)="autocompletar(reco)"
@@ -53,35 +33,12 @@
     </div>
   </div>
 
-  <!-- Stats bar -->
-  <div class="stats-bar">
-    <div class="stat">
-      <div class="stat-num">10+</div>
-      <div class="stat-label">Categorías de Temario</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Lenguajes Disponibles</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">5</div>
-      <div class="stat-label">Niveles de Dificultad</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">∞</div>
-      <div class="stat-label">Problemas Clasificados</div>
-    </div>
-  </div>
-
-  <!-- Books carousel -->
   <div class="books-container">
-    <div class="section-header">
-      <div class="section-title">Libros Descargables</div>
-    </div>
     <div class="carousel-wrapper">
       <button class="carousel-btn left" (click)="scrollCarousel('left')">
-        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        ←
       </button>
+
       <div class="books-carousel" #carousel>
         <div class="book-card" *ngFor="let libro of libros">
           <p>{{ libro.titulo }}</p>
@@ -91,25 +48,22 @@
           />
           <div class="card-btns">
             <button (click)="descargarLibro(libro.archivoPdf)">
-              <fa-icon [icon]="faDownload"></fa-icon> Descargar
+              Descargar
             </button>
-            <button (click)="verPdf(libro.archivoPdf)">
-              Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-            </button>
+
+            <button (click)="verPdf(libro.archivoPdf)">Ver →</button>
           </div>
         </div>
       </div>
+
       <button class="carousel-btn right" (click)="scrollCarousel('right')">
-        <fa-icon [icon]="faChevronRight"></fa-icon>
+        →
       </button>
     </div>
   </div>
 
-  <!-- Topic cards -->
   <div class="explore-section">
-    <div class="section-header">
-      <div class="section-title">Temario</div>
-    </div>
+    <h2>Temario</h2>
     <div class="cards-container">
       <div
         class="card"
@@ -122,10 +76,9 @@
       >
         <fa-icon [icon]="faSchool"></fa-icon>
         <h2>Teoria Básica</h2>
-        <button (click)="irATemario('Teoria')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Teoria')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -137,10 +90,9 @@
       >
         <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
         <h2>Algoritmos de Búsqueda</h2>
-        <button (click)="irATemario('Búsquedas')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Búsquedas')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -152,10 +104,9 @@
       >
         <fa-icon [icon]="faArrowUpShortWide"></fa-icon>
         <h2>Algoritmos de Ordenamiento</h2>
-        <button (click)="irATemario('Ordenamientos')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Ordenamientos')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -167,10 +118,9 @@
       >
         <fa-icon [icon]="faTextWidth"></fa-icon>
         <h2>Strings</h2>
-        <button (click)="irATemario('Strings')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Strings')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -182,10 +132,9 @@
       >
         <fa-icon [icon]="faSquareBinary"></fa-icon>
         <h2>Manejo Binario y Bitwise</h2>
-        <button (click)="irATemario('BitWise')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('BitWise')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -197,10 +146,9 @@
       >
         <fa-icon [icon]="faPlusMinus"></fa-icon>
         <h2>Matemáticas</h2>
-        <button (click)="irATemario('Matemática')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Matemática')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -212,10 +160,9 @@
       >
         <fa-icon [icon]="faPenRuler"></fa-icon>
         <h2>Geometría</h2>
-        <button (click)="irATemario('Geometría')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Geometría')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -227,10 +174,9 @@
       >
         <fa-icon [icon]="faDiagramProject"></fa-icon>
         <h2>Teoría de grafos, arboles y redes</h2>
-        <button (click)="irATemario('Grafos')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Grafos')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -242,10 +188,9 @@
       >
         <fa-icon [icon]="faCodeCompare"></fa-icon>
         <h2>Programación Dinámica</h2>
-        <button (click)="irATemario('DP')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('DP')">Ver →</button>
       </div>
+
       <div
         class="card"
         style="
@@ -257,9 +202,7 @@
       >
         <fa-icon [icon]="faCode"></fa-icon>
         <h2>Generador de Casos Prueba</h2>
-        <button (click)="irATemario('Generadores')">
-          Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-        </button>
+        <button (click)="irATemario('Generadores')">Ver →</button>
       </div>
     </div>
   </div>
