@@ -17,11 +17,6 @@ import {
   faSchool,
   faSquareBinary,
   faTextWidth,
-  faTrophy,
-  faArrowRight,
-  faDownload,
-  faChevronLeft,
-  faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { ThemeService } from '../services/theme.service';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
@@ -315,10 +310,5 @@ export class HomeComponent implements AfterViewInit, OnInit {
   protected readonly faDiagramProject = faDiagramProject;
   protected readonly faCodeCompare = faCodeCompare;
   protected readonly faCode = faCode;
-  protected readonly faTrophy = faTrophy;
-  protected readonly faArrowRight = faArrowRight;
-  protected readonly faDownload = faDownload;
-  protected readonly faChevronLeft = faChevronLeft;
-  protected readonly faChevronRight = faChevronRight;
   protected readonly Array = Array;
 }

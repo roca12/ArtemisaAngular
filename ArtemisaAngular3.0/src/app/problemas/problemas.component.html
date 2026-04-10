@@ -77,48 +77,35 @@
 
     <div class="main-container">
       <h3>Ejercicios</h3>
-      <div class="problem-list">
-        <div class="problem-row" *ngFor="let problema of filterProblems()">
-          <div class="problem-title">{{ problema.titulo }}</div>
-          <div class="problem-tags">
-            <span class="tag tag-tema" *ngIf="problema.tema_1">{{
-              problema.tema_1
-            }}</span>
-            <span class="tag tag-tema" *ngIf="problema.tema_2">{{
-              problema.tema_2
-            }}</span>
-            <span class="tag tag-tema" *ngIf="problema.tema_3">{{
-              problema.tema_3
-            }}</span>
-            <span class="tag tag-tema" *ngIf="problema.tema_4">{{
-              problema.tema_4
-            }}</span>
-          </div>
-          <div
-            [ngSwitch]="determinarNivel(problema.dificultad)"
-            class="dificultad-tag"
-          >
-            <span class="tag dif-aprendiz" *ngSwitchCase="'Aprendíz'"
-              >Aprendíz</span
-            >
-            <span class="tag dif-basica" *ngSwitchCase="'Básica'">Básica</span>
-            <span class="tag dif-intermedia" *ngSwitchCase="'Intermedia'"
-              >Intermedia</span
-            >
-            <span class="tag dif-avanzada" *ngSwitchCase="'Avanzada'"
-              >Avanzada</span
-            >
-            <span class="tag dif-elite" *ngSwitchCase="'Élite'">Élite</span>
-          </div>
-          <span class="tag tag-juez">{{ problema.juez }}</span>
-          <a
-            class="ver-btn"
-            [href]="problema.url"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ver <fa-icon [icon]="faArrowRight"></fa-icon>
-          </a>
+      <div class="accordion-container">
+        <div *ngFor="let problema of filterProblems(); let i = index">
+          <h2>
+            <button class="accordion-button" type="button">
+              <p class="titulo">{{ problema.titulo }}</p>
+              <div class="temas">
+                <p *ngIf="problema.tema_1">{{ problema.tema_1 }}</p>
+                <p *ngIf="problema.tema_2">{{ problema.tema_2 }}</p>
+                <p *ngIf="problema.tema_3">{{ problema.tema_3 }}</p>
+                <p *ngIf="problema.tema_4">{{ problema.tema_4 }}</p>
+              </div>
+              <div
+                class="dificultad"
+                [ngSwitch]="determinarNivel(problema.dificultad)"
+              >
+                <p class="aprendiz" *ngSwitchCase="'Aprendíz'">APRENDÍZ</p>
+                <p class="basica" *ngSwitchCase="'Básica'">BÁSICA</p>
+                <p class="intermedia" *ngSwitchCase="'Intermedia'">
+                  INTERMEDIA
+                </p>
+                <p class="avanzada" *ngSwitchCase="'Avanzada'">AVANZADA</p>
+                <p class="elite" *ngSwitchCase="'Élite'">ÉLITE</p>
+              </div>
+              <div class="juez">
+                <p>{{ problema.juez }}</p>
+              </div>
+              <a class="boton-problema" [href]="problema.url">Ver</a>
+            </button>
+          </h2>
         </div>
       </div>
     </div>
