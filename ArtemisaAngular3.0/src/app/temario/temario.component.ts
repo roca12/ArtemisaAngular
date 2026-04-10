@@ -55,24 +55,39 @@ export class TemarioComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     this.initializeTemario();
     this.initializeSupergrupos();
+    this.loading = true;
+    var java = false;
+    var cpp = false;
+    var python = false;
     this.editorContainersJava.changes.subscribe(() => {
       this.initJavaEditors();
+      java = true;
+      this.loading = java && cpp && python;
     });
     this.editorContainersCpp.changes.subscribe(() => {
       this.initCppEditors();
+      cpp = true;
+      this.loading = java && cpp && python;
+
     });
     this.editorContainersPython.changes.subscribe(() => {
       this.initPythonEditors();
+      python = true;
+      this.loading = java && cpp && python;
     });
+
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.route.queryParamMap.subscribe((params) => {
       const filtro = params.get('filtro');
       if (filtro) {
         this.filtrosSeleccionados[filtro] = true;
+        this.loading = false;
       }
     });
+
   }
 
   constructor(
@@ -81,7 +96,7 @@ export class TemarioComponent implements AfterViewInit, OnInit {
     public theme: ThemeService,
     private route: ActivatedRoute,
     private recoService: RecomendationService,
-  ) {}
+  ) { }
 
   filtrosSeleccionados: { [key: string]: boolean } = {};
 
