@@ -200,7 +200,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   filterRecomendations(cadena: string): PriorityQueue<Recomendation> {
     const query = cadena.trim();
     if (!query) return new PriorityQueue<Recomendation>();
-    if (this.cache.has(query)) return this.cache.get(query)!;
+    if (this.cache.has(query)) return this.cache.get(query) ?? new PriorityQueue<Recomendation>();
 
     const threshold = this.searchEngine.thresholdPara(query);
     const result = new PriorityQueue<Recomendation>();

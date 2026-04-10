@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { ThemeService } from './services/theme.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
