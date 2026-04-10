@@ -5,6 +5,7 @@ import { ThemeService } from './services/theme.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { NgClass } from '@angular/common';
+import {RecomendationService} from './services/recomendation.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,15 @@ import { NgClass } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements AfterViewInit{
-  title = 'ArtemisaAngular3.0';
-  constructor(public theme: ThemeService) {}
+export class AppComponent implements AfterViewInit, OnInit{
+  title = 'Biblioteca Artemisa';
+  constructor(public theme: ThemeService, private recoService: RecomendationService) {}
+
+  ngOnInit(): void {
+    this.recoService.initializeRecomendationsAsync().catch((err) => {
+      console.error('Error inicializando recomendaciones:', err);
+    });
+  }
 
   ngAfterViewInit(){
     const splash = document.getElementById('app-splash');
