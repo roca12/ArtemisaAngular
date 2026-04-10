@@ -3,6 +3,7 @@
   message="Cargando temario..."
   [fullscreen]="true"
 ></app-spinner>
+
 <div
   [class.dark]="theme.isDark()"
   [class.light]="!theme.isDark()"
@@ -11,86 +12,44 @@
   <div class="sidebar">
     <h2>Filtros</h2>
     <div class="filter-container">
-      <div class="form-check" *ngFor="let superGrupo of superGrupos">
+      <div class="form-check" *ngFor="let sg of superGrupos">
         <input
           class="form-check-input"
           type="checkbox"
-          [id]="superGrupo"
-          [value]="superGrupo"
-          [(ngModel)]="filtrosSeleccionados[superGrupo]"
+          [id]="sg"
+          [value]="sg"
+          [(ngModel)]="filtrosSeleccionados[sg]"
         />
-        <label class="form-check-label" [for]="superGrupo">
-          {{ superGrupo }}
-        </label>
+        <label class="form-check-label" [for]="sg">{{ sg }}</label>
       </div>
     </div>
   </div>
 
   <div class="main-container">
     <h3>Temario</h3>
+
     <div ngbAccordion class="accordion-container" [closeOthers]="true">
       <div
         ngbAccordionItem
-        *ngFor="let tema of temarioFiltrado(); let i = index"
+        *ngFor="let tema of temarioFiltrado()"
         [collapsed]="true"
       >
         <h2 ngbAccordionHeader>
           <button ngbAccordionButton class="accordion-button" type="button">
-            <div class="acc-icon-box">
-              <fa-icon [icon]="faBook"></fa-icon>
+            {{ tema.tema }}
+            <div>
+              <p>{{ tema.supergrupo }}</p>
+              <span class="complejidad" *ngIf="tema.complejidad_tiempo">
+                {{ tema.complejidad_tiempo }}
+              </span>
             </div>
-            <span class="acc-title">{{ tema.tema }}</span>
-            <div class="acc-meta">
-              <span class="acc-group">{{ tema.supergrupo }}</span>
-              <span class="acc-complexity" *ngIf="tema.complejidad_tiempo">{{
-                tema.complejidad_tiempo
-              }}</span>
-            </div>
-            <fa-icon [icon]="faChevronRight" class="acc-chevron"></fa-icon>
           </button>
         </h2>
+
         <div ngbAccordionCollapse>
           <div ngbAccordionBody>
             <ng-template>
-              <div
-                *ngIf="tema.texto !== null"
-                class="texto"
-                [innerHTML]="formateaTexto(tema.texto)"
-              ></div>
-              <img
-                class="logo-image"
-                *ngIf="tema.java"
-                src="assets/images/logos/JAVA-logo.png"
-                alt="Java Logo"
-              />
-              <div
-                *ngIf="tema.java !== null"
-                #editorContainerJava
-                class="editor-container"
-                [attr.data-codigo]="tema.java"
-              ></div>
-              <img
-                class="logo-image"
-                *ngIf="tema.cpp"
-                src="assets/images/logos/CPP-logo.png"
-              />
-              <div
-                *ngIf="tema.cpp !== null"
-                #editorContainerCpp
-                class="editor-container"
-                [attr.data-codigo]="tema.cpp"
-              ></div>
-              <img
-                class="logo-image"
-                *ngIf="tema.py"
-                src="assets/images/logos/PYTHON-logo.png"
-              />
-              <div
-                *ngIf="tema.py !== null"
-                #editorContainerPython
-                class="editor-container"
-                [attr.data-codigo]="tema.py"
-              ></div>
+              <app-tema-detalle [tema]="tema" />
             </ng-template>
           </div>
         </div>
