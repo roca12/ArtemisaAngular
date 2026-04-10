@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProblemService } from '../services/problem.service';
 import { Problema } from '../shared/models/problema.model';
 import { ActivatedRoute } from '@angular/router';
-import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-problemas',
@@ -32,7 +32,7 @@ export class ProblemasComponent implements OnInit {
 
   problems: Problema[] = [];
   filtrosSeleccionados: { [key: string]: boolean } = {};
-  subtemaSeleccionado: string = '';
+  subtemaSeleccionado = '';
 
   ngOnInit(): void {
     this.problemService.getProblems().subscribe({

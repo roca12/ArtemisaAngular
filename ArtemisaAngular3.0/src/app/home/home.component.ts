@@ -27,7 +27,8 @@ import { Router } from '@angular/router';
 import { PriorityQueue } from '../shared/structures/priorityqueue.structures';
 import { RecomendationService } from '../services/recomendation.service';
 import { Recomendation } from '../shared/models/recomendation.model';
-import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
+import { SearchEngine } from '../shared/util/search-engine';
 
 @Component({
   selector: 'app-home',
@@ -47,6 +48,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
   loading = true;
   active: boolean = localStorage.getItem('darkMode') === 'true';
   cache: Map<string, PriorityQueue<Recomendation>> = new Map();
+
+  private searchEngine = new SearchEngine();
 
   @ViewChild('inputSearch') inputRef?: ElementRef<HTMLInputElement>;
 
@@ -83,32 +86,24 @@ export class HomeComponent implements AfterViewInit, OnInit {
   public libros: Libro[] = [];
 
   search(cadena: string): void {
-    const bestReco = this.filterRecomendations(cadena).dequeue();
+    // peek() en lugar de dequeue() — lee el top sin mutar la cola cacheada
+    const bestReco = this.filterRecomendations(cadena).peek();
+
     if (bestReco) {
+      // Limpia el input para que la próxima búsqueda empiece desde cero
+      if (this.inputRef) this.inputRef.nativeElement.value = '';
+
       switch (bestReco.type) {
         case 'libro': {
-          let pdf = '';
-          this.libros.forEach((libro) => {
-            if (libro.titulo === bestReco.data) {
-              pdf = libro.archivoPdf;
-            }
-          });
-          this.verPdf(pdf);
+          const libro = this.libros.find((l) => l.titulo === bestReco.data);
+          if (libro) this.verPdf(libro.archivoPdf);
           break;
         }
-        case 'tema-problema': {
-          this.router.navigate(['/problemas'], {
-            queryParams: { filtro: bestReco.data },
-          });
-          break;
-        }
-        case 'dificultad-problema': {
-          this.router.navigate(['/problemas'], {
-            queryParams: { filtro: bestReco.data },
-          });
-          break;
-        }
-        case 'juez-problema': {
+        case 'tema-problema':
+        case 'dificultad-problema':
+        case 'juez-problema':
+        case 'subtema-problema':
+        case 'problema': {
           this.router.navigate(['/problemas'], {
             queryParams: { filtro: bestReco.data },
           });
@@ -118,20 +113,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
           this.irATemario(bestReco.data);
           break;
         }
-        case 'subtema-problema': {
-          this.router.navigate(['/problemas'], {
-            queryParams: { filtro: bestReco.data },
-          });
-          break;
-        }
         case 'tema': {
           this.router.navigate(['/temario'], {
-            queryParams: { filtro: bestReco.data },
-          });
-          break;
-        }
-        case 'problema': {
-          this.router.navigate(['/problemas'], {
             queryParams: { filtro: bestReco.data },
           });
           break;
@@ -140,14 +123,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
     }
   }
 
-  getValorInput() {
-    if (this.inputRef) {
-      return this.inputRef.nativeElement.value;
-    }
-    return '';
+  getValorInput(): string {
+    return this.inputRef?.nativeElement.value ?? '';
   }
 
-  autocompletar(reco: Recomendation) {
+  autocompletar(reco: Recomendation): void {
     if (this.inputRef) this.inputRef.nativeElement.value = reco.data;
     this.search(reco.data);
   }
@@ -186,20 +166,17 @@ export class HomeComponent implements AfterViewInit, OnInit {
       this.index++;
       setTimeout(() => this.typePlaceHolder(), 100);
     } else {
-      // Reinicia
       this.index = 0;
       this.phraseIdx = (this.phraseIdx + 1) % this.placeholderText.length;
       setTimeout(() => this.typePlaceHolder(), 1500);
     }
   }
 
-  scrollCarousel(direction: 'left' | 'right') {
+  scrollCarousel(direction: 'left' | 'right'): void {
     const step = 300;
     const container = this.carousel.nativeElement;
-
     const current = container.scrollLeft;
     const next = direction === 'right' ? current + step : current - step;
-
     container.scrollTo({ left: next, behavior: 'smooth' });
   }
 
@@ -212,86 +189,26 @@ export class HomeComponent implements AfterViewInit, OnInit {
     document.body.removeChild(link);
   }
 
-  verPdf(pdf: string) {
+  verPdf(pdf: string): void {
     window.open(`assets/pdfs/${pdf}`, '_blank');
   }
 
-  irATemario(filtro: string) {
+  irATemario(filtro: string): void {
     this.router.navigate(['/temario'], { queryParams: { filtro } });
-  }
-
-  calcularSimilitudes(texto1: string, texto2: string): number {
-    const s1 = texto1.toLowerCase();
-    const s2 = texto2.toLowerCase();
-    const m = s1.length;
-    const n = s2.length;
-
-    if (m === 0) return n;
-    if (n === 0) return m;
-
-    let prev = Array.from({ length: n + 1 }, (_, i) => i);
-    let curr = new Array(n + 1).fill(0);
-
-    for (let i = 1; i <= m; i++) {
-      curr[0] = i;
-      for (let j = 1; j <= n; j++) {
-        const costo = s1[i - 1] === s2[j - 1] ? 0 : 1;
-        curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + costo);
-      }
-      [prev, curr] = [curr, prev];
-    }
-
-    return prev[n];
-  }
-
-  private similitudPalabras(a: string, b: string): number {
-    const a2 = a.toLowerCase();
-    const b2 = b.toLowerCase();
-
-    if (a2.startsWith(b2) || b2.startsWith(a2)) return 1;
-
-    const dist = this.calcularSimilitudes(a2, b2);
-    const maxLen = Math.max(a2.length, b2.length);
-    return 1 - dist / maxLen;
-  }
-
-  private similitudFrases(consulta: string, candidato: string): number {
-    const palabrasConsulta = consulta
-      .toLowerCase()
-      .split(/\s+/)
-      .filter(Boolean);
-    const palabrasCandidato = candidato
-      .toLowerCase()
-      .split(/\s+/)
-      .filter(Boolean);
-
-    const scoresPorPalabraCandidato = palabrasCandidato.map((pc) =>
-      Math.max(...palabrasConsulta.map((pq) => this.similitudPalabras(pq, pc))),
-    );
-
-    const scoreBase =
-      scoresPorPalabraCandidato.reduce((a, b) => a + b, 0) /
-      scoresPorPalabraCandidato.length;
-
-    const prefixBonus = candidato
-      .toLowerCase()
-      .startsWith(consulta.toLowerCase().trim())
-      ? 0.15
-      : 0;
-
-    return Math.min(1, scoreBase + prefixBonus);
   }
 
   filterRecomendations(cadena: string): PriorityQueue<Recomendation> {
     const query = cadena.trim();
     if (!query) return new PriorityQueue<Recomendation>();
-    if (this.cache.has(query)) return this.cache.get(query)!;
+    if (this.cache.has(query))
+      return this.cache.get(query) ?? new PriorityQueue<Recomendation>();
 
+    const threshold = this.searchEngine.thresholdPara(query);
     const result = new PriorityQueue<Recomendation>();
 
     this.recomendationsService.getRecomendations().forEach((rec) => {
-      const score = this.similitudFrases(query, rec.data);
-      if (score >= 0.3 && result.find(rec) === undefined) {
+      const score = this.searchEngine.scoreIntencion(query, rec.data);
+      if (score >= threshold && result.find(rec) === undefined) {
         result.enqueue(rec, score);
       }
     });
