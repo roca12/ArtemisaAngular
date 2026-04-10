@@ -28,7 +28,7 @@ export class ProblemasComponent implements OnInit {
     public theme: ThemeService,
     public problemService: ProblemService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 
   problems: Problema[] = [];
   filtrosSeleccionados: { [key: string]: boolean } = {};
