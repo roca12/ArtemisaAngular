@@ -12,11 +12,11 @@ import { NgClass } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewInit {
   title = 'ArtemisaAngular3.0';
   constructor(public theme: ThemeService) {}
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     const splash = document.getElementById('app-splash');
     if (!splash) return;
     requestAnimationFrame(() => {
