@@ -4,12 +4,19 @@ import {java} from '@codemirror/lang-java';
 import {cpp} from '@codemirror/lang-cpp';
 import {python} from '@codemirror/lang-python';
 import {materialDark} from '@ddietr/codemirror-themes/material-dark';
-
+import { LanguageSupport } from '@codemirror/language';
 
 
 export type Language = 'java' | 'cpp' | 'py';
 
-const LANGUAGE_CONFIG: Record<Language, { extension: () => any; logo: string; alt: string }> = {
+
+interface LanguageConfig {
+  extension: () => LanguageSupport;
+  logo: string;
+  alt: string;
+}
+
+const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
   java: {
     extension: java,
     logo: 'assets/images/logos/JAVA-logo.png',
