@@ -1,5 +1,3 @@
-
-
 export interface GoogleCalendarDateTime {
   dateTime?: string;
   date?: string;

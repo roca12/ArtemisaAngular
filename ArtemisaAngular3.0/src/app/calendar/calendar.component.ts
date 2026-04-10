@@ -39,17 +39,17 @@ export class CalendarComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.calendarService.obtenerCalendario().subscribe((res: GoogleCalendar[]) => {
-      this.calendarOptions.events = this.mapearEventos(res);
-      this.loading = false;
-    });
+    this.calendarService
+      .obtenerCalendario()
+      .subscribe((res: GoogleCalendar[]) => {
+        this.calendarOptions.events = this.mapearEventos(res);
+        this.loading = false;
+      });
   }
-
-
 
   private mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
-      (calendario.items ?? []).map((item) => this.mapearItem(item))
+      (calendario.items ?? []).map((item) => this.mapearItem(item)),
     );
   }
 
