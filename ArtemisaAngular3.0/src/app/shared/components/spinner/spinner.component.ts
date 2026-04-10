@@ -9,9 +9,9 @@ import { NgIf } from '@angular/common';
   styleUrl: './spinner.component.css',
 })
 export class SpinnerComponent {
-  @Input() message: string = 'Cargando...';
+  @Input() message = 'Cargando...';
 
-  @Input() fullscreen: boolean = false;
+  @Input() fullscreen = false;
 
   constructor(public theme: ThemeService) {}
 }

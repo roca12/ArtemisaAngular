@@ -32,7 +32,7 @@ export class ProblemasComponent implements OnInit {
 
   problems: Problema[] = [];
   filtrosSeleccionados: { [key: string]: boolean } = {};
-  subtemaSeleccionado: string = '';
+  subtemaSeleccionado = '';
 
   ngOnInit(): void {
     this.problemService.getProblems().subscribe({
