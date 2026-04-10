@@ -1,22 +1,43 @@
-<app-spinner *ngIf="loading" message="Cargando problemas..." [fullscreen]="true"></app-spinner>
+<app-spinner
+  *ngIf="loading"
+  message="Cargando problemas..."
+  [fullscreen]="true"
+></app-spinner>
 <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
-  <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()" id="theme-container">
+  <div
+    [class.dark]="theme.isDark()"
+    [class.light]="!theme.isDark()"
+    id="theme-container"
+  >
     <div class="sidebar">
       <h2>Filtros</h2>
       <div class="filter-container">
         <h3>Temas</h3>
         <div class="form-check" *ngFor="let tema of listarTemas()">
-          <input class="form-check-input" type="checkbox" [id]="tema" [value]="tema"
-            [(ngModel)]="filtrosSeleccionados[tema]" (change)="onTemaChange()" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [id]="tema"
+            [value]="tema"
+            [(ngModel)]="filtrosSeleccionados[tema]"
+            (change)="onTemaChange()"
+          />
           <label class="form-check-label" [for]="tema">
             {{ tema }}
           </label>
         </div>
 
         <h3>Subtemas</h3>
-        <div class="chips-container" *ngIf="listarSubtemas().length > 0; else sinSubtemas">
-          <span *ngFor="let subtema of listarSubtemas()" class="chip" [class.chip-activo]="isSubtemaActivo(subtema)"
-            (click)="toggleSubtema(subtema)">
+        <div
+          class="chips-container"
+          *ngIf="listarSubtemas().length > 0; else sinSubtemas"
+        >
+          <span
+            *ngFor="let subtema of listarSubtemas()"
+            class="chip"
+            [class.chip-activo]="isSubtemaActivo(subtema)"
+            (click)="toggleSubtema(subtema)"
+          >
             {{ subtema }}
           </span>
         </div>
@@ -26,8 +47,13 @@
 
         <h3>Dificultad</h3>
         <div class="form-check" *ngFor="let dificultad of listarDificultades()">
-          <input class="form-check-input" type="checkbox" [id]="dificultad" [value]="dificultad"
-            [(ngModel)]="filtrosSeleccionados[dificultad]" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [id]="dificultad"
+            [value]="dificultad"
+            [(ngModel)]="filtrosSeleccionados[dificultad]"
+          />
           <label class="form-check-label" [for]="dificultad">
             {{ dificultad }}
           </label>
@@ -35,8 +61,13 @@
 
         <h3>Juez</h3>
         <div class="form-check" *ngFor="let juez of listarJueces()">
-          <input class="form-check-input" type="checkbox" [id]="juez" [value]="juez"
-            [(ngModel)]="filtrosSeleccionados[juez]" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [id]="juez"
+            [value]="juez"
+            [(ngModel)]="filtrosSeleccionados[juez]"
+          />
           <label class="form-check-label" [for]="juez">
             {{ juez }}
           </label>
@@ -52,26 +83,40 @@
           <div class="problem-tags">
             <span class="tag tag-tema" *ngIf="problema.tema_1">{{
               problema.tema_1
-              }}</span>
+            }}</span>
             <span class="tag tag-tema" *ngIf="problema.tema_2">{{
               problema.tema_2
-              }}</span>
+            }}</span>
             <span class="tag tag-tema" *ngIf="problema.tema_3">{{
               problema.tema_3
-              }}</span>
+            }}</span>
             <span class="tag tag-tema" *ngIf="problema.tema_4">{{
               problema.tema_4
-              }}</span>
+            }}</span>
           </div>
-          <div [ngSwitch]="determinarNivel(problema.dificultad)" class="dificultad-tag">
-            <span class="tag dif-aprendiz" *ngSwitchCase="'Aprendíz'">Aprendíz</span>
+          <div
+            [ngSwitch]="determinarNivel(problema.dificultad)"
+            class="dificultad-tag"
+          >
+            <span class="tag dif-aprendiz" *ngSwitchCase="'Aprendíz'"
+              >Aprendíz</span
+            >
             <span class="tag dif-basica" *ngSwitchCase="'Básica'">Básica</span>
-            <span class="tag dif-intermedia" *ngSwitchCase="'Intermedia'">Intermedia</span>
-            <span class="tag dif-avanzada" *ngSwitchCase="'Avanzada'">Avanzada</span>
+            <span class="tag dif-intermedia" *ngSwitchCase="'Intermedia'"
+              >Intermedia</span
+            >
+            <span class="tag dif-avanzada" *ngSwitchCase="'Avanzada'"
+              >Avanzada</span
+            >
             <span class="tag dif-elite" *ngSwitchCase="'Élite'">Élite</span>
           </div>
           <span class="tag tag-juez">{{ problema.juez }}</span>
-          <a class="ver-btn" [href]="problema.url" target="_blank" rel="noopener noreferrer">
+          <a
+            class="ver-btn"
+            [href]="problema.url"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Ver <fa-icon [icon]="faArrowRight"></fa-icon>
           </a>
         </div>
