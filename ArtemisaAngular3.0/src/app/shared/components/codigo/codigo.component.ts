@@ -1,14 +1,19 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
-import {EditorView} from '@codemirror/view';
-import {java} from '@codemirror/lang-java';
-import {cpp} from '@codemirror/lang-cpp';
-import {python} from '@codemirror/lang-python';
-import {materialDark} from '@ddietr/codemirror-themes/material-dark';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
+import { EditorView } from '@codemirror/view';
+import { java } from '@codemirror/lang-java';
+import { cpp } from '@codemirror/lang-cpp';
+import { python } from '@codemirror/lang-python';
+import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { LanguageSupport } from '@codemirror/language';
 
-
 export type Language = 'java' | 'cpp' | 'py';
-
 
 interface LanguageConfig {
   extension: () => LanguageSupport;
