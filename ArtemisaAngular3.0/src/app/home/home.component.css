@@ -1,180 +1,3 @@
-/* ── Hero ── */
-.hero-section {
-  padding: 4rem 2rem 2.5rem;
-  text-align: center;
-  background: radial-gradient(
-    ellipse 80% 60% at 50% 0%,
-    rgba(217, 92, 0, 0.08) 0%,
-    transparent 70%
-  );
-  position: relative;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: rgba(217, 92, 0, 0.1);
-  border: 1px solid rgba(217, 92, 0, 0.25);
-  border-radius: 999px;
-  padding: 0.3rem 0.9rem;
-  font-size: 0.75rem;
-  color: var(--primary-dark);
-  margin-bottom: 1.25rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-.hero-section h1 {
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  font-weight: 800;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-  color: var(--background-dark);
-}
-.dark .hero-section h1 {
-  color: var(--text-light);
-}
-.hero-accent {
-  color: var(--primary-dark);
-}
-.hero-subtitle {
-  color: var(--text-muted);
-  max-width: 520px;
-  margin: 0 auto 2rem;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-/* ── Hero search ── */
-.hero-search {
-  display: flex;
-  align-items: center;
-  max-width: 540px;
-  margin: 0 auto;
-  background: #fff;
-  border: 1px solid var(--border-light);
-  border-radius: 14px;
-  padding: 0.5rem 0.5rem 0.5rem 1.25rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-  position: relative;
-}
-.dark .hero-search {
-  background: var(--border-dark);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: none;
-}
-.hero-search:focus-within {
-  border-color: var(--primary-dark);
-  box-shadow: 0 0 0 3px rgba(217, 92, 0, 0.12);
-}
-.hero-search .search-icon {
-  color: var(--text-muted);
-  margin-right: 0.6rem;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-.hero-search input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--background-dark);
-  font-size: 0.95rem;
-  min-width: 0;
-}
-.dark .hero-search input {
-  color: var(--text-light);
-}
-.hero-search input::placeholder {
-  color: var(--text-muted);
-}
-.hero-search button {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: var(--primary-dark);
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  padding: 0.55rem 1.2rem;
-  font-weight: 600;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.hero-search button:hover {
-  background: #f06a00;
-}
-/* ── Stats bar ── */
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  padding: 1.25rem 2rem;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-  background: #fff;
-}
-.dark .stats-bar {
-  background: var(--border-dark);
-  border-color: rgba(255, 255, 255, 0.06);
-}
-.stat {
-  text-align: center;
-}
-.stat-num {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--primary-dark);
-}
-.stat-label {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  margin-top: 0.1rem;
-}
-/* ── Section headers ── */
-.section-header {
-  display: flex;
-  align-items: center;
-  padding: 1.5rem 2rem 0.75rem;
-}
-.section-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--background-dark);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.section-title::before {
-  content: "";
-  width: 4px;
-  height: 1.2em;
-  background: var(--primary-dark);
-  border-radius: 2px;
-  display: inline-block;
-}
-.dark .section-title {
-  color: var(--text-light);
-}
-/* ── Mobile responsive ── */
-@media (max-width: 768px) {
-  .stats-bar {
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    padding: 1rem;
-  }
-  .hero-section {
-    padding: 2.5rem 1rem 2rem;
-  }
-  .hero-search {
-    padding: 0.4rem 0.4rem 0.4rem 1rem;
-  }
-}
-
 /* Custom Scrollbar - Light Theme */
 ::-webkit-scrollbar {
   width: 12px;
@@ -397,15 +220,9 @@ a {
   background: var(--text-light);
   padding: 1rem;
   scroll-snap-align: start;
-  height: auto;
-  min-height: 350px;
-  border: 1px solid transparent;
+  height: 500px;
   flex: 0 0 20%;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-}
-
-.book-card:hover {
-  border-color: var(--primary-dark);
 }
 
 .dark .book-card {
@@ -460,10 +277,6 @@ a {
     background-color 0.5s ease,
     color 0.5s ease;
   border: none !important;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  justify-content: center;
 }
 
 .dark .card-btns button {
