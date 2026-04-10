@@ -22,11 +22,12 @@ import { EditorView } from '@codemirror/view';
 import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { ActivatedRoute } from '@angular/router';
 import { RecomendationService } from '../services/recomendation.service';
+import {SpinnerComponent} from '../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-temario',
   standalone: true,
-  imports: [NgFor, FormsModule, NgbAccordionModule, NgIf],
+  imports: [NgFor, FormsModule, NgbAccordionModule, NgIf, SpinnerComponent],
   templateUrl: './temario.component.html',
   styleUrl: './temario.component.css',
 })
@@ -37,31 +38,32 @@ export class TemarioComponent implements AfterViewInit, OnInit {
   editorContainersCpp!: QueryList<ElementRef>;
   @ViewChildren('editorContainerPython')
   editorContainersPython!: QueryList<ElementRef>;
+  loading = false;
 
   temario: Temario[] = [];
   superGrupos: string[] = [];
 
   ngAfterViewInit(): void {
+    this.loading = true;
     this.initializeTemario();
     this.initializeSupergrupos();
-    this.loading = true;
-    var java = false;
-    var cpp = false;
-    var python = false;
+    var java = true;
+    var cpp = true;
+    var python = true;
     this.editorContainersJava.changes.subscribe(() => {
       this.initJavaEditors();
-      java = true;
-      this.loading = java && cpp && python;
+      java = false;
+      this.loading = java || cpp || python;
     });
     this.editorContainersCpp.changes.subscribe(() => {
       this.initCppEditors();
-      cpp = true;
-      this.loading = java && cpp && python;
+      cpp = false;
+      this.loading = java || cpp || python;
     });
     this.editorContainersPython.changes.subscribe(() => {
       this.initPythonEditors();
-      python = true;
-      this.loading = java && cpp && python;
+      python = false;
+      this.loading = java || cpp || python;
     });
   }
 
@@ -90,9 +92,11 @@ export class TemarioComponent implements AfterViewInit, OnInit {
     this.syllabus.getSyllabus().subscribe({
       next: (response) => {
         this.temario = response.data as Temario[];
+        this.loading = false;
       },
       error: (error) => {
         this.toastService.error('Error al obtener el temario', 'Error');
+        this.loading = false;
       },
     });
   }
