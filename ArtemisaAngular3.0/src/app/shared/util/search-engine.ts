@@ -1,9 +1,11 @@
 export class SearchEngine {
-
   // ─── Utilidades internas ─────────────────────────────────────────────────
 
   private tokenizar(texto: string): string[] {
-    return texto.toLowerCase().split(/[\s\-_\/]+/).filter(Boolean);
+    return texto
+      .toLowerCase()
+      .split(/[\s\-_\/]+/)
+      .filter(Boolean);
   }
 
   private trigramas(texto: string): Set<string> {
@@ -18,7 +20,9 @@ export class SearchEngine {
     const tb = this.trigramas(b);
     if (ta.size === 0 || tb.size === 0) return 0;
     let comunes = 0;
-    ta.forEach(g => { if (tb.has(g)) comunes++; });
+    ta.forEach((g) => {
+      if (tb.has(g)) comunes++;
+    });
     return (2 * comunes) / (ta.size + tb.size);
   }
 
@@ -52,7 +56,7 @@ export class SearchEngine {
 
     if (!q) return 0;
 
-    const tokensQuery     = this.tokenizar(q);
+    const tokensQuery = this.tokenizar(q);
     const tokensCandidato = this.tokenizar(candidato);
 
     // ── Capa 0: prefijo de 1+ caracteres sobre cualquier token del candidato ──
@@ -61,11 +65,12 @@ export class SearchEngine {
     // El score escala con qué tan completa está la palabra (más letras = score más alto).
     const mejorPrefijo = Math.max(
       0,
-      ...tokensQuery.flatMap(tq =>
-        tokensCandidato
-          .filter(tc => tc.startsWith(tq))
-          .map(tc => tq.length / tc.length)   // 1.0 si cubre la palabra entera
-      )
+      ...tokensQuery.flatMap(
+        (tq) =>
+          tokensCandidato
+            .filter((tc) => tc.startsWith(tq))
+            .map((tc) => tq.length / tc.length), // 1.0 si cubre la palabra entera
+      ),
     );
 
     if (mejorPrefijo > 0) {
@@ -76,12 +81,12 @@ export class SearchEngine {
 
     // ── Capa 1: coincidencia exacta de palabra (query multi-token) ───────────
     // "algoritmo dijkstra" → ambas palabras presentes en el candidato
-    const tieneExacto = tokensQuery.some(tq =>
-      tokensCandidato.some(tc => tc === tq)
+    const tieneExacto = tokensQuery.some((tq) =>
+      tokensCandidato.some((tc) => tc === tq),
     );
     if (tieneExacto) {
-      const todosPresentes = tokensQuery.every(tq =>
-        tokensCandidato.some(tc => tc === tq)
+      const todosPresentes = tokensQuery.every((tq) =>
+        tokensCandidato.some((tc) => tc === tq),
       );
       return todosPresentes ? 1.8 : 1.5;
     }
@@ -96,13 +101,13 @@ export class SearchEngine {
     // ── Capa 3: Levenshtein para typos en palabras cortas ────────────────────
     const mejorLev = Math.max(
       0,
-      ...tokensQuery.flatMap(tq =>
-        tokensCandidato.map(tc => {
+      ...tokensQuery.flatMap((tq) =>
+        tokensCandidato.map((tc) => {
           const dist = this.calcularSimilitudes(tq, tc);
           const maxLen = Math.max(tq.length, tc.length);
-          return (1 - dist / maxLen);
-        })
-      )
+          return 1 - dist / maxLen;
+        }),
+      ),
     );
     return mejorLev * 0.45;
   }
