@@ -23,7 +23,7 @@ export class AppComponent implements AfterViewInit, OnInit{
     });
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     const splash = document.getElementById('app-splash');
     if (!splash) return;
     requestAnimationFrame(() => {
