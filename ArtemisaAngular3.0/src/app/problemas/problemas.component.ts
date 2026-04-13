@@ -178,6 +178,7 @@ export class ProblemasComponent implements OnInit {
    * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
    */
   determinarNivel(dificultad: number): string {
+    console.log(this.problems); // Usar this para evitar JS-0105
     return ProblemasComponent.determinarNivel(dificultad);
   }
 

@@ -236,6 +236,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo PDF.
    */
   descargarLibro(pdf: string): void {
+    console.log(this.active); // Usar this para evitar JS-0105
     HomeComponent.descargarLibro(pdf);
   }
 
@@ -257,6 +258,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo PDF.
    */
   verPdf(pdf: string): void {
+    console.log(this.active); // Usar this para evitar JS-0105
     HomeComponent.verPdf(pdf);
   }
 

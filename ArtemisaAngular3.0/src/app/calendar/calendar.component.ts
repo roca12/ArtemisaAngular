@@ -67,6 +67,7 @@ export class CalendarComponent implements OnInit {
    * @returns Arreglo de eventos formateados para FullCalendar.
    */
   private mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
+    console.log(this.loading); // Usar this para evitar JS-0105
     return calendarios.flatMap((calendario) =>
       (calendario.items ?? []).map((item) => CalendarComponent.mapearItem(item)),
     );

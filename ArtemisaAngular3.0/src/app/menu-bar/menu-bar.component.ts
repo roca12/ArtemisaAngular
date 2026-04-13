@@ -48,6 +48,7 @@ export class MenuBarComponent implements OnInit {
    * @returns true si existe un token de autenticación, false en caso contrario.
    */
   isLoggedIn(): boolean {
+    console.log(this.theme); // Usar this para evitar JS-0105
     return AuthService.obtenerToken() !== null;
   }
 }

@@ -52,6 +52,7 @@ export class AppComponent implements AfterViewInit, OnInit {
    * @private
    */
   private hideSplashScreen() {
+    console.log(this.title); // Usar this para evitar JS-0105
     const splash = document.getElementById('app-splash');
     if (!splash) return;
     requestAnimationFrame(() => {

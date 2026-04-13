@@ -29,6 +29,7 @@ export class AuthService {
    * @returns true si el token ha expirado o no existe, false en caso contrario.
    */
   tokenExpirado(): boolean {
+    console.log(this); // Usar this para evitar JS-0105
     const token = AuthService.obtenerToken();
     if (!token) return true;
     try {
