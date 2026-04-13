@@ -2,7 +2,7 @@
 
 
 <p align="center">
- <img width="100px" src="https://www.iconsdb.com/icons/preview/royal-blue/code-xxl.png" align="center"  />
+ <img width="100px" src="https://artemisa.gpcueb.org/assets/images/logos/propuestas_logo_1_artemisa_Mesa_de_trabajo_1.png" align="center"  />
  <h2 align="center">Biblioteca de programación competitiva ARTEMISA </h2>
  <p align="center">Diego Rodriguez, Juan Diego González, Andrés Felipe Espitia- Grupo de programación competitiva - Universidad El Bosque </p>
 </p>
