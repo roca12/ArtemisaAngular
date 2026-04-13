@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class ProblemService {
   /** URL base para los endpoints de problemas. */
-  private readonly baseUrl: string = environment.apiUrl + 'problema/';
+  private readonly baseUrl: string = `${environment.apiUrl}problema/`;
 
   /**
    * Constructor del servicio ProblemService.
@@ -21,10 +21,10 @@ export class ProblemService {
 
   /**
    * Obtiene la lista de problemas disponibles desde el servidor.
-   * @returns Un Observable con la colección de problemas.
+   * @returns Un Observable con la colección de problemas envuelta en un objeto de respuesta.
    */
   getProblems() {
-    return this.http.get<any>(`${this.baseUrl}`);
+    return this.http.get<{ data: Problema[] }>(`${this.baseUrl}`);
   }
 
   /**

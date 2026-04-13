@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Temario } from '../shared/models/temario.model';
 import { environment } from '../../environments/environment';
+import { Temario } from '../shared/models/temario.model';
 
 /**
  * Servicio encargado de gestionar el temario y los grupos de la plataforma.
@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class SyllabusService {
   /** URL base para los endpoints del temario. */
-  private readonly baseUrl: string = environment.apiUrl + 'temario';
+  private readonly baseUrl: string = `${environment.apiUrl}temario`;
 
   /**
    * Constructor del servicio SyllabusService.
@@ -24,7 +24,7 @@ export class SyllabusService {
    * @returns Un Observable con la colección de temas.
    */
   getSyllabus() {
-    return this.http.get<{ data: any[] }>(this.baseUrl);
+    return this.http.get<{ data: Temario[] }>(this.baseUrl);
   }
 
   /**
@@ -32,6 +32,6 @@ export class SyllabusService {
    * @returns Un Observable con la lista de nombres de supergrupos.
    */
   getSuperGrupos() {
-    return this.http.get<{ data: any[] }>(`${this.baseUrl}/supergrupos`);
+    return this.http.get<{ data: string[] }>(`${this.baseUrl}/supergrupos`);
   }
 }

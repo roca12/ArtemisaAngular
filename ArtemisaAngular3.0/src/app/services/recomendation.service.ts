@@ -68,10 +68,10 @@ export class RecomendationService {
       this.problemService.getProblems(),
     ).then((response) => {
       const problems = response.data as Problema[];
-      let temas: Set<Recomendation> = new Set();
-      let subtemas: Set<Recomendation> = new Set();
-      let dificultades: Set<Recomendation> = new Set();
-      let jueces: Set<Recomendation> = new Set();
+      const temas: Set<Recomendation> = new Set();
+      const subtemas: Set<Recomendation> = new Set();
+      const dificultades: Set<Recomendation> = new Set();
+      const jueces: Set<Recomendation> = new Set();
       problems.forEach((p) => {
         const recoProblema: Recomendation = {
           data: p.titulo,

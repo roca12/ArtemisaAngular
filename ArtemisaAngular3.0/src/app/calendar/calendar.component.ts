@@ -68,7 +68,7 @@ export class CalendarComponent implements OnInit {
    */
   private mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
-      (calendario.items ?? []).map((item) => this.mapearItem(item)),
+      (calendario.items ?? []).map((item) => CalendarComponent.mapearItem(item)),
     );
   }
 
@@ -77,7 +77,7 @@ export class CalendarComponent implements OnInit {
    * @param item El ítem de Google Calendar a transformar.
    * @returns Un objeto de tipo CalendarEvent.
    */
-  private mapearItem(item: GoogleCalendarItem): CalendarEvent {
+  private static mapearItem(item: GoogleCalendarItem): CalendarEvent {
     return {
       title: item.summary,
       start: item.start?.dateTime ?? item.start?.date,

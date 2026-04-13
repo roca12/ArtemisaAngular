@@ -20,7 +20,7 @@ interface ApiResponse {
 })
 export class BookService {
   /** URL base para los endpoints de libros. */
-  private readonly baseUrl = environment.apiUrl + 'libro';
+  private readonly baseUrl = `${environment.apiUrl}libro`;
 
   /**
    * Constructor del servicio BookService.

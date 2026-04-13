@@ -26,7 +26,7 @@ import { ThemeService } from '../services/theme.service';
 })
 export class ModalMailComponent {
   /** Dirección de correo electrónico a la que se envió el código. */
-  @Input() correo: string = '';
+  @Input() correo = '';
   /** Objeto usuario con los datos pendientes de registro definitivo. */
   @Input() usuario: Usuario = {
     contrasenia: '',
@@ -37,7 +37,7 @@ export class ModalMailComponent {
   };
 
   /** Indica si se está procesando una petición al servidor. */
-  cargando: boolean = false;
+  cargando = false;
   /** Formulario reactivo para capturar los 4 dígitos del código. */
   validationForm: FormGroup = new FormGroup({});
 
@@ -125,7 +125,17 @@ export class ModalMailComponent {
   }
 
   /**
-   * Método (pendiente de implementar) para reenviar el código de verificación.
+   * Método para reenviar el código de verificación.
    */
-  reenviarCodigo() {}
+  reenviarCodigo() {
+    this.mailService.enviarCodigo(this.correo, this.usuario.usuario).subscribe({
+      next: () => {
+        this.toastr.success('Código reenviado con éxito.', 'Éxito');
+      },
+      error: (error) => {
+        this.toastr.error('Error al reenviar el código.', 'Error');
+        console.error('Error al reenviar el código:', error);
+      },
+    });
+  }
 }

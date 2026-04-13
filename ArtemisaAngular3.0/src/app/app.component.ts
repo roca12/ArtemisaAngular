@@ -44,6 +44,14 @@ export class AppComponent implements AfterViewInit, OnInit {
    * Ciclo de vida AfterViewInit: Gestiona la ocultación y eliminación del splash screen de carga.
    */
   ngAfterViewInit() {
+    this.hideSplashScreen();
+  }
+
+  /**
+   * Oculta y elimina el splash screen de carga del DOM.
+   * @private
+   */
+  private hideSplashScreen() {
     const splash = document.getElementById('app-splash');
     if (!splash) return;
     requestAnimationFrame(() => {

@@ -23,7 +23,7 @@ export class RecaptchaService {
    */
   verificarCaptcha(token: string): Observable<{ esHumano: boolean }> {
     return this.http.post<{ esHumano: boolean }>(
-      environment.apiUrl + 'usuario/autenticar/captcha',
+      `${environment.apiUrl}usuario/autenticar/captcha`,
       { token },
     );
   }

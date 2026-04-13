@@ -1,4 +1,4 @@
-import { Component, ViewChild, NgModule } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { RouterLink } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
@@ -98,7 +98,7 @@ export class RegisterComponent {
         passwordConfirm: ['', Validators.required],
         recaptcha: ['', Validators.required],
       },
-      { validator: this.passwordsMatchValidator },
+      { validator: RegisterComponent.passwordsMatchValidator },
     );
   }
 
@@ -114,7 +114,7 @@ export class RegisterComponent {
    * @param formGroup El grupo de formulario que contiene los campos de contraseña.
    * @returns Un objeto de error si no coinciden, null si son iguales.
    */
-  passwordsMatchValidator(formGroup: FormGroup) {
+  static passwordsMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('passwordConfirm')?.value;
     return password === confirmPassword ? null : { passwordsMismatch: true };
@@ -144,12 +144,11 @@ export class RegisterComponent {
    * y abriendo el modal de validación.
    */
   register() {
-    const { username, email, password, passwordConfirm, recaptcha } =
-      this.registerForm.value;
+    const { username, email, password, recaptcha } = this.registerForm.value;
     const modalRef = this.modalService.open(ModalMailComponent);
     modalRef.componentInstance.correo = email;
     this.mailService.enviarCodigo(email, username).subscribe({
-      next: (response) => {
+      next: () => {
         modalRef.componentInstance.usuario = {
           contrasenia: password,
           rol: 'usuario',

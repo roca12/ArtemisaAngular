@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class UserService {
   /** URL base para los endpoints de usuario. */
-  private readonly baseUrl: string = environment.apiUrl + 'usuario/';
+  private readonly baseUrl: string = `${environment.apiUrl}usuario/`;
 
   /**
    * Constructor del servicio UserService.

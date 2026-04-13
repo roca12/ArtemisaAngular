@@ -144,6 +144,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
           });
           break;
         }
+        default:
+          break;
       }
     }
   }
@@ -234,6 +236,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo PDF.
    */
   descargarLibro(pdf: string): void {
+    HomeComponent.descargarLibro(pdf);
+  }
+
+  /**
+   * Descarga un archivo PDF de libro.
+   * @param pdf Nombre del archivo PDF.
+   */
+  static descargarLibro(pdf: string): void {
     const link = document.createElement('a');
     link.href = `assets/pdfs/${pdf}`;
     link.download = pdf;
@@ -247,6 +257,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo PDF.
    */
   verPdf(pdf: string): void {
+    HomeComponent.verPdf(pdf);
+  }
+
+  /**
+   * Abre un archivo PDF en una nueva pestaña.
+   * @param pdf Nombre del archivo PDF.
+   */
+  static verPdf(pdf: string): void {
     window.open(`assets/pdfs/${pdf}`, '_blank');
   }
 

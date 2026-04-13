@@ -39,7 +39,7 @@ export class MenuBarComponent implements OnInit {
    */
   ngOnInit(): void {
     if (this.authService.tokenExpirado()) {
-      this.authService.cerrarSesion();
+      AuthService.cerrarSesion();
     }
   }
 
@@ -48,6 +48,6 @@ export class MenuBarComponent implements OnInit {
    * @returns true si existe un token de autenticación, false en caso contrario.
    */
   isLoggedIn(): boolean {
-    return this.authService.obtenerToken() !== null;
+    return AuthService.obtenerToken() !== null;
   }
 }

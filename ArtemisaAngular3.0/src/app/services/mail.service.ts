@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class MailService {
   /** URL base para los endpoints de correo electrónico. */
-  private readonly baseUrl: string = environment.apiUrl + 'correo/';
+  private readonly baseUrl: string = `${environment.apiUrl}correo/`;
 
   /**
    * Constructor del servicio MailService.

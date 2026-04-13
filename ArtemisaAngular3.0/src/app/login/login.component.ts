@@ -80,7 +80,7 @@ export class LoginComponent {
    * Ejecuta el proceso de inicio de sesión si el formulario es válido.
    */
   login() {
-    const { usuario, contrasenia, recaptcha } = this.loginForm.value;
+    const { usuario, contrasenia } = this.loginForm.value;
     if (this.loginForm.invalid) {
       this.toastr.error(
         'Por favor, completa todos los campos correctamente.',
@@ -91,7 +91,7 @@ export class LoginComponent {
     console.log('Formulario de inicio de sesión:', usuario, contrasenia);
     this.userService.login(usuario, contrasenia).subscribe({
       next: (data) => {
-        this.authService.guardarToken(data.token);
+        AuthService.guardarToken(data.token);
         this.toastr.success('Inicio de sesión exitoso.', 'Éxito');
         this.router.navigate(['']);
       },
