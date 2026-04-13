@@ -250,7 +250,9 @@ export class ProblemasComponent implements OnInit {
         temasFiltro.length === 0 || temasFiltro.includes(p.tema_1);
       const cumpleDificultad =
         dificultadesFiltro.length === 0 ||
-        dificultadesFiltro.includes(ProblemasComponent.determinarNivel(p.dificultad));
+        dificultadesFiltro.includes(
+          ProblemasComponent.determinarNivel(p.dificultad),
+        );
       const cumpleJuez =
         jueceFiltro.length === 0 || jueceFiltro.includes(p.juez);
       const cumpleSubtema =
