@@ -8,12 +8,24 @@ import { Recomendation } from '../shared/models/recomendation.model';
 import { Problema } from '../shared/models/problema.model';
 import { Temario } from '../shared/models/temario.model';
 
+/**
+ * Servicio encargado de generar y gestionar las recomendaciones de búsqueda en la plataforma.
+ * Recopila información de temas, problemas y libros para ofrecer sugerencias al usuario.
+ */
 @Injectable({ providedIn: 'root' })
 export class RecomendationService {
+  /** Señal que almacena un conjunto único de recomendaciones. */
   private _recomendations = signal<Set<Recomendation>>(
     new Set<Recomendation>(),
   );
 
+  /**
+   * Constructor del servicio RecomendationService.
+   * @param syllabus Servicio de temario para obtener grupos y temas.
+   * @param problemService Servicio de problemas para obtener títulos y metadatos.
+   * @param bookService Servicio de libros para obtener títulos.
+   * @param router Servicio de enrutamiento de Angular.
+   */
   constructor(
     private syllabus: SyllabusService,
     private problemService: ProblemService,
@@ -21,6 +33,10 @@ export class RecomendationService {
     private router: Router,
   ) {}
 
+  /**
+   * Inicializa las recomendaciones de forma asíncrona cargando datos de múltiples fuentes.
+   * @returns Una promesa que se resuelve cuando todas las recomendaciones han sido cargadas.
+   */
   async initializeRecomendationsAsync(): Promise<void> {
     const superGruposPromise = lastValueFrom(
       this.syllabus.getSuperGrupos(),
@@ -52,10 +68,10 @@ export class RecomendationService {
       this.problemService.getProblems(),
     ).then((response) => {
       const problems = response.data as Problema[];
-      let temas: Set<Recomendation> = new Set();
-      let subtemas: Set<Recomendation> = new Set();
-      let dificultades: Set<Recomendation> = new Set();
-      let jueces: Set<Recomendation> = new Set();
+      const temas: Set<Recomendation> = new Set();
+      const subtemas: Set<Recomendation> = new Set();
+      const dificultades: Set<Recomendation> = new Set();
+      const jueces: Set<Recomendation> = new Set();
       problems.forEach((p) => {
         const recoProblema: Recomendation = {
           data: p.titulo,
@@ -151,12 +167,20 @@ export class RecomendationService {
     ]);
   }
 
+  /**
+   * Añade un conjunto de nuevas recomendaciones a la lista existente.
+   * @param newRecomendations Arreglo de recomendaciones a añadir.
+   */
   addRecomendations(newRecomendations: Recomendation[]) {
     const currentRecomendations = this._recomendations();
     newRecomendations.forEach((rec) => currentRecomendations.add(rec));
     this._recomendations.set(currentRecomendations);
   }
 
+  /**
+   * Obtiene la lista actual de recomendaciones.
+   * @returns Un arreglo con todas las recomendaciones almacenadas.
+   */
   getRecomendations(): Recomendation[] {
     return Array.from(this._recomendations());
   }

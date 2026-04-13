@@ -16,6 +16,10 @@ import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgIf } from '@angular/common';
 
+/**
+ * Componente que gestiona el inicio de sesión de los usuarios.
+ * Incluye validación de formulario, integración con reCAPTCHA y manejo de tokens JWT.
+ */
 @Component({
   selector: 'app-login',
   imports: [
@@ -30,12 +34,25 @@ import { NgIf } from '@angular/common';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  /** Indica si la contraseña es visible en el campo de texto. */
   showPassword = false;
 
+  /** Formulario reactivo para el inicio de sesión. */
   loginForm: FormGroup = new FormGroup({});
 
+  /** Referencia al componente reCAPTCHA. */
   @ViewChild('captchaRef') captchaElem?: ReCaptcha2Component;
 
+  /**
+   * Constructor del componente de inicio de sesión.
+   * @param theme Servicio para gestionar el tema visual.
+   * @param fb Constructor de formularios reactivos.
+   * @param userService Servicio para operaciones de usuario (login).
+   * @param recaptchaService Servicio para validación de reCAPTCHA.
+   * @param authService Servicio para gestión de autenticación y tokens.
+   * @param toastr Servicio para mostrar notificaciones al usuario.
+   * @param router Servicio de enrutamiento.
+   */
   constructor(
     public theme: ThemeService,
     private fb: FormBuilder,
@@ -48,6 +65,9 @@ export class LoginComponent {
     this.initilizeForm();
   }
 
+  /**
+   * Inicializa la estructura y validaciones del formulario de inicio de sesión.
+   */
   initilizeForm() {
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
@@ -56,8 +76,11 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * Ejecuta el proceso de inicio de sesión si el formulario es válido.
+   */
   login() {
-    const { usuario, contrasenia, recaptcha } = this.loginForm.value;
+    const { usuario, contrasenia } = this.loginForm.value;
     if (this.loginForm.invalid) {
       this.toastr.error(
         'Por favor, completa todos los campos correctamente.',
@@ -68,7 +91,7 @@ export class LoginComponent {
     console.log('Formulario de inicio de sesión:', usuario, contrasenia);
     this.userService.login(usuario, contrasenia).subscribe({
       next: (data) => {
-        this.authService.guardarToken(data.token);
+        AuthService.guardarToken(data.token);
         this.toastr.success('Inicio de sesión exitoso.', 'Éxito');
         this.router.navigate(['']);
       },
@@ -88,10 +111,17 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * Alterna la visibilidad de la contraseña en el formulario.
+   */
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
+  /**
+   * Maneja la resolución del reCAPTCHA y verifica el token con el servidor.
+   * @param token El token generado por reCAPTCHA.
+   */
   onRecaptchaResolved(token: string) {
     this.recaptchaService.verificarCaptcha(token).subscribe({
       next: (data) => {

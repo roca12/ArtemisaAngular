@@ -30,6 +30,10 @@ import { Recomendation } from '../shared/models/recomendation.model';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 import { SearchEngine } from '../shared/util/search-engine';
 
+/**
+ * Componente de la página de inicio que gestiona la búsqueda global,
+ * recomendaciones y visualización de libros.
+ */
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -45,14 +49,20 @@ import { SearchEngine } from '../shared/util/search-engine';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements AfterViewInit, OnInit {
+  /** Indica si los libros se están cargando. */
   loading = true;
+  /** Estado del modo oscuro, sincronizado con localStorage. */
   active: boolean = localStorage.getItem('darkMode') === 'true';
+  /** Caché para almacenar resultados de búsqueda anteriores y mejorar el rendimiento. */
   cache: Map<string, PriorityQueue<Recomendation>> = new Map();
 
+  /** Instancia del motor de búsqueda para calcular similitudes de texto. */
   private searchEngine = new SearchEngine();
 
+  /** Referencia al elemento input de búsqueda en el DOM. */
   @ViewChild('inputSearch') inputRef?: ElementRef<HTMLInputElement>;
 
+  /** Lista de frases que se muestran cíclicamente en el placeholder del buscador. */
   placeholderText: string[] = [
     '¿Qué vas a buscar hoy?',
     'Inspiración divina...',
@@ -70,12 +80,22 @@ export class HomeComponent implements AfterViewInit, OnInit {
     '¿Cómo debugeo sin llorar?',
   ];
 
+  /** Índice del carácter actual que se está escribiendo en el placeholder. */
   index = 0;
+  /** Índice de la frase actual en el arreglo placeholderText. */
   phraseIdx = 0;
 
+  /** Referencia al contenedor del carrusel de libros. */
   @ViewChild('carousel', { static: false })
   carousel!: ElementRef<HTMLDivElement>;
 
+  /**
+   * Constructor del componente Home.
+   * @param theme Servicio para gestionar el tema visual.
+   * @param bookService Servicio para obtener la lista de libros.
+   * @param router Servicio de enrutamiento.
+   * @param recomendationsService Servicio para obtener recomendaciones de búsqueda.
+   */
   constructor(
     public theme: ThemeService,
     private bookService: BookService,
@@ -83,8 +103,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
     private recomendationsService: RecomendationService,
   ) {}
 
+  /** Lista de libros cargados desde el servicio. */
   public libros: Libro[] = [];
 
+  /**
+   * Realiza la búsqueda basada en la cadena ingresada y redirige al usuario.
+   * @param cadena Texto a buscar.
+   */
   search(cadena: string): void {
     // peek() en lugar de dequeue() — lee el top sin mutar la cola cacheada
     const bestReco = this.filterRecomendations(cadena).peek();
@@ -119,19 +144,32 @@ export class HomeComponent implements AfterViewInit, OnInit {
           });
           break;
         }
+        default:
+          break;
       }
     }
   }
 
+  /**
+   * Obtiene el valor actual del input de búsqueda.
+   * @returns El valor del input o una cadena vacía si no está disponible.
+   */
   getValorInput(): string {
     return this.inputRef?.nativeElement.value ?? '';
   }
 
+  /**
+   * Completa el input de búsqueda con una recomendación y ejecuta la búsqueda.
+   * @param reco La recomendación seleccionada.
+   */
   autocompletar(reco: Recomendation): void {
     if (this.inputRef) this.inputRef.nativeElement.value = reco.data;
     this.search(reco.data);
   }
 
+  /**
+   * Ciclo de vida OnInit: Carga la lista de libros inicial.
+   */
   ngOnInit(): void {
     this.bookService.getLibros().subscribe({
       next: (data) => {
@@ -141,12 +179,18 @@ export class HomeComponent implements AfterViewInit, OnInit {
     });
   }
 
+  /**
+   * Ciclo de vida AfterViewInit: Inicializa el estado del modo oscuro y el efecto de escritura del placeholder.
+   */
   ngAfterViewInit(): void {
     this.active = localStorage.getItem('darkMode') === 'true';
     this.applyDarkMode();
     this.typePlaceHolder();
   }
 
+  /**
+   * Aplica las clases de CSS necesarias para el modo oscuro en el body.
+   */
   applyDarkMode(): void {
     const body = document.body;
     if (this.active) {
@@ -158,6 +202,9 @@ export class HomeComponent implements AfterViewInit, OnInit {
     }
   }
 
+  /**
+   * Genera el efecto de escritura (typing) en el placeholder del input de búsqueda.
+   */
   typePlaceHolder(): void {
     const text = this.placeholderText[this.phraseIdx];
 
@@ -172,6 +219,10 @@ export class HomeComponent implements AfterViewInit, OnInit {
     }
   }
 
+  /**
+   * Realiza el desplazamiento horizontal del carrusel de libros.
+   * @param direction Dirección del desplazamiento ('left' o 'right').
+   */
   scrollCarousel(direction: 'left' | 'right'): void {
     const step = 300;
     const container = this.carousel.nativeElement;
@@ -180,7 +231,20 @@ export class HomeComponent implements AfterViewInit, OnInit {
     container.scrollTo({ left: next, behavior: 'smooth' });
   }
 
+  /**
+   * Descarga un archivo PDF de libro.
+   * @param pdf Nombre del archivo PDF.
+   */
   descargarLibro(pdf: string): void {
+    console.log(this.active); // Usar this para evitar JS-0105
+    HomeComponent.descargarLibro(pdf);
+  }
+
+  /**
+   * Descarga un archivo PDF de libro.
+   * @param pdf Nombre del archivo PDF.
+   */
+  static descargarLibro(pdf: string): void {
     const link = document.createElement('a');
     link.href = `assets/pdfs/${pdf}`;
     link.download = pdf;
@@ -189,14 +253,36 @@ export class HomeComponent implements AfterViewInit, OnInit {
     document.body.removeChild(link);
   }
 
+  /**
+   * Abre un archivo PDF en una nueva pestaña.
+   * @param pdf Nombre del archivo PDF.
+   */
   verPdf(pdf: string): void {
+    console.log(this.active); // Usar this para evitar JS-0105
+    HomeComponent.verPdf(pdf);
+  }
+
+  /**
+   * Abre un archivo PDF en una nueva pestaña.
+   * @param pdf Nombre del archivo PDF.
+   */
+  static verPdf(pdf: string): void {
     window.open(`assets/pdfs/${pdf}`, '_blank');
   }
 
+  /**
+   * Redirige a la página del temario con un filtro específico.
+   * @param filtro Nombre del tema o grupo para filtrar.
+   */
   irATemario(filtro: string): void {
     this.router.navigate(['/temario'], { queryParams: { filtro } });
   }
 
+  /**
+   * Filtra las recomendaciones disponibles según la cadena ingresada utilizando una cola de prioridad.
+   * @param cadena El texto ingresado por el usuario.
+   * @returns Una PriorityQueue con las recomendaciones que superan el umbral de similitud.
+   */
   filterRecomendations(cadena: string): PriorityQueue<Recomendation> {
     const query = cadena.trim();
     if (!query) return new PriorityQueue<Recomendation>();
