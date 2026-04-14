@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { SyllabusService } from './syllabus.service';
 import { ProblemService } from './problem.service';
 import { BookService } from './book.service';
@@ -14,24 +14,19 @@ import { Temario } from '../shared/models/temario.model';
  */
 @Injectable({ providedIn: 'root' })
 export class RecomendationService {
+  /** Servicio de temario para obtener grupos y temas. */
+  private syllabus = inject(SyllabusService);
+  /** Servicio de problemas para obtener títulos y metadatos. */
+  private problemService = inject(ProblemService);
+  /** Servicio de libros para obtener títulos. */
+  private bookService = inject(BookService);
+  /** Servicio de enrutamiento de Angular. */
+  private router = inject(Router);
+
   /** Señal que almacena un conjunto único de recomendaciones. */
   private _recomendations = signal<Set<Recomendation>>(
     new Set<Recomendation>(),
   );
-
-  /**
-   * Constructor del servicio RecomendationService.
-   * @param syllabus Servicio de temario para obtener grupos y temas.
-   * @param problemService Servicio de problemas para obtener títulos y metadatos.
-   * @param bookService Servicio de libros para obtener títulos.
-   * @param router Servicio de enrutamiento de Angular.
-   */
-  constructor(
-    private syllabus: SyllabusService,
-    private problemService: ProblemService,
-    private bookService: BookService,
-    private router: Router,
-  ) {}
 
   /**
    * Inicializa las recomendaciones de forma asíncrona cargando datos de múltiples fuentes.

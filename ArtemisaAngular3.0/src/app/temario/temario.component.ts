@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SyllabusService } from '../services/syllabus.service';
 import { Temario } from '../shared/models/temario.model';
 import { ToastrService } from 'ngx-toastr';
@@ -7,7 +7,6 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
-import { RecomendationService } from '../services/recomendation.service';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 import { TemaDetalleComponent } from '../shared/components/tema-detalle/tema-detalle.component';
 
@@ -39,21 +38,14 @@ export class TemarioComponent implements OnInit {
   /** Mapa de filtros activos seleccionados por el usuario. */
   filtrosSeleccionados: { [key: string]: boolean } = {};
 
-  /**
-   * Constructor del componente de temario.
-   * @param syllabus Servicio para obtener los datos del temario y supergrupos.
-   * @param toastService Servicio para mostrar notificaciones de error.
-   * @param theme Servicio para gestionar el tema visual.
-   * @param route Servicio para acceder a los parámetros de la URL.
-   * @param recoService Servicio para recomendaciones (no utilizado directamente aquí pero inyectado).
-   */
-  constructor(
-    private syllabus: SyllabusService,
-    private toastService: ToastrService,
-    public theme: ThemeService,
-    private route: ActivatedRoute,
-    private recoService: RecomendationService,
-  ) {}
+  /** Servicio para obtener los datos del temario y supergrupos. */
+  private syllabus = inject(SyllabusService);
+  /** Servicio para mostrar notificaciones de error. */
+  private toastService = inject(ToastrService);
+  /** Servicio para gestionar el tema visual. */
+  public theme = inject(ThemeService);
+  /** Servicio para acceder a los parámetros de la URL. */
+  private route = inject(ActivatedRoute);
 
   /**
    * Ciclo de vida OnInit: Inicializa la carga del temario, supergrupos y procesa filtros de la ruta.

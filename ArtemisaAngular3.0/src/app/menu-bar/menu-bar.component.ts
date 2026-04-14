@@ -1,4 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 import { AuthService } from '../services/auth.service';
@@ -15,15 +20,8 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './menu-bar.component.css',
 })
 export class MenuBarComponent implements OnInit {
-  /**
-   * Constructor del componente de la barra de menú.
-   * @param theme Servicio para gestionar el tema visual.
-   * @param authService Servicio para gestionar la autenticación.
-   */
-  constructor(
-    public theme: ThemeService,
-    private authService: AuthService,
-  ) {}
+  /** Servicio para gestionar el tema visual. */
+  public theme = inject(ThemeService);
 
   /**
    * Alterna el modo oscuro y actualiza visualmente el contenedor del interruptor.
@@ -38,7 +36,7 @@ export class MenuBarComponent implements OnInit {
    * Ciclo de vida OnInit: Verifica si el token ha expirado al cargar el componente y cierra la sesión si es necesario.
    */
   ngOnInit(): void {
-    if (this.authService.tokenExpirado()) {
+    if (AuthService.tokenExpirado()) {
       AuthService.cerrarSesion();
     }
   }
@@ -48,7 +46,6 @@ export class MenuBarComponent implements OnInit {
    * @returns true si existe un token de autenticación, false en caso contrario.
    */
   isLoggedIn(): boolean {
-    console.log(this.theme); // Usar this para evitar JS-0105
     return AuthService.obtenerToken() !== null;
   }
 }

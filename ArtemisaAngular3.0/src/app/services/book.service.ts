@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Libro } from '../shared/models/libro.model';
 import { environment } from '../../environments/environment';
@@ -19,14 +19,10 @@ interface ApiResponse {
   providedIn: 'root',
 })
 export class BookService {
+  /** Cliente HTTP para realizar peticiones. */
+  private http = inject(HttpClient);
   /** URL base para los endpoints de libros. */
   private readonly baseUrl = `${environment.apiUrl}libro`;
-
-  /**
-   * Constructor del servicio BookService.
-   * @param http Cliente HTTP para realizar peticiones.
-   */
-  constructor(private http: HttpClient) {}
 
   /**
    * Obtiene la lista completa de libros desde el servidor.

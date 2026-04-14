@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Problema } from '../shared/models/problema.model';
 import { environment } from '../../environments/environment';
@@ -10,14 +10,10 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ProblemService {
+  /** Cliente HTTP para realizar peticiones. */
+  private http = inject(HttpClient);
   /** URL base para los endpoints de problemas. */
   private readonly baseUrl: string = `${environment.apiUrl}problema/`;
-
-  /**
-   * Constructor del servicio ProblemService.
-   * @param http Cliente HTTP para realizar peticiones.
-   */
-  constructor(private http: HttpClient) {}
 
   /**
    * Obtiene la lista de problemas disponibles desde el servidor.
