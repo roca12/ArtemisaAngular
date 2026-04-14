@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Temario } from '../shared/models/temario.model';
 
@@ -10,14 +10,10 @@ import { Temario } from '../shared/models/temario.model';
   providedIn: 'root',
 })
 export class SyllabusService {
+  /** Cliente HTTP para realizar peticiones. */
+  private http = inject(HttpClient);
   /** URL base para los endpoints del temario. */
   private readonly baseUrl: string = `${environment.apiUrl}temario`;
-
-  /**
-   * Constructor del servicio SyllabusService.
-   * @param http Cliente HTTP para realizar peticiones.
-   */
-  constructor(private http: HttpClient) {}
 
   /**
    * Obtiene el temario completo desde el servidor.

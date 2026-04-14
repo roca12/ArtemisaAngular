@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 
@@ -30,17 +30,12 @@ export class ProblemasComponent implements OnInit {
   /** Indica si los problemas se están cargando desde el servidor. */
   loading = true;
 
-  /**
-   * Constructor del componente de problemas.
-   * @param theme Servicio para gestionar el tema visual.
-   * @param problemService Servicio para obtener la lista de problemas.
-   * @param route Servicio para acceder a los parámetros de la ruta activa.
-   */
-  constructor(
-    public theme: ThemeService,
-    public problemService: ProblemService,
-    private route: ActivatedRoute,
-  ) {}
+  /** Servicio para gestionar el tema (claro/oscuro). */
+  public theme = inject(ThemeService);
+  /** Servicio para obtener los problemas. */
+  public problemService = inject(ProblemService);
+  /** Servicio para el enrutamiento y acceso a parámetros de la URL. */
+  private route = inject(ActivatedRoute);
 
   /** Lista completa de problemas obtenidos del servidor. */
   problems: Problema[] = [];

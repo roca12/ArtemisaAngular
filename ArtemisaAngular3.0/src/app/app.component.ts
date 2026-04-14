@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { ThemeService } from './services/theme.service';
@@ -21,15 +21,10 @@ export class AppComponent implements AfterViewInit, OnInit {
   /** Título de la aplicación. */
   title = 'Biblioteca Artemisa';
 
-  /**
-   * Constructor del componente raíz.
-   * @param theme Servicio para gestionar el tema (claro/oscuro).
-   * @param recoService Servicio para inicializar las recomendaciones de búsqueda.
-   */
-  constructor(
-    public theme: ThemeService,
-    private recoService: RecomendationService,
-  ) {}
+  /** Servicio para gestionar el tema (claro/oscuro). */
+  public theme = inject(ThemeService);
+  /** Servicio para inicializar las recomendaciones de búsqueda. */
+  private recoService = inject(RecomendationService);
 
   /**
    * Ciclo de vida OnInit: Inicializa las recomendaciones de búsqueda de forma asíncrona.
@@ -48,11 +43,10 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   /**
-   * Oculta y elimina el splash screen de carga del DOM.
+   * Oculta y devuelve el splash screen de carga del DOM.
    * @private
    */
   private hideSplashScreen() {
-    console.log(this.title); // Usar this para evitar JS-0105
     const splash = document.getElementById('app-splash');
     if (!splash) return;
     requestAnimationFrame(() => {

@@ -4,6 +4,7 @@ import {
   ViewChild,
   AfterViewInit,
   OnInit,
+  inject,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -89,19 +90,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
   @ViewChild('carousel', { static: false })
   carousel!: ElementRef<HTMLDivElement>;
 
-  /**
-   * Constructor del componente Home.
-   * @param theme Servicio para gestionar el tema visual.
-   * @param bookService Servicio para obtener la lista de libros.
-   * @param router Servicio de enrutamiento.
-   * @param recomendationsService Servicio para obtener recomendaciones de búsqueda.
-   */
-  constructor(
-    public theme: ThemeService,
-    private bookService: BookService,
-    private router: Router,
-    private recomendationsService: RecomendationService,
-  ) {}
+  /** Servicio para gestionar el tema (claro/oscuro). */
+  public theme = inject(ThemeService);
+  /** Servicio para obtener libros. */
+  private bookService = inject(BookService);
+  /** Servicio para el enrutamiento. */
+  private router = inject(Router);
+  /** Servicio para obtener recomendaciones de búsqueda. */
+  private recomendationsService = inject(RecomendationService);
 
   /** Lista de libros cargados desde el servicio. */
   public libros: Libro[] = [];
@@ -236,7 +232,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo PDF.
    */
   descargarLibro(pdf: string): void {
-    console.log(this.active); // Usar this para evitar JS-0105
     HomeComponent.descargarLibro(pdf);
   }
 
@@ -258,7 +253,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo PDF.
    */
   verPdf(pdf: string): void {
-    console.log(this.active); // Usar this para evitar JS-0105
     HomeComponent.verPdf(pdf);
   }
 
