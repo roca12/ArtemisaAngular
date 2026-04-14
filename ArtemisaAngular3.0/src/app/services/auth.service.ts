@@ -8,28 +8,31 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
+  /** Clave para el almacenamiento del token. */
+  private readonly TOKEN_KEY = 'token';
+
   /**
    * Guarda el token de autenticación en el almacenamiento local.
    * @param token El token JWT a guardar.
    */
-  static guardarToken(token: string) {
-    localStorage.setItem('token', token);
+  guardarToken(token: string) {
+    localStorage.setItem(this.TOKEN_KEY, token);
   }
 
   /**
    * Obtiene el token de autenticación del almacenamiento local.
    * @returns El token JWT si existe, de lo contrario null.
    */
-  static obtenerToken(): string | null {
-    return localStorage.getItem('token');
+  obtenerToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
   /**
    * Verifica si el token de autenticación ha expirado.
    * @returns true si el token ha expirado o no existe, false en caso contrario.
    */
-  static tokenExpirado(): boolean {
-    const token = AuthService.obtenerToken();
+  tokenExpirado(): boolean {
+    const token = this.obtenerToken();
     if (!token) return true;
     try {
       const decodedToken = jwtDecode<{ exp?: number }>(token);
@@ -44,7 +47,7 @@ export class AuthService {
   /**
    * Elimina el token de autenticación del almacenamiento local para cerrar la sesión.
    */
-  static cerrarSesion() {
-    localStorage.removeItem('token');
+  cerrarSesion() {
+    localStorage.removeItem(this.TOKEN_KEY);
   }
 }

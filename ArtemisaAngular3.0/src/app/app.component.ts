@@ -51,7 +51,10 @@ export class AppComponent implements AfterViewInit, OnInit {
     if (!splash) return;
     requestAnimationFrame(() => {
       splash.classList.add('splash-hidden');
-      setTimeout(() => splash.remove(), 800);
+      setTimeout(() => {
+        splash.remove();
+        console.debug('Splash screen removed for:', this.title);
+      }, 800);
     });
   }
 

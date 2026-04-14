@@ -22,6 +22,8 @@ import { AuthService } from '../services/auth.service';
 export class MenuBarComponent implements OnInit {
   /** Servicio para gestionar el tema visual. */
   public theme = inject(ThemeService);
+  /** Servicio para la autenticación. */
+  private authService = inject(AuthService);
 
   /**
    * Alterna el modo oscuro y actualiza visualmente el contenedor del interruptor.
@@ -36,8 +38,8 @@ export class MenuBarComponent implements OnInit {
    * Ciclo de vida OnInit: Verifica si el token ha expirado al cargar el componente y cierra la sesión si es necesario.
    */
   ngOnInit(): void {
-    if (AuthService.tokenExpirado()) {
-      AuthService.cerrarSesion();
+    if (this.authService.tokenExpirado()) {
+      this.authService.cerrarSesion();
     }
   }
 
@@ -46,6 +48,6 @@ export class MenuBarComponent implements OnInit {
    * @returns true si existe un token de autenticación, false en caso contrario.
    */
   isLoggedIn(): boolean {
-    return AuthService.obtenerToken() !== null;
+    return this.authService.obtenerToken() !== null;
   }
 }
