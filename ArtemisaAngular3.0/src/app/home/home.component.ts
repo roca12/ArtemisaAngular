@@ -237,7 +237,12 @@ export class HomeComponent implements AfterViewInit, OnInit {
     link.download = pdf;
     link.click();
     document.body.removeChild(link);
-    console.debug('Downloading:', pdf, 'Theme:', this.theme.isDark() ? 'dark' : 'light');
+    console.debug(
+      'Downloading:',
+      pdf,
+      'Theme:',
+      this.theme.isDark() ? 'dark' : 'light',
+    );
   }
 
   /**
@@ -246,7 +251,12 @@ export class HomeComponent implements AfterViewInit, OnInit {
    */
   verPdf(pdf: string): void {
     window.open(`assets/pdfs/${pdf}`, '_blank');
-    console.debug('Opening:', pdf, 'Theme:', this.theme.isDark() ? 'dark' : 'light');
+    console.debug(
+      'Opening:',
+      pdf,
+      'Theme:',
+      this.theme.isDark() ? 'dark' : 'light',
+    );
   }
 
   /**
