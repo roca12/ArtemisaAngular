@@ -2,7 +2,6 @@ import { inject, Injectable, signal } from '@angular/core';
 import { SyllabusService } from './syllabus.service';
 import { ProblemService } from './problem.service';
 import { BookService } from './book.service';
-import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { Recomendation } from '../shared/models/recomendation.model';
 import { Problema } from '../shared/models/problema.model';
@@ -20,8 +19,6 @@ export class RecomendationService {
   private problemService = inject(ProblemService);
   /** Servicio de libros para obtener títulos. */
   private bookService = inject(BookService);
-  /** Servicio de enrutamiento de Angular. */
-  private router = inject(Router);
 
   /** Señal que almacena un conjunto único de recomendaciones. */
   private _recomendations = signal<Set<Recomendation>>(

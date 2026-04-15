@@ -1,11 +1,8 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { TemarioComponent } from './temario/temario.component';
-import { LoginComponent } from './login/login.component';
 import { ProblemasComponent } from './problemas/problemas.component';
 import { LinksComponent } from './links/links.component';
-import { RegisterComponent } from './register/register.component';
 import { CalendarComponent } from './calendar/calendar.component';
 
 export const routes: Routes = [
