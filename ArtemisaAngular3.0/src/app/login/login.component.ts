@@ -91,7 +91,7 @@ export class LoginComponent {
     console.log('Formulario de inicio de sesión:', usuario, contrasenia);
     this.userService.login(usuario, contrasenia).subscribe({
       next: (data) => {
-        AuthService.guardarToken(data.token);
+        this.authService.guardarToken(data.token);
         this.toastr.success('Inicio de sesión exitoso.', 'Éxito');
         this.router.navigate(['']);
       },

@@ -13,7 +13,7 @@
       <div
         class="recomendations-list"
         *ngIf="
-          getValorInput() != '' &&
+          getValorInput() !== '' &&
           filterRecomendations(getValorInput()).size() > 0
         "
       >
