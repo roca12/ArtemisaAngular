@@ -56,7 +56,7 @@ export class CalendarComponent implements OnInit {
     this.calendarService
       .obtenerCalendario()
       .subscribe((res: GoogleCalendar[]) => {
-        this.calendarOptions.events = this.mapearEventos(res);
+        this.calendarOptions.events = CalendarComponent.mapearEventos(res);
         this.loading = false;
       });
   }
@@ -66,8 +66,7 @@ export class CalendarComponent implements OnInit {
    * @param calendarios Arreglo de calendarios obtenidos de la API.
    * @returns Arreglo de eventos formateados para FullCalendar.
    */
-  private mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
-    console.log(this.loading); // Usar this para evitar JS-0105
+  private static mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
       (calendario.items ?? []).map((item) =>
         CalendarComponent.mapearItem(item),

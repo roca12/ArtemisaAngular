@@ -150,7 +150,7 @@ export class ProblemasComponent implements OnInit {
   listarDificultades(): string[] {
     const conjunto: Set<string> = new Set();
     this.problems.forEach((p) => {
-      conjunto.add(ProblemasComponent.determinarNivel(p.dificultad));
+      conjunto.add(this.determinarNivel(p.dificultad));
     });
     return Array.from(conjunto);
   }
@@ -173,16 +173,6 @@ export class ProblemasComponent implements OnInit {
    * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
    */
   determinarNivel(dificultad: number): string {
-    console.log(this.problems); // Usar this para evitar JS-0105
-    return ProblemasComponent.determinarNivel(dificultad);
-  }
-
-  /**
-   * Clasifica un valor numérico de dificultad en un nivel textual.
-   * @param dificultad Valor numérico de la dificultad.
-   * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
-   */
-  static determinarNivel(dificultad: number): string {
     if (dificultad <= 5) {
       return 'Aprendíz';
     } else if (dificultad <= 10) {
@@ -245,9 +235,7 @@ export class ProblemasComponent implements OnInit {
         temasFiltro.length === 0 || temasFiltro.includes(p.tema_1);
       const cumpleDificultad =
         dificultadesFiltro.length === 0 ||
-        dificultadesFiltro.includes(
-          ProblemasComponent.determinarNivel(p.dificultad),
-        );
+        dificultadesFiltro.includes(this.determinarNivel(p.dificultad));
       const cumpleJuez =
         jueceFiltro.length === 0 || jueceFiltro.includes(p.juez);
       const cumpleSubtema =
