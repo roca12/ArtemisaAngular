@@ -16,5 +16,5 @@ import { NgIf } from '@angular/common';
 })
 export class TemaDetalleComponent {
   /** El objeto Temario que contiene la información a detallar. */
-  @Input() tema!: Temario;
+  @Input() tema!: Temario; // skipcq: JS-0339
 }

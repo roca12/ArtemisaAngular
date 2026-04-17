@@ -88,7 +88,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   /** Referencia al contenedor del carrusel de libros. */
   @ViewChild('carousel', { static: false })
-  carousel!: ElementRef<HTMLDivElement>;
+  carousel?: ElementRef<HTMLDivElement>;
 
   /** Servicio para gestionar el tema (claro/oscuro). */
   public theme = inject(ThemeService);
@@ -221,7 +221,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
    */
   scrollCarousel(direction: 'left' | 'right'): void {
     const step = 300;
-    const container = this.carousel.nativeElement;
+    const container = this.carousel?.nativeElement;
+    if (!container) return;
     const current = container.scrollLeft;
     const next = direction === 'right' ? current + step : current - step;
     container.scrollTo({ left: next, behavior: 'smooth' });
@@ -268,7 +269,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     if (this.cache.has(query))
       return this.cache.get(query) ?? new PriorityQueue<Recomendation>();
 
-    const threshold = this.searchEngine.thresholdPara(query);
+    const threshold = SearchEngine.thresholdPara(query);
     const result = new PriorityQueue<Recomendation>();
 
     this.recomendationsService.getRecomendations().forEach((rec) => {

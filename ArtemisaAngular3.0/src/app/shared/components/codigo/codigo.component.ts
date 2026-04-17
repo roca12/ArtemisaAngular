@@ -63,7 +63,7 @@ const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
 })
 export class CodigoComponent implements AfterViewInit, OnDestroy {
   /** Lenguaje del código a mostrar. */
-  @Input() language!: Language;
+  @Input() language!: Language; // skipcq: JS-0339
   /** El fragmento de código a visualizar. */
   @Input() codigo: string | null = null;
   /** Referencia al contenedor del editor en el DOM. */
