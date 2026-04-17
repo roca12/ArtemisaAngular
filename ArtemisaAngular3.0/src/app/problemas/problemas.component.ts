@@ -173,6 +173,7 @@ export class ProblemasComponent implements OnInit {
    * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
    */
   determinarNivel(dificultad: number): string {
+    // skipcq: JS-0105
     return ProblemasComponent.determinarNivel(dificultad);
   }
 

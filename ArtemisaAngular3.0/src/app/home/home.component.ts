@@ -57,9 +57,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
   /** Caché para almacenar resultados de búsqueda anteriores y mejorar el rendimiento. */
   cache: Map<string, PriorityQueue<Recomendation>> = new Map();
 
-  /** Instancia del motor de búsqueda para calcular similitudes de texto. */
-  private searchEngine = new SearchEngine();
-
   /** Referencia al elemento input de búsqueda en el DOM. */
   @ViewChild('inputSearch') inputRef?: ElementRef<HTMLInputElement>;
 
@@ -283,7 +280,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     const result = new PriorityQueue<Recomendation>();
 
     this.recomendationsService.getRecomendations().forEach((rec) => {
-      const score = this.searchEngine.scoreIntencion(query, rec.data);
+      const score = SearchEngine.scoreIntencion(query, rec.data);
       if (score >= threshold && result.find(rec) === undefined) {
         result.enqueue(rec, score);
       }

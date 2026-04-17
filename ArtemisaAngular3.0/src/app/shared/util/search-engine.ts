@@ -14,7 +14,7 @@ export class SearchEngine {
   private static tokenizar(texto: string): string[] {
     return texto
       .toLowerCase()
-      .split(/[\s\-_\/]+/)
+      .split(/[\s\-_/]+/)
       .filter(Boolean);
   }
 
@@ -25,9 +25,10 @@ export class SearchEngine {
    * @private
    */
   private static trigramas(texto: string): Set<string> {
-    const s = texto.toLowerCase().replace(/\s+/g, '');
+    const textoNormalizado = texto.toLowerCase().replace(/\s+/g, '');
     const set = new Set<string>();
-    for (let i = 0; i <= s.length - 3; i++) set.add(s.slice(i, i + 3));
+    for (let i = 0; i <= textoNormalizado.length - 3; i++)
+      set.add(textoNormalizado.slice(i, i + 3));
     return set;
   }
 
@@ -60,21 +61,21 @@ export class SearchEngine {
   static calcularSimilitudes(texto1: string, texto2: string): number {
     const s1 = texto1.toLowerCase();
     const s2 = texto2.toLowerCase();
-    const m = s1.length;
-    const n = s2.length;
-    if (m === 0) return n;
-    if (n === 0) return m;
-    let prev = Array.from({ length: n + 1 }, (_, i) => i);
-    let curr = new Array(n + 1).fill(0);
-    for (let i = 1; i <= m; i++) {
+    const longitud1 = s1.length;
+    const longitud2 = s2.length;
+    if (longitud1 === 0) return longitud2;
+    if (longitud2 === 0) return longitud1;
+    let prev = Array.from({ length: longitud2 + 1 }, (_, i) => i);
+    let curr = new Array(longitud2 + 1).fill(0);
+    for (let i = 1; i <= longitud1; i++) {
       curr[0] = i;
-      for (let j = 1; j <= n; j++) {
+      for (let j = 1; j <= longitud2; j++) {
         const costo = s1[i - 1] === s2[j - 1] ? 0 : 1;
         curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + costo);
       }
       [prev, curr] = [curr, prev];
     }
-    return prev[n];
+    return prev[longitud2];
   }
 
   // ─── Motor de scoring por capas ──────────────────────────────────────────
@@ -85,14 +86,14 @@ export class SearchEngine {
    * @param candidato El texto contra el cual se compara.
    * @returns Un puntaje numérico de relevancia.
    */
-  scoreIntencion(query: string, candidato: string): number {
-    const q = query.trim().toLowerCase();
-    const c = candidato.toLowerCase();
+  static scoreIntencion(query: string, candidato: string): number {
+    const queryLimpia = query.trim().toLowerCase();
+    const candidatoLimpio = candidato.toLowerCase();
 
-    if (!q) return 0;
+    if (!queryLimpia) return 0;
 
-    const tokensQuery = SearchEngine.tokenizar(q);
-    const tokensCandidato = SearchEngine.tokenizar(candidato);
+    const tokensQuery = SearchEngine.tokenizar(queryLimpia);
+    const tokensCandidato = SearchEngine.tokenizar(candidatoLimpio);
 
     // ── Capa 0: prefijo de 1+ caracteres sobre cualquier token del candidato ──
     // "D" → aparece en "Dijkstra", "DFS", "DP", "Divide y Vencerás"
@@ -128,7 +129,10 @@ export class SearchEngine {
 
     // ── Capa 2: n-gramas Dice (similitud fonética / ortográfica) ─────────────
     // "Dikstra" → "Dijkstra" aunque no sea prefijo exacto
-    const scoreNgrama = SearchEngine.similaridadTrigramas(q, c);
+    const scoreNgrama = SearchEngine.similaridadTrigramas(
+      queryLimpia,
+      candidatoLimpio,
+    );
     if (scoreNgrama >= 0.35) {
       return scoreNgrama * 0.75;
     }

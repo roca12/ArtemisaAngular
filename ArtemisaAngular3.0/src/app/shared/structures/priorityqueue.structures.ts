@@ -100,8 +100,11 @@ export class PriorityQueue<T> {
     const target = data as Record<string, unknown>;
 
     return this.items.find(({ value }) => {
-      const v = value as Record<string, unknown>;
-      return v['data'] === target['data'] && v['type'] === target['type'];
+      const valorItem = value as Record<string, unknown>;
+      return (
+        valorItem['data'] === target['data'] &&
+        valorItem['type'] === target['type']
+      );
     });
   }
 
