@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProblemService } from '../services/problem.service';
 import { Problema } from '../shared/models/problema.model';
@@ -14,11 +13,7 @@ import { SpinnerComponent } from '../shared/components/spinner/spinner.component
  */
 @Component({
   selector: 'app-problems',
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    SpinnerComponent
-],
+  imports: [ReactiveFormsModule, FormsModule, SpinnerComponent],
   templateUrl: './problemas.component.html',
   styleUrl: './problemas.component.css',
 })

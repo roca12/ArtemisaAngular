@@ -38,12 +38,7 @@ import { SearchEngine } from '../shared/util/search-engine';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    FontAwesomeModule,
-    NgbCarouselModule,
-    SlicePipe,
-    SpinnerComponent
-],
+  imports: [FontAwesomeModule, NgbCarouselModule, SlicePipe, SpinnerComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

@@ -1,19 +1,16 @@
 @if (loading) {
-  <app-spinner
-    message="Cargando links..."
-    [fullscreen]="true"
-  ></app-spinner>
+  <app-spinner message="Cargando links..." [fullscreen]="true"></app-spinner>
 }
 <div
   class="container"
   [class.dark]="theme.isDark()"
   [class.light]="!theme.isDark()"
-  >
+>
   @for (link of links; track link) {
     <div class="card">
       <div class="link-text">
         <h3>{{ link.nombre }}</h3>
-        @for (tag of link.tags.split(','); track tag) {
+        @for (tag of link.tags.split(","); track tag) {
           <p>• {{ tag }}</p>
         }
         <a [href]="link.url" target="_blank">Website</a>

@@ -1,8 +1,5 @@
 @if (tema.texto) {
-  <div
-    class="texto"
-    [innerHTML]="tema.texto | formatearTexto"
-  ></div>
+  <div class="texto" [innerHTML]="tema.texto | formatearTexto"></div>
 }
 
 <app-codigo language="java" [codigo]="tema.java" />

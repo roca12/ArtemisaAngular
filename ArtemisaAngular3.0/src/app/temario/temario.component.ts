@@ -21,8 +21,8 @@ import { TemaDetalleComponent } from '../shared/components/tema-detalle/tema-det
     FormsModule,
     NgbAccordionModule,
     SpinnerComponent,
-    TemaDetalleComponent
-],
+    TemaDetalleComponent,
+  ],
   templateUrl: './temario.component.html',
   styleUrl: './temario.component.css',
 })
