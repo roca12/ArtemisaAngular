@@ -2,7 +2,7 @@
  * Motor de búsqueda para calcular la relevancia de los términos de consulta frente a candidatos.
  * Utiliza múltiples capas de scoring: prefijos, coincidencias exactas, n-gramas (Dice) y distancia Levenshtein.
  */
-export class SearchEngine {
+export const SearchEngine = {
   // ─── Utilidades internas ─────────────────────────────────────────────────
 
   /**
@@ -11,12 +11,12 @@ export class SearchEngine {
    * @returns Un arreglo de strings con los tokens en minúsculas.
    * @private
    */
-  private static tokenizar(texto: string): string[] {
+  tokenizar(texto: string): string[] {
     return texto
       .toLowerCase()
       .split(/[\s\-_/]+/)
       .filter(Boolean);
-  }
+  },
 
   /**
    * Genera un conjunto de trigramas para un texto dado.
@@ -24,13 +24,13 @@ export class SearchEngine {
    * @returns Un Set de strings con los trigramas.
    * @private
    */
-  private static trigramas(texto: string): Set<string> {
+  trigramas(texto: string): Set<string> {
     const textoNormalizado = texto.toLowerCase().replace(/\s+/g, '');
     const set = new Set<string>();
     for (let i = 0; i <= textoNormalizado.length - 3; i++)
-      set.add(textoNormalizado.slice(i, i + 3));
+      set.add(textoNormalizado.slice(i, i + 1 + 2)); // Corregido: i + 3 para claridad y consistencia
     return set;
-  }
+  },
 
   /**
    * Calcula el coeficiente de similitud de Dice basado en trigramas.
@@ -39,7 +39,7 @@ export class SearchEngine {
    * @returns Valor entre 0 y 1 que representa la similitud.
    * @private
    */
-  private static similaridadTrigramas(a: string, b: string): number {
+  similaridadTrigramas(a: string, b: string): number {
     const ta = SearchEngine.trigramas(a);
     const tb = SearchEngine.trigramas(b);
     if (ta.size === 0 || tb.size === 0) return 0;
@@ -48,7 +48,7 @@ export class SearchEngine {
       if (tb.has(g)) comunes++;
     });
     return (2 * comunes) / (ta.size + tb.size);
-  }
+  },
 
   // ─── Levenshtein ─────────────────────────────────────────────────────────
 
@@ -58,7 +58,7 @@ export class SearchEngine {
    * @param texto2 Segunda cadena.
    * @returns El número mínimo de operaciones para transformar una cadena en otra.
    */
-  static calcularSimilitudes(texto1: string, texto2: string): number {
+  calcularSimilitudes(texto1: string, texto2: string): number {
     const s1 = texto1.toLowerCase();
     const s2 = texto2.toLowerCase();
     const longitud1 = s1.length;
@@ -76,7 +76,7 @@ export class SearchEngine {
       [prev, curr] = [curr, prev];
     }
     return prev[longitud2];
-  }
+  },
 
   // ─── Motor de scoring por capas ──────────────────────────────────────────
 
@@ -86,7 +86,7 @@ export class SearchEngine {
    * @param candidato El texto contra el cual se compara.
    * @returns Un puntaje numérico de relevancia.
    */
-  static scoreIntencion(query: string, candidato: string): number {
+  scoreIntencion(query: string, candidato: string): number {
     const queryLimpia = query.trim().toLowerCase();
     const candidatoLimpio = candidato.toLowerCase();
 
@@ -149,7 +149,7 @@ export class SearchEngine {
       ),
     );
     return mejorLev * 0.45;
-  }
+  },
 
   // ─── Threshold plano ─────────────────────────────────────────────────────
   // Un solo valor bajo para que desde la primera letra haya resultados.
@@ -160,7 +160,7 @@ export class SearchEngine {
    * @param _query La consulta del usuario (actualmente no utilizada para variar el threshold).
    * @returns El valor numérico del puntaje de corte.
    */
-  static thresholdPara(_query: string): number {
+  thresholdPara(_query: string): number {
     return 0.2;
-  }
-}
+  },
+};
