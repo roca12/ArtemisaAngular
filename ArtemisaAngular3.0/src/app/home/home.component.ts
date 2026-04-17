@@ -23,7 +23,7 @@ import { ThemeService } from '../services/theme.service';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from '../services/book.service';
 import { Libro } from '../shared/models/libro.model';
-import { NgFor, NgIf, SlicePipe } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { PriorityQueue } from '../shared/structures/priorityqueue.structures';
 import { RecomendationService } from '../services/recomendation.service';
@@ -41,11 +41,9 @@ import { SearchEngine } from '../shared/util/search-engine';
   imports: [
     FontAwesomeModule,
     NgbCarouselModule,
-    NgFor,
     SlicePipe,
-    NgIf,
-    SpinnerComponent,
-  ],
+    SpinnerComponent
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ThemeService } from '../../../services/theme.service';
-import { NgIf } from '@angular/common';
+
 
 /**
  * Componente que muestra un indicador de carga (spinner).
@@ -8,7 +8,7 @@ import { NgIf } from '@angular/common';
  */
 @Component({
   selector: 'app-spinner',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './spinner.component.html',
   styleUrl: './spinner.component.css',
 })

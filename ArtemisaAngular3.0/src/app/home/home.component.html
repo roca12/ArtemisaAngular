@@ -1,8 +1,9 @@
-<app-spinner
-  *ngIf="loading"
-  message="Cargando..."
-  [fullscreen]="true"
-></app-spinner>
+@if (loading) {
+  <app-spinner
+    message="Cargando..."
+    [fullscreen]="true"
+  ></app-spinner>
+}
 <div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
   <div class="search-container">
     <div class="search">
@@ -10,26 +11,29 @@
       <div class="btn" (click)="search(inputSearch.value)">
         <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
       </div>
-      <div
-        class="recomendations-list"
-        *ngIf="
-          getValorInput() !== '' &&
-          filterRecomendations(getValorInput()).size() > 0
-        "
-      >
-        <ul>
-          <li
-            *ngFor="
-              let reco of Array.from(this.filterRecomendations(getValorInput()))
-                | slice: 0 : 7
-            "
-            (click)="autocompletar(reco)"
+      @if (
+        getValorInput() !== '' &&
+        filterRecomendations(getValorInput()).size() > 0
+        ) {
+        <div
+          class="recomendations-list"
           >
-            {{ reco.data }}
-            <span class="badge">{{ reco.type }}</span>
-          </li>
-        </ul>
-      </div>
+          <ul>
+            @for (
+              reco of Array.from(this.filterRecomendations(getValorInput()))
+              | slice: 0 : 7
+              ; track
+              reco) {
+              <li
+                (click)="autocompletar(reco)"
+                >
+                {{ reco.data }}
+                <span class="badge">{{ reco.type }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
     </div>
   </div>
 
@@ -40,170 +44,171 @@
       </button>
 
       <div class="books-carousel" #carousel>
-        <div class="book-card" *ngFor="let libro of libros">
-          <p>{{ libro.titulo }}</p>
-          <img
-            [src]="'assets/images/libros/descargables/' + libro.imagen"
-            alt="{{ libro.titulo }}"
-          />
-          <div class="card-btns">
-            <button (click)="descargarLibro(libro.archivoPdf)">
-              Descargar
-            </button>
-
-            <button (click)="verPdf(libro.archivoPdf)">Ver →</button>
-          </div>
+        @for (libro of libros; track libro) {
+          <div class="book-card">
+            <p>{{ libro.titulo }}</p>
+            <img
+              [src]="'assets/images/libros/descargables/' + libro.imagen"
+              alt="{{ libro.titulo }}"
+              />
+              <div class="card-btns">
+                <button (click)="descargarLibro(libro.archivoPdf)">
+                  Descargar
+                </button>
+                <button (click)="verPdf(libro.archivoPdf)">Ver →</button>
+              </div>
+            </div>
+          }
         </div>
+
+        <button class="carousel-btn right" (click)="scrollCarousel('right')">
+          →
+        </button>
       </div>
-
-      <button class="carousel-btn right" (click)="scrollCarousel('right')">
-        →
-      </button>
     </div>
-  </div>
 
-  <div class="explore-section">
-    <h2>Temario</h2>
-    <div class="cards-container">
-      <div
-        class="card"
+    <div class="explore-section">
+      <h2>Temario</h2>
+      <div class="cards-container">
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(90, 94, 183) 0%,
             rgb(112, 117, 234) 100%
           );
         "
-      >
-        <fa-icon [icon]="faSchool"></fa-icon>
-        <h2>Teoria Básica</h2>
-        <button (click)="irATemario('Teoria')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faSchool"></fa-icon>
+          <h2>Teoria Básica</h2>
+          <button (click)="irATemario('Teoria')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(76, 175, 151) 0%,
             rgb(81, 198, 171) 100%
           );
         "
-      >
-        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-        <h2>Algoritmos de Búsqueda</h2>
-        <button (click)="irATemario('Búsquedas')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+          <h2>Algoritmos de Búsqueda</h2>
+          <button (click)="irATemario('Búsquedas')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(37, 135, 156) 0%,
             rgb(84, 195, 219) 100%
           );
         "
-      >
-        <fa-icon [icon]="faArrowUpShortWide"></fa-icon>
-        <h2>Algoritmos de Ordenamiento</h2>
-        <button (click)="irATemario('Ordenamientos')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faArrowUpShortWide"></fa-icon>
+          <h2>Algoritmos de Ordenamiento</h2>
+          <button (click)="irATemario('Ordenamientos')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(175, 97, 96) 0%,
             rgb(202, 138, 137) 100%
           );
         "
-      >
-        <fa-icon [icon]="faTextWidth"></fa-icon>
-        <h2>Strings</h2>
-        <button (click)="irATemario('Strings')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faTextWidth"></fa-icon>
+          <h2>Strings</h2>
+          <button (click)="irATemario('Strings')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(103, 74, 152) 0%,
             rgb(165, 148, 195) 100%
           );
         "
-      >
-        <fa-icon [icon]="faSquareBinary"></fa-icon>
-        <h2>Manejo Binario y Bitwise</h2>
-        <button (click)="irATemario('BitWise')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faSquareBinary"></fa-icon>
+          <h2>Manejo Binario y Bitwise</h2>
+          <button (click)="irATemario('BitWise')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(204, 115, 62) 0%,
             rgb(234, 163, 120) 100%
           );
         "
-      >
-        <fa-icon [icon]="faPlusMinus"></fa-icon>
-        <h2>Matemáticas</h2>
-        <button (click)="irATemario('Matemática')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faPlusMinus"></fa-icon>
+          <h2>Matemáticas</h2>
+          <button (click)="irATemario('Matemática')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(69, 114, 182) 0%,
             rgb(120, 158, 218) 100%
           );
         "
-      >
-        <fa-icon [icon]="faPenRuler"></fa-icon>
-        <h2>Geometría</h2>
-        <button (click)="irATemario('Geometría')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faPenRuler"></fa-icon>
+          <h2>Geometría</h2>
+          <button (click)="irATemario('Geometría')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(241, 99, 124) 0%,
             rgb(227, 153, 166) 100%
           );
         "
-      >
-        <fa-icon [icon]="faDiagramProject"></fa-icon>
-        <h2>Teoría de grafos, arboles y redes</h2>
-        <button (click)="irATemario('Grafos')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faDiagramProject"></fa-icon>
+          <h2>Teoría de grafos, arboles y redes</h2>
+          <button (click)="irATemario('Grafos')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(90, 94, 183) 0%,
             rgb(112, 117, 234) 100%
           );
         "
-      >
-        <fa-icon [icon]="faCodeCompare"></fa-icon>
-        <h2>Programación Dinámica</h2>
-        <button (click)="irATemario('DP')">Ver →</button>
-      </div>
+          >
+          <fa-icon [icon]="faCodeCompare"></fa-icon>
+          <h2>Programación Dinámica</h2>
+          <button (click)="irATemario('DP')">Ver →</button>
+        </div>
 
-      <div
-        class="card"
+        <div
+          class="card"
         style="
           background: linear-gradient(
             rgb(76, 175, 151) 0%,
             rgb(81, 198, 171) 100%
           );
         "
-      >
-        <fa-icon [icon]="faCode"></fa-icon>
-        <h2>Generador de Casos Prueba</h2>
-        <button (click)="irATemario('Generadores')">Ver →</button>
+          >
+          <fa-icon [icon]="faCode"></fa-icon>
+          <h2>Generador de Casos Prueba</h2>
+          <button (click)="irATemario('Generadores')">Ver →</button>
+        </div>
       </div>
     </div>
   </div>
-</div>

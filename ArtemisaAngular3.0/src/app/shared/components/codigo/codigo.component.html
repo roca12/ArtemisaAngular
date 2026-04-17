@@ -1,4 +1,4 @@
-<ng-container *ngIf="codigo">
+@if (codigo) {
   <img class="logo-image" [src]="config.logo" [alt]="config.alt" />
   <div #editorContainer class="editor-container"></div>
-</ng-container>
+}

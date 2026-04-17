@@ -12,7 +12,7 @@ import { cpp } from '@codemirror/lang-cpp';
 import { python } from '@codemirror/lang-python';
 import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { LanguageSupport } from '@codemirror/language';
-import { NgIf } from '@angular/common';
+
 
 /**
  * Tipos de lenguajes de programación soportados por el componente de visualización de código.
@@ -57,7 +57,7 @@ const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
  */
 @Component({
   selector: 'app-codigo',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './codigo.component.html',
   styleUrl: './codigo.component.css',
 })

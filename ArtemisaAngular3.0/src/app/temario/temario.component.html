@@ -1,59 +1,64 @@
-<app-spinner
-  *ngIf="loading"
-  message="Cargando temario..."
-  [fullscreen]="true"
-></app-spinner>
+@if (loading) {
+  <app-spinner
+    message="Cargando temario..."
+    [fullscreen]="true"
+  ></app-spinner>
+}
 
 <div
   [class.dark]="theme.isDark()"
   [class.light]="!theme.isDark()"
   id="theme-container"
->
+  >
   <div class="sidebar">
     <h2>Filtros</h2>
     <div class="filter-container">
-      <div class="form-check" *ngFor="let sg of superGrupos">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          [id]="sg"
-          [value]="sg"
-          [(ngModel)]="filtrosSeleccionados[sg]"
-        />
-        <label class="form-check-label" [for]="sg">{{ sg }}</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="main-container">
-    <h3>Temario</h3>
-
-    <div ngbAccordion class="accordion-container" [closeOthers]="true">
-      <div
-        ngbAccordionItem
-        *ngFor="let tema of temarioFiltrado()"
-        [collapsed]="true"
-      >
-        <h2 ngbAccordionHeader>
-          <button ngbAccordionButton class="accordion-button" type="button">
-            {{ tema.tema }}
-            <div>
-              <p>{{ tema.supergrupo }}</p>
-              <span class="complejidad" *ngIf="tema.complejidad_tiempo">
-                {{ tema.complejidad_tiempo }}
-              </span>
-            </div>
-          </button>
-        </h2>
-
-        <div ngbAccordionCollapse>
-          <div ngbAccordionBody>
-            <ng-template>
-              <app-tema-detalle [tema]="tema" />
-            </ng-template>
+      @for (sg of superGrupos; track sg) {
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [id]="sg"
+            [value]="sg"
+            [(ngModel)]="filtrosSeleccionados[sg]"
+            />
+            <label class="form-check-label" [for]="sg">{{ sg }}</label>
           </div>
-        </div>
+        }
+      </div>
+    </div>
+
+    <div class="main-container">
+      <h3>Temario</h3>
+
+      <div ngbAccordion class="accordion-container" [closeOthers]="true">
+        @for (tema of temarioFiltrado(); track tema) {
+          <div
+            ngbAccordionItem
+            [collapsed]="true"
+            >
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton class="accordion-button" type="button">
+                {{ tema.tema }}
+                <div>
+                  <p>{{ tema.supergrupo }}</p>
+                  @if (tema.complejidad_tiempo) {
+                    <span class="complejidad">
+                      {{ tema.complejidad_tiempo }}
+                    </span>
+                  }
+                </div>
+              </button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <app-tema-detalle [tema]="tema" />
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        }
       </div>
     </div>
   </div>
-</div>

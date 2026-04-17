@@ -1,22 +1,26 @@
-<app-spinner
-  *ngIf="loading"
-  message="Cargando links..."
-  [fullscreen]="true"
-></app-spinner>
+@if (loading) {
+  <app-spinner
+    message="Cargando links..."
+    [fullscreen]="true"
+  ></app-spinner>
+}
 <div
   class="container"
   [class.dark]="theme.isDark()"
   [class.light]="!theme.isDark()"
->
-  <div class="card" *ngFor="let link of links">
-    <div class="link-text">
-      <h3>{{ link.nombre }}</h3>
-      <p *ngFor="let tag of link.tags.split(',')">• {{ tag }}</p>
-
-      <a [href]="link.url" target="_blank">Website</a>
+  >
+  @for (link of links; track link) {
+    <div class="card">
+      <div class="link-text">
+        <h3>{{ link.nombre }}</h3>
+        @for (tag of link.tags.split(','); track tag) {
+          <p>• {{ tag }}</p>
+        }
+        <a [href]="link.url" target="_blank">Website</a>
+      </div>
+      <div class="link-logo">
+        <img [src]="link.icono" alt="{{ link.nombre }} logo" />
+      </div>
     </div>
-    <div class="link-logo">
-      <img [src]="link.icono" alt="{{ link.nombre }} logo" />
-    </div>
-  </div>
+  }
 </div>

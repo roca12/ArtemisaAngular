@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
-import { NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProblemService } from '../services/problem.service';
@@ -15,14 +15,10 @@ import { SpinnerComponent } from '../shared/components/spinner/spinner.component
 @Component({
   selector: 'app-problems',
   imports: [
-    NgForOf,
-    NgIf,
     ReactiveFormsModule,
     FormsModule,
-    NgSwitchCase,
-    NgSwitch,
-    SpinnerComponent,
-  ],
+    SpinnerComponent
+],
   templateUrl: './problemas.component.html',
   styleUrl: './problemas.component.css',
 })

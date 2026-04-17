@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { LinkService } from '../services/link.service';
 import { Link } from '../shared/models/link.model';
-import { NgFor, NgIf } from '@angular/common';
+
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 
 /**
@@ -10,7 +10,7 @@ import { SpinnerComponent } from '../shared/components/spinner/spinner.component
  */
 @Component({
   selector: 'app-links',
-  imports: [NgFor, NgIf, SpinnerComponent],
+  imports: [SpinnerComponent],
   templateUrl: './links.component.html',
   styleUrl: './links.component.css',
 })

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Temario } from '../../models/temario.model';
 import { FormatearTextoPipe } from '../../pipes/formatear-texto.pipe';
 import { CodigoComponent } from '../codigo/codigo.component';
-import { NgIf } from '@angular/common';
+
 
 /**
  * Componente que muestra el detalle de un tema específico del temario.
@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
  */
 @Component({
   selector: 'app-tema-detalle',
-  imports: [FormatearTextoPipe, CodigoComponent, NgIf],
+  imports: [FormatearTextoPipe, CodigoComponent],
   templateUrl: './tema-detalle.component.html',
   styleUrl: './tema-detalle.component.css',
 })

@@ -15,7 +15,7 @@ import { RecaptchaService } from '../services/recaptcha.service';
 import { ModalMailComponent } from '../modal-mail/modal-mail.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MailService } from '../services/mail.service';
-import { CommonModule, NgIf } from '@angular/common';
+
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 /**
@@ -32,10 +32,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     NgxCaptchaModule,
     ReactiveFormsModule,
     FormsModule,
-    NgIf,
-    CommonModule,
-    ToastrModule,
-  ],
+    ToastrModule
+],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

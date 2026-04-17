@@ -3,7 +3,7 @@ import { SyllabusService } from '../services/syllabus.service';
 import { Temario } from '../shared/models/temario.model';
 import { ToastrService } from 'ngx-toastr';
 import { ThemeService } from '../services/theme.service';
-import { NgFor, NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -18,13 +18,11 @@ import { TemaDetalleComponent } from '../shared/components/tema-detalle/tema-det
   selector: 'app-temario',
   standalone: true,
   imports: [
-    NgFor,
-    NgIf,
     FormsModule,
     NgbAccordionModule,
     SpinnerComponent,
-    TemaDetalleComponent,
-  ],
+    TemaDetalleComponent
+],
   templateUrl: './temario.component.html',
   styleUrl: './temario.component.css',
 })

@@ -14,7 +14,7 @@ import { UserService } from '../services/user.service';
 import { RecaptchaService } from '../services/recaptcha.service';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { NgIf } from '@angular/common';
+
 
 /**
  * Componente que gestiona el inicio de sesión de los usuarios.
@@ -27,9 +27,8 @@ import { NgIf } from '@angular/common';
     RouterModule,
     FaIconComponent,
     NgxCaptchaModule,
-    ReactiveFormsModule,
-    NgIf,
-  ],
+    ReactiveFormsModule
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
