@@ -15,7 +15,6 @@ import { RecaptchaService } from '../services/recaptcha.service';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
-
 /**
  * Componente que gestiona el inicio de sesión de los usuarios.
  * Incluye validación de formulario, integración con reCAPTCHA y manejo de tokens JWT.
@@ -27,8 +26,8 @@ import { ToastrService } from 'ngx-toastr';
     RouterModule,
     FaIconComponent,
     NgxCaptchaModule,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

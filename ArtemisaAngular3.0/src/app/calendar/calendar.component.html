@@ -1,13 +1,10 @@
 @if (loading) {
-  <app-spinner
-    message="Cargando fechas..."
-    [fullscreen]="true"
-  ></app-spinner>
+  <app-spinner message="Cargando fechas..." [fullscreen]="true"></app-spinner>
 }
 <div
   class="calendar-container"
   [class.dark]="theme.isDark()"
   [class.light]="!theme.isDark()"
-  >
+>
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>

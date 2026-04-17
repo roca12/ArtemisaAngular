@@ -32,8 +32,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     NgxCaptchaModule,
     ReactiveFormsModule,
     FormsModule,
-    ToastrModule
-],
+    ToastrModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

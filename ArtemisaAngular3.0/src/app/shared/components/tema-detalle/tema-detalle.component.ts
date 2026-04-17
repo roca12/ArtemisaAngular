@@ -3,7 +3,6 @@ import { Temario } from '../../models/temario.model';
 import { FormatearTextoPipe } from '../../pipes/formatear-texto.pipe';
 import { CodigoComponent } from '../codigo/codigo.component';
 
-
 /**
  * Componente que muestra el detalle de un tema específico del temario.
  * Incluye la descripción teórica, complejidad y ejemplos de código en varios lenguajes.

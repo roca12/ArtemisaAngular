@@ -13,7 +13,6 @@ import { python } from '@codemirror/lang-python';
 import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { LanguageSupport } from '@codemirror/language';
 
-
 /**
  * Tipos de lenguajes de programación soportados por el componente de visualización de código.
  */

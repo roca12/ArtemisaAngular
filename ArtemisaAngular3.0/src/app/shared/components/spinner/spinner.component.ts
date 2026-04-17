@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ThemeService } from '../../../services/theme.service';
 
-
 /**
  * Componente que muestra un indicador de carga (spinner).
  * Puede mostrarse a pantalla completa o dentro de un contenedor específico.
