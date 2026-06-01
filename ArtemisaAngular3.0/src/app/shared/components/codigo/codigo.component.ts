@@ -14,14 +14,26 @@ import { materialDark } from '@ddietr/codemirror-themes/material-dark';
 import { LanguageSupport } from '@codemirror/language';
 import { NgIf } from '@angular/common';
 
+/**
+ * Tipos de lenguajes de programación soportados por el componente de visualización de código.
+ */
 export type Language = 'java' | 'cpp' | 'py';
 
+/**
+ * Interfaz que define la configuración específica para cada lenguaje de programación.
+ */
 interface LanguageConfig {
+  /** Función que devuelve la extensión de CodeMirror para el lenguaje. */
   extension: () => LanguageSupport;
+  /** Ruta al logo del lenguaje. */
   logo: string;
+  /** Texto alternativo para el logo. */
   alt: string;
 }
 
+/**
+ * Configuración estática para los lenguajes soportados.
+ */
 const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
   java: {
     extension: java,
@@ -40,6 +52,9 @@ const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
   },
 };
 
+/**
+ * Componente que utiliza CodeMirror para mostrar fragmentos de código con resaltado de sintaxis.
+ */
 @Component({
   selector: 'app-codigo',
   imports: [NgIf],
@@ -47,16 +62,27 @@ const LANGUAGE_CONFIG: Record<Language, LanguageConfig> = {
   styleUrl: './codigo.component.css',
 })
 export class CodigoComponent implements AfterViewInit, OnDestroy {
-  @Input() language!: Language;
+  /** Lenguaje del código a mostrar. */
+  @Input() language!: Language; // skipcq: JS-0339
+  /** El fragmento de código a visualizar. */
   @Input() codigo: string | null = null;
+  /** Referencia al contenedor del editor en el DOM. */
   @ViewChild('editorContainer') editorContainer?: ElementRef;
 
+  /** Instancia de la vista del editor CodeMirror. */
   private editorView?: EditorView;
 
+  /**
+   * Obtiene la configuración del lenguaje actual.
+   * @returns El objeto LanguageConfig correspondiente al lenguaje seleccionado.
+   */
   get config() {
     return LANGUAGE_CONFIG[this.language];
   }
 
+  /**
+   * Ciclo de vida AfterViewInit: Inicializa el editor CodeMirror con la configuración y el código proporcionado.
+   */
   ngAfterViewInit(): void {
     if (this.codigo && this.editorContainer) {
       this.editorView = new EditorView({
@@ -71,6 +97,9 @@ export class CodigoComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Ciclo de vida OnDestroy: Destruye la instancia del editor para liberar recursos.
+   */
   ngOnDestroy(): void {
     this.editorView?.destroy();
   }

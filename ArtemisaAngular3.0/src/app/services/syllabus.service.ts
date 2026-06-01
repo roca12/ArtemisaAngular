@@ -1,20 +1,32 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Temario } from '../shared/models/temario.model';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Temario } from '../shared/models/temario.model';
 
+/**
+ * Servicio encargado de gestionar el temario y los grupos de la plataforma.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class SyllabusService {
-  private readonly baseUrl: string = environment.apiUrl + 'temario';
+  /** Cliente HTTP para realizar peticiones. */
+  private http = inject(HttpClient);
+  /** URL base para los endpoints del temario. */
+  private readonly baseUrl: string = `${environment.apiUrl}temario`;
 
-  constructor(private http: HttpClient) {}
-
+  /**
+   * Obtiene el temario completo desde el servidor.
+   * @returns Un Observable con la colección de temas.
+   */
   getSyllabus() {
     return this.http.get<Temario[]>(this.baseUrl);
   }
 
+  /**
+   * Obtiene la lista de supergrupos del temario desde el servidor.
+   * @returns Un Observable con la lista de nombres de supergrupos.
+   */
   getSuperGrupos() {
     return this.http.get<string[]>(`${this.baseUrl}/supergrupos`);
   }

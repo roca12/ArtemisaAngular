@@ -1,4 +1,4 @@
-import { Component, ViewChild, NgModule } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { RouterLink } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
@@ -18,6 +18,11 @@ import { MailService } from '../services/mail.service';
 import { CommonModule, NgIf } from '@angular/common';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
+/**
+ * Componente que gestiona el registro de nuevos usuarios en la plataforma.
+ * Incluye validaciones complejas de formulario, integración con reCAPTCHA y
+ * flujo de verificación por correo electrónico mediante un modal.
+ */
 @Component({
   selector: 'app-register',
   imports: [
@@ -35,12 +40,24 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
+  /** Indica si la contraseña es visible en el campo de texto. */
   showPassword = false;
 
+  /** Formulario reactivo para el registro de usuario. */
   registerForm: FormGroup = new FormGroup({});
 
+  /** Referencia al componente reCAPTCHA. */
   @ViewChild('captchaRef') captchaElem?: ReCaptcha2Component;
 
+  /**
+   * Constructor del componente de registro.
+   * @param theme Servicio para gestionar el tema visual.
+   * @param fb Constructor de formularios reactivos.
+   * @param recaptchaService Servicio para validación de reCAPTCHA.
+   * @param modalService Servicio de NgbModal para abrir ventanas emergentes.
+   * @param mailService Servicio para gestionar el envío de códigos de verificación.
+   * @param toastr Servicio para mostrar notificaciones.
+   */
   constructor(
     public theme: ThemeService,
     private fb: FormBuilder,
@@ -52,6 +69,9 @@ export class RegisterComponent {
     this.initiaizeForm();
   }
 
+  /**
+   * Inicializa la estructura del formulario con validaciones de longitud, patrones y coincidencia de contraseñas.
+   */
   initiaizeForm() {
     this.registerForm = this.fb.group(
       {
@@ -78,20 +98,32 @@ export class RegisterComponent {
         passwordConfirm: ['', Validators.required],
         recaptcha: ['', Validators.required],
       },
-      { validator: this.passwordsMatchValidator },
+      { validator: RegisterComponent.passwordsMatchValidator },
     );
   }
 
+  /**
+   * Alterna la visibilidad de la contraseña.
+   */
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  passwordsMatchValidator(formGroup: FormGroup) {
+  /**
+   * Validador personalizado para asegurar que la contraseña y su confirmación coincidan.
+   * @param formGroup El grupo de formulario que contiene los campos de contraseña.
+   * @returns Un objeto de error si no coinciden, null si son iguales.
+   */
+  static passwordsMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('passwordConfirm')?.value;
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
+  /**
+   * Maneja la resolución del reCAPTCHA y verifica el token.
+   * @param token El token generado por reCAPTCHA.
+   */
   onRecaptchaResolved(token: string) {
     this.recaptchaService.verificarCaptcha(token).subscribe({
       next: (data) => {
@@ -107,13 +139,16 @@ export class RegisterComponent {
     });
   }
 
+  /**
+   * Inicia el proceso de registro enviando un código de verificación al correo ingresado
+   * y abriendo el modal de validación.
+   */
   register() {
-    const { username, email, password, passwordConfirm, recaptcha } =
-      this.registerForm.value;
+    const { username, email, password, recaptcha } = this.registerForm.value;
     const modalRef = this.modalService.open(ModalMailComponent);
     modalRef.componentInstance.correo = email;
     this.mailService.enviarCodigo(email, username).subscribe({
-      next: (response) => {
+      next: () => {
         modalRef.componentInstance.usuario = {
           contrasenia: password,
           rol: 'usuario',

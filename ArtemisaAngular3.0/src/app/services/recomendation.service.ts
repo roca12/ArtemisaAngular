@@ -1,26 +1,34 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { SyllabusService } from './syllabus.service';
 import { ProblemService } from './problem.service';
 import { BookService } from './book.service';
-import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { Recomendation } from '../shared/models/recomendation.model';
 import { Problema } from '../shared/models/problema.model';
 import { Temario } from '../shared/models/temario.model';
 
+/**
+ * Servicio encargado de generar y gestionar las recomendaciones de búsqueda en la plataforma.
+ * Recopila información de temas, problemas y libros para ofrecer sugerencias al usuario.
+ */
 @Injectable({ providedIn: 'root' })
 export class RecomendationService {
+  /** Servicio de temario para obtener grupos y temas. */
+  private syllabus = inject(SyllabusService);
+  /** Servicio de problemas para obtener títulos y metadatos. */
+  private problemService = inject(ProblemService);
+  /** Servicio de libros para obtener títulos. */
+  private bookService = inject(BookService);
+
+  /** Señal que almacena un conjunto único de recomendaciones. */
   private _recomendations = signal<Set<Recomendation>>(
     new Set<Recomendation>(),
   );
 
-  constructor(
-    private syllabus: SyllabusService,
-    private problemService: ProblemService,
-    private bookService: BookService,
-    private router: Router,
-  ) {}
-
+  /**
+   * Inicializa las recomendaciones de forma asíncrona cargando datos de múltiples fuentes.
+   * @returns Una promesa que se resuelve cuando todas las recomendaciones han sido cargadas.
+   */
   async initializeRecomendationsAsync(): Promise<void> {
     const superGruposPromise = lastValueFrom(
       this.syllabus.getSuperGrupos(),
@@ -151,12 +159,20 @@ export class RecomendationService {
     ]);
   }
 
+  /**
+   * Añade un conjunto de nuevas recomendaciones a la lista existente.
+   * @param newRecomendations Arreglo de recomendaciones a añadir.
+   */
   addRecomendations(newRecomendations: Recomendation[]) {
     const currentRecomendations = this._recomendations();
     newRecomendations.forEach((rec) => currentRecomendations.add(rec));
     this._recomendations.set(currentRecomendations);
   }
 
+  /**
+   * Obtiene la lista actual de recomendaciones.
+   * @returns Un arreglo con todas las recomendaciones almacenadas.
+   */
   getRecomendations(): Recomendation[] {
     return Array.from(this._recomendations());
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 
@@ -8,8 +8,12 @@ import { Problema } from '../shared/models/problema.model';
 import { ActivatedRoute } from '@angular/router';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 
+/**
+ * Componente que gestiona la visualización y filtrado de problemas de programación competitiva.
+ * Permite filtrar por tema, subtema, dificultad y juez.
+ */
 @Component({
-  selector: 'app-problemas',
+  selector: 'app-problems',
   imports: [
     NgForOf,
     NgIf,
@@ -23,17 +27,26 @@ import { SpinnerComponent } from '../shared/components/spinner/spinner.component
   styleUrl: './problemas.component.css',
 })
 export class ProblemasComponent implements OnInit {
+  /** Indica si los problemas se están cargando desde el servidor. */
   loading = true;
-  constructor(
-    public theme: ThemeService,
-    public problemService: ProblemService,
-    private route: ActivatedRoute,
-  ) {}
 
+  /** Servicio para gestionar el tema (claro/oscuro). */
+  public theme = inject(ThemeService);
+  /** Servicio para obtener los problemas. */
+  public problemService = inject(ProblemService);
+  /** Servicio para el enrutamiento y acceso a parámetros de la URL. */
+  private route = inject(ActivatedRoute);
+
+  /** Lista completa de problemas obtenidos del servidor. */
   problems: Problema[] = [];
+  /** Mapa de filtros seleccionados por el usuario (clave: nombre del filtro, valor: estado activo). */
   filtrosSeleccionados: { [key: string]: boolean } = {};
+  /** Almacena el subtema seleccionado actualmente. */
   subtemaSeleccionado = '';
 
+  /**
+   * Ciclo de vida OnInit: Carga los problemas y aplica filtros iniciales desde los parámetros de la URL.
+   */
   ngOnInit(): void {
     this.problemService.getProblems().subscribe({
       next: (response) => {
@@ -50,14 +63,22 @@ export class ProblemasComponent implements OnInit {
     }
   }
 
+  /**
+   * Obtiene una lista única de los temas principales disponibles en los problemas.
+   * @returns Arreglo de strings con los nombres de los temas.
+   */
   listarTemas(): string[] {
-    let conjunto: Set<string> = new Set();
+    const conjunto: Set<string> = new Set();
     this.problems.forEach((p) => {
       conjunto.add(p.tema_1);
     });
     return Array.from(conjunto);
   }
 
+  /**
+   * Obtiene una lista única de subtemas basados en los temas principales seleccionados.
+   * @returns Arreglo de strings con los nombres de los subtemas secundarios.
+   */
   listarSubtemas(): string[] {
     const temasFiltrados = Object.entries(this.filtrosSeleccionados)
       .filter(([key, val]) => val && this.listarTemas().includes(key))
@@ -84,6 +105,9 @@ export class ProblemasComponent implements OnInit {
     return Array.from(conjuntoSecundario);
   }
 
+  /**
+   * Maneja los cambios en la selección de temas principales y limpia filtros obsoletos.
+   */
   onTemaChange() {
     const subtemasDisponibles = new Set(this.listarSubtemas());
     const temas = new Set(this.listarTemas());
@@ -97,35 +121,57 @@ export class ProblemasComponent implements OnInit {
         !dificultades.has(key) &&
         !jueces.has(key)
       ) {
-        delete this.filtrosSeleccionados[key];
+        this.filtrosSeleccionados[key] = false;
       }
     });
   }
 
+  /**
+   * Alterna el estado de un filtro de subtema.
+   * @param subtema Nombre del subtema a alternar.
+   */
   toggleSubtema(subtema: string) {
     this.filtrosSeleccionados[subtema] = !this.filtrosSeleccionados[subtema];
   }
 
+  /**
+   * Verifica si un subtema específico está marcado como activo.
+   * @param subtema Nombre del subtema.
+   * @returns true si está activo, false en caso contrario.
+   */
   isSubtemaActivo(subtema: string): boolean {
-    return !!this.filtrosSeleccionados[subtema];
+    return Boolean(this.filtrosSeleccionados[subtema]);
   }
 
+  /**
+   * Obtiene una lista única de niveles de dificultad disponibles.
+   * @returns Arreglo de strings con los nombres de los niveles.
+   */
   listarDificultades(): string[] {
-    let conjunto: Set<string> = new Set();
+    const conjunto: Set<string> = new Set();
     this.problems.forEach((p) => {
       conjunto.add(this.determinarNivel(p.dificultad));
     });
     return Array.from(conjunto);
   }
 
+  /**
+   * Obtiene una lista única de jueces disponibles.
+   * @returns Arreglo de strings con los nombres de los jueces.
+   */
   listarJueces(): string[] {
-    let conjunto: Set<string> = new Set();
+    const conjunto: Set<string> = new Set();
     this.problems.forEach((p) => {
       conjunto.add(p.juez);
     });
     return Array.from(conjunto);
   }
 
+  /**
+   * Clasifica un valor numérico de dificultad en un nivel textual.
+   * @param dificultad Valor numérico de la dificultad.
+   * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
+   */
   determinarNivel(dificultad: number): string {
     if (dificultad <= 5) {
       return 'Aprendíz';
@@ -140,6 +186,9 @@ export class ProblemasComponent implements OnInit {
     }
   }
 
+  /**
+   * Maneja el cambio en el selector de subtemas y resetea filtros anteriores de subtema.
+   */
   onSubtemaChange() {
     if (this.subtemaSeleccionado) {
       this.resetSubtemaFilters();
@@ -149,6 +198,9 @@ export class ProblemasComponent implements OnInit {
     }
   }
 
+  /**
+   * Desactiva todos los filtros de subtema activos.
+   */
   resetSubtemaFilters() {
     const subtemas = this.listarSubtemas();
     subtemas.forEach((subtema) => {
@@ -156,6 +208,10 @@ export class ProblemasComponent implements OnInit {
     });
   }
 
+  /**
+   * Aplica la lógica de filtrado a la lista completa de problemas basada en los filtros activos.
+   * @returns Arreglo de problemas que cumplen con todos los criterios de filtrado.
+   */
   filterProblems(): Problema[] {
     const activos = Object.entries(this.filtrosSeleccionados)
       .filter(([_, val]) => val)

@@ -14,6 +14,10 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 
+/**
+ * Componente modal para la validación del código enviado por correo electrónico.
+ * Maneja la entrada del código de 4 dígitos y el registro final del usuario.
+ */
 @Component({
   selector: 'app-modal-mail',
   imports: [FormsModule, ReactiveFormsModule, ToastrModule],
@@ -21,7 +25,9 @@ import { ThemeService } from '../services/theme.service';
   styleUrl: './modal-mail.component.css',
 })
 export class ModalMailComponent {
-  @Input() correo: string = '';
+  /** Dirección de correo electrónico a la que se envió el código. */
+  @Input() correo = '';
+  /** Objeto usuario con los datos pendientes de registro definitivo. */
   @Input() usuario: Usuario = {
     contrasenia: '',
     rol: '',
@@ -30,9 +36,21 @@ export class ModalMailComponent {
     verificacion: '',
   };
 
-  cargando: boolean = false;
+  /** Indica si se está procesando una petición al servidor. */
+  cargando = false;
+  /** Formulario reactivo para capturar los 4 dígitos del código. */
   validationForm: FormGroup = new FormGroup({});
 
+  /**
+   * Constructor del componente modal.
+   * @param activeModal Referencia al modal activo para poder cerrarlo.
+   * @param mailService Servicio para validación de códigos de correo.
+   * @param fb Constructor de formularios reactivos.
+   * @param userService Servicio para registrar al usuario.
+   * @param toastr Servicio para notificaciones.
+   * @param router Servicio de enrutamiento.
+   * @param theme Servicio para el tema visual.
+   */
   constructor(
     public activeModal: NgbActiveModal,
     private mailService: MailService,
@@ -45,6 +63,9 @@ export class ModalMailComponent {
     this.initializeForm();
   }
 
+  /**
+   * Inicializa el formulario con los 4 campos para el código de verificación.
+   */
   initializeForm() {
     this.validationForm = this.fb.group({
       num1: ['', Validators.required],
@@ -54,6 +75,10 @@ export class ModalMailComponent {
     });
   }
 
+  /**
+   * Concatena los dígitos e invoca al servicio de validación de código.
+   * Si es exitoso, procede a registrar al usuario.
+   */
   enviarCodigo() {
     if (this.validationForm.invalid) {
       return;
@@ -75,6 +100,9 @@ export class ModalMailComponent {
     });
   }
 
+  /**
+   * Realiza el registro definitivo del usuario en la base de datos tras validar el correo.
+   */
   registrarUsuario() {
     this.userService.register(this.usuario).subscribe({
       next: (response) => {
@@ -96,5 +124,18 @@ export class ModalMailComponent {
     });
   }
 
-  reenviarCodigo() {}
+  /**
+   * Método para reenviar el código de verificación.
+   */
+  reenviarCodigo() {
+    this.mailService.enviarCodigo(this.correo, this.usuario.usuario).subscribe({
+      next: () => {
+        this.toastr.success('Código reenviado con éxito.', 'Éxito');
+      },
+      error: (error) => {
+        this.toastr.error('Error al reenviar el código.', 'Error');
+        console.error('Error al reenviar el código:', error);
+      },
+    });
+  }
 }
