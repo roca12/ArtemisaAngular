@@ -9,8 +9,9 @@ import { ThemeService } from '../services/theme.service';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 import {
   CalendarEvent,
-  GoogleCalendar,
-  GoogleCalendarItem,
+  Calendario,
+  CalendarioEvento,
+  CalendariosResponse,
 } from '../shared/models/calendar.model';
 
 @Component({
@@ -41,26 +42,26 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.calendarService
       .obtenerCalendario()
-      .subscribe((res: GoogleCalendar[]) => {
-        this.calendarOptions.events = this.mapearEventos(res);
+      .subscribe((res: CalendariosResponse) => {
+        this.calendarOptions.events = this.mapearEventos(res.calendarios);
         this.loading = false;
       });
   }
 
-  private mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
+  private mapearEventos(calendarios: Calendario[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
-      (calendario.items ?? []).map((item) => this.mapearItem(item)),
+      (calendario.eventos ?? []).map((evento) => this.mapearEvento(evento)),
     );
   }
 
-  private mapearItem(item: GoogleCalendarItem): CalendarEvent {
+  private mapearEvento(evento: CalendarioEvento): CalendarEvent {
     return {
-      title: item.summary,
-      start: item.start?.dateTime ?? item.start?.date,
-      end: item.end?.dateTime ?? item.end?.date,
-      url: item.url,
+      title: evento.titulo,
+      start: evento.inicio,
+      end: evento.fin,
+      url: evento.url,
       color: '#1F5E67',
-      description: item.description,
+      description: evento.descripcion,
     };
   }
 }

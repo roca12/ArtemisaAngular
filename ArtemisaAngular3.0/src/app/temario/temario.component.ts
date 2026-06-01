@@ -58,7 +58,7 @@ export class TemarioComponent implements OnInit {
   private initializeTemario(): void {
     this.syllabus.getSyllabus().subscribe({
       next: (response) => {
-        this.temario = response.data as Temario[];
+        this.temario = response as Temario[];
         this.loading = false;
       },
       error: () => {
@@ -71,7 +71,7 @@ export class TemarioComponent implements OnInit {
   private initializeSupergrupos(): void {
     this.syllabus.getSuperGrupos().subscribe({
       next: (response) => {
-        this.superGrupos = response.data as string[];
+        this.superGrupos = response as string[];
       },
       error: () => {
         this.toastService.error('Error al obtener los supergrupos', 'Error');

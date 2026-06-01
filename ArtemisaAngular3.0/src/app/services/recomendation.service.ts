@@ -25,7 +25,7 @@ export class RecomendationService {
     const superGruposPromise = lastValueFrom(
       this.syllabus.getSuperGrupos(),
     ).then((response) => {
-      const superGrupos = response.data as string[];
+      const superGrupos = response as string[];
       superGrupos.forEach((sg) => {
         const recoSuperGrupo: Recomendation = {
           data: sg,
@@ -37,7 +37,7 @@ export class RecomendationService {
 
     const temarioPromise = lastValueFrom(this.syllabus.getSyllabus()).then(
       (response) => {
-        const temario = response.data as Temario[];
+        const temario = response as Temario[];
         temario.forEach((t) => {
           const recoTema: Recomendation = {
             data: t.tema,
@@ -51,7 +51,7 @@ export class RecomendationService {
     const problemasPromise = lastValueFrom(
       this.problemService.getProblems(),
     ).then((response) => {
-      const problems = response.data as Problema[];
+      const problems = response as Problema[];
       let temas: Set<Recomendation> = new Set();
       let subtemas: Set<Recomendation> = new Set();
       let dificultades: Set<Recomendation> = new Set();

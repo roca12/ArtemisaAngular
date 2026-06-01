@@ -10,7 +10,7 @@ export class ProblemService {
   private readonly baseUrl: string = environment.apiUrl + 'problema/';
   constructor(private http: HttpClient) {}
   getProblems() {
-    return this.http.get<any>(`${this.baseUrl}`);
+    return this.http.get<Problema []>(`${this.baseUrl}`);
   }
 
   createProblem(problem: Problema) {

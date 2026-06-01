@@ -12,6 +12,6 @@ export class LinkService {
   constructor(private http: HttpClient) {}
 
   obtenerLinks() {
-    return this.http.get<any>(`${this.baseUrl}`);
+    return this.http.get<Link []>(`${this.baseUrl}`);
   }
 }

@@ -1,19 +1,20 @@
-export interface GoogleCalendarDateTime {
-  dateTime?: string;
-  date?: string;
-  timeZone?: string;
-}
-
-export interface GoogleCalendarItem {
-  summary: string;
-  description?: string;
+export interface CalendarioEvento {
+  id: string;
+  titulo: string;
+  descripcion?: string;
+  inicio: string;
+  fin: string;
   url?: string;
-  start: GoogleCalendarDateTime;
-  end: GoogleCalendarDateTime;
+  ubicacion?: string;
 }
 
-export interface GoogleCalendar {
-  items?: GoogleCalendarItem[];
+export interface Calendario {
+  titulo: string;
+  eventos: CalendarioEvento[];
+}
+
+export interface CalendariosResponse {
+  calendarios: Calendario[];
 }
 
 export interface CalendarEvent {

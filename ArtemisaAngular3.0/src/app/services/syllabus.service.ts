@@ -12,10 +12,10 @@ export class SyllabusService {
   constructor(private http: HttpClient) {}
 
   getSyllabus() {
-    return this.http.get<{ data: any[] }>(this.baseUrl);
+    return this.http.get<Temario[]>(this.baseUrl);
   }
 
   getSuperGrupos() {
-    return this.http.get<{ data: any[] }>(`${this.baseUrl}/supergrupos`);
+    return this.http.get<string[]>(`${this.baseUrl}/supergrupos`);
   }
 }
