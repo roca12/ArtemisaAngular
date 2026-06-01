@@ -4,7 +4,6 @@ import { map, Observable } from 'rxjs';
 import { Libro } from '../shared/models/libro.model';
 import { environment } from '../../environments/environment';
 
-
 /**
  * Servicio encargado de gestionar las operaciones relacionadas con los libros.
  */
@@ -21,7 +20,6 @@ export class BookService {
    * @returns Un Observable que emite un arreglo de objetos de tipo Libro.
    */
   getLibros(): Observable<Libro[]> {
-    return this.http
-      .get<Libro[]>(this.baseUrl);
+    return this.http.get<Libro[]>(this.baseUrl);
   }
 }
