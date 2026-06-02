@@ -20,7 +20,7 @@ export class SyllabusService {
    * @returns Un Observable con la colección de temas.
    */
   getSyllabus() {
-    return this.http.get<{ data: Temario[] }>(this.baseUrl);
+    return this.http.get<Temario[]>(this.baseUrl);
   }
 
   /**
@@ -28,6 +28,6 @@ export class SyllabusService {
    * @returns Un Observable con la lista de nombres de supergrupos.
    */
   getSuperGrupos() {
-    return this.http.get<{ data: string[] }>(`${this.baseUrl}/supergrupos`);
+    return this.http.get<string[]>(`${this.baseUrl}/supergrupos`);
   }
 }

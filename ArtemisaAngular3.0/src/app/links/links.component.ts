@@ -36,7 +36,7 @@ export class LinksComponent implements OnInit {
   ngOnInit(): void {
     this.linkService.obtenerLinks().subscribe(
       (res) => {
-        this.links = res.data as Link[];
+        this.links = res as Link[];
         this.loading = false;
       },
       (error) => {

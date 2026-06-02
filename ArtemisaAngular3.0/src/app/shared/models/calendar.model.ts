@@ -1,37 +1,20 @@
-/**
- * Representa la fecha y hora de un evento en Google Calendar.
- */
-export interface GoogleCalendarDateTime {
-  /** Fecha y hora en formato ISO string. */
-  dateTime?: string;
-  /** Fecha sola (YYYY-MM-DD). */
-  date?: string;
-  /** Zona horaria asociada. */
-  timeZone?: string;
-}
-
-/**
- * Representa un ítem o evento individual de la API de Google Calendar.
- */
-export interface GoogleCalendarItem {
-  /** Título o resumen del evento. */
-  summary: string;
-  /** Descripción detallada del evento. */
-  description?: string;
-  /** URL relacionada con el evento. */
+export interface CalendarioEvento {
+  id: string;
+  titulo: string;
+  descripcion?: string;
+  inicio: string;
+  fin: string;
   url?: string;
-  /** Información de inicio del evento. */
-  start: GoogleCalendarDateTime;
-  /** Información de fin del evento. */
-  end: GoogleCalendarDateTime;
+  ubicacion?: string;
 }
 
-/**
- * Representa la respuesta de la API de Google Calendar.
- */
-export interface GoogleCalendar {
-  /** Lista de eventos obtenidos. */
-  items?: GoogleCalendarItem[];
+export interface Calendario {
+  titulo: string;
+  eventos: CalendarioEvento[];
+}
+
+export interface CalendariosResponse {
+  calendarios: Calendario[];
 }
 
 /**

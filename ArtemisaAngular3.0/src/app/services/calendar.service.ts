@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { GoogleCalendar } from '../shared/models/calendar.model';
+import { CalendariosResponse } from '../shared/models/calendar.model';
 
 /**
  * Servicio encargado de la gestión de eventos y datos del calendario.
@@ -24,6 +24,6 @@ export class CalendarService {
    * @returns Un Observable con los datos del calendario.
    */
   obtenerCalendario() {
-    return this.http.get<GoogleCalendar[]>(`${this.baseUrl}`);
+    return this.http.get<CalendariosResponse>(`${this.baseUrl}`);
   }
 }

@@ -167,6 +167,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     this.bookService.getLibros().subscribe({
       next: (data) => {
         this.libros = data;
+        console.log(data);
         this.loading = false;
       },
     });

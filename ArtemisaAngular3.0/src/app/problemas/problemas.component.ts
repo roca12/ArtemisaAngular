@@ -50,7 +50,7 @@ export class ProblemasComponent implements OnInit {
   ngOnInit(): void {
     this.problemService.getProblems().subscribe({
       next: (response) => {
-        this.problems = response.data as Problema[];
+        this.problems = response as Problema[];
         this.loading = false;
       },
       error: (error) => {

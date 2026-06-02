@@ -9,8 +9,9 @@ import { ThemeService } from '../services/theme.service';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 import {
   CalendarEvent,
-  GoogleCalendar,
-  GoogleCalendarItem,
+  Calendario,
+  CalendarioEvento,
+  CalendariosResponse,
 } from '../shared/models/calendar.model';
 
 /**
@@ -55,38 +56,38 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.calendarService
       .obtenerCalendario()
-      .subscribe((res: GoogleCalendar[]) => {
-        this.calendarOptions.events = CalendarComponent.mapearEventos(res);
+      .subscribe((res: CalendariosResponse) => {
+        this.calendarOptions.events = this.mapearEventos(res.calendarios);
         this.loading = false;
       });
   }
 
   /**
-   * Mapea una lista de objetos GoogleCalendar a una lista plana de CalendarEvent.
-   * @param calendarios Arreglo de calendarios obtenidos de la API.
-   * @returns Arreglo de eventos formateados para FullCalendar.
+   * Mapea todos los eventos de una lista de calendarios al formato de FullCalendar.
+   * @param calendarios Lista de calendarios con sus eventos.
+   * @returns Arreglo plano de CalendarEvent listos para renderizar.
    */
-  private static mapearEventos(calendarios: GoogleCalendar[]): CalendarEvent[] {
+  private mapearEventos(calendarios: Calendario[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
-      (calendario.items ?? []).map((item) =>
-        CalendarComponent.mapearItem(item),
+      (calendario.eventos ?? []).map((evento) =>
+        CalendarComponent.mapearEvento(evento),
       ),
     );
   }
 
   /**
-   * Mapea un ítem individual de Google Calendar a un objeto CalendarEvent.
-   * @param item El ítem de Google Calendar a transformar.
-   * @returns Un objeto de tipo CalendarEvent.
+   * Mapea un evento de Google Calendar al formato esperado por FullCalendar.
+   * @param evento Evento del calendario en formato interno.
+   * @returns Objeto CalendarEvent listo para renderizar en FullCalendar.
    */
-  private static mapearItem(item: GoogleCalendarItem): CalendarEvent {
+  private static mapearEvento(evento: CalendarioEvento): CalendarEvent {
     return {
-      title: item.summary,
-      start: item.start?.dateTime ?? item.start?.date,
-      end: item.end?.dateTime ?? item.end?.date,
-      url: item.url,
+      title: evento.titulo,
+      start: evento.inicio,
+      end: evento.fin,
+      url: evento.url,
       color: '#1F5E67',
-      description: item.description,
+      description: evento.descripcion,
     };
   }
 }
