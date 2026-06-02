@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Libro } from '../shared/models/libro.model';
 import { environment } from '../../environments/environment';
 
@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class BookService {
-  private readonly baseUrl = environment.apiUrl + 'libro/';
+  private readonly baseUrl = `${environment.apiUrl}libro/`;
 
   constructor(private http: HttpClient) {}
 

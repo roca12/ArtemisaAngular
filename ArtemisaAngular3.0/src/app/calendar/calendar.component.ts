@@ -68,6 +68,11 @@ export class CalendarComponent implements OnInit {
     );
   }
 
+  /**
+   * Mapea un evento de Google Calendar al formato esperado por FullCalendar.
+   * @param evento Evento del calendario en formato interno.
+   * @returns Objeto CalendarEvent listo para renderizar en FullCalendar.
+   */
   private mapearEvento(evento: CalendarioEvento): CalendarEvent {
     return {
       title: evento.titulo,
