@@ -62,9 +62,14 @@ export class CalendarComponent implements OnInit {
       });
   }
 
+  /**
+   * Mapea todos los eventos de una lista de calendarios al formato de FullCalendar.
+   * @param calendarios Lista de calendarios con sus eventos.
+   * @returns Arreglo plano de CalendarEvent listos para renderizar.
+   */
   private mapearEventos(calendarios: Calendario[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
-      (calendario.eventos ?? []).map((evento) => this.mapearEvento(evento)),
+      (calendario.eventos ?? []).map((evento) => CalendarComponent.mapearEvento(evento)),
     );
   }
 
@@ -73,7 +78,7 @@ export class CalendarComponent implements OnInit {
    * @param evento Evento del calendario en formato interno.
    * @returns Objeto CalendarEvent listo para renderizar en FullCalendar.
    */
-  private mapearEvento(evento: CalendarioEvento): CalendarEvent {
+  private static mapearEvento(evento: CalendarioEvento): CalendarEvent {
     return {
       title: evento.titulo,
       start: evento.inicio,
