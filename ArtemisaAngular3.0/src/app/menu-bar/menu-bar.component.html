@@ -26,15 +26,30 @@
         </div>
       </div>
 
-      <ng-container *ngIf="isLoggedIn(); else authButtons">
-        <button class="profile-button">
+      <ng-container *ngIf="isLoggedIn(); else authDropdown">
+        <button class="auth-btn profile-active" routerLink="/perfil">
           <ion-icon name="person-circle-outline"></ion-icon>
-          Perfil
+          <span>Perfil</span>
         </button>
       </ng-container>
-      <ng-template #authButtons>
-        <button routerLink="/login">Iniciar Sesión</button>
-        <button routerLink="/registrar">Registrar</button>
+      <ng-template #authDropdown>
+        <div ngbDropdown placement="bottom-end">
+          <button class="auth-btn" ngbDropdownToggle>
+            <ion-icon name="person-outline"></ion-icon>
+            <span>Cuenta</span>
+            <ion-icon name="chevron-down-outline" class="chevron"></ion-icon>
+          </button>
+          <div ngbDropdownMenu class="auth-menu">
+            <button ngbDropdownItem routerLink="/login">
+              <ion-icon name="log-in-outline"></ion-icon>
+              Iniciar Sesión
+            </button>
+            <button ngbDropdownItem routerLink="/registrar">
+              <ion-icon name="person-add-outline"></ion-icon>
+              Registrar
+            </button>
+          </div>
+        </div>
       </ng-template>
     </nav>
   </div>

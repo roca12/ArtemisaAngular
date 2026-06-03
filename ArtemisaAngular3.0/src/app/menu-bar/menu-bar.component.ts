@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeService } from '../services/theme.service';
 import { AuthService } from '../services/auth.service';
 
@@ -15,7 +16,7 @@ import { AuthService } from '../services/auth.service';
  */
 @Component({
   selector: 'app-menu-bar',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, NgbDropdownModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.css',
