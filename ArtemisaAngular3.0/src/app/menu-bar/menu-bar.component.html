@@ -26,13 +26,16 @@
         </div>
       </div>
 
-      <!--
-      <button *ngIf = "isLoggedIn()" >
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <a routerLink="/perfil">Perfil</a>
-      </button>
-      <button *ngIf = "!isLoggedIn()" routerLink="/login">Iniciar Sesión</button>
-      -->
+      <ng-container *ngIf="isLoggedIn(); else authButtons">
+        <button class="profile-button">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          Perfil
+        </button>
+      </ng-container>
+      <ng-template #authButtons>
+        <button routerLink="/login">Iniciar Sesión</button>
+        <button routerLink="/registrar">Registrar</button>
+      </ng-template>
     </nav>
   </div>
 </div>

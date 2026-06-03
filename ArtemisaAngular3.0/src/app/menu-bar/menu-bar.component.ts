@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ThemeService } from '../services/theme.service';
 import { AuthService } from '../services/auth.service';
 
@@ -14,7 +15,7 @@ import { AuthService } from '../services/auth.service';
  */
 @Component({
   selector: 'app-menu-bar',
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.css',
