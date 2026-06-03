@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../shared/models/usuario.model';
 import { environment } from '../../environments/environment';
+import {RegisterRequest} from '../shared/dto/RegisterRequest';
+import {EmailVerificationResponse} from '../shared/dto/EmailVerificationResponse';
 
 /**
  * Servicio encargado de gestionar las operaciones relacionadas con los usuarios, como registro e inicio de sesión.
@@ -21,11 +23,22 @@ export class UserService {
 
   /**
    * Registra un nuevo usuario en el sistema.
-   * @param user El objeto Usuario con la información de registro.
    * @returns Un Observable con la respuesta de la creación.
+   * @param req Register request with user info
    */
-  register(user: Usuario) {
-    return this.http.post(`${this.baseUrl}crear`, user);
+  register(req:RegisterRequest) {
+    return this.http.post(`${this.baseUrl}crear`, req);
+  }
+
+  /**
+   * Verifica el correo del usuario mediante un código.
+   * @param correo Correo electrónico del usuario.
+   * @param codigo Código de verificación del correo.
+   */
+  verifyEmail(correo:string , codigo:string){
+    return this.http.post<EmailVerificationResponse>(
+      `${this.baseUrl}verificar-correo`, {correo, codigo}
+    );
   }
 
   /**
@@ -40,4 +53,8 @@ export class UserService {
       contrasenia,
     });
   }
+
+  cambiarCorreo(){}
+
+  cambiarContrasenia(){}
 }
