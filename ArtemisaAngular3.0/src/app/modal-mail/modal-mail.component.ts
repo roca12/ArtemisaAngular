@@ -57,6 +57,7 @@ export class ModalMailComponent {
     this.userService.verifyEmail(this.correo, codigo).subscribe({
       next: () => {
         this.cargando = false;
+        localStorage.removeItem('pendingVerification');
         this.toastr.success('Correo verificado exitosamente.', 'Éxito');
         this.activeModal.close('verified');
       },
