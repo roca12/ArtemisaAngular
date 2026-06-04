@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
@@ -11,7 +11,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxCaptchaModule, ReCaptcha2Component } from 'ngx-captcha';
-import { RecaptchaService } from '../services/recaptcha.service';
 import { ModalMailComponent } from '../modal-mail/modal-mail.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -33,7 +32,7 @@ import { RegisterRequest } from '../shared/dto/RegisterRequest';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   showPassword = false;
   loading = false;
   errorMsg: string | null = null;
@@ -45,13 +44,20 @@ export class RegisterComponent {
   constructor(
     public theme: ThemeService,
     private fb: FormBuilder,
-    private recaptchaService: RecaptchaService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     private userService: UserService,
     private router: Router,
   ) {
     this.initiaizeForm();
+  }
+
+  ngOnInit() {
+    const pending = localStorage.getItem('pendingVerification');
+    if (pending) {
+      const { correo, usuario } = JSON.parse(pending);
+      this.openVerificationModal(correo, usuario);
+    }
   }
 
   initiaizeForm() {
@@ -94,19 +100,16 @@ export class RegisterComponent {
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
-  onRecaptchaResolved(token: string) {
-    this.recaptchaService.verificarCaptcha(token).subscribe({
-      next: (data) => {
-        if (!data) {
-          this.toastr.error(
-            'Captcha inválido. Por favor, inténtalo de nuevo.',
-            'Error',
-          );
-          this.captchaElem?.resetCaptcha();
-          this.registerForm.get('recaptcha')?.setValue('');
-        }
-      },
-    });
+  onRecaptchaResolved(_token: string) {}
+
+  private openVerificationModal(correo: string, usuario: string) {
+    const modalRef = this.modalService.open(ModalMailComponent);
+    modalRef.componentInstance.correo = correo;
+    modalRef.componentInstance.usuario = usuario;
+    modalRef.result.then(
+      () => { this.router.navigate(['/login']); },
+      () => {},
+    );
   }
 
   register() {
@@ -116,7 +119,7 @@ export class RegisterComponent {
     const req: RegisterRequest = {
       usuario: username,
       correo: email,
-      contrasena: password,
+      contrasenia: password,
       verificacion: '',
     };
 
@@ -126,13 +129,11 @@ export class RegisterComponent {
     this.userService.register(req).subscribe({
       next: () => {
         this.loading = false;
-        const modalRef = this.modalService.open(ModalMailComponent);
-        modalRef.componentInstance.correo = email;
-        modalRef.componentInstance.usuario = username;
-        modalRef.result.then(
-          () => { this.router.navigate(['/login']); },
-          () => {},
+        localStorage.setItem(
+          'pendingVerification',
+          JSON.stringify({ correo: email, usuario: username }),
         );
+        this.openVerificationModal(email, username);
       },
       error: (err) => {
         this.loading = false;
