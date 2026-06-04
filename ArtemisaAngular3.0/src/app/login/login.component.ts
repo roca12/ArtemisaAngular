@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
         modalRef.componentInstance.correo = correo;
         modalRef.componentInstance.usuario = usuario;
         modalRef.result.then(
-          () => { void this.router.navigate(['/login']); },
+          () => { localStorage.removeItem('pendingVerification'); },
           () => {},
         );
       } else {
