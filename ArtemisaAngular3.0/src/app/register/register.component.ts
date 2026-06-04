@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgxCaptchaModule, ReCaptcha2Component } from 'ngx-captcha';
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { ModalMailComponent } from '../modal-mail/modal-mail.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -39,8 +39,6 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup = new FormGroup({});
 
-  @ViewChild('captchaRef') captchaElem?: ReCaptcha2Component;
-
   constructor(
     public theme: ThemeService,
     private fb: FormBuilder,
@@ -53,10 +51,19 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pending = localStorage.getItem('pendingVerification');
-    if (pending) {
-      const { correo, usuario } = JSON.parse(pending);
-      this.openVerificationModal(correo, usuario);
+    try {
+      const raw = localStorage.getItem('pendingVerification');
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      const correo: string = parsed?.correo;
+      const usuario: string = parsed?.usuario;
+      if (correo && usuario) {
+        this.openVerificationModal(correo, usuario);
+      } else {
+        localStorage.removeItem('pendingVerification');
+      }
+    } catch {
+      localStorage.removeItem('pendingVerification');
     }
   }
 
@@ -100,6 +107,7 @@ export class RegisterComponent implements OnInit {
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
+  // server-side captcha endpoint not available; client-side widget validation is sufficient
   onRecaptchaResolved(_token: string) {}
 
   private openVerificationModal(correo: string, usuario: string) {
