@@ -13,20 +13,25 @@
 ### Task 1: Guardar estado y reabrir modal en RegisterComponent
 
 **Files:**
+
 - Modify: `src/app/register/register.component.ts`
 
 - [ ] **Step 1: Agregar `OnInit` al import de `@angular/core` y añadir `implements OnInit`**
 
 Reemplazar la línea:
+
 ```typescript
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from "@angular/core";
 ```
+
 Por:
+
 ```typescript
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from "@angular/core";
 ```
 
 Y cambiar la declaración de la clase:
+
 ```typescript
 export class RegisterComponent implements OnInit {
 ```
@@ -34,6 +39,7 @@ export class RegisterComponent implements OnInit {
 - [ ] **Step 2: Extraer la lógica de apertura del modal a un método privado**
 
 Agregar este método dentro de la clase, antes de `register()`:
+
 ```typescript
 private openVerificationModal(correo: string, usuario: string) {
   const modalRef = this.modalService.open(ModalMailComponent);
@@ -49,6 +55,7 @@ private openVerificationModal(correo: string, usuario: string) {
 - [ ] **Step 3: Agregar `ngOnInit` que comprueba el estado pendiente**
 
 Agregar este método después del constructor:
+
 ```typescript
 ngOnInit() {
   const pending = localStorage.getItem('pendingVerification');
@@ -62,6 +69,7 @@ ngOnInit() {
 - [ ] **Step 4: Actualizar el método `register()` para guardar en localStorage y usar el método extraído**
 
 Reemplazar el bloque `next` dentro de `this.userService.register(req).subscribe(...)`:
+
 ```typescript
 next: () => {
   this.loading = false;
@@ -78,6 +86,7 @@ next: () => {
 ```bash
 npx tsc --noEmit
 ```
+
 Esperado: sin errores de compilación.
 
 - [ ] **Step 6: Commit**
@@ -92,30 +101,36 @@ git commit -m "feat(register): persistir verificación pendiente en localStorage
 ### Task 2: Comprobar estado pendiente en LoginComponent
 
 **Files:**
+
 - Modify: `src/app/login/login.component.ts`
 
 - [ ] **Step 1: Agregar `OnInit` al import de `@angular/core`**
 
 Reemplazar:
+
 ```typescript
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from "@angular/core";
 ```
+
 Por:
+
 ```typescript
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from "@angular/core";
 ```
 
 - [ ] **Step 2: Agregar imports de `NgbModal` y `ModalMailComponent`**
 
 Agregar al bloque de imports existente:
+
 ```typescript
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalMailComponent } from '../modal-mail/modal-mail.component';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ModalMailComponent } from "../modal-mail/modal-mail.component";
 ```
 
 - [ ] **Step 3: Inyectar `NgbModal` en el constructor**
 
 El constructor actualmente termina en:
+
 ```typescript
   constructor(
     public theme: ThemeService,
@@ -127,7 +142,9 @@ El constructor actualmente termina en:
     private router: Router,
   ) {
 ```
+
 Cambiarlo a:
+
 ```typescript
   constructor(
     public theme: ThemeService,
@@ -144,10 +161,13 @@ Cambiarlo a:
 - [ ] **Step 4: Añadir `implements OnInit` a la clase**
 
 Cambiar:
+
 ```typescript
 export class LoginComponent {
 ```
+
 Por:
+
 ```typescript
 export class LoginComponent implements OnInit {
 ```
@@ -155,6 +175,7 @@ export class LoginComponent implements OnInit {
 - [ ] **Step 5: Agregar `ngOnInit` que comprueba el estado pendiente**
 
 Agregar después del constructor:
+
 ```typescript
 ngOnInit() {
   const pending = localStorage.getItem('pendingVerification');
@@ -176,6 +197,7 @@ ngOnInit() {
 ```bash
 npx tsc --noEmit
 ```
+
 Esperado: sin errores de compilación.
 
 - [ ] **Step 7: Commit**
@@ -190,11 +212,13 @@ git commit -m "feat(login): abrir modal de verificación pendiente al cargar si 
 ### Task 3: Limpiar localStorage en ModalMailComponent al verificar con éxito
 
 **Files:**
+
 - Modify: `src/app/modal-mail/modal-mail.component.ts`
 
 - [ ] **Step 1: Agregar `localStorage.removeItem` en el handler de éxito de `enviarCodigo`**
 
 Localizar el bloque `next` dentro de `this.userService.verifyEmail(...).subscribe(...)` (línea 58):
+
 ```typescript
 next: () => {
   this.cargando = false;
@@ -202,7 +226,9 @@ next: () => {
   this.activeModal.close('verified');
 },
 ```
+
 Reemplazarlo por:
+
 ```typescript
 next: () => {
   this.cargando = false;
@@ -217,6 +243,7 @@ next: () => {
 ```bash
 npx tsc --noEmit
 ```
+
 Esperado: sin errores de compilación.
 
 - [ ] **Step 3: Commit**

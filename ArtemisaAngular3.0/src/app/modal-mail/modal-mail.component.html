@@ -52,7 +52,11 @@
     </p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-secondary" (click)="reenviarCodigo()" [disabled]="cargando">
+    <button
+      class="btn btn-secondary"
+      (click)="reenviarCodigo()"
+      [disabled]="cargando"
+    >
       Reenviar código
     </button>
     <button
@@ -60,7 +64,7 @@
       (click)="enviarCodigo()"
       [disabled]="validationForm.invalid || cargando"
     >
-      {{ cargando ? 'Verificando...' : 'Verificar' }}
+      {{ cargando ? "Verificando..." : "Verificar" }}
     </button>
   </div>
 </div>
