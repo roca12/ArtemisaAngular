@@ -107,39 +107,45 @@ export class HomeComponent implements AfterViewInit, OnInit {
     // peek() en lugar de dequeue() — lee el top sin mutar la cola cacheada
     const bestReco = this.filterRecomendations(cadena).peek();
 
-    if (bestReco) {
-      // Limpia el input para que la próxima búsqueda empiece desde cero
-      if (this.inputRef) this.inputRef.nativeElement.value = '';
+    if (bestReco) this.navegarA(bestReco);
+  }
 
-      switch (bestReco.type) {
-        case 'libro': {
-          const libro = this.libros.find((l) => l.titulo === bestReco.data);
-          if (libro) this.verPdf(libro.archivoPdf);
-          break;
-        }
-        case 'tema-problema':
-        case 'dificultad-problema':
-        case 'juez-problema':
-        case 'subtema-problema':
-        case 'problema': {
-          this.router.navigate(['/problemas'], {
-            queryParams: { filtro: bestReco.data },
-          });
-          break;
-        }
-        case 'grupo-temario': {
-          this.irATemario(bestReco.data);
-          break;
-        }
-        case 'tema': {
-          this.router.navigate(['/temario'], {
-            queryParams: { filtro: bestReco.data },
-          });
-          break;
-        }
-        default:
-          break;
+  /**
+   * Redirige al usuario al destino correspondiente a una recomendación concreta.
+   * @param reco La recomendación a la que se debe navegar.
+   */
+  navegarA(reco: Recomendation): void {
+    // Limpia el input para que la próxima búsqueda empiece desde cero
+    if (this.inputRef) this.inputRef.nativeElement.value = '';
+
+    switch (reco.type) {
+      case 'libro': {
+        const libro = this.libros.find((l) => l.titulo === reco.data);
+        if (libro) this.verPdf(libro.archivoPdf);
+        break;
       }
+      case 'tema-problema':
+      case 'dificultad-problema':
+      case 'juez-problema':
+      case 'subtema-problema':
+      case 'problema': {
+        this.router.navigate(['/problemas'], {
+          queryParams: { filtro: reco.data },
+        });
+        break;
+      }
+      case 'grupo-temario': {
+        this.irATemario(reco.data);
+        break;
+      }
+      case 'tema': {
+        this.router.navigate(['/temario'], {
+          queryParams: { filtro: reco.data },
+        });
+        break;
+      }
+      default:
+        break;
     }
   }
 
@@ -156,8 +162,9 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param reco La recomendación seleccionada.
    */
   autocompletar(reco: Recomendation): void {
-    if (this.inputRef) this.inputRef.nativeElement.value = reco.data;
-    this.search(reco.data);
+    // Navega directamente al reco clicado en lugar de re-buscar por texto,
+    // que devolvería el de mayor score (peek) y no necesariamente el clicado.
+    this.navegarA(reco);
   }
 
   /**
