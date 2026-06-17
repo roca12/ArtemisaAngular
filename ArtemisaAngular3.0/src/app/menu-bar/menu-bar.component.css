@@ -133,7 +133,9 @@
   font-size: 0.9rem;
   cursor: pointer;
   margin-right: 1.5rem;
-  transition: background 0.25s ease, color 0.25s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .auth-btn ion-icon {

@@ -115,7 +115,9 @@ export class RegisterComponent implements OnInit {
     modalRef.componentInstance.correo = correo;
     modalRef.componentInstance.usuario = usuario;
     modalRef.result.then(
-      () => { void this.router.navigate(['/login']); },
+      () => {
+        void this.router.navigate(['/login']);
+      },
       () => {},
     );
   }
@@ -148,7 +150,8 @@ export class RegisterComponent implements OnInit {
         if (err.status === 409) {
           this.errorMsg = 'El usuario o correo ya está registrado.';
         } else {
-          this.errorMsg = 'Error al registrarse. Por favor, inténtalo de nuevo.';
+          this.errorMsg =
+            'Error al registrarse. Por favor, inténtalo de nuevo.';
         }
       },
     });
