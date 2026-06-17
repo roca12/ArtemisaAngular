@@ -41,11 +41,11 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     public theme: ThemeService,
-    private fb: FormBuilder,
-    private modalService: NgbModal,
-    private toastr: ToastrService,
-    private userService: UserService,
-    private router: Router,
+    private readonly fb: FormBuilder,
+    private readonly modalService: NgbModal,
+    private readonly toastr: ToastrService,
+    private readonly userService: UserService,
+    private readonly router: Router,
   ) {
     this.initiaizeForm();
   }

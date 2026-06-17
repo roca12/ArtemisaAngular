@@ -238,10 +238,6 @@
   min-height: 100px;
 }
 
-.dark .texto {
-  color: var(--text-muted);
-}
-
 pre {
   white-space: pre-wrap;
   word-break: break-word;

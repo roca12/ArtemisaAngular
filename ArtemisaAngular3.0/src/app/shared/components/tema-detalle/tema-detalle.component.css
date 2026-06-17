@@ -1,0 +1,11 @@
+/* En modo oscuro el raíz del componente recibe la clase .dark (patrón del
+   proyecto). La regla global `.dark` de styles.css le pondría fondo
+   --background-dark (#1e1e1e), más oscuro que los acordeones; lo igualamos a su
+   mismo gris (--border-dark) y mantenemos el texto claro para que sea legible. */
+.dark {
+  background-color: var(--border-dark);
+}
+
+.dark .texto {
+  color: var(--text-light);
+}
