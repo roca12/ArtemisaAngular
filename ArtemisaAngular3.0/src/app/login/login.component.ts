@@ -85,7 +85,6 @@ export class LoginComponent implements OnInit {
         modalRef.componentInstance.usuario = usuario;
         modalRef.result.then(
           () => { localStorage.removeItem('pendingVerification'); },
-          () => {},
         );
       } else {
         localStorage.removeItem('pendingVerification');
