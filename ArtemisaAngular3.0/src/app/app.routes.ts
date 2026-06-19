@@ -6,6 +6,8 @@ import { LinksComponent } from './links/links.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { authGuardGuard } from './shared/guards/auth-guard.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,4 +18,5 @@ export const routes: Routes = [
   { path: 'problemas', component: ProblemasComponent },
   { path: 'links', component: LinksComponent },
   { path: 'calendar', component: CalendarComponent },
+  { path: 'perfil', component: ProfileComponent, canActivate: [authGuardGuard] },
 ];

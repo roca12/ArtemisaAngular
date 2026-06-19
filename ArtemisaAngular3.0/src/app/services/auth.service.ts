@@ -1,53 +1,53 @@
-import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { Observable, catchError, map, of, tap } from 'rxjs';
+import { UserService } from './user.service';
+import { ProfileUser } from '../shared/models/profile-user.model';
 
 /**
- * Servicio encargado de la gestión de autenticación y manejo de tokens JWT.
+ * Servicio de autenticación.
+ *
+ * La sesión se mantiene con una cookie `token` httpOnly que fija el backend, NO
+ * accesible desde JavaScript. Por eso el estado de sesión del front no se deriva
+ * de un token local, sino que se verifica contra el backend (`GET /usuario/me`)
+ * y se cachea en una señal reactiva.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  /** Clave para el almacenamiento del token. */
-  private readonly TOKEN_KEY = 'token';
+  private readonly userService = inject(UserService);
+
+  /** Usuario autenticado actual; `null` si no hay sesión (o aún no se verificó). */
+  private readonly _usuario = signal<ProfileUser | null>(null);
+  readonly usuario = this._usuario.asReadonly();
+
+  /** `true` si hay un usuario en sesión. Reactivo. */
+  readonly isLoggedIn = computed(() => this._usuario() !== null);
 
   /**
-   * Guarda el token de autenticación en el almacenamiento local.
-   * @param token El token JWT a guardar.
+   * Verifica la sesión contra el backend y actualiza el estado local.
+   * @returns `true` si la sesión es válida; `false` ante 401/error de red.
    */
-  guardarToken(token: string) {
-    localStorage.setItem(this.TOKEN_KEY, token);
+  cargarSesion(): Observable<boolean> {
+    return this.userService.me().pipe(
+      tap((res) => this._usuario.set(res.usuario)),
+      map(() => true),
+      catchError(() => {
+        this._usuario.set(null);
+        return of(false);
+      }),
+    );
   }
 
   /**
-   * Obtiene el token de autenticación del almacenamiento local.
-   * @returns El token JWT si existe, de lo contrario null.
+   * Cierra la sesión en el servidor (limpia la cookie) y borra el estado local.
+   * El estado local se limpia siempre, aunque la petición falle.
    */
-  obtenerToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
-  }
-
-  /**
-   * Verifica si el token de autenticación ha expirado.
-   * @returns true si el token ha expirado o no existe, false en caso contrario.
-   */
-  tokenExpirado(): boolean {
-    const token = this.obtenerToken();
-    if (!token) return true;
-    try {
-      const decodedToken = jwtDecode<{ exp?: number }>(token);
-      if (!decodedToken.exp) return true;
-      const currentTime = Math.floor(Date.now() / 1000);
-      return decodedToken.exp < currentTime;
-    } catch {
-      return true;
-    }
-  }
-
-  /**
-   * Elimina el token de autenticación del almacenamiento local para cerrar la sesión.
-   */
-  cerrarSesion() {
-    localStorage.removeItem(this.TOKEN_KEY);
+  cerrarSesion(): Observable<boolean> {
+    return this.userService.logout().pipe(
+      map(() => true),
+      catchError(() => of(false)),
+      tap(() => this._usuario.set(null)),
+    );
   }
 }

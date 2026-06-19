@@ -117,12 +117,13 @@ export class LoginComponent implements OnInit {
       );
       return;
     }
-    console.log('Formulario de inicio de sesión:', usuario, contrasenia);
     this.userService.login(usuario, contrasenia).subscribe({
-      next: (data) => {
-        this.authService.guardarToken(data.token);
+      next: () => {
+        // La sesión queda establecida por la cookie httpOnly que fija el servidor.
+        // Hidratamos el estado de sesión y luego navegamos para que la barra
+        // superior refleje al usuario autenticado.
         this.toastr.success('Inicio de sesión exitoso.', 'Éxito');
-        this.router.navigate(['']);
+        this.authService.cargarSesion().subscribe(() => this.router.navigate(['']));
       },
       error: (error) => {
         if (error.status === 401) {

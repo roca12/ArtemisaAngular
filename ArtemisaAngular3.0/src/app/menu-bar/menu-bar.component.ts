@@ -37,19 +37,18 @@ export class MenuBarComponent implements OnInit {
   }
 
   /**
-   * Ciclo de vida OnInit: Verifica si el token ha expirado al cargar el componente y cierra la sesión si es necesario.
+   * Ciclo de vida OnInit: verifica la sesión vigente contra el backend
+   * (cookie httpOnly) e hidrata el estado para reflejarlo en la barra.
    */
   ngOnInit(): void {
-    if (this.authService.tokenExpirado()) {
-      this.authService.cerrarSesion();
-    }
+    this.authService.cargarSesion().subscribe();
   }
 
   /**
-   * Verifica si el usuario ha iniciado sesión.
-   * @returns true si existe un token de autenticación, false en caso contrario.
+   * Indica si hay un usuario en sesión. Reactivo (señal del AuthService).
+   * @returns true si hay sesión, false en caso contrario.
    */
   isLoggedIn(): boolean {
-    return this.authService.obtenerToken() !== null;
+    return this.authService.isLoggedIn();
   }
 }
