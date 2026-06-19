@@ -16,7 +16,8 @@
   <!-- Estado: listo -->
   <div class="page" *ngIf="status() === 'ready' && usuario() as u">
     <div class="breadcrumb">
-      <span>Mi cuenta</span><span class="sep">/</span><span>Perfil de usuario</span>
+      <span>Mi cuenta</span><span class="sep">/</span
+      ><span>Perfil de usuario</span>
     </div>
 
     <div class="layout">
@@ -55,7 +56,7 @@
             [disabled]="loggingOut()"
           >
             <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
-            {{ loggingOut() ? 'Cerrando…' : 'Cerrar sesión' }}
+            {{ loggingOut() ? "Cerrando…" : "Cerrar sesión" }}
           </button>
         </nav>
       </aside>
@@ -67,8 +68,9 @@
           <div class="panel-head">
             <h2>Cuenta</h2>
             <p>
-              Tu información de contacto y de acceso. El nombre de usuario y el rol
-              los gestiona la plataforma; el correo puedes actualizarlo aquí.
+              Tu información de contacto y de acceso. El nombre de usuario y el
+              rol los gestiona la plataforma; el correo puedes actualizarlo
+              aquí.
             </p>
           </div>
 
@@ -103,7 +105,11 @@
                     <span class="mono">{{ u.correo }}</span>
                   </div>
                   <div class="editing">
-                    <form [formGroup]="emailForm" (ngSubmit)="onSubmitEmail()" novalidate>
+                    <form
+                      [formGroup]="emailForm"
+                      (ngSubmit)="onSubmitEmail()"
+                      novalidate
+                    >
                       <input
                         class="f-input"
                         type="email"
@@ -143,7 +149,7 @@
                     (click)="onSubmitEmail()"
                     [disabled]="savingEmail() || emailForm.invalid"
                   >
-                    {{ savingEmail() ? 'Guardando…' : 'Guardar' }}
+                    {{ savingEmail() ? "Guardando…" : "Guardar" }}
                   </button>
                   <button
                     type="button"
@@ -191,7 +197,9 @@
             >
               <!-- Nueva contraseña -->
               <div class="field-row pw-row">
-                <div class="f-label"><div class="name">Nueva contraseña</div></div>
+                <div class="f-label">
+                  <div class="name">Nueva contraseña</div>
+                </div>
                 <div class="f-value">
                   <div class="pw-input-wrap">
                     <input
@@ -205,33 +213,57 @@
                       type="button"
                       class="pw-toggle"
                       (click)="toggle('nueva')"
-                      [attr.aria-label]="show.nueva ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+                      [attr.aria-label]="
+                        show.nueva ? 'Ocultar contraseña' : 'Mostrar contraseña'
+                      "
                     >
-                      <fa-icon [icon]="show.nueva ? faEyeSlash : faEye"></fa-icon>
+                      <fa-icon
+                        [icon]="show.nueva ? faEyeSlash : faEye"
+                      ></fa-icon>
                     </button>
                   </div>
                   <div class="pw-strength">
                     <div
                       class="bar"
-                      [class.on1]="passwordScore(passwordForm.get('nuevaContrasenia')?.value || '') >= 1"
+                      [class.on1]="
+                        passwordScore(
+                          passwordForm.get('nuevaContrasenia')?.value || ''
+                        ) >= 1
+                      "
                     ></div>
                     <div
                       class="bar"
-                      [class.on2]="passwordScore(passwordForm.get('nuevaContrasenia')?.value || '') >= 2"
+                      [class.on2]="
+                        passwordScore(
+                          passwordForm.get('nuevaContrasenia')?.value || ''
+                        ) >= 2
+                      "
                     ></div>
                     <div
                       class="bar"
-                      [class.on3]="passwordScore(passwordForm.get('nuevaContrasenia')?.value || '') >= 3"
+                      [class.on3]="
+                        passwordScore(
+                          passwordForm.get('nuevaContrasenia')?.value || ''
+                        ) >= 3
+                      "
                     ></div>
                   </div>
                   <div class="pw-meta">
                     <span>{{
-                      (passwordForm.get('nuevaContrasenia')?.value || '').length
-                        ? strengthLabel(passwordScore(passwordForm.get('nuevaContrasenia')?.value || ''))
-                        : 'Seguridad de la contraseña'
+                      (passwordForm.get("nuevaContrasenia")?.value || "").length
+                        ? strengthLabel(
+                            passwordScore(
+                              passwordForm.get("nuevaContrasenia")?.value || ""
+                            )
+                          )
+                        : "Seguridad de la contraseña"
                     }}</span>
                     <span
-                      >{{ (passwordForm.get('nuevaContrasenia')?.value || '').length }} / 8</span
+                      >{{
+                        (passwordForm.get("nuevaContrasenia")?.value || "")
+                          .length
+                      }}
+                      / 8</span
                     >
                   </div>
                 </div>
@@ -239,7 +271,9 @@
 
               <!-- Confirmar contraseña -->
               <div class="field-row pw-row">
-                <div class="f-label"><div class="name">Confirmar contraseña</div></div>
+                <div class="f-label">
+                  <div class="name">Confirmar contraseña</div>
+                </div>
                 <div class="f-value">
                   <div class="pw-input-wrap">
                     <input
@@ -253,14 +287,23 @@
                       type="button"
                       class="pw-toggle"
                       (click)="toggle('confirmar')"
-                      [attr.aria-label]="show.confirmar ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+                      [attr.aria-label]="
+                        show.confirmar
+                          ? 'Ocultar contraseña'
+                          : 'Mostrar contraseña'
+                      "
                     >
-                      <fa-icon [icon]="show.confirmar ? faEyeSlash : faEye"></fa-icon>
+                      <fa-icon
+                        [icon]="show.confirmar ? faEyeSlash : faEye"
+                      ></fa-icon>
                     </button>
                   </div>
                   <div
                     class="f-error show"
-                    *ngIf="passwordForm.errors?.['mismatch'] && passwordForm.get('confirmar')?.touched"
+                    *ngIf="
+                      passwordForm.errors?.['mismatch'] &&
+                      passwordForm.get('confirmar')?.touched
+                    "
                   >
                     Las contraseñas no coinciden.
                   </div>
@@ -276,7 +319,7 @@
                 (click)="onSubmitPassword()"
                 [disabled]="savingPassword() || passwordForm.invalid"
               >
-                {{ savingPassword() ? 'Guardando…' : 'Actualizar contraseña' }}
+                {{ savingPassword() ? "Guardando…" : "Actualizar contraseña" }}
               </button>
             </div>
           </div>

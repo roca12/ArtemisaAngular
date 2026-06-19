@@ -23,7 +23,10 @@ describe('UserService (endpoints de perfil)', () => {
   afterEach(() => httpMock.verify());
 
   it('me() hace GET a usuario/me', () => {
-    const fake = { ok: true, usuario: { usuario: 'juan123', correo: 'a@b.c', rol: 'admin' } };
+    const fake = {
+      ok: true,
+      usuario: { usuario: 'juan123', correo: 'a@b.c', rol: 'admin' },
+    };
     let result: unknown;
     service.me().subscribe((r) => (result = r));
 
@@ -38,7 +41,10 @@ describe('UserService (endpoints de perfil)', () => {
 
     const req = httpMock.expectOne(`${base}cambiar-correo`);
     expect(req.request.method).toBe('PATCH');
-    expect(req.request.body).toEqual({ nombreDeUsuario: 'juan123', correo: 'nuevo@b.c' });
+    expect(req.request.body).toEqual({
+      nombreDeUsuario: 'juan123',
+      correo: 'nuevo@b.c',
+    });
     req.flush({ ok: true });
   });
 

@@ -7,7 +7,11 @@ import { ProfileComponent } from './profile.component';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 
-const USUARIO = { usuario: 'juan123', correo: 'juan@ejemplo.com', rol: 'admin' };
+const USUARIO = {
+  usuario: 'juan123',
+  correo: 'juan@ejemplo.com',
+  rol: 'admin',
+};
 
 describe('ProfileComponent', () => {
   let fixture: ComponentFixture<ProfileComponent>;
@@ -23,9 +27,14 @@ describe('ProfileComponent', () => {
       'cambiarCorreo',
       'cambiarContrasenia',
     ]);
-    authSpy = jasmine.createSpyObj<AuthService>('AuthService', ['cerrarSesion']);
+    authSpy = jasmine.createSpyObj<AuthService>('AuthService', [
+      'cerrarSesion',
+    ]);
     routerSpy = jasmine.createSpyObj<Router>('Router', ['navigate']);
-    toastrSpy = jasmine.createSpyObj<ToastrService>('ToastrService', ['success', 'error']);
+    toastrSpy = jasmine.createSpyObj<ToastrService>('ToastrService', [
+      'success',
+      'error',
+    ]);
 
     userSpy.me.and.returnValue(meResult as any);
 
@@ -78,18 +87,27 @@ describe('ProfileComponent', () => {
     userSpy.cambiarCorreo.and.returnValue(of({ ok: true }) as any);
     component.emailForm.get('correo')!.setValue('nuevo@ejemplo.com');
     component.onSubmitEmail();
-    expect(userSpy.cambiarCorreo).toHaveBeenCalledWith('juan123', 'nuevo@ejemplo.com');
+    expect(userSpy.cambiarCorreo).toHaveBeenCalledWith(
+      'juan123',
+      'nuevo@ejemplo.com',
+    );
     expect(toastrSpy.success).toHaveBeenCalled();
   });
 
   it('muestra el message de la API si cambiar correo falla', () => {
     setup();
     userSpy.cambiarCorreo.and.returnValue(
-      throwError(() => ({ status: 400, error: { ok: false, message: 'Correo en uso' } })) as any,
+      throwError(() => ({
+        status: 400,
+        error: { ok: false, message: 'Correo en uso' },
+      })) as any,
     );
     component.emailForm.get('correo')!.setValue('nuevo@ejemplo.com');
     component.onSubmitEmail();
-    expect(toastrSpy.error).toHaveBeenCalledWith('Correo en uso', jasmine.any(String));
+    expect(toastrSpy.error).toHaveBeenCalledWith(
+      'Correo en uso',
+      jasmine.any(String),
+    );
   });
 
   it('cambiar contraseña usa el usuario de /usuario/me y resetea el form', () => {
@@ -98,7 +116,10 @@ describe('ProfileComponent', () => {
     component.passwordForm.get('nuevaContrasenia')!.setValue('Secreta1!');
     component.passwordForm.get('confirmar')!.setValue('Secreta1!');
     component.onSubmitPassword();
-    expect(userSpy.cambiarContrasenia).toHaveBeenCalledWith('juan123', 'Secreta1!');
+    expect(userSpy.cambiarContrasenia).toHaveBeenCalledWith(
+      'juan123',
+      'Secreta1!',
+    );
     expect(component.passwordForm.get('nuevaContrasenia')!.value).toBeNull();
   });
 

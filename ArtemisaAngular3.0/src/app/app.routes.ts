@@ -18,5 +18,9 @@ export const routes: Routes = [
   { path: 'problemas', component: ProblemasComponent },
   { path: 'links', component: LinksComponent },
   { path: 'calendar', component: CalendarComponent },
-  { path: 'perfil', component: ProfileComponent, canActivate: [authGuardGuard] },
+  {
+    path: 'perfil',
+    component: ProfileComponent,
+    canActivate: [authGuardGuard],
+  },
 ];

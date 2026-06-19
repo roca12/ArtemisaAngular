@@ -75,8 +75,7 @@ export class ProfileComponent implements OnInit {
   readonly initials = computed(() => {
     const u = this.usuario()?.usuario ?? '';
     const parts = u.split(/[._\-\s]+/).filter(Boolean);
-    const chars =
-      parts.length >= 2 ? parts[0][0] + parts[1][0] : u.slice(0, 2);
+    const chars = parts.length >= 2 ? parts[0][0] + parts[1][0] : u.slice(0, 2);
     return chars.toUpperCase() || '?';
   });
 
@@ -151,7 +150,10 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         this.savingEmail.set(false);
-        this.toastr.error(this.mensajeError(err), 'No se pudo cambiar el correo');
+        this.toastr.error(
+          this.mensajeError(err),
+          'No se pudo cambiar el correo',
+        );
       },
     });
   }
@@ -173,7 +175,10 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         this.savingPassword.set(false);
-        this.toastr.error(this.mensajeError(err), 'No se pudo cambiar la contraseña');
+        this.toastr.error(
+          this.mensajeError(err),
+          'No se pudo cambiar la contraseña',
+        );
       },
     });
   }
