@@ -8,7 +8,10 @@ describe('AuthService (sesión por cookie)', () => {
   let userSpy: jasmine.SpyObj<UserService>;
 
   function configure() {
-    userSpy = jasmine.createSpyObj<UserService>('UserService', ['me', 'logout']);
+    userSpy = jasmine.createSpyObj<UserService>('UserService', [
+      'me',
+      'logout',
+    ]);
     TestBed.configureTestingModule({
       providers: [{ provide: UserService, useValue: userSpy }],
     });
@@ -48,7 +51,12 @@ describe('AuthService (sesión por cookie)', () => {
 
   it('cerrarSesion() llama a logout y limpia el estado', () => {
     configure();
-    userSpy.me.and.returnValue(of({ ok: true, usuario: { usuario: 'j', correo: 'a@b.c', rol: 'admin' } }));
+    userSpy.me.and.returnValue(
+      of({
+        ok: true,
+        usuario: { usuario: 'j', correo: 'a@b.c', rol: 'admin' },
+      }),
+    );
     userSpy.logout.and.returnValue(of({ ok: true }));
     service.cargarSesion().subscribe();
     expect(service.isLoggedIn()).toBeTrue();
