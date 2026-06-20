@@ -37,7 +37,7 @@
 .ring-outer {
   inset: 0;
   border-width: 4px;
-  border-top-color: var(--secondary-dark, #b47b3e);
+  border-top-color: var(--secondary-dark, #c08c4a);
   animation-duration: 1.1s;
   animation-direction: normal;
 }
@@ -45,7 +45,7 @@
 .ring-middle {
   inset: 10px;
   border-width: 3px;
-  border-top-color: var(--teal-dark, #4a9fa5);
+  border-top-color: var(--teal-dark, #1f5e67);
   animation-duration: 0.85s;
   animation-direction: reverse;
 }
@@ -53,7 +53,7 @@
 .ring-inner {
   inset: 20px;
   border-width: 3px;
-  border-top-color: var(--primary-dark, #5a6578);
+  border-top-color: var(--primary-dark, #d95c00);
   animation-duration: 1.35s;
   animation-direction: normal;
 }
@@ -64,36 +64,36 @@
   border-radius: 50%;
   background: linear-gradient(
     135deg,
-    var(--secondary-dark, #b47b3e),
-    var(--olive-dark, #8a9a60)
+    var(--secondary-dark, #c08c4a),
+    var(--olive-dark, #6a7852)
   );
   animation: pulse 1.1s ease-in-out infinite;
 }
 
 .dark .ring-outer {
-  border-top-color: var(--blue-dark, #4a5568);
+  border-top-color: var(--blue-dark, #3a5c6a);
 }
 
 .dark .ring-middle {
-  border-top-color: var(--teal-dark, #4a9fa5);
+  border-top-color: var(--teal-dark, #1f5e67);
 }
 
 .dark .ring-inner {
-  border-top-color: var(--secondary-dark, #b47b3e);
+  border-top-color: var(--secondary-dark, #c08c4a);
 }
 
 .dark .ring-dot {
   background: linear-gradient(
     135deg,
-    var(--blue-dark, #4a5568),
-    var(--teal-dark, #4a9fa5)
+    var(--blue-dark, #3a5c6a),
+    var(--teal-dark, #1f5e67)
   );
 }
 
 .spinner-message {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.9rem;
-  color: var(--primary-dark, #5a6578);
+  color: var(--primary-dark, #d95c00);
   letter-spacing: 0.05em;
   margin: 0;
   animation: fade 1.4s ease-in-out infinite alternate;

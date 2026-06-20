@@ -24,18 +24,18 @@
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: var(--background-dark, #2d2d2d);
+  background: var(--background-dark, #1e1e1e);
   border-radius: 6px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: var(--blue-dark, #4a5568);
+  background: var(--blue-dark, #3a5c6a);
   border-radius: 6px;
-  border: 2px solid var(--background-dark, #2d2d2d);
+  border: 2px solid var(--background-dark, #1e1e1e);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark, #5a6578);
+  background: var(--primary-dark, #d95c00);
 }
 
 /* Firefox Scrollbar */
@@ -45,7 +45,7 @@
 }
 
 .dark * {
-  scrollbar-color: var(--blue-dark, #4a5568) var(--background-dark, #2d2d2d);
+  scrollbar-color: var(--blue-dark, #3a5c6a) var(--background-dark, #1e1e1e);
 }
 
 #theme-container {
@@ -176,15 +176,15 @@
 }
 
 .dark .main-container::-webkit-scrollbar-track {
-  background: var(--border-dark, #3a3a3a);
+  background: var(--border-dark, #303030);
 }
 
 .dark .main-container::-webkit-scrollbar-thumb {
-  background: var(--blue-dark, #4a5568);
+  background: var(--blue-dark, #3a5c6a);
 }
 
 .dark .main-container::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark, #5a6578);
+  background: var(--primary-dark, #d95c00);
 }
 
 .main-container h3 {
@@ -279,10 +279,10 @@ pre::-webkit-scrollbar-thumb {
   min-height: 120px;
   max-height: 500px;
   margin: 1rem 0;
-  border: 1px solid #333;
+  border: 1px solid var(--border-dark);
   border-radius: 8px;
-  background: #1e1e1e;
-  color: #fff;
+  background: var(--background-dark);
+  color: var(--text-light);
   font-size: clamp(0.9rem, 1.8vw, 1.06rem);
   overflow: auto;
 }
@@ -294,17 +294,17 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .editor-container::-webkit-scrollbar-track {
-  background: #2d2d2d;
+  background: var(--surface-dark);
   border-radius: 4px;
 }
 
 .editor-container::-webkit-scrollbar-thumb {
-  background: #555;
+  background: var(--border-strong-dark);
   border-radius: 4px;
 }
 
 .editor-container::-webkit-scrollbar-thumb:hover {
-  background: #777;
+  background: var(--blue-dark);
 }
 
 .logo-image {

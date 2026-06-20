@@ -24,18 +24,18 @@
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: var(--background-dark, #2d2d2d);
+  background: var(--background-dark, #1e1e1e);
   border-radius: 6px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: var(--blue-dark, #4a5568);
+  background: var(--blue-dark, #3a5c6a);
   border-radius: 6px;
-  border: 2px solid var(--background-dark, #2d2d2d);
+  border: 2px solid var(--background-dark, #1e1e1e);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark, #5a6578);
+  background: var(--primary-dark, #d95c00);
 }
 
 /* Firefox Scrollbar */
@@ -45,7 +45,7 @@
 }
 
 .dark * {
-  scrollbar-color: var(--blue-dark, #4a5568) var(--background-dark, #2d2d2d);
+  scrollbar-color: var(--blue-dark, #3a5c6a) var(--background-dark, #1e1e1e);
 }
 
 .cards-container {
@@ -226,7 +226,7 @@ a {
 }
 
 .dark .book-card {
-  background: #232323;
+  background: var(--surface-dark);
   color: var(--text-light);
   box-shadow: 0 8px 16px rgba(70, 70, 70, 0.4);
 }

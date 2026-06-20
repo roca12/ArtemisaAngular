@@ -102,13 +102,17 @@
 
 /* Fondo de las celdas del calendario */
 .dark .fc-daygrid-day {
-  background: #23243c !important;
+  background: var(--surface-dark) !important;
   border-color: var(--border-dark) !important;
 }
 
 /* Día actual resaltado */
 .dark .fc-day-today {
-  background: linear-gradient(105deg, #2c2c40 0%, #3a5c6a 100%) !important;
+  background: linear-gradient(
+    105deg,
+    var(--surface-2-dark) 0%,
+    var(--blue-dark) 100%
+  ) !important;
   border-radius: 10px;
   color: var(--primary-dark) !important;
 }

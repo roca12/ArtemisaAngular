@@ -37,6 +37,11 @@ html::-webkit-scrollbar {
   --blue-dark: #3a5c6a;
   --teal-dark: #1f5e67;
   --border-dark: #303030;
+
+  /* Escala de superficies del modo oscuro (elevación sobre --background-dark) */
+  --surface-dark: #252525; /* tarjetas/paneles elevados */
+  --surface-2-dark: #2b2b2b; /* segunda elevación / hover */
+  --border-strong-dark: #3d3d3d; /* bordes y realces más marcados */
 }
 
 html,
