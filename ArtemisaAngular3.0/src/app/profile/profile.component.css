@@ -7,24 +7,24 @@
 }
 
 .pf-paper {
-  /* Acentos de marca */
-  --accent: #c0492b;
+  /* Acentos de marca (paleta global del proyecto) */
+  --accent: #d95c00;
   --accent-ink: #ffffff;
-  --teal: #3e7c76;
-  --amber: #c68a3c;
+  --teal: #1f5e67;
+  --amber: #c08c4a;
 
-  /* Paper & ink (claro) — fondo blanco con tarjetas en blanco hueso */
+  /* Modo claro — neutro, coherente con el resto de la app */
   --bg: #ffffff;
-  --bg-tint: #f3f1ec;
-  --surface: #faf9f6;
-  --surface-2: #f4f2ed;
-  --ink: #2c2823;
-  --ink-soft: #5b5448;
-  --muted: #8d8474;
-  --line: #ebe7df;
-  --line-strong: #ddd8cd;
+  --bg-tint: #f4f4f4;
+  --surface: #ffffff;
+  --surface-2: #f6f6f6;
+  --ink: #1e1e1e;
+  --ink-soft: #4a4a4a;
+  --muted: #8a8a8a;
+  --line: #e4e4e4;
+  --line-strong: #d0d0d0;
   --field: #ffffff;
-  --shadow: 28 24 16;
+  --shadow: 20 20 20;
 
   --font-display: "Spectral", Georgia, serif;
   --font-ui: "Public Sans", system-ui, -apple-system, sans-serif;
@@ -48,18 +48,22 @@
 }
 
 .pf-paper.dark {
-  --bg: #1d1a16;
-  --bg-tint: #242019;
-  --surface: #28241e;
-  --surface-2: #2f2a23;
-  --ink: #efe7d8;
-  --ink-soft: #c9bea9;
-  --muted: #9a9080;
-  --line: #3a342b;
-  --line-strong: #4a4338;
-  --field: #221e19;
+  /* Modo oscuro — misma paleta que el resto del proyecto
+     (--background-dark #1e1e1e, --text-light, --text-muted, --border-dark) */
+  --bg: #1e1e1e;
+  --bg-tint: #262626;
+  --surface: #252525;
+  --surface-2: #2b2b2b;
+  --ink: #f0f0f0;
+  --ink-soft: #cfcfcf;
+  --muted: #b0b0b0;
+  --line: #303030;
+  --line-strong: #3d3d3d;
+  --field: #262626;
   --shadow: 0 0 0;
-  --accent-ink: #1d1a16;
+  /* Naranja de marca más vivo sobre fondo oscuro (igual que el splash) */
+  --accent: #ef6024;
+  --accent-ink: #ffffff;
 }
 
 .pf-paper *,
@@ -536,7 +540,7 @@
   background: var(--line);
 }
 .pw-strength .bar.on1 {
-  background: #d08a3c;
+  background: var(--accent);
 }
 .pw-strength .bar.on2 {
   background: var(--amber);
