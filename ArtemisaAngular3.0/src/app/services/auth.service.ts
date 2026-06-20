@@ -19,6 +19,7 @@ export class AuthService {
 
   /** Usuario autenticado actual; `null` si no hay sesión (o aún no se verificó). */
   private readonly _usuario = signal<ProfileUser | null>(null);
+  /** Señal de solo lectura con el usuario autenticado actual. */
   readonly usuario = this._usuario.asReadonly();
 
   /** `true` si hay un usuario en sesión. Reactivo. */

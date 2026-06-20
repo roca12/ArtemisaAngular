@@ -45,11 +45,17 @@ type ProfileTab = 'cuenta' | 'seguridad';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
+  /** Servicio de usuario para consultar y actualizar la cuenta. */
   private readonly userService = inject(UserService);
+  /** Servicio de autenticación para cerrar sesión. */
   private readonly authService = inject(AuthService);
+  /** Router para redirigir (p. ej. a /login). */
   private readonly router = inject(Router);
+  /** Servicio de notificaciones. */
   private readonly toastr = inject(ToastrService);
+  /** Constructor de formularios reactivos. */
   private readonly fb = inject(FormBuilder);
+  /** Servicio de tema (claro/oscuro), expuesto a la plantilla. */
   readonly theme = inject(ThemeService);
 
   /** Estado de la carga inicial. */
@@ -93,6 +99,7 @@ export class ProfileComponent implements OnInit {
     { validators: ProfileComponent.passwordsMatch },
   );
 
+  /** Ciclo de vida OnInit: carga el perfil del usuario autenticado. */
   ngOnInit(): void {
     this.cargarPerfil();
   }
@@ -116,6 +123,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Cambia la pestaña activa del panel principal.
+   * @param tab Pestaña a activar ('cuenta' o 'seguridad').
+   */
   setTab(tab: ProfileTab): void {
     this.activeTab.set(tab);
   }
@@ -192,6 +203,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Alterna la visibilidad de un campo de contraseña.
+   * @param field Campo a alternar ('nueva' o 'confirmar').
+   */
   toggle(field: 'nueva' | 'confirmar'): void {
     this.show[field] = !this.show[field];
   }
@@ -208,6 +223,11 @@ export class ProfileComponent implements OnInit {
     return score;
   }
 
+  /**
+   * Devuelve la etiqueta textual de fuerza de la contraseña.
+   * @param score Puntaje de fuerza (0–3).
+   * @returns Etiqueta correspondiente ('Débil', 'Aceptable', 'Buena', 'Excelente').
+   */
   strengthLabel(score: number): string {
     return ['Débil', 'Aceptable', 'Buena', 'Excelente'][score] ?? 'Débil';
   }
@@ -225,9 +245,14 @@ export class ProfileComponent implements OnInit {
     return nueva === confirmar ? null : { mismatch: true };
   }
 
+  /** Icono de "ojo" para mostrar la contraseña. */
   protected readonly faEye = faEye;
+  /** Icono de "ojo tachado" para ocultar la contraseña. */
   protected readonly faEyeSlash = faEyeSlash;
+  /** Icono de usuario para la pestaña de cuenta. */
   protected readonly faUser = faUser;
+  /** Icono de candado para la pestaña de seguridad. */
   protected readonly faLock = faLock;
+  /** Icono de cerrar sesión. */
   protected readonly faArrowRightFromBracket = faArrowRightFromBracket;
 }

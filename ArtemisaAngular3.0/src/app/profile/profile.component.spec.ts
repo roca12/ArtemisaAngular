@@ -36,7 +36,7 @@ describe('ProfileComponent', () => {
       'error',
     ]);
 
-    userSpy.me.and.returnValue(meResult as any);
+    userSpy.me.and.returnValue(meResult);
 
     TestBed.configureTestingModule({
       imports: [ProfileComponent],
@@ -60,7 +60,7 @@ describe('ProfileComponent', () => {
 
   it('precarga el correo actual en el formulario de correo', () => {
     setup();
-    expect(component.emailForm.get('correo')!.value).toBe('juan@ejemplo.com');
+    expect(component.emailForm.controls.correo.value).toBe('juan@ejemplo.com');
   });
 
   it('con 401 redirige a /login y no muestra el perfil', () => {
@@ -77,15 +77,15 @@ describe('ProfileComponent', () => {
 
   it('detecta contraseñas que no coinciden', () => {
     setup();
-    component.passwordForm.get('nuevaContrasenia')!.setValue('Secreta1!');
-    component.passwordForm.get('confirmar')!.setValue('otra');
+    component.passwordForm.controls.nuevaContrasenia.setValue('Secreta1!');
+    component.passwordForm.controls.confirmar.setValue('otra');
     expect(component.passwordForm.errors?.['mismatch']).toBeTrue();
   });
 
   it('cambiar correo usa el usuario de /usuario/me, no un input', () => {
     setup();
-    userSpy.cambiarCorreo.and.returnValue(of({ ok: true }) as any);
-    component.emailForm.get('correo')!.setValue('nuevo@ejemplo.com');
+    userSpy.cambiarCorreo.and.returnValue(of({ ok: true }));
+    component.emailForm.controls.correo.setValue('nuevo@ejemplo.com');
     component.onSubmitEmail();
     expect(userSpy.cambiarCorreo).toHaveBeenCalledWith(
       'juan123',
@@ -100,9 +100,9 @@ describe('ProfileComponent', () => {
       throwError(() => ({
         status: 400,
         error: { ok: false, message: 'Correo en uso' },
-      })) as any,
+      })),
     );
-    component.emailForm.get('correo')!.setValue('nuevo@ejemplo.com');
+    component.emailForm.controls.correo.setValue('nuevo@ejemplo.com');
     component.onSubmitEmail();
     expect(toastrSpy.error).toHaveBeenCalledWith(
       'Correo en uso',
@@ -112,15 +112,15 @@ describe('ProfileComponent', () => {
 
   it('cambiar contraseña usa el usuario de /usuario/me y resetea el form', () => {
     setup();
-    userSpy.cambiarContrasenia.and.returnValue(of({ ok: true }) as any);
-    component.passwordForm.get('nuevaContrasenia')!.setValue('Secreta1!');
-    component.passwordForm.get('confirmar')!.setValue('Secreta1!');
+    userSpy.cambiarContrasenia.and.returnValue(of({ ok: true }));
+    component.passwordForm.controls.nuevaContrasenia.setValue('Secreta1!');
+    component.passwordForm.controls.confirmar.setValue('Secreta1!');
     component.onSubmitPassword();
     expect(userSpy.cambiarContrasenia).toHaveBeenCalledWith(
       'juan123',
       'Secreta1!',
     );
-    expect(component.passwordForm.get('nuevaContrasenia')!.value).toBeNull();
+    expect(component.passwordForm.controls.nuevaContrasenia.value).toBeNull();
   });
 
   it('cerrar sesión llama a cerrarSesion y redirige a /login', () => {

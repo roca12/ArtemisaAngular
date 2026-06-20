@@ -14,10 +14,17 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { ModalMailComponent } from '../modal-mail/modal-mail.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
 import { RegisterRequest } from '../shared/dto/RegisterRequest';
 
+/**
+ * Componente de registro de usuarios.
+ *
+ * Construye y valida el formulario de alta, envía la petición al backend y, tras
+ * un registro exitoso, abre el modal de verificación por correo. Si existe una
+ * verificación pendiente en `localStorage`, la reanuda al iniciar.
+ */
 @Component({
   selector: 'app-register',
   imports: [
@@ -33,23 +40,38 @@ import { RegisterRequest } from '../shared/dto/RegisterRequest';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
+  /** Controla la visibilidad del campo de contraseña. */
   showPassword = false;
+  /** Indica si hay una petición de registro en curso. */
   loading = false;
+  /** Mensaje de error a mostrar al usuario, o `null` si no hay error. */
   errorMsg: string | null = null;
 
+  /** Formulario reactivo de registro. */
   registerForm: FormGroup = new FormGroup({});
 
+  /**
+   * Inyecta dependencias e inicializa el formulario de registro.
+   * @param theme Servicio de tema (claro/oscuro), expuesto a la plantilla.
+   * @param fb Constructor de formularios reactivos.
+   * @param modalService Servicio para abrir el modal de verificación.
+   * @param userService Servicio de usuario para la petición de registro.
+   * @param router Router para la navegación tras la verificación.
+   */
   constructor(
     public theme: ThemeService,
     private readonly fb: FormBuilder,
     private readonly modalService: NgbModal,
-    private readonly toastr: ToastrService,
     private readonly userService: UserService,
     private readonly router: Router,
   ) {
     this.initiaizeForm();
   }
 
+  /**
+   * Al iniciar, reanuda una verificación pendiente guardada en `localStorage`
+   * abriendo el modal correspondiente; limpia el estado si los datos son inválidos.
+   */
   ngOnInit() {
     try {
       const raw = localStorage.getItem('pendingVerification');
@@ -67,6 +89,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  /**
+   * Crea el formulario reactivo con sus validadores (usuario, correo, contraseña,
+   * confirmación y reCAPTCHA), incluyendo el validador de coincidencia de contraseñas.
+   */
   initiaizeForm() {
     this.registerForm = this.fb.group(
       {
@@ -97,19 +123,35 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /** Alterna la visibilidad del campo de contraseña. */
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
+  /**
+   * Validador de grupo que comprueba que la contraseña y su confirmación coincidan.
+   * @param formGroup Grupo de formulario que contiene `password` y `passwordConfirm`.
+   * @returns `null` si coinciden, o `{ passwordsMismatch: true }` si no.
+   */
   static passwordsMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('passwordConfirm')?.value;
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
+  /**
+   * Callback del widget de reCAPTCHA. No realiza validación en servidor: la
+   * comprobación del widget en cliente es suficiente para este flujo.
+   * @param _token Token generado por reCAPTCHA (no utilizado).
+   */
   // server-side captcha endpoint not available; client-side widget validation is sufficient
   onRecaptchaResolved(_token: string) {}
 
+  /**
+   * Abre el modal de verificación por correo y, al confirmarse, navega a `/login`.
+   * @param correo Correo del usuario a verificar.
+   * @param usuario Nombre de usuario a verificar.
+   */
   private openVerificationModal(correo: string, usuario: string) {
     const modalRef = this.modalService.open(ModalMailComponent);
     modalRef.componentInstance.correo = correo;
@@ -122,6 +164,11 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /**
+   * Envía la petición de registro al backend si el formulario es válido.
+   * Al tener éxito, guarda la verificación pendiente y abre el modal; ante un
+   * error, muestra un mensaje (409 = usuario/correo ya registrado).
+   */
   register() {
     if (this.registerForm.invalid) return;
 
@@ -157,6 +204,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  /** Icono de "ojo" para mostrar la contraseña. */
   protected readonly faEye = faEye;
+  /** Icono de "ojo tachado" para ocultar la contraseña. */
   protected readonly faEyeSlash = faEyeSlash;
 }

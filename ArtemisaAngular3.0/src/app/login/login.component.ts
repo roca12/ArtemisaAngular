@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
    * @param authService Servicio para gestión de autenticación y tokens.
    * @param toastr Servicio para mostrar notificaciones al usuario.
    * @param router Servicio de enrutamiento.
+   * @param modalService Servicio para abrir el modal de verificación de correo.
    */
   constructor(
     public theme: ThemeService,
@@ -169,6 +170,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /** Icono de "ojo" para mostrar la contraseña. */
   protected readonly faEye = faEye;
+  /** Icono de "ojo tachado" para ocultar la contraseña. */
   protected readonly faEyeSlash = faEyeSlash;
 }

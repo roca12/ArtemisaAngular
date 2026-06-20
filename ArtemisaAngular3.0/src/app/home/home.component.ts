@@ -298,15 +298,26 @@ export class HomeComponent implements AfterViewInit, OnInit {
     return result;
   }
 
+  /** Icono de ancho de texto, usado en la plantilla. */
   protected readonly faTextWidth = faTextWidth;
+  /** Icono de escuela, usado en la plantilla. */
   protected readonly faSchool = faSchool;
+  /** Icono de lupa para la búsqueda. */
   protected readonly faMagnifyingGlass = faMagnifyingGlass;
+  /** Icono de ordenamiento ascendente. */
   protected readonly faArrowUpShortWide = faArrowUpShortWide;
+  /** Icono de binario, usado en la plantilla. */
   protected readonly faSquareBinary = faSquareBinary;
+  /** Icono de más/menos, usado en la plantilla. */
   protected readonly faPlusMinus = faPlusMinus;
+  /** Icono de regla y lápiz, usado en la plantilla. */
   protected readonly faPenRuler = faPenRuler;
+  /** Icono de diagrama de proyecto, usado en la plantilla. */
   protected readonly faDiagramProject = faDiagramProject;
+  /** Icono de comparación de código, usado en la plantilla. */
   protected readonly faCodeCompare = faCodeCompare;
+  /** Icono de código, usado en la plantilla. */
   protected readonly faCode = faCode;
+  /** Referencia al objeto `Array` global, expuesta a la plantilla. */
   protected readonly Array = Array;
 }

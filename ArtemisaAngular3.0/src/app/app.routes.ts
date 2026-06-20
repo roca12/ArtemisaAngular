@@ -9,6 +9,11 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authGuardGuard } from './shared/guards/auth-guard.guard';
 
+/**
+ * Tabla de rutas de la aplicación.
+ * Asocia cada `path` con su componente. La ruta `perfil` está protegida por
+ * `authGuardGuard`, que exige sesión vigente y redirige a `/login` si no la hay.
+ */
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },

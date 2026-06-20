@@ -13,6 +13,10 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ThemeService } from '../services/theme.service';
 import { CommonModule } from '@angular/common';
 
+/**
+ * Modal de verificación de correo: solicita el código de 4 dígitos enviado al
+ * usuario, lo valida contra el backend y permite reenviarlo.
+ */
 @Component({
   selector: 'app-modal-mail',
   imports: [FormsModule, ReactiveFormsModule, ToastrModule, CommonModule],
@@ -20,13 +24,27 @@ import { CommonModule } from '@angular/common';
   styleUrl: './modal-mail.component.css',
 })
 export class ModalMailComponent {
+  /** Correo al que se envió el código de verificación. */
   @Input() correo = '';
+  /** Nombre de usuario asociado a la verificación. */
   @Input() usuario = '';
 
+  /** Indica si hay una petición de verificación en curso. */
   cargando = false;
+  /** Mensaje de error a mostrar, o `null` si no hay error. */
   errorMsg: string | null = null;
+  /** Formulario reactivo con los cuatro dígitos del código. */
   validationForm: FormGroup = new FormGroup({});
 
+  /**
+   * Inyecta dependencias e inicializa el formulario de verificación.
+   * @param activeModal Referencia al modal activo, para cerrarlo o descartarlo.
+   * @param mailService Servicio de correo para reenviar el código.
+   * @param fb Constructor de formularios reactivos.
+   * @param userService Servicio de usuario para verificar el código.
+   * @param toastr Servicio de notificaciones.
+   * @param theme Servicio de tema (claro/oscuro), expuesto a la plantilla.
+   */
   constructor(
     public activeModal: NgbActiveModal,
     private mailService: MailService,
@@ -38,6 +56,7 @@ export class ModalMailComponent {
     this.initializeForm();
   }
 
+  /** Crea el formulario reactivo con los cuatro dígitos del código. */
   initializeForm() {
     this.validationForm = this.fb.group({
       num1: ['', Validators.required],
@@ -47,6 +66,10 @@ export class ModalMailComponent {
     });
   }
 
+  /**
+   * Envía el código ingresado para verificar el correo. Si es válido cierra el
+   * modal con `'verified'`; si no, muestra el mensaje de error correspondiente.
+   */
   enviarCodigo() {
     if (this.validationForm.invalid) return;
 
@@ -72,6 +95,7 @@ export class ModalMailComponent {
     });
   }
 
+  /** Solicita al backend reenviar el código de verificación al correo. */
   reenviarCodigo() {
     this.mailService.reenviarCodigo(this.correo, this.usuario).subscribe({
       next: () => {

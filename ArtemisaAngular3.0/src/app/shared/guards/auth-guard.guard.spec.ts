@@ -1,7 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn, Router, UrlTree } from '@angular/router';
-import { of } from 'rxjs';
-import { firstValueFrom } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+import { firstValueFrom, Observable, of } from 'rxjs';
 
 import { authGuardGuard } from './auth-guard.guard';
 import { AuthService } from '../../services/auth.service';
@@ -21,19 +25,22 @@ describe('authGuardGuard', () => {
     });
   }
 
+  function run(): Observable<boolean | UrlTree> {
+    return executeGuard(
+      {} as ActivatedRouteSnapshot,
+      {} as RouterStateSnapshot,
+    ) as Observable<boolean | UrlTree>;
+  }
+
   it('permite el paso con sesión válida', async () => {
     configure(true);
-    const result = await firstValueFrom(
-      executeGuard({} as any, {} as any) as any,
-    );
+    const result = await firstValueFrom(run());
     expect(result).toBeTrue();
   });
 
   it('redirige a /login (UrlTree) sin sesión', async () => {
     configure(false);
-    const result = await firstValueFrom(
-      executeGuard({} as any, {} as any) as any,
-    );
+    const result = await firstValueFrom(run());
     expect(result instanceof UrlTree).toBeTrue();
     expect((result as UrlTree).toString()).toBe('/login');
   });
