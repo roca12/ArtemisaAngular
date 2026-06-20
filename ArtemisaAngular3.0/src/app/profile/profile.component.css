@@ -26,9 +26,9 @@
   --field: #ffffff;
   --shadow: 20 20 20;
 
-  --font-display: "Spectral", Georgia, serif;
-  --font-ui: "Public Sans", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: var(--font-base);
+  --font-ui: var(--font-base);
+  --font-mono: var(--font-base);
 
   --pad-card: 26px;
   --gap: 22px;

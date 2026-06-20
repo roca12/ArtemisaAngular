@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-base);
 }
 
 body,
@@ -25,6 +25,9 @@ html::-webkit-scrollbar {
 }
 
 :root {
+  /* Fuente base de toda la biblioteca */
+  --font-base: "Inter", "Helvetica Neue", Arial, sans-serif;
+
   --background-dark: #1e1e1e;
   --text-light: #f0f0f0;
   --text-muted: #b0b0b0;
@@ -42,5 +45,5 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: var(--font-base);
 }
