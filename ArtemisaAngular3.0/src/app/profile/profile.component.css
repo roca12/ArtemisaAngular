@@ -298,6 +298,8 @@
 
 .card {
   background: var(--surface);
+  /* color explícito: evita que Bootstrap (.card) imponga su texto oscuro */
+  color: var(--ink);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: 0 1px 0 rgb(var(--shadow) / 0.04);
@@ -323,6 +325,7 @@
 }
 .card-body {
   padding: var(--pad-card);
+  color: var(--ink);
 }
 
 /* ---------- Filas editables ---------- */
