@@ -106,7 +106,7 @@ describe('ProfileComponent', () => {
     component.onSubmitEmail();
     expect(toastrSpy.error).toHaveBeenCalledWith(
       'Correo en uso',
-      jasmine.any(String),
+      'No se pudo cambiar el correo',
     );
   });
 
