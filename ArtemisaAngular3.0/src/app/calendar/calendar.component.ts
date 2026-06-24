@@ -69,7 +69,9 @@ export class CalendarComponent implements OnInit {
    */
   private mapearEventos(calendarios: Calendario[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
-      (calendario.eventos ?? []).map((evento) => CalendarComponent.mapearEvento(evento)),
+      (calendario.eventos ?? []).map((evento) =>
+        CalendarComponent.mapearEvento(evento),
+      ),
     );
   }
 
