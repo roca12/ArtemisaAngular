@@ -117,7 +117,6 @@
             [useGlobalDomain]="false"
             [theme]="theme.isDark() ? 'dark' : 'light'"
             formControlName="recaptcha"
-            (success)="onRecaptchaResolved($event)"
           ></ngx-recaptcha2>
         </div>
         <div *ngIf="errorMsg" class="text-danger text-center">

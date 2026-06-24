@@ -79,10 +79,13 @@ export class ProfileComponent implements OnInit {
 
   /** Iniciales para el avatar (derivadas del nombre de usuario). */
   readonly initials = computed(() => {
-    const u = this.usuario()?.usuario ?? '';
-    const parts = u.split(/[._\-\s]+/).filter(Boolean);
-    const chars = parts.length >= 2 ? parts[0][0] + parts[1][0] : u.slice(0, 2);
-    return chars.toUpperCase() || '?';
+    const nombreUsuario = this.usuario()?.usuario ?? '';
+    const partesNombre = nombreUsuario.split(/[._\-\s]+/).filter(Boolean);
+    const iniciales =
+      partesNombre.length >= 2
+        ? partesNombre[0][0] + partesNombre[1][0]
+        : nombreUsuario.slice(0, 2);
+    return iniciales.toUpperCase() || '?';
   });
 
   /** Formulario de cambio de correo. */
@@ -108,13 +111,13 @@ export class ProfileComponent implements OnInit {
   cargarPerfil(): void {
     this.status.set('loading');
     this.userService.me().subscribe({
-      next: (res) => {
-        this.usuario.set(res.usuario);
-        this.emailForm.get('correo')!.setValue(res.usuario.correo);
+      next: (respuesta) => {
+        this.usuario.set(respuesta.usuario);
+        this.emailForm.controls.correo.setValue(respuesta.usuario.correo);
         this.status.set('ready');
       },
-      error: (err) => {
-        if (err?.status === 401) {
+      error: (error) => {
+        if (error?.status === 401) {
           this.router.navigate(['/login']);
         } else {
           this.status.set('error');
@@ -133,36 +136,36 @@ export class ProfileComponent implements OnInit {
 
   /** Abre la edición inline del correo con el valor actual. */
   startEditEmail(): void {
-    this.emailForm.get('correo')!.setValue(this.usuario()?.correo ?? '');
+    this.emailForm.controls.correo.setValue(this.usuario()?.correo ?? '');
     this.editingEmail.set(true);
   }
 
   /** Cancela la edición y restablece el valor actual. */
   cancelEditEmail(): void {
-    this.emailForm.get('correo')!.setValue(this.usuario()?.correo ?? '');
+    this.emailForm.controls.correo.setValue(this.usuario()?.correo ?? '');
     this.editingEmail.set(false);
   }
 
   /** Envía el cambio de correo. Tras éxito, recarga /usuario/me. */
   onSubmitEmail(): void {
-    const u = this.usuario();
-    if (!u || this.emailForm.invalid) {
+    const usuarioActual = this.usuario();
+    if (!usuarioActual || this.emailForm.invalid) {
       this.emailForm.markAllAsTouched();
       return;
     }
-    const correo = this.emailForm.get('correo')!.value!;
+    const correo = this.emailForm.controls.correo.value ?? '';
     this.savingEmail.set(true);
-    this.userService.cambiarCorreo(u.usuario, correo).subscribe({
+    this.userService.cambiarCorreo(usuarioActual.usuario, correo).subscribe({
       next: () => {
         this.savingEmail.set(false);
         this.editingEmail.set(false);
         this.toastr.success('Correo actualizado.', 'Éxito');
         this.cargarPerfil();
       },
-      error: (err) => {
+      error: (error) => {
         this.savingEmail.set(false);
         this.toastr.error(
-          this.mensajeError(err),
+          this.mensajeError(error),
           'No se pudo cambiar el correo',
         );
       },
@@ -171,27 +174,29 @@ export class ProfileComponent implements OnInit {
 
   /** Envía el cambio de contraseña. Tras éxito, limpia el formulario. */
   onSubmitPassword(): void {
-    const u = this.usuario();
-    if (!u || this.passwordForm.invalid) {
+    const usuarioActual = this.usuario();
+    if (!usuarioActual || this.passwordForm.invalid) {
       this.passwordForm.markAllAsTouched();
       return;
     }
-    const nueva = this.passwordForm.get('nuevaContrasenia')!.value!;
+    const nuevaContrasenia = this.passwordForm.controls.nuevaContrasenia.value ?? '';
     this.savingPassword.set(true);
-    this.userService.cambiarContrasenia(u.usuario, nueva).subscribe({
-      next: () => {
-        this.savingPassword.set(false);
-        this.toastr.success('Contraseña actualizada.', 'Éxito');
-        this.passwordForm.reset();
-      },
-      error: (err) => {
-        this.savingPassword.set(false);
-        this.toastr.error(
-          this.mensajeError(err),
-          'No se pudo cambiar la contraseña',
-        );
-      },
-    });
+    this.userService
+      .cambiarContrasenia(usuarioActual.usuario, nuevaContrasenia)
+      .subscribe({
+        next: () => {
+          this.savingPassword.set(false);
+          this.toastr.success('Contraseña actualizada.', 'Éxito');
+          this.passwordForm.reset();
+        },
+        error: (error) => {
+          this.savingPassword.set(false);
+          this.toastr.error(
+            this.mensajeError(error),
+            'No se pudo cambiar la contraseña',
+          );
+        },
+      });
   }
 
   /** Cierra la sesión en el servidor y redirige a /login. */
@@ -215,34 +220,33 @@ export class ProfileComponent implements OnInit {
    * Fuerza de la contraseña (0–3): +1 si ≥8 caracteres, +1 si mezcla
    * mayúsculas y minúsculas, +1 si combina dígito y símbolo.
    */
-  passwordScore(value: string): number {
+  readonly passwordScore = (contrasenia: string): number => {
     let score = 0;
-    if (value.length >= 8) score++;
-    if (/[a-z]/.test(value) && /[A-Z]/.test(value)) score++;
-    if (/\d/.test(value) && /[^A-Za-z0-9]/.test(value)) score++;
+    if (contrasenia.length >= 8) score++;
+    if (/[a-z]/.test(contrasenia) && /[A-Z]/.test(contrasenia)) score++;
+    if (/\d/.test(contrasenia) && /[^A-Za-z0-9]/.test(contrasenia)) score++;
     return score;
-  }
+  };
 
   /**
    * Devuelve la etiqueta textual de fuerza de la contraseña.
    * @param score Puntaje de fuerza (0–3).
    * @returns Etiqueta correspondiente ('Débil', 'Aceptable', 'Buena', 'Excelente').
    */
-  strengthLabel(score: number): string {
-    return ['Débil', 'Aceptable', 'Buena', 'Excelente'][score] ?? 'Débil';
-  }
+  readonly strengthLabel = (score: number): string =>
+    ['Débil', 'Aceptable', 'Buena', 'Excelente'][score] ?? 'Débil';
 
   /** Extrae el `message` que devuelve la API, con un fallback genérico. */
-  private mensajeError(err: unknown): string {
-    const message = (err as { error?: { message?: string } })?.error?.message;
-    return message ?? 'Ocurrió un error. Inténtalo de nuevo más tarde.';
-  }
+  private readonly mensajeError = (error: unknown): string => {
+    const mensaje = (error as { error?: { message?: string } })?.error?.message;
+    return mensaje ?? 'Ocurrió un error. Inténtalo de nuevo más tarde.';
+  };
 
   /** Validador de grupo: la confirmación debe coincidir con la nueva contraseña. */
-  static passwordsMatch(group: AbstractControl): ValidationErrors | null {
-    const nueva = group.get('nuevaContrasenia')?.value;
-    const confirmar = group.get('confirmar')?.value;
-    return nueva === confirmar ? null : { mismatch: true };
+  static passwordsMatch(grupo: AbstractControl): ValidationErrors | null {
+    const nuevaContrasenia = grupo.get('nuevaContrasenia')?.value;
+    const confirmacion = grupo.get('confirmar')?.value;
+    return nuevaContrasenia === confirmacion ? null : { mismatch: true };
   }
 
   /** Icono de "ojo" para mostrar la contraseña. */

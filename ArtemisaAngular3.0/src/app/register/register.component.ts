@@ -140,14 +140,6 @@ export class RegisterComponent implements OnInit {
   }
 
   /**
-   * Callback del widget de reCAPTCHA. No realiza validación en servidor: la
-   * comprobación del widget en cliente es suficiente para este flujo.
-   * @param _token Token generado por reCAPTCHA (no utilizado).
-   */
-  // server-side captcha endpoint not available; client-side widget validation is sufficient
-  onRecaptchaResolved(_token: string) {}
-
-  /**
    * Abre el modal de verificación por correo y, al confirmarse, navega a `/login`.
    * @param correo Correo del usuario a verificar.
    * @param usuario Nombre de usuario a verificar.
@@ -158,7 +150,7 @@ export class RegisterComponent implements OnInit {
     modalRef.componentInstance.usuario = usuario;
     modalRef.result.then(
       () => {
-        void this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
       },
       () => {},
     );
