@@ -179,7 +179,8 @@ export class ProfileComponent implements OnInit {
       this.passwordForm.markAllAsTouched();
       return;
     }
-    const nuevaContrasenia = this.passwordForm.controls.nuevaContrasenia.value ?? '';
+    const nuevaContrasenia =
+      this.passwordForm.controls.nuevaContrasenia.value ?? '';
     this.savingPassword.set(true);
     this.userService
       .cambiarContrasenia(usuarioActual.usuario, nuevaContrasenia)
