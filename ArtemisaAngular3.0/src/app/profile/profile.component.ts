@@ -164,10 +164,7 @@ export class ProfileComponent implements OnInit {
       },
       error: (error) => {
         this.savingEmail.set(false);
-        this.toastr.error(
-          this.mensajeError(error),
-          'No se pudo cambiar el correo',
-        );
+        this.toastr.error(mensajeError(error), 'No se pudo cambiar el correo');
       },
     });
   }
@@ -192,7 +189,7 @@ export class ProfileComponent implements OnInit {
         error: (error) => {
           this.savingPassword.set(false);
           this.toastr.error(
-            this.mensajeError(error),
+            mensajeError(error),
             'No se pudo cambiar la contraseña',
           );
         },
@@ -216,31 +213,11 @@ export class ProfileComponent implements OnInit {
     this.show[field] = !this.show[field];
   }
 
-  /**
-   * Fuerza de la contraseña (0–3): +1 si ≥8 caracteres, +1 si mezcla
-   * mayúsculas y minúsculas, +1 si combina dígito y símbolo.
-   */
-  readonly passwordScore = (contrasenia: string): number => {
-    let score = 0;
-    if (contrasenia.length >= 8) score++;
-    if (/[a-z]/.test(contrasenia) && /[A-Z]/.test(contrasenia)) score++;
-    if (/\d/.test(contrasenia) && /[^A-Za-z0-9]/.test(contrasenia)) score++;
-    return score;
-  };
+  /** Fuerza de la contraseña (0–3), expuesta a la plantilla. */
+  protected readonly passwordScore = calcularFuerzaContrasenia;
 
-  /**
-   * Devuelve la etiqueta textual de fuerza de la contraseña.
-   * @param score Puntaje de fuerza (0–3).
-   * @returns Etiqueta correspondiente ('Débil', 'Aceptable', 'Buena', 'Excelente').
-   */
-  readonly strengthLabel = (score: number): string =>
-    ['Débil', 'Aceptable', 'Buena', 'Excelente'][score] ?? 'Débil';
-
-  /** Extrae el `message` que devuelve la API, con un fallback genérico. */
-  private readonly mensajeError = (error: unknown): string => {
-    const mensaje = (error as { error?: { message?: string } })?.error?.message;
-    return mensaje ?? 'Ocurrió un error. Inténtalo de nuevo más tarde.';
-  };
+  /** Etiqueta textual de fuerza de la contraseña, expuesta a la plantilla. */
+  protected readonly strengthLabel = etiquetaFuerza;
 
   /** Validador de grupo: la confirmación debe coincidir con la nueva contraseña. */
   static passwordsMatch(grupo: AbstractControl): ValidationErrors | null {
@@ -259,4 +236,35 @@ export class ProfileComponent implements OnInit {
   protected readonly faLock = faLock;
   /** Icono de cerrar sesión. */
   protected readonly faArrowRightFromBracket = faArrowRightFromBracket;
+}
+
+/**
+ * Calcula la fuerza de una contraseña (0–3): +1 si tiene ≥8 caracteres,
+ * +1 si mezcla mayúsculas y minúsculas, +1 si combina dígito y símbolo.
+ * @param contrasenia Contraseña a evaluar.
+ */
+function calcularFuerzaContrasenia(contrasenia: string): number {
+  let score = 0;
+  if (contrasenia.length >= 8) score++;
+  if (/[a-z]/.test(contrasenia) && /[A-Z]/.test(contrasenia)) score++;
+  if (/\d/.test(contrasenia) && /[^A-Za-z0-9]/.test(contrasenia)) score++;
+  return score;
+}
+
+/**
+ * Devuelve la etiqueta textual de fuerza de la contraseña.
+ * @param score Puntaje de fuerza (0–3).
+ * @returns Etiqueta correspondiente ('Débil', 'Aceptable', 'Buena', 'Excelente').
+ */
+function etiquetaFuerza(score: number): string {
+  return ['Débil', 'Aceptable', 'Buena', 'Excelente'][score] ?? 'Débil';
+}
+
+/**
+ * Extrae el `message` que devuelve la API, con un fallback genérico.
+ * @param error Error capturado de una petición HTTP.
+ */
+function mensajeError(error: unknown): string {
+  const mensaje = (error as { error?: { message?: string } })?.error?.message;
+  return mensaje ?? 'Ocurrió un error. Inténtalo de nuevo más tarde.';
 }

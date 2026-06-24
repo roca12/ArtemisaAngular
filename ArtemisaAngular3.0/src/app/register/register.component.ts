@@ -152,7 +152,9 @@ export class RegisterComponent implements OnInit {
       () => {
         this.router.navigate(['/login']);
       },
-      () => {},
+      () => {
+        // El usuario cerró el modal sin verificar: no se requiere ninguna acción.
+      },
     );
   }
 
