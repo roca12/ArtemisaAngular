@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
@@ -15,6 +15,8 @@ import { RecaptchaService } from '../services/recaptcha.service';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgIf } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalMailComponent } from '../modal-mail/modal-mail.component';
 
 /**
  * Componente que gestiona el inicio de sesión de los usuarios.
@@ -33,7 +35,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   /** Indica si la contraseña es visible en el campo de texto. */
   showPassword = false;
 
@@ -52,6 +54,7 @@ export class LoginComponent {
    * @param authService Servicio para gestión de autenticación y tokens.
    * @param toastr Servicio para mostrar notificaciones al usuario.
    * @param router Servicio de enrutamiento.
+   * @param modalService Servicio para abrir el modal de verificación de correo.
    */
   constructor(
     public theme: ThemeService,
@@ -61,8 +64,35 @@ export class LoginComponent {
     private authService: AuthService,
     private toastr: ToastrService,
     private router: Router,
+    private modalService: NgbModal,
   ) {
     this.initilizeForm();
+  }
+
+  /**
+   * Se ejecuta al inicializar el componente.
+   * Comprueba si hay verificación pendiente en localStorage y abre el modal de verificación si es necesario.
+   */
+  ngOnInit() {
+    try {
+      const raw = localStorage.getItem('pendingVerification');
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      const correo: string = parsed?.correo;
+      const usuario: string = parsed?.usuario;
+      if (correo && usuario) {
+        const modalRef = this.modalService.open(ModalMailComponent);
+        modalRef.componentInstance.correo = correo;
+        modalRef.componentInstance.usuario = usuario;
+        modalRef.result.then(() => {
+          localStorage.removeItem('pendingVerification');
+        });
+      } else {
+        localStorage.removeItem('pendingVerification');
+      }
+    } catch {
+      localStorage.removeItem('pendingVerification');
+    }
   }
 
   /**
@@ -88,12 +118,15 @@ export class LoginComponent {
       );
       return;
     }
-    console.log('Formulario de inicio de sesión:', usuario, contrasenia);
     this.userService.login(usuario, contrasenia).subscribe({
-      next: (data) => {
-        this.authService.guardarToken(data.token);
+      next: () => {
+        // La sesión queda establecida por la cookie httpOnly que fija el servidor.
+        // Hidratamos el estado de sesión y luego navegamos para que la barra
+        // superior refleje al usuario autenticado.
         this.toastr.success('Inicio de sesión exitoso.', 'Éxito');
-        this.router.navigate(['']);
+        this.authService
+          .cargarSesion()
+          .subscribe(() => this.router.navigate(['']));
       },
       error: (error) => {
         if (error.status === 401) {
@@ -137,6 +170,8 @@ export class LoginComponent {
     });
   }
 
+  /** Icono de "ojo" para mostrar la contraseña. */
   protected readonly faEye = faEye;
+  /** Icono de "ojo tachado" para ocultar la contraseña. */
   protected readonly faEyeSlash = faEyeSlash;
 }

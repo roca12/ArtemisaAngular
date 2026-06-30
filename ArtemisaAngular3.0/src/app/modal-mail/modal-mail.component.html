@@ -41,6 +41,9 @@
         style="width: 50px"
       />
     </form>
+    <div *ngIf="errorMsg" class="text-danger text-center mt-2">
+      <small>{{ errorMsg }}</small>
+    </div>
     <p class="text-center mt-2">
       Si no recibiste el código, puedes reenviarlo.
     </p>
@@ -49,15 +52,19 @@
     </p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-secondary" (click)="reenviarCodigo()">
-      Reenviar codigo
+    <button
+      class="btn btn-secondary"
+      (click)="reenviarCodigo()"
+      [disabled]="cargando"
+    >
+      Reenviar código
     </button>
     <button
       class="btn btn-primary"
       (click)="enviarCodigo()"
-      [disabled]="validationForm.invalid"
+      [disabled]="validationForm.invalid || cargando"
     >
-      Verificar
+      {{ cargando ? "Verificando..." : "Verificar" }}
     </button>
   </div>
 </div>

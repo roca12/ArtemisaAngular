@@ -117,15 +117,17 @@
             [useGlobalDomain]="false"
             [theme]="theme.isDark() ? 'dark' : 'light'"
             formControlName="recaptcha"
-            (success)="onRecaptchaResolved($event)"
           ></ngx-recaptcha2>
         </div>
+        <div *ngIf="errorMsg" class="text-danger text-center">
+          <small>{{ errorMsg }}</small>
+        </div>
         <button
-          [disabled]="registerForm.invalid"
+          [disabled]="registerForm.invalid || loading"
           (click)="register()"
           type="submit"
         >
-          Registrar
+          {{ loading ? "Registrando..." : "Registrar" }}
         </button>
         <p class="register-text">
           ¿Ya tienes cuenta? <a routerLink="/login">Iniciar Sesión</a>

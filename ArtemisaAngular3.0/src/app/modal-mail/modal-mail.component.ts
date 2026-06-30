@@ -8,48 +8,42 @@ import {
 } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MailService } from '../services/mail.service';
-import { Usuario } from '../shared/models/usuario.model';
 import { UserService } from '../services/user.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
+import { CommonModule } from '@angular/common';
 
 /**
- * Componente modal para la validación del código enviado por correo electrónico.
- * Maneja la entrada del código de 4 dígitos y el registro final del usuario.
+ * Modal de verificación de correo: solicita el código de 4 dígitos enviado al
+ * usuario, lo valida contra el backend y permite reenviarlo.
  */
 @Component({
   selector: 'app-modal-mail',
-  imports: [FormsModule, ReactiveFormsModule, ToastrModule],
+  imports: [FormsModule, ReactiveFormsModule, ToastrModule, CommonModule],
   templateUrl: './modal-mail.component.html',
   styleUrl: './modal-mail.component.css',
 })
 export class ModalMailComponent {
-  /** Dirección de correo electrónico a la que se envió el código. */
+  /** Correo al que se envió el código de verificación. */
   @Input() correo = '';
-  /** Objeto usuario con los datos pendientes de registro definitivo. */
-  @Input() usuario: Usuario = {
-    contrasenia: '',
-    rol: '',
-    correo: '',
-    usuario: '',
-    verificacion: '',
-  };
+  /** Nombre de usuario asociado a la verificación. */
+  @Input() usuario = '';
 
-  /** Indica si se está procesando una petición al servidor. */
+  /** Indica si hay una petición de verificación en curso. */
   cargando = false;
-  /** Formulario reactivo para capturar los 4 dígitos del código. */
+  /** Mensaje de error a mostrar, o `null` si no hay error. */
+  errorMsg: string | null = null;
+  /** Formulario reactivo con los cuatro dígitos del código. */
   validationForm: FormGroup = new FormGroup({});
 
   /**
-   * Constructor del componente modal.
-   * @param activeModal Referencia al modal activo para poder cerrarlo.
-   * @param mailService Servicio para validación de códigos de correo.
+   * Inyecta dependencias e inicializa el formulario de verificación.
+   * @param activeModal Referencia al modal activo, para cerrarlo o descartarlo.
+   * @param mailService Servicio de correo para reenviar el código.
    * @param fb Constructor de formularios reactivos.
-   * @param userService Servicio para registrar al usuario.
-   * @param toastr Servicio para notificaciones.
-   * @param router Servicio de enrutamiento.
-   * @param theme Servicio para el tema visual.
+   * @param userService Servicio de usuario para verificar el código.
+   * @param toastr Servicio de notificaciones.
+   * @param theme Servicio de tema (claro/oscuro), expuesto a la plantilla.
    */
   constructor(
     public activeModal: NgbActiveModal,
@@ -57,15 +51,12 @@ export class ModalMailComponent {
     private fb: FormBuilder,
     private userService: UserService,
     private toastr: ToastrService,
-    private router: Router,
     public theme: ThemeService,
   ) {
     this.initializeForm();
   }
 
-  /**
-   * Inicializa el formulario con los 4 campos para el código de verificación.
-   */
+  /** Crea el formulario reactivo con los cuatro dígitos del código. */
   initializeForm() {
     this.validationForm = this.fb.group({
       num1: ['', Validators.required],
@@ -76,65 +67,42 @@ export class ModalMailComponent {
   }
 
   /**
-   * Concatena los dígitos e invoca al servicio de validación de código.
-   * Si es exitoso, procede a registrar al usuario.
+   * Envía el código ingresado para verificar el correo. Si es válido cierra el
+   * modal con `'verified'`; si no, muestra el mensaje de error correspondiente.
    */
   enviarCodigo() {
-    if (this.validationForm.invalid) {
-      return;
-    }
+    if (this.validationForm.invalid) return;
 
     const codigo = `${this.validationForm.value.num1}${this.validationForm.value.num2}${this.validationForm.value.num3}${this.validationForm.value.num4}`;
     this.cargando = true;
+    this.errorMsg = null;
 
-    this.mailService.validarCodigo(this.correo, codigo).subscribe({
-      next: (response) => {
+    this.userService.verifyEmail(this.correo, codigo).subscribe({
+      next: () => {
         this.cargando = false;
-        this.registrarUsuario();
-        this.activeModal.close(response);
+        localStorage.removeItem('pendingVerification');
+        this.toastr.success('Correo verificado exitosamente.', 'Éxito');
+        this.activeModal.close('verified');
       },
-      error: (error) => {
+      error: (err) => {
         this.cargando = false;
-        console.error('Error al validar el código:', error);
-      },
-    });
-  }
-
-  /**
-   * Realiza el registro definitivo del usuario en la base de datos tras validar el correo.
-   */
-  registrarUsuario() {
-    this.userService.register(this.usuario).subscribe({
-      next: (response) => {
-        console.log(this.usuario);
-        console.log(response);
-        this.activeModal.close('Usuario creado y válidado exitosamente.');
-        this.toastr.success('Usuario creado y validado exitosamente.', 'Éxito');
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        if (error.status !== 409) {
-          this.toastr.error(
-            'Error al enviar el código de verificación. Por favor, inténtalo de nuevo.',
-            'Error',
-          );
+        if (err.status === 400 || err.status === 410) {
+          this.errorMsg = 'Código inválido o expirado.';
+        } else {
+          this.errorMsg = 'Error al verificar. Inténtalo de nuevo.';
         }
-        console.error('Error al enviar el código:', error);
       },
     });
   }
 
-  /**
-   * Método para reenviar el código de verificación.
-   */
+  /** Solicita al backend reenviar el código de verificación al correo. */
   reenviarCodigo() {
-    this.mailService.enviarCodigo(this.correo, this.usuario.usuario).subscribe({
+    this.mailService.reenviarCodigo(this.correo, this.usuario).subscribe({
       next: () => {
         this.toastr.success('Código reenviado con éxito.', 'Éxito');
       },
-      error: (error) => {
+      error: () => {
         this.toastr.error('Error al reenviar el código.', 'Error');
-        console.error('Error al reenviar el código:', error);
       },
     });
   }

@@ -1,9 +1,11 @@
-<div
-  *ngIf="tema.texto"
-  class="texto"
-  [innerHTML]="tema.texto | formatearTexto"
-></div>
+<div [class.dark]="theme.isDark()" [class.light]="!theme.isDark()">
+  <div
+    *ngIf="tema.texto"
+    class="texto"
+    [innerHTML]="tema.texto | formatearTexto"
+  ></div>
 
-<app-codigo language="java" [codigo]="tema.java" />
-<app-codigo language="cpp" [codigo]="tema.cpp" />
-<app-codigo language="py" [codigo]="tema.py" />
+  <app-codigo language="java" [codigo]="tema.java" />
+  <app-codigo language="cpp" [codigo]="tema.cpp" />
+  <app-codigo language="py" [codigo]="tema.py" />
+</div>

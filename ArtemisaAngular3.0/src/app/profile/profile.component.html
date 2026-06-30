@@ -1,0 +1,330 @@
+<div class="pf-paper" [class.dark]="theme.isDark()">
+  <!-- Estado: cargando -->
+  <div class="state-box" *ngIf="status() === 'loading'">
+    <div class="spinner" role="status" aria-label="Cargando perfil"></div>
+    <p>Cargando tu perfil…</p>
+  </div>
+
+  <!-- Estado: error de red -->
+  <div class="state-box" *ngIf="status() === 'error'">
+    <p class="state-error">No pudimos cargar tu perfil.</p>
+    <button type="button" class="btn btn-primary" (click)="cargarPerfil()">
+      Reintentar
+    </button>
+  </div>
+
+  <!-- Estado: listo -->
+  <div class="page" *ngIf="status() === 'ready' && usuario() as u">
+    <div class="breadcrumb">
+      <span>Mi cuenta</span><span class="sep">/</span
+      ><span>Perfil de usuario</span>
+    </div>
+
+    <div class="layout">
+      <!-- ---------- SIDEBAR ---------- -->
+      <aside class="sidebar">
+        <div class="profile-card">
+          <div class="avatar-wrap">
+            <div class="avatar-lg">{{ initials() }}</div>
+          </div>
+          <h1>{{ u.usuario }}</h1>
+          <div class="handle">&#64;{{ u.usuario }}</div>
+          <div class="role-tag"><span class="dot"></span>{{ u.rol }}</div>
+        </div>
+
+        <nav class="side-nav">
+          <button
+            type="button"
+            [class.active]="activeTab() === 'cuenta'"
+            (click)="setTab('cuenta')"
+          >
+            <fa-icon [icon]="faUser"></fa-icon>
+            Cuenta
+          </button>
+          <button
+            type="button"
+            [class.active]="activeTab() === 'seguridad'"
+            (click)="setTab('seguridad')"
+          >
+            <fa-icon [icon]="faLock"></fa-icon>
+            Seguridad
+          </button>
+          <button
+            type="button"
+            class="logout"
+            (click)="onLogout()"
+            [disabled]="loggingOut()"
+          >
+            <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
+            {{ loggingOut() ? "Cerrando…" : "Cerrar sesión" }}
+          </button>
+        </nav>
+      </aside>
+
+      <!-- ---------- MAIN ---------- -->
+      <main class="content">
+        <!-- ===== PANEL: CUENTA ===== -->
+        <section class="panel" *ngIf="activeTab() === 'cuenta'">
+          <div class="panel-head">
+            <h2>Cuenta</h2>
+            <p>
+              Tu información de contacto y de acceso. El nombre de usuario y el
+              rol los gestiona la plataforma; el correo puedes actualizarlo
+              aquí.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h3>Perfil público</h3>
+              <span class="hint">datos de tu cuenta</span>
+            </div>
+            <div class="card-body">
+              <!-- Nombre de usuario (solo lectura) -->
+              <div class="field-row">
+                <div class="f-label">
+                  <div class="name">Nombre de usuario</div>
+                  <div class="desc">Identificador único</div>
+                </div>
+                <div class="f-value">
+                  <div class="field-display">
+                    <span class="mono">&#64;{{ u.usuario }}</span>
+                  </div>
+                </div>
+                <div class="row-actions"></div>
+              </div>
+
+              <!-- Correo electrónico (editable inline) -->
+              <div class="field-row" [class.is-editing]="editingEmail()">
+                <div class="f-label">
+                  <div class="name">Correo electrónico</div>
+                  <div class="desc">Para inicio de sesión y avisos</div>
+                </div>
+                <div class="f-value">
+                  <div class="field-display">
+                    <span class="mono">{{ u.correo }}</span>
+                  </div>
+                  <div class="editing">
+                    <form
+                      [formGroup]="emailForm"
+                      (ngSubmit)="onSubmitEmail()"
+                      novalidate
+                    >
+                      <input
+                        class="f-input"
+                        type="email"
+                        formControlName="correo"
+                        autocomplete="email"
+                        placeholder="tucorreo@ejemplo.com"
+                        (keyup.escape)="cancelEditEmail()"
+                      />
+                      <div class="f-help">
+                        Lo usarás para iniciar sesión y recibir avisos.
+                      </div>
+                      <div
+                        class="f-error show"
+                        *ngIf="
+                          emailForm.get('correo')?.touched &&
+                          emailForm.get('correo')?.invalid
+                        "
+                      >
+                        Escribe un correo electrónico válido.
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="row-actions">
+                  <button
+                    type="button"
+                    class="edit-link"
+                    *ngIf="!editingEmail()"
+                    (click)="startEditEmail()"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    *ngIf="editingEmail()"
+                    (click)="onSubmitEmail()"
+                    [disabled]="savingEmail() || emailForm.invalid"
+                  >
+                    {{ savingEmail() ? "Guardando…" : "Guardar" }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    *ngIf="editingEmail()"
+                    (click)="cancelEditEmail()"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+
+              <!-- Rol (solo lectura) -->
+              <div class="field-row">
+                <div class="f-label">
+                  <div class="name">Rol</div>
+                  <div class="desc">Asignado por la plataforma</div>
+                </div>
+                <div class="f-value">
+                  <div class="field-display">
+                    <span class="role-pill">{{ u.rol }}</span>
+                  </div>
+                </div>
+                <div class="row-actions"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== PANEL: SEGURIDAD ===== -->
+        <section class="panel" *ngIf="activeTab() === 'seguridad'">
+          <div class="panel-head">
+            <h2>Seguridad</h2>
+            <p>Elige una nueva contraseña para tu cuenta.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3>Cambiar contraseña</h3></div>
+            <form
+              class="card-body"
+              [formGroup]="passwordForm"
+              (ngSubmit)="onSubmitPassword()"
+              autocomplete="off"
+              novalidate
+            >
+              <!-- Nueva contraseña -->
+              <div class="field-row pw-row">
+                <div class="f-label">
+                  <div class="name">Nueva contraseña</div>
+                </div>
+                <div class="f-value">
+                  <div class="pw-input-wrap">
+                    <input
+                      class="f-input"
+                      [type]="show.nueva ? 'text' : 'password'"
+                      formControlName="nuevaContrasenia"
+                      placeholder="Mínimo 8 caracteres"
+                      autocomplete="new-password"
+                    />
+                    <button
+                      type="button"
+                      class="pw-toggle"
+                      (click)="toggle('nueva')"
+                      [attr.aria-label]="
+                        show.nueva ? 'Ocultar contraseña' : 'Mostrar contraseña'
+                      "
+                    >
+                      <fa-icon
+                        [icon]="show.nueva ? faEyeSlash : faEye"
+                      ></fa-icon>
+                    </button>
+                  </div>
+                  <div class="pw-strength">
+                    <div
+                      class="bar"
+                      [class.on1]="
+                        passwordScore(
+                          passwordForm.get('nuevaContrasenia')?.value || ''
+                        ) >= 1
+                      "
+                    ></div>
+                    <div
+                      class="bar"
+                      [class.on2]="
+                        passwordScore(
+                          passwordForm.get('nuevaContrasenia')?.value || ''
+                        ) >= 2
+                      "
+                    ></div>
+                    <div
+                      class="bar"
+                      [class.on3]="
+                        passwordScore(
+                          passwordForm.get('nuevaContrasenia')?.value || ''
+                        ) >= 3
+                      "
+                    ></div>
+                  </div>
+                  <div class="pw-meta">
+                    <span>{{
+                      (passwordForm.get("nuevaContrasenia")?.value || "").length
+                        ? strengthLabel(
+                            passwordScore(
+                              passwordForm.get("nuevaContrasenia")?.value || ""
+                            )
+                          )
+                        : "Seguridad de la contraseña"
+                    }}</span>
+                    <span
+                      >{{
+                        (passwordForm.get("nuevaContrasenia")?.value || "")
+                          .length
+                      }}
+                      / 8</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Confirmar contraseña -->
+              <div class="field-row pw-row">
+                <div class="f-label">
+                  <div class="name">Confirmar contraseña</div>
+                </div>
+                <div class="f-value">
+                  <div class="pw-input-wrap">
+                    <input
+                      class="f-input"
+                      [type]="show.confirmar ? 'text' : 'password'"
+                      formControlName="confirmar"
+                      placeholder="Repite la nueva contraseña"
+                      autocomplete="new-password"
+                    />
+                    <button
+                      type="button"
+                      class="pw-toggle"
+                      (click)="toggle('confirmar')"
+                      [attr.aria-label]="
+                        show.confirmar
+                          ? 'Ocultar contraseña'
+                          : 'Mostrar contraseña'
+                      "
+                    >
+                      <fa-icon
+                        [icon]="show.confirmar ? faEyeSlash : faEye"
+                      ></fa-icon>
+                    </button>
+                  </div>
+                  <div
+                    class="f-error show"
+                    *ngIf="
+                      passwordForm.errors?.['mismatch'] &&
+                      passwordForm.get('confirmar')?.touched
+                    "
+                  >
+                    Las contraseñas no coinciden.
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="card-foot">
+              <span class="save-note">Usa al menos 8 caracteres.</span>
+              <div class="spacer"></div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="onSubmitPassword()"
+                [disabled]="savingPassword() || passwordForm.invalid"
+              >
+                {{ savingPassword() ? "Guardando…" : "Actualizar contraseña" }}
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>

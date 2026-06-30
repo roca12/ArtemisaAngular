@@ -4,11 +4,6 @@
   align-items: center;
 }
 
-.profile-button:hover {
-  background-color: var(--border-dark);
-  transition: background-color 0.5s ease;
-}
-
 .logo-container img {
   width: 50%;
   max-width: 300px;
@@ -124,30 +119,108 @@
   gap: 1rem;
 }
 
-button {
-  background-color: var(--secondary-dark);
-  color: var(--text-light);
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
+/* Botón de cuenta / perfil */
+.auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1.5px solid var(--secondary-dark);
+  color: var(--secondary-dark);
+  border-radius: 20px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  padding: 1rem;
-  margin-right: 2rem;
-  transition: background-color 0.5s ease;
+  margin-right: 1.5rem;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
-.dark button {
-  background-color: var(--blue-dark);
+.auth-btn ion-icon {
+  font-size: 1.1rem;
 }
 
-.profile-button:hover {
-  background-color: var(--secondary-dark);
-  transition: background-color 0.5s ease;
+.auth-btn .chevron {
+  font-size: 0.75rem;
+  transition: transform 0.25s ease;
 }
 
-button:hover {
-  background-color: var(--olive-dark);
-  transition: background-color 0.5s ease;
+.auth-btn:hover,
+.auth-btn.show {
+  background: var(--secondary-dark);
+  color: var(--text-light);
+}
+
+.auth-btn::after {
+  display: none;
+}
+
+.auth-btn.profile-active {
+  background: var(--secondary-dark);
+  color: var(--text-light);
+}
+
+/* Dropdown menu */
+.auth-menu {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  padding: 0.3rem 0;
+  min-width: 160px;
+}
+
+.auth-menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin: 0;
+  border-radius: 0;
+}
+
+.auth-menu button ion-icon {
+  font-size: 1rem;
+}
+
+.auth-menu button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode */
+.dark .auth-btn {
+  border-color: var(--blue-dark);
+  color: var(--text-light);
+}
+
+.dark .auth-btn:hover,
+.dark .auth-btn.show {
+  background: var(--blue-dark);
+  color: var(--text-light);
+}
+
+.dark .auth-btn.profile-active {
+  background: var(--blue-dark);
+}
+
+.dark .auth-menu {
+  background: var(--background-dark);
+  border-color: var(--border-dark);
+  color: var(--text-light);
+}
+
+.dark .auth-menu button:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .dark {
@@ -167,10 +240,6 @@ button:hover {
 
 .dark .nav-container a:hover {
   color: var(--primary-dark);
-}
-
-.dark button:hover {
-  background-color: var(--olive-dark);
 }
 
 @media (max-width: 768px) {
@@ -212,9 +281,8 @@ button:hover {
     justify-content: center;
   }
 
-  button {
-    width: 50%;
-    padding: 0.75rem;
-    margin: 0;
+  .auth-btn {
+    margin-right: 0;
+    width: auto;
   }
 }

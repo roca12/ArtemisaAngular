@@ -11,8 +11,12 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class BookService {
+  /** URL base del endpoint de libros en el backend. */
   private readonly baseUrl = `${environment.apiUrl}libro/`;
 
+  /**
+   * @param http Cliente HTTP para comunicarse con el backend.
+   */
   constructor(private http: HttpClient) {}
 
   /**

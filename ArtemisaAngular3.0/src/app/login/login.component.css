@@ -109,7 +109,7 @@ form input {
 }
 
 form input:focus {
-  border-color: var(--secondary-dark, #b47b3e);
+  border-color: var(--secondary-dark, #c08c4a);
 }
 
 /* Botón */
@@ -166,7 +166,7 @@ form button:hover {
 }
 
 .register-text a {
-  color: var(--secondary-dark, #b47b3e);
+  color: var(--secondary-dark, #c08c4a);
   text-decoration: none;
   font-weight: bold;
 }
