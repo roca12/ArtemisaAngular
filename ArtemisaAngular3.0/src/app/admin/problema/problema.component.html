@@ -11,196 +11,309 @@
   </div>
 
   <!-- ===== Formulario crear / editar (modal) ===== -->
-  @if (formMode() !== 'hidden') {
+  @if (formMode() !== "hidden") {
     <app-crud-modal (close)="cancelar()">
       <div class="card">
         <div class="card-head">
           <h3>{{ formTitle() }}</h3>
         </div>
-        <form class="crud-form" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
-        <div class="form-grid">
-          <div class="form-field col-span">
-            <label for="titulo">Título <span class="req">*</span></label>
-            <input
-              id="titulo"
-              class="f-input"
-              [class.invalid]="invalido('titulo')"
-              type="text"
-              formControlName="titulo"
-              placeholder="Two Sum"
-            />
-            @if (invalido('titulo')) {
-              <span class="f-error">El título es obligatorio.</span>
-            }
+        <form
+          class="crud-form"
+          [formGroup]="form"
+          (ngSubmit)="guardar()"
+          novalidate
+        >
+          <div class="form-grid">
+            <div class="form-field col-span">
+              <label for="titulo">Título <span class="req">*</span></label>
+              <input
+                id="titulo"
+                class="f-input"
+                [class.invalid]="invalido('titulo')"
+                type="text"
+                formControlName="titulo"
+                placeholder="Two Sum"
+              />
+              @if (invalido("titulo")) {
+                <span class="f-error">El título es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="juez">Juez <span class="req">*</span></label>
+              @if (campoNuevo["juez"]) {
+                <div class="input-with-btn">
+                  <input
+                    class="f-input"
+                    [class.invalid]="invalido('juez')"
+                    type="text"
+                    formControlName="juez"
+                    placeholder="Nuevo juez"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    (click)="volverASelector('juez')"
+                  >
+                    Elegir
+                  </button>
+                </div>
+              } @else {
+                <div class="input-with-btn">
+                  <select
+                    id="juez"
+                    class="f-input"
+                    [class.invalid]="invalido('juez')"
+                    [value]="form.controls.juez.value"
+                    (change)="onCampoSelect('juez', $event)"
+                  >
+                    <option value="">— Elige un juez —</option>
+                    @for (j of jueces(); track j) {
+                      <option [value]="j">{{ j }}</option>
+                    }
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm btn-icon"
+                    (click)="activarNuevo('juez')"
+                    aria-label="Agregar juez nuevo"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+              }
+              @if (invalido("juez")) {
+                <span class="f-error">El juez es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="alias">Alias</label>
+              <input
+                id="alias"
+                class="f-input"
+                type="text"
+                formControlName="alias"
+                placeholder="1"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="dificultad"
+                >Dificultad <span class="req">*</span></label
+              >
+              <input
+                id="dificultad"
+                class="f-input"
+                [class.invalid]="invalido('dificultad')"
+                type="number"
+                formControlName="dificultad"
+                placeholder="1"
+              />
+              @if (invalido("dificultad")) {
+                <span class="f-error">La dificultad es obligatoria.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="url">URL <span class="req">*</span></label>
+              <input
+                id="url"
+                class="f-input"
+                [class.invalid]="invalido('url')"
+                type="url"
+                formControlName="url"
+                placeholder="https://leetcode.com/problems/two-sum"
+              />
+              @if (invalido("url")) {
+                <span class="f-error">La URL es obligatoria.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="tema_1">Tema 1 (principal)</label>
+              @if (campoNuevo["tema_1"]) {
+                <div class="input-with-btn">
+                  <input
+                    class="f-input"
+                    type="text"
+                    formControlName="tema_1"
+                    placeholder="Nuevo tema"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    (click)="volverASelector('tema_1')"
+                  >
+                    Elegir
+                  </button>
+                </div>
+              } @else {
+                <div class="input-with-btn">
+                  <select
+                    id="tema_1"
+                    class="f-input"
+                    [value]="form.controls.tema_1.value"
+                    (change)="onCampoSelect('tema_1', $event)"
+                  >
+                    <option value="">— Sin tema —</option>
+                    @for (t of temasPrincipales(); track t) {
+                      <option [value]="t">{{ t }}</option>
+                    }
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm btn-icon"
+                    (click)="activarNuevo('tema_1')"
+                    aria-label="Agregar tema nuevo"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+              }
+            </div>
+            <div class="form-field">
+              <label for="tema_2">Tema 2 (subtema)</label>
+              @if (campoNuevo["tema_2"]) {
+                <div class="input-with-btn">
+                  <input
+                    class="f-input"
+                    type="text"
+                    formControlName="tema_2"
+                    placeholder="Nuevo subtema"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    (click)="volverASelector('tema_2')"
+                  >
+                    Elegir
+                  </button>
+                </div>
+              } @else {
+                <div class="input-with-btn">
+                  <select
+                    id="tema_2"
+                    class="f-input"
+                    [value]="form.controls.tema_2.value"
+                    (change)="onCampoSelect('tema_2', $event)"
+                  >
+                    <option value="">— Sin subtema —</option>
+                    @for (t of subtemas(); track t) {
+                      <option [value]="t">{{ t }}</option>
+                    }
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm btn-icon"
+                    (click)="activarNuevo('tema_2')"
+                    aria-label="Agregar subtema nuevo"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+              }
+            </div>
+            <div class="form-field">
+              <label for="tema_3">Tema 3 (subtema)</label>
+              @if (campoNuevo["tema_3"]) {
+                <div class="input-with-btn">
+                  <input
+                    class="f-input"
+                    type="text"
+                    formControlName="tema_3"
+                    placeholder="Nuevo subtema"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    (click)="volverASelector('tema_3')"
+                  >
+                    Elegir
+                  </button>
+                </div>
+              } @else {
+                <div class="input-with-btn">
+                  <select
+                    id="tema_3"
+                    class="f-input"
+                    [value]="form.controls.tema_3.value"
+                    (change)="onCampoSelect('tema_3', $event)"
+                  >
+                    <option value="">— Sin subtema —</option>
+                    @for (t of subtemas(); track t) {
+                      <option [value]="t">{{ t }}</option>
+                    }
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm btn-icon"
+                    (click)="activarNuevo('tema_3')"
+                    aria-label="Agregar subtema nuevo"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+              }
+            </div>
+            <div class="form-field">
+              <label for="tema_4">Tema 4 (subtema)</label>
+              @if (campoNuevo["tema_4"]) {
+                <div class="input-with-btn">
+                  <input
+                    class="f-input"
+                    type="text"
+                    formControlName="tema_4"
+                    placeholder="Nuevo subtema"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    (click)="volverASelector('tema_4')"
+                  >
+                    Elegir
+                  </button>
+                </div>
+              } @else {
+                <div class="input-with-btn">
+                  <select
+                    id="tema_4"
+                    class="f-input"
+                    [value]="form.controls.tema_4.value"
+                    (change)="onCampoSelect('tema_4', $event)"
+                  >
+                    <option value="">— Sin subtema —</option>
+                    @for (t of subtemas(); track t) {
+                      <option [value]="t">{{ t }}</option>
+                    }
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm btn-icon"
+                    (click)="activarNuevo('tema_4')"
+                    aria-label="Agregar subtema nuevo"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+              }
+            </div>
           </div>
 
-          <div class="form-field">
-            <label for="juez">Juez <span class="req">*</span></label>
-            @if (campoNuevo['juez']) {
-              <div class="input-with-btn">
-                <input
-                  class="f-input"
-                  [class.invalid]="invalido('juez')"
-                  type="text"
-                  formControlName="juez"
-                  placeholder="Nuevo juez"
-                />
-                <button type="button" class="btn btn-ghost btn-sm" (click)="volverASelector('juez')">Elegir</button>
-              </div>
-            } @else {
-              <div class="input-with-btn">
-                <select id="juez" class="f-input" [class.invalid]="invalido('juez')" [value]="form.controls.juez.value" (change)="onCampoSelect('juez', $event)">
-                  <option value="">— Elige un juez —</option>
-                  @for (j of jueces(); track j) {
-                    <option [value]="j">{{ j }}</option>
-                  }
-                </select>
-                <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="activarNuevo('juez')" aria-label="Agregar juez nuevo">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </button>
-              </div>
-            }
-            @if (invalido('juez')) {
-              <span class="f-error">El juez es obligatorio.</span>
-            }
+          <div class="form-actions">
+            <span class="spacer"></span>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="cancelar()"
+              [disabled]="saving()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? "Guardando…" : "Guardar" }}
+            </button>
           </div>
-
-          <div class="form-field">
-            <label for="alias">Alias</label>
-            <input
-              id="alias"
-              class="f-input"
-              type="text"
-              formControlName="alias"
-              placeholder="1"
-            />
-          </div>
-
-          <div class="form-field">
-            <label for="dificultad">Dificultad <span class="req">*</span></label>
-            <input
-              id="dificultad"
-              class="f-input"
-              [class.invalid]="invalido('dificultad')"
-              type="number"
-              formControlName="dificultad"
-              placeholder="1"
-            />
-            @if (invalido('dificultad')) {
-              <span class="f-error">La dificultad es obligatoria.</span>
-            }
-          </div>
-
-          <div class="form-field">
-            <label for="url">URL <span class="req">*</span></label>
-            <input
-              id="url"
-              class="f-input"
-              [class.invalid]="invalido('url')"
-              type="url"
-              formControlName="url"
-              placeholder="https://leetcode.com/problems/two-sum"
-            />
-            @if (invalido('url')) {
-              <span class="f-error">La URL es obligatoria.</span>
-            }
-          </div>
-
-          <div class="form-field">
-            <label for="tema_1">Tema 1 (principal)</label>
-            @if (campoNuevo['tema_1']) {
-              <div class="input-with-btn">
-                <input class="f-input" type="text" formControlName="tema_1" placeholder="Nuevo tema" />
-                <button type="button" class="btn btn-ghost btn-sm" (click)="volverASelector('tema_1')">Elegir</button>
-              </div>
-            } @else {
-              <div class="input-with-btn">
-                <select id="tema_1" class="f-input" [value]="form.controls.tema_1.value" (change)="onCampoSelect('tema_1', $event)">
-                  <option value="">— Sin tema —</option>
-                  @for (t of temasPrincipales(); track t) {
-                    <option [value]="t">{{ t }}</option>
-                  }
-                </select>
-                <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="activarNuevo('tema_1')" aria-label="Agregar tema nuevo">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </button>
-              </div>
-            }
-          </div>
-          <div class="form-field">
-            <label for="tema_2">Tema 2 (subtema)</label>
-            @if (campoNuevo['tema_2']) {
-              <div class="input-with-btn">
-                <input class="f-input" type="text" formControlName="tema_2" placeholder="Nuevo subtema" />
-                <button type="button" class="btn btn-ghost btn-sm" (click)="volverASelector('tema_2')">Elegir</button>
-              </div>
-            } @else {
-              <div class="input-with-btn">
-                <select id="tema_2" class="f-input" [value]="form.controls.tema_2.value" (change)="onCampoSelect('tema_2', $event)">
-                  <option value="">— Sin subtema —</option>
-                  @for (t of subtemas(); track t) {
-                    <option [value]="t">{{ t }}</option>
-                  }
-                </select>
-                <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="activarNuevo('tema_2')" aria-label="Agregar subtema nuevo">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </button>
-              </div>
-            }
-          </div>
-          <div class="form-field">
-            <label for="tema_3">Tema 3 (subtema)</label>
-            @if (campoNuevo['tema_3']) {
-              <div class="input-with-btn">
-                <input class="f-input" type="text" formControlName="tema_3" placeholder="Nuevo subtema" />
-                <button type="button" class="btn btn-ghost btn-sm" (click)="volverASelector('tema_3')">Elegir</button>
-              </div>
-            } @else {
-              <div class="input-with-btn">
-                <select id="tema_3" class="f-input" [value]="form.controls.tema_3.value" (change)="onCampoSelect('tema_3', $event)">
-                  <option value="">— Sin subtema —</option>
-                  @for (t of subtemas(); track t) {
-                    <option [value]="t">{{ t }}</option>
-                  }
-                </select>
-                <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="activarNuevo('tema_3')" aria-label="Agregar subtema nuevo">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </button>
-              </div>
-            }
-          </div>
-          <div class="form-field">
-            <label for="tema_4">Tema 4 (subtema)</label>
-            @if (campoNuevo['tema_4']) {
-              <div class="input-with-btn">
-                <input class="f-input" type="text" formControlName="tema_4" placeholder="Nuevo subtema" />
-                <button type="button" class="btn btn-ghost btn-sm" (click)="volverASelector('tema_4')">Elegir</button>
-              </div>
-            } @else {
-              <div class="input-with-btn">
-                <select id="tema_4" class="f-input" [value]="form.controls.tema_4.value" (change)="onCampoSelect('tema_4', $event)">
-                  <option value="">— Sin subtema —</option>
-                  @for (t of subtemas(); track t) {
-                    <option [value]="t">{{ t }}</option>
-                  }
-                </select>
-                <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="activarNuevo('tema_4')" aria-label="Agregar subtema nuevo">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </button>
-              </div>
-            }
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <span class="spacer"></span>
-          <button type="button" class="btn btn-ghost" (click)="cancelar()" [disabled]="saving()">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary" [disabled]="saving()">
-            {{ saving() ? 'Guardando…' : 'Guardar' }}
-          </button>
-        </div>
         </form>
       </div>
     </app-crud-modal>
@@ -209,19 +322,25 @@
   <!-- ===== Listado ===== -->
   <div class="card">
     @switch (status()) {
-      @case ('loading') {
+      @case ("loading") {
         <div class="state-box">
-          <div class="spinner" role="status" aria-label="Cargando problemas"></div>
+          <div
+            class="spinner"
+            role="status"
+            aria-label="Cargando problemas"
+          ></div>
           <p>Cargando problemas…</p>
         </div>
       }
-      @case ('error') {
+      @case ("error") {
         <div class="state-box error">
           <p>No pudimos cargar los problemas.</p>
-          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">Reintentar</button>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">
+            Reintentar
+          </button>
         </div>
       }
-      @case ('ready') {
+      @case ("ready") {
         @if (problemas().length === 0) {
           <div class="empty-state">
             <fa-icon class="icon" [icon]="faCode"></fa-icon>
@@ -245,7 +364,7 @@
                   <tr>
                     <td class="title-cell">{{ p.titulo }}</td>
                     <td>{{ p.juez }}</td>
-                    <td class="muted">{{ p.alias || '—' }}</td>
+                    <td class="muted">{{ p.alias || "—" }}</td>
                     <td>{{ p.dificultad }}</td>
                     <td>
                       @for (t of temasDe(p); track t) {

@@ -218,7 +218,11 @@ export class ProblemaComponent implements OnInit {
       this.toastr.error('Este problema no tiene identificador.');
       return;
     }
-    if (!confirm(`¿Eliminar el problema "${p.titulo}"? Esta acción es permanente.`)) {
+    if (
+      !confirm(
+        `¿Eliminar el problema "${p.titulo}"? Esta acción es permanente.`,
+      )
+    ) {
       return;
     }
     this.deletingId.set(p._id);

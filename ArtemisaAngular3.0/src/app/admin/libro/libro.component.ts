@@ -281,7 +281,9 @@ export class LibroComponent implements OnInit {
       this.toastr.error('Este libro no tiene identificador.');
       return;
     }
-    if (!confirm(`¿Eliminar el libro "${l.titulo}"? Esta acción es permanente.`)) {
+    if (
+      !confirm(`¿Eliminar el libro "${l.titulo}"? Esta acción es permanente.`)
+    ) {
       return;
     }
     this.deletingId.set(l._id);

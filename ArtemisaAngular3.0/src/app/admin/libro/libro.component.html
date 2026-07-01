@@ -11,88 +11,116 @@
   </div>
 
   <!-- ===== Formulario crear / editar (modal) ===== -->
-  @if (formMode() !== 'hidden') {
+  @if (formMode() !== "hidden") {
     <app-crud-modal (close)="cancelar()">
       <div class="card">
         <div class="card-head">
           <h3>{{ formTitle() }}</h3>
           <span class="hint">el PDF se sube a Cloudinary</span>
         </div>
-        <form class="crud-form" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
-        <div class="form-grid">
-          <div class="form-field col-span">
-            <label for="titulo">Título <span class="req">*</span></label>
-            <input
-              id="titulo"
-              class="f-input"
-              [class.invalid]="invalido('titulo')"
-              type="text"
-              formControlName="titulo"
-              placeholder="Introducción a los Algoritmos"
-            />
-            @if (invalido('titulo')) {
-              <span class="f-error">El título es obligatorio.</span>
-            }
-          </div>
+        <form
+          class="crud-form"
+          [formGroup]="form"
+          (ngSubmit)="guardar()"
+          novalidate
+        >
+          <div class="form-grid">
+            <div class="form-field col-span">
+              <label for="titulo">Título <span class="req">*</span></label>
+              <input
+                id="titulo"
+                class="f-input"
+                [class.invalid]="invalido('titulo')"
+                type="text"
+                formControlName="titulo"
+                placeholder="Introducción a los Algoritmos"
+              />
+              @if (invalido("titulo")) {
+                <span class="f-error">El título es obligatorio.</span>
+              }
+            </div>
 
-          <div class="form-field col-span">
-            <label for="archivoPdfFile">
-              Archivo PDF @if (formMode() === 'create') { <span class="req">*</span> }
-            </label>
-            <input
-              id="archivoPdfFile"
-              class="f-input"
-              type="file"
-              accept="application/pdf"
-              (change)="onPdfSelected($event)"
-            />
-            @if (pdfNombre()) {
-              <span class="f-help">Seleccionado: {{ pdfNombre() }}</span>
-            } @else if (editing()?.archivoPdf) {
-              <span class="current-file">
-                Actual:
-                <a [href]="pdfHref(editing()!)" target="_blank" rel="noopener noreferrer">ver PDF</a>
-                · deja vacío para conservarlo
-              </span>
-            }
-          </div>
-
-          <div class="form-field col-span">
-            <label>Portada (automática de la 1ª página)</label>
-            <div class="cover-row">
-              <div class="cover-box">
-                @if (generandoPortada()) {
-                  <div class="spinner" role="status" aria-label="Generando portada"></div>
-                } @else if (coverPreview()) {
-                  <img [src]="coverPreview()" alt="Portada generada" />
-                } @else if (editing()?.imagen) {
-                  <img [src]="portadaSrc(editing()!)" alt="Portada actual" />
-                } @else {
-                  <fa-icon class="icon" [icon]="faImagen"></fa-icon>
+            <div class="form-field col-span">
+              <label for="archivoPdfFile">
+                Archivo PDF
+                @if (formMode() === "create") {
+                  <span class="req">*</span>
                 }
-              </div>
-              <div class="cover-actions">
-                <span class="f-help">
-                  Se genera sola al elegir el PDF. Puedes reemplazarla por una imagen propia.
+              </label>
+              <input
+                id="archivoPdfFile"
+                class="f-input"
+                type="file"
+                accept="application/pdf"
+                (change)="onPdfSelected($event)"
+              />
+              @if (pdfNombre()) {
+                <span class="f-help">Seleccionado: {{ pdfNombre() }}</span>
+              } @else if (editing()?.archivoPdf) {
+                <span class="current-file">
+                  Actual:
+                  <a
+                    [href]="pdfHref(editing()!)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >ver PDF</a
+                  >
+                  · deja vacío para conservarlo
                 </span>
-                <label class="btn btn-ghost btn-sm">
-                  Cambiar portada
-                  <input type="file" accept="image/*" hidden (change)="onPortadaManual($event)" />
-                </label>
+              }
+            </div>
+
+            <div class="form-field col-span">
+              <label>Portada (automática de la 1ª página)</label>
+              <div class="cover-row">
+                <div class="cover-box">
+                  @if (generandoPortada()) {
+                    <div
+                      class="spinner"
+                      role="status"
+                      aria-label="Generando portada"
+                    ></div>
+                  } @else if (coverPreview()) {
+                    <img [src]="coverPreview()" alt="Portada generada" />
+                  } @else if (editing()?.imagen) {
+                    <img [src]="portadaSrc(editing()!)" alt="Portada actual" />
+                  } @else {
+                    <fa-icon class="icon" [icon]="faImagen"></fa-icon>
+                  }
+                </div>
+                <div class="cover-actions">
+                  <span class="f-help">
+                    Se genera sola al elegir el PDF. Puedes reemplazarla por una
+                    imagen propia.
+                  </span>
+                  <label class="btn btn-ghost btn-sm">
+                    Cambiar portada
+                    <input
+                      type="file"
+                      accept="image/*"
+                      hidden
+                      (change)="onPortadaManual($event)"
+                    />
+                  </label>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-actions">
-          <span class="spacer"></span>
-          <button type="button" class="btn btn-ghost" (click)="cancelar()" [disabled]="saving()">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary" [disabled]="saving()">
-            {{ saving() ? 'Guardando…' : 'Guardar' }}
-          </button>
-        </div>
+          <div class="form-actions">
+            <span class="spacer"></span>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="cancelar()"
+              [disabled]="saving()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? "Guardando…" : "Guardar" }}
+            </button>
+          </div>
         </form>
       </div>
     </app-crud-modal>
@@ -101,19 +129,21 @@
   <!-- ===== Listado ===== -->
   <div class="card">
     @switch (status()) {
-      @case ('loading') {
+      @case ("loading") {
         <div class="state-box">
           <div class="spinner" role="status" aria-label="Cargando libros"></div>
           <p>Cargando libros…</p>
         </div>
       }
-      @case ('error') {
+      @case ("error") {
         <div class="state-box error">
           <p>No pudimos cargar los libros.</p>
-          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">Reintentar</button>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">
+            Reintentar
+          </button>
         </div>
       }
-      @case ('ready') {
+      @case ("ready") {
         @if (libros().length === 0) {
           <div class="empty-state">
             <fa-icon class="icon" [icon]="faBook"></fa-icon>
@@ -158,7 +188,12 @@
                     <td class="title-cell">{{ l.titulo }}</td>
                     <td>
                       @if (l.archivoPdf) {
-                        <a class="ext" [href]="pdfHref(l)" target="_blank" rel="noopener noreferrer">
+                        <a
+                          class="ext"
+                          [href]="pdfHref(l)"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <fa-icon [icon]="faFilePdf"></fa-icon> Ver
                         </a>
                       } @else {

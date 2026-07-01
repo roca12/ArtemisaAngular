@@ -11,149 +11,204 @@
   </div>
 
   <!-- ===== Formulario crear / editar (modal) ===== -->
-  @if (formMode() !== 'hidden') {
+  @if (formMode() !== "hidden") {
     <app-crud-modal (close)="cancelar()">
       <div class="card">
         <div class="card-head">
           <h3>{{ formTitle() }}</h3>
         </div>
-        <form class="crud-form" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="supergrupo">Supergrupo <span class="req">*</span></label>
-            @if (temaNuevo['supergrupo']) {
-              <div class="input-with-btn">
-                <input
-                  class="f-input"
-                  [class.invalid]="invalido('supergrupo')"
-                  type="text"
-                  formControlName="supergrupo"
-                  placeholder="Nuevo supergrupo"
-                />
-                <button type="button" class="btn btn-ghost btn-sm" (click)="volverASelector('supergrupo')">Elegir</button>
-              </div>
-            } @else {
-              <div class="input-with-btn">
-                <select
-                  id="supergrupo"
-                  class="f-input"
-                  [class.invalid]="invalido('supergrupo')"
-                  [value]="form.controls.supergrupo.value"
-                  (change)="onSelect('supergrupo', $event)"
-                >
-                  <option value="">— Selecciona —</option>
-                  @for (sg of supergrupos(); track sg) {
-                    <option [value]="sg">{{ sg }}</option>
-                  }
-                </select>
-                <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="activarNuevo('supergrupo')" aria-label="Agregar supergrupo nuevo">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </button>
-              </div>
-            }
-            @if (invalido('supergrupo')) {
-              <span class="f-error">El supergrupo es obligatorio.</span>
-            }
+        <form
+          class="crud-form"
+          [formGroup]="form"
+          (ngSubmit)="guardar()"
+          novalidate
+        >
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="supergrupo"
+                >Supergrupo <span class="req">*</span></label
+              >
+              @if (temaNuevo["supergrupo"]) {
+                <div class="input-with-btn">
+                  <input
+                    class="f-input"
+                    [class.invalid]="invalido('supergrupo')"
+                    type="text"
+                    formControlName="supergrupo"
+                    placeholder="Nuevo supergrupo"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    (click)="volverASelector('supergrupo')"
+                  >
+                    Elegir
+                  </button>
+                </div>
+              } @else {
+                <div class="input-with-btn">
+                  <select
+                    id="supergrupo"
+                    class="f-input"
+                    [class.invalid]="invalido('supergrupo')"
+                    [value]="form.controls.supergrupo.value"
+                    (change)="onSelect('supergrupo', $event)"
+                  >
+                    <option value="">— Selecciona —</option>
+                    @for (sg of supergrupos(); track sg) {
+                      <option [value]="sg">{{ sg }}</option>
+                    }
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm btn-icon"
+                    (click)="activarNuevo('supergrupo')"
+                    aria-label="Agregar supergrupo nuevo"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+              }
+              @if (invalido("supergrupo")) {
+                <span class="f-error">El supergrupo es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="tema">Tema <span class="req">*</span></label>
+              @if (temaNuevo["tema"]) {
+                <div class="input-with-btn">
+                  <input
+                    class="f-input"
+                    [class.invalid]="invalido('tema')"
+                    type="text"
+                    formControlName="tema"
+                    placeholder="Nuevo tema"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm"
+                    (click)="volverASelector('tema')"
+                  >
+                    Elegir
+                  </button>
+                </div>
+              } @else {
+                <div class="input-with-btn">
+                  <select
+                    id="tema"
+                    class="f-input"
+                    [class.invalid]="invalido('tema')"
+                    [value]="form.controls.tema.value"
+                    (change)="onSelect('tema', $event)"
+                  >
+                    <option value="">— Selecciona —</option>
+                    @for (t of temasDisponibles(); track t) {
+                      <option [value]="t">{{ t }}</option>
+                    }
+                  </select>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm btn-icon"
+                    (click)="activarNuevo('tema')"
+                    aria-label="Agregar tema nuevo"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button>
+                </div>
+              }
+              @if (invalido("tema")) {
+                <span class="f-error">El tema es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="complejidad">Complejidad de tiempo</label>
+              <input
+                id="complejidad"
+                class="f-input"
+                type="text"
+                formControlName="complejidad_tiempo"
+                placeholder="O(n)"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="orden">Orden</label>
+              <input
+                id="orden"
+                class="f-input"
+                type="number"
+                formControlName="orden"
+                placeholder="1"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="suborden">Suborden</label>
+              <input
+                id="suborden"
+                class="f-input"
+                type="number"
+                formControlName="suborden"
+                placeholder="1"
+              />
+            </div>
+
+            <div class="form-field col-span">
+              <label>Texto / teoría</label>
+              <quill-editor
+                class="rich-editor"
+                formControlName="texto"
+                [modules]="quillModules"
+                [sanitize]="false"
+                placeholder="Descripción o contenido teórico del tema…"
+              ></quill-editor>
+            </div>
+
+            <div class="form-field col-span section-sep">
+              <span>Ejemplos de código</span>
+            </div>
+
+            <div class="form-field col-span">
+              <label>Código Java</label>
+              <app-code-editor
+                language="java"
+                formControlName="java"
+              ></app-code-editor>
+            </div>
+
+            <div class="form-field col-span">
+              <label>Código C++</label>
+              <app-code-editor
+                language="cpp"
+                formControlName="cpp"
+              ></app-code-editor>
+            </div>
+
+            <div class="form-field col-span">
+              <label>Código Python</label>
+              <app-code-editor
+                language="py"
+                formControlName="py"
+              ></app-code-editor>
+            </div>
           </div>
 
-          <div class="form-field">
-            <label for="tema">Tema <span class="req">*</span></label>
-            @if (temaNuevo['tema']) {
-              <div class="input-with-btn">
-                <input
-                  class="f-input"
-                  [class.invalid]="invalido('tema')"
-                  type="text"
-                  formControlName="tema"
-                  placeholder="Nuevo tema"
-                />
-                <button type="button" class="btn btn-ghost btn-sm" (click)="volverASelector('tema')">Elegir</button>
-              </div>
-            } @else {
-              <div class="input-with-btn">
-                <select
-                  id="tema"
-                  class="f-input"
-                  [class.invalid]="invalido('tema')"
-                  [value]="form.controls.tema.value"
-                  (change)="onSelect('tema', $event)"
-                >
-                  <option value="">— Selecciona —</option>
-                  @for (t of temasDisponibles(); track t) {
-                    <option [value]="t">{{ t }}</option>
-                  }
-                </select>
-                <button type="button" class="btn btn-ghost btn-sm btn-icon" (click)="activarNuevo('tema')" aria-label="Agregar tema nuevo">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </button>
-              </div>
-            }
-            @if (invalido('tema')) {
-              <span class="f-error">El tema es obligatorio.</span>
-            }
+          <div class="form-actions">
+            <span class="spacer"></span>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="cancelar()"
+              [disabled]="saving()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? "Guardando…" : "Guardar" }}
+            </button>
           </div>
-
-          <div class="form-field">
-            <label for="complejidad">Complejidad de tiempo</label>
-            <input
-              id="complejidad"
-              class="f-input"
-              type="text"
-              formControlName="complejidad_tiempo"
-              placeholder="O(n)"
-            />
-          </div>
-
-          <div class="form-field">
-            <label for="orden">Orden</label>
-            <input id="orden" class="f-input" type="number" formControlName="orden" placeholder="1" />
-          </div>
-
-          <div class="form-field">
-            <label for="suborden">Suborden</label>
-            <input id="suborden" class="f-input" type="number" formControlName="suborden" placeholder="1" />
-          </div>
-
-          <div class="form-field col-span">
-            <label>Texto / teoría</label>
-            <quill-editor
-              class="rich-editor"
-              formControlName="texto"
-              [modules]="quillModules"
-              [sanitize]="false"
-              placeholder="Descripción o contenido teórico del tema…"
-            ></quill-editor>
-          </div>
-
-          <div class="form-field col-span section-sep">
-            <span>Ejemplos de código</span>
-          </div>
-
-          <div class="form-field col-span">
-            <label>Código Java</label>
-            <app-code-editor language="java" formControlName="java"></app-code-editor>
-          </div>
-
-          <div class="form-field col-span">
-            <label>Código C++</label>
-            <app-code-editor language="cpp" formControlName="cpp"></app-code-editor>
-          </div>
-
-          <div class="form-field col-span">
-            <label>Código Python</label>
-            <app-code-editor language="py" formControlName="py"></app-code-editor>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <span class="spacer"></span>
-          <button type="button" class="btn btn-ghost" (click)="cancelar()" [disabled]="saving()">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary" [disabled]="saving()">
-            {{ saving() ? 'Guardando…' : 'Guardar' }}
-          </button>
-        </div>
         </form>
       </div>
     </app-crud-modal>
@@ -162,19 +217,25 @@
   <!-- ===== Listado ===== -->
   <div class="card">
     @switch (status()) {
-      @case ('loading') {
+      @case ("loading") {
         <div class="state-box">
-          <div class="spinner" role="status" aria-label="Cargando temario"></div>
+          <div
+            class="spinner"
+            role="status"
+            aria-label="Cargando temario"
+          ></div>
           <p>Cargando temario…</p>
         </div>
       }
-      @case ('error') {
+      @case ("error") {
         <div class="state-box error">
           <p>No pudimos cargar el temario.</p>
-          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">Reintentar</button>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">
+            Reintentar
+          </button>
         </div>
       }
-      @case ('ready') {
+      @case ("ready") {
         @if (temas().length === 0) {
           <div class="empty-state">
             <fa-icon class="icon" [icon]="faListUl"></fa-icon>
@@ -197,7 +258,7 @@
                   <tr>
                     <td>{{ t.supergrupo }}</td>
                     <td class="title-cell">{{ t.tema }}</td>
-                    <td class="muted">{{ t.complejidad_tiempo || '—' }}</td>
+                    <td class="muted">{{ t.complejidad_tiempo || "—" }}</td>
                     <td class="muted">{{ t.orden }}.{{ t.suborden }}</td>
                     <td class="col-actions">
                       <div class="row-actions">

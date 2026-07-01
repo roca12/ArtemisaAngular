@@ -147,7 +147,9 @@ export class LinkComponent implements OnInit {
 
     req$.subscribe({
       next: () => {
-        this.toastr.success(esEdicion ? 'Enlace actualizado.' : 'Enlace creado.');
+        this.toastr.success(
+          esEdicion ? 'Enlace actualizado.' : 'Enlace creado.',
+        );
         this.saving.set(false);
         this.formMode.set('hidden');
         this.cargar();
@@ -168,7 +170,9 @@ export class LinkComponent implements OnInit {
       this.toastr.error('Este enlace no tiene identificador.');
       return;
     }
-    if (!confirm(`¿Eliminar el enlace "${l.nombre}"? Esta acción es permanente.`)) {
+    if (
+      !confirm(`¿Eliminar el enlace "${l.nombre}"? Esta acción es permanente.`)
+    ) {
       return;
     }
     this.deletingId.set(l._id);

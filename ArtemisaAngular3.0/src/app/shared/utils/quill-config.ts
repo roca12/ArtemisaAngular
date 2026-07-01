@@ -30,8 +30,14 @@ FontStyle.whitelist = FUENTES;
 
 const AlignStyle = Quill.import('attributors/style/align');
 
-Quill.register(SizeStyle as unknown as Parameters<typeof Quill.register>[0], true);
-Quill.register(FontStyle as unknown as Parameters<typeof Quill.register>[0], true);
+Quill.register(
+  SizeStyle as unknown as Parameters<typeof Quill.register>[0],
+  true,
+);
+Quill.register(
+  FontStyle as unknown as Parameters<typeof Quill.register>[0],
+  true,
+);
 Quill.register(AlignStyle as Parameters<typeof Quill.register>[0], true);
 
 /** Módulos (barra de herramientas) del editor de temario. */

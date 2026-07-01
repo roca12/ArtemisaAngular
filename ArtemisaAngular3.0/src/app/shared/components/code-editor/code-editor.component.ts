@@ -23,7 +23,12 @@ import {
   foldGutter,
   indentOnInput,
 } from '@codemirror/language';
-import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
+import {
+  defaultKeymap,
+  history,
+  historyKeymap,
+  indentWithTab,
+} from '@codemirror/commands';
 import { java } from '@codemirror/lang-java';
 import { cpp } from '@codemirror/lang-cpp';
 import { python } from '@codemirror/lang-python';
@@ -168,9 +173,7 @@ export class CodeEditorComponent
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this.view?.dispatch({
-      effects: this.editable.reconfigure(
-        EditorView.editable.of(!isDisabled),
-      ),
+      effects: this.editable.reconfigure(EditorView.editable.of(!isDisabled)),
     });
   }
 }
