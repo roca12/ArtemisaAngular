@@ -2,8 +2,13 @@
  * Representa un problema de programación competitiva.
  */
 export interface Problema {
-  /** Identificador único del problema. */
-  id: number;
+  /** Identificador de MongoDB (lo devuelve el backend; necesario para editar/eliminar). */
+  _id?: string;
+  /**
+   * @deprecated El backend no devuelve `id` en `ProblemaResponse`; usa `_id`.
+   * Se conserva opcional por compatibilidad hasta migrar los consumidores.
+   */
+  id?: number;
   /** Título del problema. */
   titulo: string;
   /** Nombre del juez en línea (e.g., UVa, Codeforces). */

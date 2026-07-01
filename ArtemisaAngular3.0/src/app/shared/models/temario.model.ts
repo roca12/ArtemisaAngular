@@ -2,8 +2,13 @@
  * Representa un tema detallado dentro del temario de programación competitiva.
  */
 export interface Temario {
-  /** Identificador único del tema. */
-  ID: number;
+  /** Identificador de MongoDB (lo devuelve el backend; necesario para editar/eliminar). */
+  _id?: string;
+  /**
+   * @deprecated El backend no devuelve `ID` en `TemarioResponse`; usa `_id`.
+   * Se conserva opcional por compatibilidad hasta migrar los consumidores.
+   */
+  ID?: number;
   /** Grupo superior al que pertenece el tema. */
   supergrupo: string;
   /** Nombre del tema. */

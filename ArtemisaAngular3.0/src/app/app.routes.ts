@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { TemarioComponent } from './temario/temario.component';
-import { ProblemasComponent } from './problemas/problemas.component';
-import { LinksComponent } from './links/links.component';
+import { PanelComponent } from './admin/panel/panel.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { HomeComponent } from './home/home.component';
+import { LinksComponent } from './links/links.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { ProblemasComponent } from './problemas/problemas.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './register/register.component';
+import { adminGuardGuard } from './shared/guards/admin-guard.guard';
 import { authGuardGuard } from './shared/guards/auth-guard.guard';
+import { TemarioComponent } from './temario/temario.component';
 
 /**
  * Tabla de rutas de la aplicación.
@@ -27,5 +29,10 @@ export const routes: Routes = [
     path: 'perfil',
     component: ProfileComponent,
     canActivate: [authGuardGuard],
+  },
+  {
+    path: 'admin',
+    component: PanelComponent,
+    canActivate: [adminGuardGuard],
   },
 ];

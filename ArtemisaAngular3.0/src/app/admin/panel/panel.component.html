@@ -1,0 +1,56 @@
+<div class="adm-paper" [class.dark]="theme.isDark()">
+  <div class="page">
+    <div class="breadcrumb">
+      <span>Administración</span><span class="sep">/</span
+      ><span>{{ activeLabel() }}</span>
+    </div>
+
+    <div class="layout">
+      <!-- ---------- SIDEBAR ---------- -->
+      <aside class="sidebar">
+        <div class="admin-card">
+          <div class="admin-badge">
+            <fa-icon [icon]="faUserShield"></fa-icon>
+          </div>
+          <h1>Panel de control</h1>
+          <p class="sub">Gestión de contenido</p>
+        </div>
+
+        <nav class="side-nav">
+          @for (item of navItems; track item.id) {
+            <button
+              type="button"
+              [class.active]="activeSection() === item.id"
+              (click)="setSection(item.id)"
+            >
+              <fa-icon [icon]="item.icon"></fa-icon>
+              {{ item.label }}
+            </button>
+          }
+          <button type="button" class="back" (click)="volverAlPerfil()">
+            <fa-icon [icon]="faArrowLeft"></fa-icon>
+            Volver al perfil
+          </button>
+        </nav>
+      </aside>
+
+      <!-- ---------- MAIN ---------- -->
+      <main class="content">
+        @switch (activeSection()) {
+          @case ('libros') {
+            <app-libro />
+          }
+          @case ('problemas') {
+            <app-problema />
+          }
+          @case ('links') {
+            <app-link />
+          }
+          @case ('temario') {
+            <app-admin-temario />
+          }
+        }
+      </main>
+    </div>
+  </div>
+</div>

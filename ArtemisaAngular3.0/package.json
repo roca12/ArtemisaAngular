@@ -48,7 +48,10 @@
     "jwt-decode": "^4.0.0",
     "ngx-captcha": "^13.0.0",
     "ngx-extended-pdf-viewer": "^24.2.0-alpha.0",
+    "ngx-quill": "^27.1.2",
     "ngx-toastr": "^19.0.0",
+    "pdfjs-dist": "^6.1.200",
+    "quill": "^2.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

@@ -234,12 +234,48 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   /**
+   * Indica si un valor ya es una URL absoluta (p. ej. subida a Cloudinary).
+   * Los libros antiguos guardan solo el nombre del archivo (asset local),
+   * mientras que los subidos vía Cloudinary guardan una URL absoluta.
+   * @param v Valor a comprobar.
+   */
+  private esUrlAbsoluta(v: string): boolean {
+    return /^https?:\/\//i.test(v);
+  }
+
+  /**
+   * Resuelve la URL de la portada: nombre de asset local o URL absoluta.
+   * @param libro Libro.
+   */
+  portadaSrc(libro: Libro): string {
+    const img = libro.imagen ?? '';
+    return this.esUrlAbsoluta(img)
+      ? img
+      : `assets/images/libros/descargables/${img}`;
+  }
+
+  /**
+   * Resuelve la URL del PDF (asset local por nombre o URL absoluta de Cloudinary).
+   * @param pdf Valor de `archivoPdf` del libro.
+   */
+  private pdfHref(pdf: string): string {
+    return this.esUrlAbsoluta(pdf) ? pdf : `assets/pdfs/${pdf}`;
+  }
+
+  /**
    * Descarga un archivo PDF de libro.
-   * @param pdf Nombre del archivo PDF.
+   * @param pdf Nombre del archivo o URL del PDF.
    */
   descargarLibro(pdf: string): void {
+    let href = this.pdfHref(pdf);
+    // En URLs `raw` de Cloudinary, `fl_attachment` fuerza la descarga en lugar
+    // de abrir el PDF en el navegador (el atributo `download` se ignora en
+    // descargas de otro origen).
+    if (this.esUrlAbsoluta(href)) {
+      href = href.replace('/upload/', '/upload/fl_attachment/');
+    }
     const link = document.body.appendChild(document.createElement('a'));
-    link.href = `assets/pdfs/${pdf}`;
+    link.href = href;
     link.download = pdf;
     link.click();
     document.body.removeChild(link);
@@ -253,10 +289,10 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   /**
    * Abre un archivo PDF en una nueva pestaña.
-   * @param pdf Nombre del archivo PDF.
+   * @param pdf Nombre del archivo o URL del PDF.
    */
   verPdf(pdf: string): void {
-    window.open(`assets/pdfs/${pdf}`, '_blank');
+    window.open(this.pdfHref(pdf), '_blank');
     console.debug(
       'Opening:',
       pdf,

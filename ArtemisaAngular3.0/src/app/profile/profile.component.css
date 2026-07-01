@@ -61,8 +61,9 @@
   --line-strong: #3d3d3d;
   --field: #262626;
   --shadow: 0 0 0;
-  /* Naranja de marca más vivo sobre fondo oscuro (igual que el splash) */
-  --accent: #ef6024;
+  /* En modo oscuro los acentos usan el azul del proyecto (--blue-dark)
+     en lugar del naranja de marca. */
+  --accent: var(--blue-dark, #3a5c6a);
   --accent-ink: #ffffff;
 }
 

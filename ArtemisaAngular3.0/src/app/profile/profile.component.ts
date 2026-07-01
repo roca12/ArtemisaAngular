@@ -1,6 +1,5 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -8,24 +7,26 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import {
   faArrowRightFromBracket,
+  faCrown,
   faEye,
   faEyeSlash,
   faLock,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 import { ThemeService } from '../services/theme.service';
 import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
 import { ProfileUser } from '../shared/models/profile-user.model';
 
 /** Estado de carga del perfil. */
 type ProfileStatus = 'loading' | 'ready' | 'error';
 /** Pestañas reales del perfil (solo las que tienen respaldo de backend). */
-type ProfileTab = 'cuenta' | 'seguridad';
+type ProfileTab = 'cuenta' | 'seguridad' | 'admin';
 
 /**
  * Página de Perfil de Usuario (sistema visual "paper & ink" del handoff).
@@ -134,6 +135,14 @@ export class ProfileComponent implements OnInit {
     this.activeTab.set(tab);
   }
 
+  /**
+   * Navega al panel de control del administrador.
+   * A diferencia de las pestañas, esto cambia de ruta (otro componente).
+   */
+  goToAdminPanel(): void {
+    this.router.navigate(['/admin']);
+  }
+
   /** Abre la edición inline del correo con el valor actual. */
   startEditEmail(): void {
     this.emailForm.controls.correo.setValue(this.usuario()?.correo ?? '');
@@ -237,6 +246,8 @@ export class ProfileComponent implements OnInit {
   protected readonly faLock = faLock;
   /** Icono de cerrar sesión. */
   protected readonly faArrowRightFromBracket = faArrowRightFromBracket;
+  /** Icono de administrador */
+  protected readonly faCrown = faCrown;
 }
 
 /**

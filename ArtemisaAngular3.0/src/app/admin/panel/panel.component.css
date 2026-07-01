@@ -1,0 +1,219 @@
+/* ============================================================
+   Panel de administración — misma estética "paper & ink" del perfil.
+   Todo va prefijado con .adm-paper para no afectar al resto de la app.
+   ============================================================ */
+:host {
+  display: block;
+}
+
+.adm-paper {
+  /* Acentos de marca (paleta global del proyecto) */
+  --accent: #d95c00;
+  --accent-ink: #ffffff;
+  --teal: #1f5e67;
+  --amber: #c08c4a;
+
+  /* Modo claro — neutro, coherente con el resto de la app */
+  --bg: #ffffff;
+  --bg-tint: #f4f4f4;
+  --surface: #ffffff;
+  --surface-2: #f6f6f6;
+  --ink: #1e1e1e;
+  --ink-soft: #4a4a4a;
+  --muted: #8a8a8a;
+  --line: #e4e4e4;
+  --line-strong: #d0d0d0;
+  --shadow: 20 20 20;
+
+  --font-display: var(--font-base);
+  --font-ui: var(--font-base);
+  --font-mono: var(--font-base);
+
+  --pad-card: 26px;
+  --gap: 22px;
+  --radius: 14px;
+  --radius-sm: 9px;
+  --radius-pill: 999px;
+
+  min-height: calc(100vh - 80px);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15.5px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.adm-paper.dark {
+  /* Modo oscuro — misma paleta que el perfil (acentos en azul del proyecto) */
+  --bg: #1e1e1e;
+  --bg-tint: #262626;
+  --surface: #252525;
+  --surface-2: #2b2b2b;
+  --ink: #f0f0f0;
+  --ink-soft: #cfcfcf;
+  --muted: #b0b0b0;
+  --line: #303030;
+  --line-strong: #3d3d3d;
+  --shadow: 0 0 0;
+  --accent: var(--blue-dark, #3a5c6a);
+  --accent-ink: #ffffff;
+}
+
+.adm-paper *,
+.adm-paper *::before,
+.adm-paper *::after {
+  box-sizing: border-box;
+}
+.adm-paper button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------- Page ---------- */
+.page {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: clamp(22px, 4vw, 44px) clamp(20px, 4vw, 56px) 80px;
+}
+.breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.breadcrumb .sep {
+  opacity: 0.5;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: sticky;
+  top: 84px;
+  display: grid;
+  gap: var(--gap);
+}
+.admin-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--pad-card);
+  text-align: center;
+  box-shadow: 0 1px 0 rgb(var(--shadow) / 0.04);
+}
+.admin-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  color: var(--accent-ink);
+  background: linear-gradient(
+    150deg,
+    var(--accent),
+    color-mix(in oklab, var(--accent) 55%, var(--teal))
+  );
+  border: 3px solid var(--surface);
+  box-shadow:
+    0 0 0 1px var(--line-strong),
+    0 8px 22px rgb(var(--shadow) / 0.12);
+}
+.admin-card h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 21px;
+  margin: 0 0 3px;
+  letter-spacing: -0.01em;
+}
+.admin-card .sub {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ---------- Sidebar nav ---------- */
+.side-nav {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  display: grid;
+  gap: 2px;
+}
+.side-nav button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 11px 13px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition:
+    background 0.14s ease,
+    color 0.14s ease;
+}
+.side-nav button fa-icon {
+  width: 18px;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+.side-nav button:hover {
+  background: var(--bg-tint);
+  color: var(--ink);
+}
+.side-nav button.active {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+.side-nav button.active fa-icon {
+  opacity: 1;
+}
+.side-nav .back {
+  margin-top: 4px;
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  color: var(--ink-soft);
+}
+.side-nav .back:hover {
+  background: var(--bg-tint);
+  color: var(--ink);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 880px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adm-paper *,
+  .adm-paper *::before,
+  .adm-paper *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
