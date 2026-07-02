@@ -14,6 +14,7 @@ import { ConfirmService } from '../../services/confirm.service';
 import { Problema } from '../../shared/models/problema.model';
 import { mensajeDeError } from '../../shared/utils/http-error';
 import { CrudModalComponent } from '../../shared/components/crud-modal/crud-modal.component';
+import { FieldSelectorComponent } from '../field-selector/field-selector.component';
 
 /** Estado de carga del listado. */
 type CrudStatus = 'loading' | 'ready' | 'error';
@@ -29,7 +30,12 @@ type FormMode = 'hidden' | 'create' | 'edit';
  */
 @Component({
   selector: 'app-problema',
-  imports: [ReactiveFormsModule, FaIconComponent, CrudModalComponent],
+  imports: [
+    ReactiveFormsModule,
+    FaIconComponent,
+    CrudModalComponent,
+    FieldSelectorComponent,
+  ],
   templateUrl: './problema.component.html',
   styleUrl: '../crud-section.css',
 })
@@ -60,15 +66,6 @@ export class ProblemaComponent implements OnInit {
   readonly formTitle = computed(() =>
     this.formMode() === 'edit' ? 'Editar problema' : 'Nuevo problema',
   );
-
-  /** Campos con selector (juez y temas) que están en modo "escribir uno nuevo". */
-  campoNuevo: Record<string, boolean> = {
-    juez: false,
-    tema_1: false,
-    tema_2: false,
-    tema_3: false,
-    tema_4: false,
-  };
 
   /** Jueces en línea existentes (valores distintos de `juez`), para el selector. */
   readonly jueces = computed(() =>
@@ -138,7 +135,6 @@ export class ProblemaComponent implements OnInit {
       tema_4: '',
       url: '',
     });
-    this.resetCamposNuevo();
     this.formMode.set('create');
   }
 
@@ -163,7 +159,6 @@ export class ProblemaComponent implements OnInit {
       tema_4: p.tema_4 ?? '',
       url: p.url,
     });
-    this.resetCamposNuevo();
     this.formMode.set('edit');
   }
 
@@ -245,48 +240,6 @@ export class ProblemaComponent implements OnInit {
         this.deletingId.set(null);
       },
     });
-  }
-
-  /**
-   * Devuelve los valores no vacíos, sin duplicados y ordenados alfabéticamente.
-   * @param valores Lista de valores (posiblemente con vacíos/repetidos).
-   */
-  /**
-   * Guarda en el control el tema elegido en el selector.
-   * @param campo Nombre del control (tema_1..4).
-   * @param event Evento del `<select>`.
-   */
-  onCampoSelect(campo: string, event: Event): void {
-    this.form.get(campo)?.setValue((event.target as HTMLSelectElement).value);
-  }
-
-  /**
-   * Activa el modo de escritura para introducir un valor nuevo.
-   * @param campo Nombre del control (juez o tema_1..4).
-   */
-  activarNuevo(campo: string): void {
-    this.campoNuevo[campo] = true;
-    this.form.get(campo)?.setValue('');
-  }
-
-  /**
-   * Vuelve del modo "escribir nuevo" al selector.
-   * @param campo Nombre del control (juez o tema_1..4).
-   */
-  volverASelector(campo: string): void {
-    this.campoNuevo[campo] = false;
-    this.form.get(campo)?.setValue('');
-  }
-
-  /** Restablece juez y todos los campos de tema al modo selector. */
-  private resetCamposNuevo(): void {
-    this.campoNuevo = {
-      juez: false,
-      tema_1: false,
-      tema_2: false,
-      tema_3: false,
-      tema_4: false,
-    };
   }
 
   /**

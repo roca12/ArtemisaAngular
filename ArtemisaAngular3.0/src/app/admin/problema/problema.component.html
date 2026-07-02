@@ -41,47 +41,14 @@
 
             <div class="form-field">
               <label for="juez">Juez <span class="req">*</span></label>
-              @if (campoNuevo["juez"]) {
-                <div class="input-with-btn">
-                  <input
-                    class="f-input"
-                    [class.invalid]="invalido('juez')"
-                    type="text"
-                    formControlName="juez"
-                    placeholder="Nuevo juez"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm"
-                    (click)="volverASelector('juez')"
-                  >
-                    Elegir
-                  </button>
-                </div>
-              } @else {
-                <div class="input-with-btn">
-                  <select
-                    id="juez"
-                    class="f-input"
-                    [class.invalid]="invalido('juez')"
-                    [value]="form.controls.juez.value"
-                    (change)="onCampoSelect('juez', $event)"
-                  >
-                    <option value="">— Elige un juez —</option>
-                    @for (j of jueces(); track j) {
-                      <option [value]="j">{{ j }}</option>
-                    }
-                  </select>
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm btn-icon"
-                    (click)="activarNuevo('juez')"
-                    aria-label="Agregar juez nuevo"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
-                </div>
-              }
+              <app-field-selector
+                [control]="form.controls.juez"
+                [opciones]="jueces()"
+                [invalido]="invalido('juez')"
+                placeholderNuevo="Nuevo juez"
+                placeholderVacio="— Elige un juez —"
+                ariaLabel="Agregar juez nuevo"
+              />
               @if (invalido("juez")) {
                 <span class="f-error">El juez es obligatorio.</span>
               }
@@ -132,171 +99,43 @@
 
             <div class="form-field">
               <label for="tema_1">Tema 1 (principal)</label>
-              @if (campoNuevo["tema_1"]) {
-                <div class="input-with-btn">
-                  <input
-                    class="f-input"
-                    type="text"
-                    formControlName="tema_1"
-                    placeholder="Nuevo tema"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm"
-                    (click)="volverASelector('tema_1')"
-                  >
-                    Elegir
-                  </button>
-                </div>
-              } @else {
-                <div class="input-with-btn">
-                  <select
-                    id="tema_1"
-                    class="f-input"
-                    [value]="form.controls.tema_1.value"
-                    (change)="onCampoSelect('tema_1', $event)"
-                  >
-                    <option value="">— Sin tema —</option>
-                    @for (t of temasPrincipales(); track t) {
-                      <option [value]="t">{{ t }}</option>
-                    }
-                  </select>
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm btn-icon"
-                    (click)="activarNuevo('tema_1')"
-                    aria-label="Agregar tema nuevo"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
-                </div>
-              }
+              <app-field-selector
+                [control]="form.controls.tema_1"
+                [opciones]="temasPrincipales()"
+                placeholderNuevo="Nuevo tema"
+                placeholderVacio="— Sin tema —"
+                ariaLabel="Agregar tema nuevo"
+              />
             </div>
             <div class="form-field">
               <label for="tema_2">Tema 2 (subtema)</label>
-              @if (campoNuevo["tema_2"]) {
-                <div class="input-with-btn">
-                  <input
-                    class="f-input"
-                    type="text"
-                    formControlName="tema_2"
-                    placeholder="Nuevo subtema"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm"
-                    (click)="volverASelector('tema_2')"
-                  >
-                    Elegir
-                  </button>
-                </div>
-              } @else {
-                <div class="input-with-btn">
-                  <select
-                    id="tema_2"
-                    class="f-input"
-                    [value]="form.controls.tema_2.value"
-                    (change)="onCampoSelect('tema_2', $event)"
-                  >
-                    <option value="">— Sin subtema —</option>
-                    @for (t of subtemas(); track t) {
-                      <option [value]="t">{{ t }}</option>
-                    }
-                  </select>
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm btn-icon"
-                    (click)="activarNuevo('tema_2')"
-                    aria-label="Agregar subtema nuevo"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
-                </div>
-              }
+              <app-field-selector
+                [control]="form.controls.tema_2"
+                [opciones]="subtemas()"
+                placeholderNuevo="Nuevo subtema"
+                placeholderVacio="— Sin subtema —"
+                ariaLabel="Agregar subtema nuevo"
+              />
             </div>
             <div class="form-field">
               <label for="tema_3">Tema 3 (subtema)</label>
-              @if (campoNuevo["tema_3"]) {
-                <div class="input-with-btn">
-                  <input
-                    class="f-input"
-                    type="text"
-                    formControlName="tema_3"
-                    placeholder="Nuevo subtema"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm"
-                    (click)="volverASelector('tema_3')"
-                  >
-                    Elegir
-                  </button>
-                </div>
-              } @else {
-                <div class="input-with-btn">
-                  <select
-                    id="tema_3"
-                    class="f-input"
-                    [value]="form.controls.tema_3.value"
-                    (change)="onCampoSelect('tema_3', $event)"
-                  >
-                    <option value="">— Sin subtema —</option>
-                    @for (t of subtemas(); track t) {
-                      <option [value]="t">{{ t }}</option>
-                    }
-                  </select>
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm btn-icon"
-                    (click)="activarNuevo('tema_3')"
-                    aria-label="Agregar subtema nuevo"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
-                </div>
-              }
+              <app-field-selector
+                [control]="form.controls.tema_3"
+                [opciones]="subtemas()"
+                placeholderNuevo="Nuevo subtema"
+                placeholderVacio="— Sin subtema —"
+                ariaLabel="Agregar subtema nuevo"
+              />
             </div>
             <div class="form-field">
               <label for="tema_4">Tema 4 (subtema)</label>
-              @if (campoNuevo["tema_4"]) {
-                <div class="input-with-btn">
-                  <input
-                    class="f-input"
-                    type="text"
-                    formControlName="tema_4"
-                    placeholder="Nuevo subtema"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm"
-                    (click)="volverASelector('tema_4')"
-                  >
-                    Elegir
-                  </button>
-                </div>
-              } @else {
-                <div class="input-with-btn">
-                  <select
-                    id="tema_4"
-                    class="f-input"
-                    [value]="form.controls.tema_4.value"
-                    (change)="onCampoSelect('tema_4', $event)"
-                  >
-                    <option value="">— Sin subtema —</option>
-                    @for (t of subtemas(); track t) {
-                      <option [value]="t">{{ t }}</option>
-                    }
-                  </select>
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm btn-icon"
-                    (click)="activarNuevo('tema_4')"
-                    aria-label="Agregar subtema nuevo"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
-                </div>
-              }
+              <app-field-selector
+                [control]="form.controls.tema_4"
+                [opciones]="subtemas()"
+                placeholderNuevo="Nuevo subtema"
+                placeholderVacio="— Sin subtema —"
+                ariaLabel="Agregar subtema nuevo"
+              />
             </div>
           </div>
 

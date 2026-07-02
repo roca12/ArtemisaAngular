@@ -30,7 +30,7 @@ export class LinkService {
    * @returns Un Observable con la colección de enlaces.
    */
   obtenerLinks() {
-    return this.http.get<Link[]>(`${this.baseUrl}`);
+    return this.http.get<Link[]>(this.baseUrl);
   }
 
   /**

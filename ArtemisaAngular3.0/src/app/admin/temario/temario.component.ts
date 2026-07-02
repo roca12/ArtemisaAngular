@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { QuillEditorComponent } from 'ngx-quill';
 import { CodeEditorComponent } from '../../shared/components/code-editor/code-editor.component';
 import { CrudModalComponent } from '../../shared/components/crud-modal/crud-modal.component';
+import { FieldSelectorComponent } from '../field-selector/field-selector.component';
 import { CrearTemario, SyllabusService } from '../../services/syllabus.service';
 import { ConfirmService } from '../../services/confirm.service';
 import { Temario } from '../../shared/models/temario.model';
@@ -40,6 +41,7 @@ type FormMode = 'hidden' | 'create' | 'edit';
     QuillEditorComponent,
     CodeEditorComponent,
     CrudModalComponent,
+    FieldSelectorComponent,
   ],
   templateUrl: './temario.component.html',
   styleUrl: '../crud-section.css',
@@ -73,9 +75,6 @@ export class AdminTemarioComponent implements OnInit {
   readonly formTitle = computed(() =>
     this.formMode() === 'edit' ? 'Editar tema' : 'Nuevo tema',
   );
-
-  /** Campos que están en modo "escribir uno nuevo". */
-  temaNuevo: Record<string, boolean> = { supergrupo: false, tema: false };
 
   /** Nombres de tema existentes (valores distintos), para el selector. */
   readonly temasDisponibles = computed(() =>
@@ -144,7 +143,6 @@ export class AdminTemarioComponent implements OnInit {
       orden: null,
       suborden: null,
     });
-    this.resetTemaNuevo();
     this.formMode.set('create');
   }
 
@@ -169,7 +167,6 @@ export class AdminTemarioComponent implements OnInit {
       orden: t.orden ?? null,
       suborden: t.suborden ?? null,
     });
-    this.resetTemaNuevo();
     this.formMode.set('edit');
   }
 
@@ -259,38 +256,6 @@ export class AdminTemarioComponent implements OnInit {
   invalido(nombreControl: string): boolean {
     const control = this.form.get(nombreControl);
     return control != null && control.invalid && control.touched;
-  }
-
-  /**
-   * Guarda en el control el valor elegido en el selector.
-   * @param campo Nombre del control (supergrupo o tema).
-   * @param event Evento del `<select>`.
-   */
-  onSelect(campo: string, event: Event): void {
-    this.form.get(campo)?.setValue((event.target as HTMLSelectElement).value);
-  }
-
-  /**
-   * Activa el modo de escritura para introducir un valor nuevo.
-   * @param campo Nombre del control (supergrupo o tema).
-   */
-  activarNuevo(campo: string): void {
-    this.temaNuevo[campo] = true;
-    this.form.get(campo)?.setValue('');
-  }
-
-  /**
-   * Vuelve del modo "escribir nuevo" al selector.
-   * @param campo Nombre del control (supergrupo o tema).
-   */
-  volverASelector(campo: string): void {
-    this.temaNuevo[campo] = false;
-    this.form.get(campo)?.setValue('');
-  }
-
-  /** Restablece los campos con selector al modo lista. */
-  private resetTemaNuevo(): void {
-    this.temaNuevo = { supergrupo: false, tema: false };
   }
 
   /**

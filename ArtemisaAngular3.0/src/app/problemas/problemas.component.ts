@@ -172,7 +172,7 @@ export class ProblemasComponent implements OnInit {
    * @param dificultad Valor numérico de la dificultad.
    * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
    */
-  determinarNivel(dificultad: number): string {
+  readonly determinarNivel = (dificultad: number): string => {
     if (dificultad <= 5) {
       return 'Aprendíz';
     } else if (dificultad <= 10) {
@@ -184,7 +184,7 @@ export class ProblemasComponent implements OnInit {
     } else {
       return 'Élite';
     }
-  }
+  };
 
   /**
    * Maneja el cambio en el selector de subtemas y resetea filtros anteriores de subtema.

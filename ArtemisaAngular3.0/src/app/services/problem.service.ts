@@ -30,7 +30,7 @@ export class ProblemService {
    * @returns Un Observable con la colección de problemas.
    */
   getProblems() {
-    return this.http.get<Problema[]>(`${this.baseUrl}`);
+    return this.http.get<Problema[]>(this.baseUrl);
   }
 
   /**

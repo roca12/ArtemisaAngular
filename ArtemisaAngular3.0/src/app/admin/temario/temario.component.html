@@ -28,47 +28,14 @@
               <label for="supergrupo"
                 >Supergrupo <span class="req">*</span></label
               >
-              @if (temaNuevo["supergrupo"]) {
-                <div class="input-with-btn">
-                  <input
-                    class="f-input"
-                    [class.invalid]="invalido('supergrupo')"
-                    type="text"
-                    formControlName="supergrupo"
-                    placeholder="Nuevo supergrupo"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm"
-                    (click)="volverASelector('supergrupo')"
-                  >
-                    Elegir
-                  </button>
-                </div>
-              } @else {
-                <div class="input-with-btn">
-                  <select
-                    id="supergrupo"
-                    class="f-input"
-                    [class.invalid]="invalido('supergrupo')"
-                    [value]="form.controls.supergrupo.value"
-                    (change)="onSelect('supergrupo', $event)"
-                  >
-                    <option value="">— Selecciona —</option>
-                    @for (sg of supergrupos(); track sg) {
-                      <option [value]="sg">{{ sg }}</option>
-                    }
-                  </select>
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm btn-icon"
-                    (click)="activarNuevo('supergrupo')"
-                    aria-label="Agregar supergrupo nuevo"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
-                </div>
-              }
+              <app-field-selector
+                [control]="form.controls.supergrupo"
+                [opciones]="supergrupos()"
+                [invalido]="invalido('supergrupo')"
+                placeholderNuevo="Nuevo supergrupo"
+                placeholderVacio="— Selecciona —"
+                ariaLabel="Agregar supergrupo nuevo"
+              />
               @if (invalido("supergrupo")) {
                 <span class="f-error">El supergrupo es obligatorio.</span>
               }
@@ -76,47 +43,14 @@
 
             <div class="form-field">
               <label for="tema">Tema <span class="req">*</span></label>
-              @if (temaNuevo["tema"]) {
-                <div class="input-with-btn">
-                  <input
-                    class="f-input"
-                    [class.invalid]="invalido('tema')"
-                    type="text"
-                    formControlName="tema"
-                    placeholder="Nuevo tema"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm"
-                    (click)="volverASelector('tema')"
-                  >
-                    Elegir
-                  </button>
-                </div>
-              } @else {
-                <div class="input-with-btn">
-                  <select
-                    id="tema"
-                    class="f-input"
-                    [class.invalid]="invalido('tema')"
-                    [value]="form.controls.tema.value"
-                    (change)="onSelect('tema', $event)"
-                  >
-                    <option value="">— Selecciona —</option>
-                    @for (t of temasDisponibles(); track t) {
-                      <option [value]="t">{{ t }}</option>
-                    }
-                  </select>
-                  <button
-                    type="button"
-                    class="btn btn-ghost btn-sm btn-icon"
-                    (click)="activarNuevo('tema')"
-                    aria-label="Agregar tema nuevo"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
-                </div>
-              }
+              <app-field-selector
+                [control]="form.controls.tema"
+                [opciones]="temasDisponibles()"
+                [invalido]="invalido('tema')"
+                placeholderNuevo="Nuevo tema"
+                placeholderVacio="— Selecciona —"
+                ariaLabel="Agregar tema nuevo"
+              />
               @if (invalido("tema")) {
                 <span class="f-error">El tema es obligatorio.</span>
               }
