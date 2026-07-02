@@ -20,7 +20,11 @@ import { CrudModalComponent } from '../crud-modal/crud-modal.component';
           </div>
           <p class="cd-message">{{ s.mensaje }}</p>
           <div class="cd-actions">
-            <button type="button" class="btn btn-ghost" (click)="confirm.cancelar()">
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="confirm.cancelar()"
+            >
               {{ s.textoCancelar }}
             </button>
             <button
