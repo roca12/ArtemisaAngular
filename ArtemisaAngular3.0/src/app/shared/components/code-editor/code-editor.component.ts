@@ -109,9 +109,14 @@ export class CodeEditorComponent
   private disabled = false;
 
   /** Callbacks de ControlValueAccessor. */
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: string) => void = () => {
+    /* No-op hasta que Angular registre el callback real. */
+  };
+  private onTouched: () => void = () => {
+    /* No-op hasta que Angular registre el callback real. */
+  };
 
+  /** Monta la instancia de CodeMirror una vez que el contenedor existe en el DOM. */
   ngAfterViewInit(): void {
     this.view = new EditorView({
       parent: this.host.nativeElement,
@@ -136,6 +141,7 @@ export class CodeEditorComponent
     });
   }
 
+  /** Destruye la instancia de CodeMirror para liberar recursos. */
   ngOnDestroy(): void {
     this.view?.destroy();
   }

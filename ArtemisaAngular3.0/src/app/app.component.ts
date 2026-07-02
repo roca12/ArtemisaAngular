@@ -6,6 +6,7 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { NgClass } from '@angular/common';
 import { RecomendationService } from './services/recomendation.service';
+import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
 
 /**
  * Componente raíz de la aplicación que gestiona la estructura principal,
@@ -13,7 +14,13 @@ import { RecomendationService } from './services/recomendation.service';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MenuBarComponent, FaIconComponent, NgClass],
+  imports: [
+    RouterOutlet,
+    MenuBarComponent,
+    FaIconComponent,
+    NgClass,
+    ConfirmDialogComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -239,7 +239,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * mientras que los subidos vía Cloudinary guardan una URL absoluta.
    * @param v Valor a comprobar.
    */
-  private esUrlAbsoluta(v: string): boolean {
+  private static esUrlAbsoluta(v: string): boolean {
     return /^https?:\/\//i.test(v);
   }
 
@@ -247,19 +247,19 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * Resuelve la URL de la portada: nombre de asset local o URL absoluta.
    * @param libro Libro.
    */
-  portadaSrc(libro: Libro): string {
+  readonly portadaSrc = (libro: Libro): string => {
     const img = libro.imagen ?? '';
-    return this.esUrlAbsoluta(img)
+    return HomeComponent.esUrlAbsoluta(img)
       ? img
       : `assets/images/libros/descargables/${img}`;
-  }
+  };
 
   /**
    * Resuelve la URL del PDF (asset local por nombre o URL absoluta de Cloudinary).
    * @param pdf Valor de `archivoPdf` del libro.
    */
-  private pdfHref(pdf: string): string {
-    return this.esUrlAbsoluta(pdf) ? pdf : `assets/pdfs/${pdf}`;
+  private static pdfHref(pdf: string): string {
+    return HomeComponent.esUrlAbsoluta(pdf) ? pdf : `assets/pdfs/${pdf}`;
   }
 
   /**
@@ -267,11 +267,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo o URL del PDF.
    */
   descargarLibro(pdf: string): void {
-    let href = this.pdfHref(pdf);
+    let href = HomeComponent.pdfHref(pdf);
     // En URLs `raw` de Cloudinary, `fl_attachment` fuerza la descarga en lugar
     // de abrir el PDF en el navegador (el atributo `download` se ignora en
     // descargas de otro origen).
-    if (this.esUrlAbsoluta(href)) {
+    if (HomeComponent.esUrlAbsoluta(href)) {
       href = href.replace('/upload/', '/upload/fl_attachment/');
     }
     const link = document.body.appendChild(document.createElement('a'));
@@ -292,7 +292,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
    * @param pdf Nombre del archivo o URL del PDF.
    */
   verPdf(pdf: string): void {
-    window.open(this.pdfHref(pdf), '_blank');
+    window.open(HomeComponent.pdfHref(pdf), '_blank');
     console.debug(
       'Opening:',
       pdf,

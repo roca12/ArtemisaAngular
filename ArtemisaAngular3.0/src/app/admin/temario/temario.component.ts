@@ -12,6 +12,7 @@ import { QuillEditorComponent } from 'ngx-quill';
 import { CodeEditorComponent } from '../../shared/components/code-editor/code-editor.component';
 import { CrudModalComponent } from '../../shared/components/crud-modal/crud-modal.component';
 import { CrearTemario, SyllabusService } from '../../services/syllabus.service';
+import { ConfirmService } from '../../services/confirm.service';
 import { Temario } from '../../shared/models/temario.model';
 import { mensajeDeError } from '../../shared/utils/http-error';
 import { quillTemarioModules } from '../../shared/utils/quill-config';
@@ -50,6 +51,8 @@ export class AdminTemarioComponent implements OnInit {
   private readonly toastr = inject(ToastrService);
   /** Constructor de formularios reactivos. */
   private readonly fb = inject(FormBuilder);
+  /** Servicio de diálogos de confirmación. */
+  private readonly confirm = inject(ConfirmService);
 
   /** Estado del listado. */
   readonly status = signal<CrudStatus>('loading');
@@ -76,7 +79,7 @@ export class AdminTemarioComponent implements OnInit {
 
   /** Nombres de tema existentes (valores distintos), para el selector. */
   readonly temasDisponibles = computed(() =>
-    this.valoresUnicos(this.temas().map((t) => t.tema)),
+    AdminTemarioComponent.valoresUnicos(this.temas().map((t) => t.tema)),
   );
 
   /** Formulario reactivo del tema. */
@@ -101,6 +104,7 @@ export class AdminTemarioComponent implements OnInit {
   readonly faPen = faPen;
   readonly faTrash = faTrash;
 
+  /** Carga el temario y los supergrupos al inicializar el componente. */
   ngOnInit(): void {
     this.cargar();
     this.cargarSupergrupos();
@@ -180,24 +184,26 @@ export class AdminTemarioComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    const v = this.form.getRawValue();
+    const valores = this.form.getRawValue();
     const payload: CrearTemario = {
-      supergrupo: v.supergrupo ?? '',
-      tema: v.tema ?? '',
-      complejidad_tiempo: v.complejidad_tiempo ?? '',
-      texto: v.texto ?? '',
-      java: v.java ?? '',
-      cpp: v.cpp ?? '',
-      py: v.py ?? '',
-      orden: v.orden == null ? 0 : Number(v.orden),
-      suborden: v.suborden == null ? 0 : Number(v.suborden),
+      supergrupo: valores.supergrupo ?? '',
+      tema: valores.tema ?? '',
+      complejidad_tiempo: valores.complejidad_tiempo ?? '',
+      texto: valores.texto ?? '',
+      java: valores.java ?? '',
+      cpp: valores.cpp ?? '',
+      py: valores.py ?? '',
+      orden: valores.orden == null ? 0 : Number(valores.orden),
+      suborden: valores.suborden == null ? 0 : Number(valores.suborden),
     };
 
     this.saving.set(true);
-    const esEdicion = this.formMode() === 'edit' && this.editingId;
-    const req$ = esEdicion
-      ? this.syllabus.actualizarTema(this.editingId!, payload)
-      : this.syllabus.crearTema(payload);
+    const id = this.editingId;
+    const esEdicion = this.formMode() === 'edit';
+    const req$ =
+      esEdicion && id != null
+        ? this.syllabus.actualizarTema(id, payload)
+        : this.syllabus.crearTema(payload);
 
     req$.subscribe({
       next: () => {
@@ -218,12 +224,18 @@ export class AdminTemarioComponent implements OnInit {
    * Elimina un tema, previa confirmación.
    * @param t Tema a eliminar.
    */
-  eliminarTema(t: Temario): void {
+  async eliminarTema(t: Temario): Promise<void> {
     if (!t._id) {
       this.toastr.error('Este tema no tiene identificador.');
       return;
     }
-    if (!confirm(`¿Eliminar el tema "${t.tema}"? Esta acción es permanente.`)) {
+    const confirmado = await this.confirm.ask({
+      titulo: 'Eliminar tema',
+      mensaje: `¿Eliminar el tema "${t.tema}"? Esta acción es permanente.`,
+      textoConfirmar: 'Eliminar',
+      peligro: true,
+    });
+    if (!confirmado) {
       return;
     }
     this.deletingId.set(t._id);
@@ -242,11 +254,11 @@ export class AdminTemarioComponent implements OnInit {
 
   /**
    * Indica si un control del formulario debe mostrarse como inválido.
-   * @param control Nombre del control.
+   * @param nombreControl Nombre del control.
    */
-  invalido(control: string): boolean {
-    const c = this.form.get(control);
-    return !!c && c.invalid && c.touched;
+  invalido(nombreControl: string): boolean {
+    const control = this.form.get(nombreControl);
+    return control != null && control.invalid && control.touched;
   }
 
   /**
@@ -285,14 +297,14 @@ export class AdminTemarioComponent implements OnInit {
    * Devuelve los valores no vacíos, sin duplicados y ordenados alfabéticamente.
    * @param valores Lista de valores (posiblemente con vacíos/repetidos).
    */
-  private valoresUnicos(valores: (string | undefined)[]): string[] {
-    const set = new Set<string>();
-    for (const v of valores) {
-      const limpio = v?.trim();
+  private static valoresUnicos(valores: (string | undefined)[]): string[] {
+    const unicos = new Set<string>();
+    for (const valor of valores) {
+      const limpio = valor?.trim();
       if (limpio) {
-        set.add(limpio);
+        unicos.add(limpio);
       }
     }
-    return [...set].sort((a, b) => a.localeCompare(b));
+    return [...unicos].sort((a, b) => a.localeCompare(b));
   }
 }

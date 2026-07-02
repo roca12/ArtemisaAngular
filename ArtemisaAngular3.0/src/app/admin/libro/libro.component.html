@@ -49,11 +49,13 @@
             @if (pdfNombre()) {
               <span class="f-help">Seleccionado: {{ pdfNombre() }}</span>
             } @else if (editing()?.archivoPdf) {
-              <span class="current-file">
-                Actual:
-                <a [href]="pdfHref(editing()!)" target="_blank" rel="noopener noreferrer">ver PDF</a>
-                · deja vacío para conservarlo
-              </span>
+              @if (editing(); as libroEdit) {
+                <span class="current-file">
+                  Actual:
+                  <a [href]="pdfHref(libroEdit)" target="_blank" rel="noopener noreferrer">ver PDF</a>
+                  · deja vacío para conservarlo
+                </span>
+              }
             }
           </div>
 
@@ -66,7 +68,9 @@
                 } @else if (coverPreview()) {
                   <img [src]="coverPreview()" alt="Portada generada" />
                 } @else if (editing()?.imagen) {
-                  <img [src]="portadaSrc(editing()!)" alt="Portada actual" />
+                  @if (editing(); as libroEdit) {
+                    <img [src]="portadaSrc(libroEdit)" alt="Portada actual" />
+                  }
                 } @else {
                   <fa-icon class="icon" [icon]="faImagen"></fa-icon>
                 }

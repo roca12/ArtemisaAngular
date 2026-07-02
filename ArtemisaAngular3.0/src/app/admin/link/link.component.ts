@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { CrearLink, LinkService } from '../../services/link.service';
+import { ConfirmService } from '../../services/confirm.service';
 import { Link } from '../../shared/models/link.model';
 import { mensajeDeError } from '../../shared/utils/http-error';
 import { CrudModalComponent } from '../../shared/components/crud-modal/crud-modal.component';
@@ -40,6 +41,8 @@ export class LinkComponent implements OnInit {
   private readonly toastr = inject(ToastrService);
   /** Constructor de formularios reactivos. */
   private readonly fb = inject(FormBuilder);
+  /** Servicio de diálogos de confirmación. */
+  private readonly confirm = inject(ConfirmService);
 
   /** Estado del listado. */
   readonly status = signal<CrudStatus>('loading');
@@ -77,6 +80,7 @@ export class LinkComponent implements OnInit {
   readonly faExternal = faArrowUpRightFromSquare;
   readonly faImagenRota = faTriangleExclamation;
 
+  /** Carga la lista de enlaces al inicializar el componente. */
   ngOnInit(): void {
     this.cargar();
   }
@@ -131,19 +135,21 @@ export class LinkComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    const v = this.form.getRawValue();
+    const valores = this.form.getRawValue();
     const payload: CrearLink = {
-      nombre: v.nombre ?? '',
-      url: v.url ?? '',
-      tags: v.tags ?? '',
-      icono: v.icono ?? '',
+      nombre: valores.nombre ?? '',
+      url: valores.url ?? '',
+      tags: valores.tags ?? '',
+      icono: valores.icono ?? '',
     };
 
     this.saving.set(true);
-    const esEdicion = this.formMode() === 'edit' && this.editingId;
-    const req$ = esEdicion
-      ? this.linkService.actualizarLink(this.editingId!, payload)
-      : this.linkService.crearLink(payload);
+    const id = this.editingId;
+    const esEdicion = this.formMode() === 'edit';
+    const req$ =
+      esEdicion && id != null
+        ? this.linkService.actualizarLink(id, payload)
+        : this.linkService.crearLink(payload);
 
     req$.subscribe({
       next: () => {
@@ -163,12 +169,18 @@ export class LinkComponent implements OnInit {
    * Elimina un enlace, previa confirmación.
    * @param l Enlace a eliminar.
    */
-  eliminarLink(l: Link): void {
+  async eliminarLink(l: Link): Promise<void> {
     if (!l._id) {
       this.toastr.error('Este enlace no tiene identificador.');
       return;
     }
-    if (!confirm(`¿Eliminar el enlace "${l.nombre}"? Esta acción es permanente.`)) {
+    const confirmado = await this.confirm.ask({
+      titulo: 'Eliminar enlace',
+      mensaje: `¿Eliminar el enlace "${l.nombre}"? Esta acción es permanente.`,
+      textoConfirmar: 'Eliminar',
+      peligro: true,
+    });
+    if (!confirmado) {
       return;
     }
     this.deletingId.set(l._id);
@@ -189,7 +201,7 @@ export class LinkComponent implements OnInit {
    * Clave estable para identificar el logo de un enlace.
    * @param l Enlace.
    */
-  private claveLogo(l: Link): string {
+  private static claveLogo(l: Link): string {
     return l._id ?? l.icono;
   }
 
@@ -199,7 +211,7 @@ export class LinkComponent implements OnInit {
    */
   onLogoError(l: Link): void {
     const rotos = new Set(this.logosRotos());
-    rotos.add(this.claveLogo(l));
+    rotos.add(LinkComponent.claveLogo(l));
     this.logosRotos.set(rotos);
   }
 
@@ -208,27 +220,28 @@ export class LinkComponent implements OnInit {
    * @param l Enlace.
    */
   logoFallo(l: Link): boolean {
-    return this.logosRotos().has(this.claveLogo(l));
+    return this.logosRotos().has(LinkComponent.claveLogo(l));
   }
 
   /**
    * Separa el string de tags (por comas) en una lista de etiquetas no vacías.
+   * Es una propiedad de tipo función (no un método) para poder usarse en la
+   * plantilla sin depender de `this`.
    * @param tags String de tags separado por comas.
    * @returns Lista de etiquetas.
    */
-  tagsDe(tags: string): string[] {
-    return (tags ?? '')
+  readonly tagsDe = (tags: string): string[] =>
+    (tags ?? '')
       .split(',')
       .map((t) => t.trim())
       .filter((t) => t.length > 0);
-  }
 
   /**
    * Indica si un control del formulario debe mostrarse como inválido.
-   * @param control Nombre del control.
+   * @param nombreControl Nombre del control.
    */
-  invalido(control: string): boolean {
-    const c = this.form.get(control);
-    return !!c && c.invalid && c.touched;
+  invalido(nombreControl: string): boolean {
+    const control = this.form.get(nombreControl);
+    return control != null && control.invalid && control.touched;
   }
 }

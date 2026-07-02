@@ -13,6 +13,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { BookService } from '../../services/book.service';
+import { ConfirmService } from '../../services/confirm.service';
 import { RecomendationService } from '../../services/recomendation.service';
 import { Libro } from '../../shared/models/libro.model';
 import { mensajeDeError } from '../../shared/utils/http-error';
@@ -49,6 +50,8 @@ export class LibroComponent implements OnInit {
   private readonly toastr = inject(ToastrService);
   /** Constructor de formularios reactivos. */
   private readonly fb = inject(FormBuilder);
+  /** Servicio de diálogos de confirmación. */
+  private readonly confirm = inject(ConfirmService);
 
   /** Estado del listado. */
   readonly status = signal<CrudStatus>('loading');
@@ -103,6 +106,7 @@ export class LibroComponent implements OnInit {
   readonly faImagen = faImage;
   readonly faImagenRota = faTriangleExclamation;
 
+  /** Carga la lista de libros al inicializar el componente. */
   ngOnInit(): void {
     this.cargar();
   }
@@ -191,7 +195,7 @@ export class LibroComponent implements OnInit {
 
     this.generandoPortada.set(true);
     try {
-      const nombrePortada = file.name.replace(/\.pdf$/i, '') + '-portada.jpg';
+      const nombrePortada = `${file.name.replace(/\.pdf$/i, '')}-portada.jpg`;
       const portada = await extraerPortada(file, nombrePortada);
       this.coverFile.set(portada.file);
       this.coverPreview.set(portada.dataUrl);
@@ -263,7 +267,9 @@ export class LibroComponent implements OnInit {
         this.saving.set(false);
         this.formMode.set('hidden');
         this.cargar();
-        this.recoService.refreshLibros().catch(() => {});
+        this.recoService.refreshLibros().catch(() => {
+          /* Refresco en segundo plano; un fallo aquí no afecta al CRUD. */
+        });
       },
       error: (err) => {
         this.toastr.error(mensajeDeError(err, 'No se pudo guardar.'));
@@ -276,12 +282,18 @@ export class LibroComponent implements OnInit {
    * Elimina un libro, previa confirmación.
    * @param l Libro a eliminar.
    */
-  eliminarLibro(l: Libro): void {
+  async eliminarLibro(l: Libro): Promise<void> {
     if (!l._id) {
       this.toastr.error('Este libro no tiene identificador.');
       return;
     }
-    if (!confirm(`¿Eliminar el libro "${l.titulo}"? Esta acción es permanente.`)) {
+    const confirmado = await this.confirm.ask({
+      titulo: 'Eliminar libro',
+      mensaje: `¿Eliminar el libro "${l.titulo}"? Esta acción es permanente.`,
+      textoConfirmar: 'Eliminar',
+      peligro: true,
+    });
+    if (!confirmado) {
       return;
     }
     this.deletingId.set(l._id);
@@ -290,7 +302,9 @@ export class LibroComponent implements OnInit {
         this.toastr.success('Libro eliminado.');
         this.deletingId.set(null);
         this.cargar();
-        this.recoService.refreshLibros().catch(() => {});
+        this.recoService.refreshLibros().catch(() => {
+          /* Refresco en segundo plano; un fallo aquí no afecta al CRUD. */
+        });
       },
       error: (err) => {
         this.toastr.error(mensajeDeError(err, 'No se pudo eliminar.'));
@@ -308,7 +322,7 @@ export class LibroComponent implements OnInit {
    * Indica si un valor ya es una URL absoluta (p. ej. subida a Cloudinary).
    * @param v Valor a comprobar.
    */
-  private esUrlAbsoluta(v: string): boolean {
+  private static esUrlAbsoluta(v: string): boolean {
     return /^https?:\/\//i.test(v);
   }
 
@@ -320,7 +334,7 @@ export class LibroComponent implements OnInit {
    */
   portadaSrc(l: Libro): string {
     const img = l.imagen ?? '';
-    return this.esUrlAbsoluta(img) ? img : this.BASE_PORTADAS + img;
+    return LibroComponent.esUrlAbsoluta(img) ? img : `${this.BASE_PORTADAS}${img}`;
   }
 
   /**
@@ -329,14 +343,14 @@ export class LibroComponent implements OnInit {
    */
   pdfHref(l: Libro): string {
     const pdf = l.archivoPdf ?? '';
-    return this.esUrlAbsoluta(pdf) ? pdf : this.BASE_PDFS + pdf;
+    return LibroComponent.esUrlAbsoluta(pdf) ? pdf : `${this.BASE_PDFS}${pdf}`;
   }
 
   /**
    * Clave estable para identificar la portada de un libro.
    * @param l Libro.
    */
-  private clavePortada(l: Libro): string {
+  private static clavePortada(l: Libro): string {
     return l._id ?? l.titulo;
   }
 
@@ -346,7 +360,7 @@ export class LibroComponent implements OnInit {
    */
   onPortadaError(l: Libro): void {
     const rotas = new Set(this.portadasRotas());
-    rotas.add(this.clavePortada(l));
+    rotas.add(LibroComponent.clavePortada(l));
     this.portadasRotas.set(rotas);
   }
 
@@ -355,15 +369,15 @@ export class LibroComponent implements OnInit {
    * @param l Libro.
    */
   portadaFallo(l: Libro): boolean {
-    return this.portadasRotas().has(this.clavePortada(l));
+    return this.portadasRotas().has(LibroComponent.clavePortada(l));
   }
 
   /**
    * Indica si un control del formulario debe mostrarse como inválido.
-   * @param control Nombre del control.
+   * @param nombreControl Nombre del control.
    */
-  invalido(control: string): boolean {
-    const c = this.form.get(control);
-    return !!c && c.invalid && c.touched;
+  invalido(nombreControl: string): boolean {
+    const control = this.form.get(nombreControl);
+    return control != null && control.invalid && control.touched;
   }
 }

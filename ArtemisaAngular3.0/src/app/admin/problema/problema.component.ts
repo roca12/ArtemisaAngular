@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { CrearProblema, ProblemService } from '../../services/problem.service';
+import { ConfirmService } from '../../services/confirm.service';
 import { Problema } from '../../shared/models/problema.model';
 import { mensajeDeError } from '../../shared/utils/http-error';
 import { CrudModalComponent } from '../../shared/components/crud-modal/crud-modal.component';
@@ -39,6 +40,8 @@ export class ProblemaComponent implements OnInit {
   private readonly toastr = inject(ToastrService);
   /** Constructor de formularios reactivos. */
   private readonly fb = inject(FormBuilder);
+  /** Servicio de diálogos de confirmación. */
+  private readonly confirm = inject(ConfirmService);
 
   /** Estado del listado. */
   readonly status = signal<CrudStatus>('loading');
@@ -69,17 +72,17 @@ export class ProblemaComponent implements OnInit {
 
   /** Jueces en línea existentes (valores distintos de `juez`), para el selector. */
   readonly jueces = computed(() =>
-    this.valoresUnicos(this.problemas().map((p) => p.juez)),
+    ProblemaComponent.valoresUnicos(this.problemas().map((p) => p.juez)),
   );
 
   /** Temas principales existentes (valores distintos de `tema_1`), para el selector. */
   readonly temasPrincipales = computed(() =>
-    this.valoresUnicos(this.problemas().map((p) => p.tema_1)),
+    ProblemaComponent.valoresUnicos(this.problemas().map((p) => p.tema_1)),
   );
 
   /** Subtemas existentes (valores distintos de `tema_2/3/4`), para el selector. */
   readonly subtemas = computed(() =>
-    this.valoresUnicos(
+    ProblemaComponent.valoresUnicos(
       this.problemas().flatMap((p) => [p.tema_2, p.tema_3, p.tema_4]),
     ),
   );
@@ -104,6 +107,7 @@ export class ProblemaComponent implements OnInit {
   readonly faTrash = faTrash;
   readonly faExternal = faArrowUpRightFromSquare;
 
+  /** Carga la lista de problemas al inicializar el componente. */
   ngOnInit(): void {
     this.cargar();
   }
@@ -174,24 +178,26 @@ export class ProblemaComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    const v = this.form.getRawValue();
+    const valores = this.form.getRawValue();
     const payload: CrearProblema = {
-      titulo: v.titulo ?? '',
-      juez: v.juez ?? '',
-      alias: v.alias ?? '',
-      dificultad: Number(v.dificultad),
-      tema_1: v.tema_1 ?? '',
-      tema_2: v.tema_2 ?? '',
-      tema_3: v.tema_3 ?? '',
-      tema_4: v.tema_4 ?? '',
-      url: v.url ?? '',
+      titulo: valores.titulo ?? '',
+      juez: valores.juez ?? '',
+      alias: valores.alias ?? '',
+      dificultad: Number(valores.dificultad),
+      tema_1: valores.tema_1 ?? '',
+      tema_2: valores.tema_2 ?? '',
+      tema_3: valores.tema_3 ?? '',
+      tema_4: valores.tema_4 ?? '',
+      url: valores.url ?? '',
     };
 
     this.saving.set(true);
-    const esEdicion = this.formMode() === 'edit' && this.editingId;
-    const req$ = esEdicion
-      ? this.problemService.updateProblem(this.editingId!, payload)
-      : this.problemService.createProblem(payload);
+    const id = this.editingId;
+    const esEdicion = this.formMode() === 'edit';
+    const req$ =
+      esEdicion && id != null
+        ? this.problemService.updateProblem(id, payload)
+        : this.problemService.createProblem(payload);
 
     req$.subscribe({
       next: () => {
@@ -213,12 +219,18 @@ export class ProblemaComponent implements OnInit {
    * Elimina un problema, previa confirmación.
    * @param p Problema a eliminar.
    */
-  eliminarProblema(p: Problema): void {
+  async eliminarProblema(p: Problema): Promise<void> {
     if (!p._id) {
       this.toastr.error('Este problema no tiene identificador.');
       return;
     }
-    if (!confirm(`¿Eliminar el problema "${p.titulo}"? Esta acción es permanente.`)) {
+    const confirmado = await this.confirm.ask({
+      titulo: 'Eliminar problema',
+      mensaje: `¿Eliminar el problema "${p.titulo}"? Esta acción es permanente.`,
+      textoConfirmar: 'Eliminar',
+      peligro: true,
+    });
+    if (!confirmado) {
       return;
     }
     this.deletingId.set(p._id);
@@ -281,34 +293,36 @@ export class ProblemaComponent implements OnInit {
    * Devuelve los valores no vacíos, sin duplicados y ordenados alfabéticamente.
    * @param valores Lista de valores (posiblemente con vacíos/repetidos).
    */
-  private valoresUnicos(valores: (string | undefined)[]): string[] {
-    const set = new Set<string>();
-    for (const v of valores) {
-      const limpio = v?.trim();
+  private static valoresUnicos(valores: (string | undefined)[]): string[] {
+    const unicos = new Set<string>();
+    for (const valor of valores) {
+      const limpio = valor?.trim();
       if (limpio) {
-        set.add(limpio);
+        unicos.add(limpio);
       }
     }
-    return [...set].sort((a, b) => a.localeCompare(b));
+    return [...unicos].sort((a, b) => a.localeCompare(b));
   }
 
   /**
    * Une los temas no vacíos de un problema para mostrarlos como chips.
-   * @param p Problema.
+   * @param problema Problema.
    * @returns Lista de temas presentes.
    */
-  temasDe(p: Problema): string[] {
-    return [p.tema_1, p.tema_2, p.tema_3, p.tema_4].filter(
-      (t): t is string => !!t && t.trim().length > 0,
-    );
-  }
+  readonly temasDe = (problema: Problema): string[] =>
+    [
+      problema.tema_1,
+      problema.tema_2,
+      problema.tema_3,
+      problema.tema_4,
+    ].filter((tema): tema is string => tema.trim().length > 0);
 
   /**
    * Indica si un control del formulario debe mostrarse como inválido.
-   * @param control Nombre del control.
+   * @param nombreControl Nombre del control.
    */
-  invalido(control: string): boolean {
-    const c = this.form.get(control);
-    return !!c && c.invalid && c.touched;
+  invalido(nombreControl: string): boolean {
+    const control = this.form.get(nombreControl);
+    return control != null && control.invalid && control.touched;
   }
 }

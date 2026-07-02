@@ -13,20 +13,24 @@ export function mensajeDeError(
   err: unknown,
   fallback = 'Ocurrió un error inesperado.',
 ): string {
-  const e = err as {
+  const posibleError = err as {
     error?: { message?: string; errors?: string[] };
     message?: string;
     status?: number;
   };
-  if (e?.error?.errors?.length) {
-    return e.error.errors.join(' ');
+  if (posibleError?.error?.errors?.length) {
+    return posibleError.error.errors.join(' ');
   }
-  if (e?.error?.message) {
-    return e.error.message;
+  if (posibleError?.error?.message) {
+    return posibleError.error.message;
   }
   // Error lanzado en el cliente (no HTTP): tiene `message` pero no `status`/`error`.
-  if (e?.message && e.status === undefined && e.error === undefined) {
-    return e.message;
+  if (
+    posibleError?.message &&
+    posibleError.status === undefined &&
+    posibleError.error === undefined
+  ) {
+    return posibleError.message;
   }
   return fallback;
 }
