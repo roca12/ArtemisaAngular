@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 
 /**
  * Contenedor de modal reutilizable para los formularios de los CRUD del panel.

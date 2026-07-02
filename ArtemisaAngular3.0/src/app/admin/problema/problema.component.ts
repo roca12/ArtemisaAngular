@@ -310,12 +310,9 @@ export class ProblemaComponent implements OnInit {
    * @returns Lista de temas presentes.
    */
   readonly temasDe = (problema: Problema): string[] =>
-    [
-      problema.tema_1,
-      problema.tema_2,
-      problema.tema_3,
-      problema.tema_4,
-    ].filter((tema): tema is string => tema.trim().length > 0);
+    [problema.tema_1, problema.tema_2, problema.tema_3, problema.tema_4].filter(
+      (tema): tema is string => tema.trim().length > 0,
+    );
 
   /**
    * Indica si un control del formulario debe mostrarse como inválido.

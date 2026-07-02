@@ -334,7 +334,9 @@ export class LibroComponent implements OnInit {
    */
   portadaSrc(l: Libro): string {
     const img = l.imagen ?? '';
-    return LibroComponent.esUrlAbsoluta(img) ? img : `${this.BASE_PORTADAS}${img}`;
+    return LibroComponent.esUrlAbsoluta(img)
+      ? img
+      : `${this.BASE_PORTADAS}${img}`;
   }
 
   /**

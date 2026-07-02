@@ -37,16 +37,16 @@
       <!-- ---------- MAIN ---------- -->
       <main class="content">
         @switch (activeSection()) {
-          @case ('libros') {
+          @case ("libros") {
             <app-libro />
           }
-          @case ('problemas') {
+          @case ("problemas") {
             <app-problema />
           }
-          @case ('links') {
+          @case ("links") {
             <app-link />
           }
-          @case ('temario') {
+          @case ("temario") {
             <app-admin-temario />
           }
         }

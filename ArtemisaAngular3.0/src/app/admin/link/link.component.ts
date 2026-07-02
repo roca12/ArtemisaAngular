@@ -153,7 +153,9 @@ export class LinkComponent implements OnInit {
 
     req$.subscribe({
       next: () => {
-        this.toastr.success(esEdicion ? 'Enlace actualizado.' : 'Enlace creado.');
+        this.toastr.success(
+          esEdicion ? 'Enlace actualizado.' : 'Enlace creado.',
+        );
         this.saving.set(false);
         this.formMode.set('hidden');
         this.cargar();
