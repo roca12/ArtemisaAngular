@@ -9,6 +9,25 @@ import { ActivatedRoute } from '@angular/router';
 import { SpinnerComponent } from '../shared/components/spinner/spinner.component';
 
 /**
+ * Clasifica un valor numérico de dificultad en un nivel textual.
+ * @param dificultad Valor numérico de la dificultad.
+ * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
+ */
+function determinarNivel(dificultad: number): string {
+  if (dificultad <= 5) {
+    return 'Aprendíz';
+  } else if (dificultad <= 10) {
+    return 'Básica';
+  } else if (dificultad <= 15) {
+    return 'Intermedia';
+  } else if (dificultad <= 20) {
+    return 'Avanzada';
+  } else {
+    return 'Élite';
+  }
+}
+
+/**
  * Componente que gestiona la visualización y filtrado de problemas de programación competitiva.
  * Permite filtrar por tema, subtema, dificultad y juez.
  */
@@ -169,22 +188,9 @@ export class ProblemasComponent implements OnInit {
 
   /**
    * Clasifica un valor numérico de dificultad en un nivel textual.
-   * @param dificultad Valor numérico de la dificultad.
-   * @returns Nivel textual (Aprendíz, Básica, Intermedia, Avanzada, Élite).
+   * Referencia a la función de módulo para usarse en la plantilla sin `this`.
    */
-  readonly determinarNivel = (dificultad: number): string => {
-    if (dificultad <= 5) {
-      return 'Aprendíz';
-    } else if (dificultad <= 10) {
-      return 'Básica';
-    } else if (dificultad <= 15) {
-      return 'Intermedia';
-    } else if (dificultad <= 20) {
-      return 'Avanzada';
-    } else {
-      return 'Élite';
-    }
-  };
+  readonly determinarNivel = determinarNivel;
 
   /**
    * Maneja el cambio en el selector de subtemas y resetea filtros anteriores de subtema.

@@ -13,7 +13,7 @@ import { CrudModalComponent } from '../crud-modal/crud-modal.component';
   imports: [CrudModalComponent],
   template: `
     @if (state(); as s) {
-      <app-crud-modal (close)="confirm.cancelar()">
+      <app-crud-modal (cerrar)="confirm.cancelar()">
         <div class="card cd-card">
           <div class="card-head">
             <h3>{{ s.titulo }}</h3>

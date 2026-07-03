@@ -22,6 +22,20 @@ type CrudStatus = 'loading' | 'ready' | 'error';
 type FormMode = 'hidden' | 'create' | 'edit';
 
 /**
+ * Une los temas no vacíos de un problema para mostrarlos como chips.
+ * @param problema Problema.
+ * @returns Lista de temas presentes.
+ */
+function temasDe(problema: Problema): string[] {
+  return [
+    problema.tema_1,
+    problema.tema_2,
+    problema.tema_3,
+    problema.tema_4,
+  ].filter((tema): tema is string => tema.trim().length > 0);
+}
+
+/**
  * Sección de administración de problemas (CRUD completo).
  *
  * Lista los problemas en una tabla y permite crear, editar y eliminar. Las
@@ -259,13 +273,9 @@ export class ProblemaComponent implements OnInit {
 
   /**
    * Une los temas no vacíos de un problema para mostrarlos como chips.
-   * @param problema Problema.
-   * @returns Lista de temas presentes.
+   * Referencia a la función de módulo para usarse en la plantilla sin `this`.
    */
-  readonly temasDe = (problema: Problema): string[] =>
-    [problema.tema_1, problema.tema_2, problema.tema_3, problema.tema_4].filter(
-      (tema): tema is string => tema.trim().length > 0,
-    );
+  readonly temasDe = temasDe;
 
   /**
    * Indica si un control del formulario debe mostrarse como inválido.

@@ -1,7 +1,7 @@
-import * as pdfjsLib from 'pdfjs-dist';
+import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
 
 // El worker de pdf.js se copia a /assets desde node_modules (ver angular.json).
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/pdf.worker.min.mjs';
+GlobalWorkerOptions.workerSrc = 'assets/pdf.worker.min.mjs';
 
 /** Portada generada a partir de un PDF. */
 export interface Portada {
@@ -28,7 +28,7 @@ export async function extraerPortada(
   anchoObjetivo = 600,
 ): Promise<Portada> {
   const buffer = await pdf.arrayBuffer();
-  const loadingTask = pdfjsLib.getDocument({ data: buffer });
+  const loadingTask = getDocument({ data: buffer });
   const doc = await loadingTask.promise;
   try {
     const page = await doc.getPage(1);

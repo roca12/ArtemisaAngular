@@ -6,7 +6,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core';
  * Muestra su contenido proyectado (normalmente una `.card` con el formulario)
  * centrado sobre un fondo oscuro. Se cierra al hacer clic fuera, con la tecla
  * Escape o desde los botones del propio formulario (que llaman a `cancelar`).
- * Emite `close` en esos casos para que el CRUD oculte el formulario.
+ * Emite `cerrar` en esos casos para que el CRUD oculte el formulario.
  *
  * Hereda las variables de color de `.adm-paper`, por lo que respeta el modo
  * claro/oscuro.
@@ -54,7 +54,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 })
 export class CrudModalComponent {
   /** Se emite cuando el usuario pide cerrar (fondo o Escape). */
-  @Output() close = new EventEmitter<void>();
+  @Output() readonly cerrar = new EventEmitter<void>();
 
   /**
    * Cierra el modal solo si el clic fue sobre el fondo, no sobre el diálogo.
@@ -62,13 +62,13 @@ export class CrudModalComponent {
    */
   onBackdrop(event: MouseEvent): void {
     if (event.target === event.currentTarget) {
-      this.close.emit();
+      this.cerrar.emit();
     }
   }
 
   /** Cierra el modal con la tecla Escape. */
   @HostListener('document:keydown.escape')
   onEscape(): void {
-    this.close.emit();
+    this.cerrar.emit();
   }
 }

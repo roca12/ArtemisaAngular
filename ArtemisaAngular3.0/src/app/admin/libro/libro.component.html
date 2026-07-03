@@ -12,7 +12,7 @@
 
   <!-- ===== Formulario crear / editar (modal) ===== -->
   @if (formMode() !== "hidden") {
-    <app-crud-modal (close)="cancelar()">
+    <app-crud-modal (cerrar)="cancelar()">
       <div class="card">
         <div class="card-head">
           <h3>{{ formTitle() }}</h3>

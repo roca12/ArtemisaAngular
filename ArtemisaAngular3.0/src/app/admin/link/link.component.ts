@@ -22,6 +22,18 @@ type CrudStatus = 'loading' | 'ready' | 'error';
 type FormMode = 'hidden' | 'create' | 'edit';
 
 /**
+ * Separa el string de tags (por comas) en una lista de etiquetas no vacías.
+ * @param tags String de tags separado por comas.
+ * @returns Lista de etiquetas.
+ */
+function tagsDe(tags: string): string[] {
+  return (tags ?? '')
+    .split(',')
+    .map((t) => t.trim())
+    .filter((t) => t.length > 0);
+}
+
+/**
  * Sección de administración de enlaces valiosos (CRUD completo).
  *
  * Lista los enlaces en una tabla y permite crear, editar y eliminar. El campo
@@ -227,16 +239,10 @@ export class LinkComponent implements OnInit {
 
   /**
    * Separa el string de tags (por comas) en una lista de etiquetas no vacías.
-   * Es una propiedad de tipo función (no un método) para poder usarse en la
-   * plantilla sin depender de `this`.
-   * @param tags String de tags separado por comas.
-   * @returns Lista de etiquetas.
+   * Referencia a la función de módulo para poder usarse en la plantilla sin
+   * depender de `this`.
    */
-  readonly tagsDe = (tags: string): string[] =>
-    (tags ?? '')
-      .split(',')
-      .map((t) => t.trim())
-      .filter((t) => t.length > 0);
+  readonly tagsDe = tagsDe;
 
   /**
    * Indica si un control del formulario debe mostrarse como inválido.

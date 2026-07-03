@@ -3,11 +3,12 @@ import {
   Component,
   ElementRef,
   Input,
+  Optional,
   OnDestroy,
+  Self,
   ViewChild,
-  forwardRef,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Compartment, EditorState } from '@codemirror/state';
 import {
   EditorView,
@@ -54,6 +55,14 @@ const BASE_EXTENSIONS = [
   keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
 ];
 
+/**
+ * No-op usado como valor inicial de los callbacks de `ControlValueAccessor`
+ * hasta que Angular registre los reales vía `registerOnChange`/`registerOnTouched`.
+ */
+function noop(): void {
+  /* Intencionadamente vacío. */
+}
+
 /** Lenguajes soportados por el editor de código. */
 export type CodeLanguage = 'java' | 'cpp' | 'py';
 
@@ -77,7 +86,7 @@ const LANG_EXT: Record<CodeLanguage, () => LanguageSupport> = {
 @Component({
   selector: 'app-code-editor',
   standalone: true,
-  template: `<div #host class="cm-host"></div>`,
+  template: '<div #host class="cm-host"></div>',
   styles: [
     `
       :host {
@@ -87,13 +96,6 @@ const LANG_EXT: Record<CodeLanguage, () => LanguageSupport> = {
         overflow: hidden;
       }
     `,
-  ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CodeEditorComponent),
-      multi: true,
-    },
   ],
 })
 export class CodeEditorComponent
@@ -113,13 +115,22 @@ export class CodeEditorComponent
   /** Indica si el control está deshabilitado. */
   private disabled = false;
 
-  /** Callbacks de ControlValueAccessor. */
-  private onChange: (value: string) => void = () => {
-    /* No-op hasta que Angular registre el callback real. */
-  };
-  private onTouched: () => void = () => {
-    /* No-op hasta que Angular registre el callback real. */
-  };
+  /** Callbacks de ControlValueAccessor (no-op hasta que Angular los registre). */
+  private onChange: (value: string) => void = noop;
+  private onTouched: () => void = noop;
+
+  /**
+   * Se autoregistra como `ControlValueAccessor` del control asociado en lugar de
+   * proveer `NG_VALUE_ACCESSOR` con `forwardRef`, evitando la referencia
+   * circular al propio componente. `NgControl` se resuelve desde el mismo
+   * elemento (`@Self`) y es opcional por si el editor se usa sin un directiva de
+   * formulario.
+   */
+  constructor(@Optional() @Self() ngControl: NgControl | null) {
+    if (ngControl) {
+      ngControl.valueAccessor = this;
+    }
+  }
 
   /** Monta la instancia de CodeMirror una vez que el contenedor existe en el DOM. */
   ngAfterViewInit(): void {

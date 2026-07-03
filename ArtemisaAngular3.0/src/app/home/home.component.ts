@@ -32,6 +32,25 @@ import { SpinnerComponent } from '../shared/components/spinner/spinner.component
 import { SearchEngine } from '../shared/util/search-engine';
 
 /**
+ * Indica si un valor ya es una URL absoluta (p. ej. subida a Cloudinary).
+ * Los libros antiguos guardan solo el nombre del archivo (asset local),
+ * mientras que los subidos vía Cloudinary guardan una URL absoluta.
+ * @param v Valor a comprobar.
+ */
+function esUrlAbsoluta(v: string): boolean {
+  return /^https?:\/\//i.test(v);
+}
+
+/**
+ * Resuelve la URL de la portada: nombre de asset local o URL absoluta.
+ * @param libro Libro.
+ */
+function portadaSrc(libro: Libro): string {
+  const img = libro.imagen ?? '';
+  return esUrlAbsoluta(img) ? img : `assets/images/libros/descargables/${img}`;
+}
+
+/**
  * Componente de la página de inicio que gestiona la búsqueda global,
  * recomendaciones y visualización de libros.
  */
@@ -234,32 +253,17 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   /**
-   * Indica si un valor ya es una URL absoluta (p. ej. subida a Cloudinary).
-   * Los libros antiguos guardan solo el nombre del archivo (asset local),
-   * mientras que los subidos vía Cloudinary guardan una URL absoluta.
-   * @param v Valor a comprobar.
-   */
-  private static esUrlAbsoluta(v: string): boolean {
-    return /^https?:\/\//i.test(v);
-  }
-
-  /**
    * Resuelve la URL de la portada: nombre de asset local o URL absoluta.
-   * @param libro Libro.
+   * Referencia a la función de módulo para usarse en la plantilla sin `this`.
    */
-  readonly portadaSrc = (libro: Libro): string => {
-    const img = libro.imagen ?? '';
-    return HomeComponent.esUrlAbsoluta(img)
-      ? img
-      : `assets/images/libros/descargables/${img}`;
-  };
+  readonly portadaSrc = portadaSrc;
 
   /**
    * Resuelve la URL del PDF (asset local por nombre o URL absoluta de Cloudinary).
    * @param pdf Valor de `archivoPdf` del libro.
    */
   private static pdfHref(pdf: string): string {
-    return HomeComponent.esUrlAbsoluta(pdf) ? pdf : `assets/pdfs/${pdf}`;
+    return esUrlAbsoluta(pdf) ? pdf : `assets/pdfs/${pdf}`;
   }
 
   /**
@@ -271,7 +275,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     // En URLs `raw` de Cloudinary, `fl_attachment` fuerza la descarga en lugar
     // de abrir el PDF en el navegador (el atributo `download` se ignora en
     // descargas de otro origen).
-    if (HomeComponent.esUrlAbsoluta(href)) {
+    if (esUrlAbsoluta(href)) {
       href = href.replace('/upload/', '/upload/fl_attachment/');
     }
     const link = document.body.appendChild(document.createElement('a'));
