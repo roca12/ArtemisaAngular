@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:9000/.netlify/functions/api/',
+  apiUrl: 'http://localhost:3000/.netlify/functions/api/',
 };

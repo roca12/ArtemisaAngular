@@ -160,6 +160,26 @@ export class RecomendationService {
   }
 
   /**
+   * Recarga solo las recomendaciones de tipo `libro` desde el backend.
+   *
+   * A diferencia de `initializeRecomendationsAsync` (que corre una única vez al
+   * arrancar la app), este método se invoca tras crear/editar/eliminar un libro
+   * para que el buscador refleje el cambio sin recargar toda la página.
+   * Reconstruye el conjunto quitando los libros anteriores y añadiendo los
+   * actuales, de modo que también se reflejan renombrados y borrados.
+   * @returns Una promesa que se resuelve cuando las recomendaciones se han actualizado.
+   */
+  async refreshLibros(): Promise<void> {
+    const libros = await lastValueFrom(this.bookService.getLibros());
+    const sinLibros = Array.from(this._recomendations()).filter(
+      (rec) => rec.type !== 'libro',
+    );
+    const actualizadas = new Set<Recomendation>(sinLibros);
+    libros.forEach((l) => actualizadas.add({ data: l.titulo, type: 'libro' }));
+    this._recomendations.set(actualizadas);
+  }
+
+  /**
    * Añade un conjunto de nuevas recomendaciones a la lista existente.
    * @param newRecomendations Arreglo de recomendaciones a añadir.
    */

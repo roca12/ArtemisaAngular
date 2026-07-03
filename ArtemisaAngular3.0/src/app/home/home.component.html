@@ -42,10 +42,7 @@
       <div class="books-carousel" #carousel>
         <div class="book-card" *ngFor="let libro of libros">
           <p>{{ libro.titulo }}</p>
-          <img
-            [src]="'assets/images/libros/descargables/' + libro.imagen"
-            alt="{{ libro.titulo }}"
-          />
+          <img [src]="portadaSrc(libro)" alt="{{ libro.titulo }}" />
           <div class="card-btns">
             <button (click)="descargarLibro(libro.archivoPdf)">
               Descargar

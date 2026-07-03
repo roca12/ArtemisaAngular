@@ -49,6 +49,12 @@
             <fa-icon [icon]="faLock"></fa-icon>
             Seguridad
           </button>
+          @if (u.rol === "admin") {
+            <button type="button" (click)="goToAdminPanel()">
+              <fa-icon [icon]="faCrown"></fa-icon>
+              Panel de administración
+            </button>
+          }
           <button
             type="button"
             class="logout"

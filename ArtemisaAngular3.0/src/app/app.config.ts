@@ -13,9 +13,11 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
+import { provideQuillConfig } from 'ngx-quill';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { RecomendationService } from './services/recomendation.service';
 import { credentialsInterceptor } from './shared/interceptors/credentials.interceptor';
+import { sessionExpiredInterceptor } from './shared/interceptors/session-expired.interceptor';
 
 /**
  * Factory para `provideAppInitializer`: precarga las recomendaciones antes de
@@ -38,8 +40,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withFetch(), withInterceptors([credentialsInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([credentialsInterceptor, sessionExpiredInterceptor]),
+    ),
     provideToastr(),
+    provideQuillConfig({ format: 'html', theme: 'snow' }),
     provideAnimations(),
     provideAppInitializer(recomendationInitializer()),
   ],

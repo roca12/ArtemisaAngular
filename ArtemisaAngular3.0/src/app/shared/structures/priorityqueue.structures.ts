@@ -60,17 +60,20 @@ export class PriorityQueue<T> {
    * @private
    */
   private bubbleDown(i: number): void {
-    const n = this.items.length;
+    const longitud = this.items.length;
 
     while (true) {
       let largest = i;
       const left = PriorityQueue.leftOf(i);
       const right = PriorityQueue.rightOf(i);
 
-      if (left < n && this.items[left].priority > this.items[largest].priority)
+      if (
+        left < longitud &&
+        this.items[left].priority > this.items[largest].priority
+      )
         largest = left;
       if (
-        right < n &&
+        right < longitud &&
         this.items[right].priority > this.items[largest].priority
       )
         largest = right;

@@ -1,0 +1,237 @@
+<section class="panel">
+  <div class="panel-head">
+    <div class="titles">
+      <h2>Libros</h2>
+      <p>Crea, edita y elimina los libros de la biblioteca.</p>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="nuevoLibro()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      Nuevo libro
+    </button>
+  </div>
+
+  <!-- ===== Formulario crear / editar (modal) ===== -->
+  @if (formMode() !== "hidden") {
+    <app-crud-modal (cerrar)="cancelar()">
+      <div class="card">
+        <div class="card-head">
+          <h3>{{ formTitle() }}</h3>
+          <span class="hint">el PDF se sube a Cloudinary</span>
+        </div>
+        <form
+          class="crud-form"
+          [formGroup]="form"
+          (ngSubmit)="guardar()"
+          novalidate
+        >
+          <div class="form-grid">
+            <div class="form-field col-span">
+              <label for="titulo">Título <span class="req">*</span></label>
+              <input
+                id="titulo"
+                class="f-input"
+                [class.invalid]="invalido('titulo')"
+                type="text"
+                formControlName="titulo"
+                placeholder="Introducción a los Algoritmos"
+              />
+              @if (invalido("titulo")) {
+                <span class="f-error">El título es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field col-span">
+              <label for="archivoPdfFile">
+                Archivo PDF
+                @if (formMode() === "create") {
+                  <span class="req">*</span>
+                }
+              </label>
+              <input
+                id="archivoPdfFile"
+                class="f-input"
+                type="file"
+                accept="application/pdf"
+                (change)="onPdfSelected($event)"
+              />
+              @if (pdfNombre()) {
+                <span class="f-help">Seleccionado: {{ pdfNombre() }}</span>
+              } @else if (editing()?.archivoPdf) {
+                @if (editing(); as libroEdit) {
+                  <span class="current-file">
+                    Actual:
+                    <a
+                      [href]="pdfHref(libroEdit)"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >ver PDF</a
+                    >
+                    · deja vacío para conservarlo
+                  </span>
+                }
+              }
+            </div>
+
+            <div class="form-field col-span">
+              <label>Portada (automática de la 1ª página)</label>
+              <div class="cover-row">
+                <div class="cover-box">
+                  @if (generandoPortada()) {
+                    <div
+                      class="spinner"
+                      role="status"
+                      aria-label="Generando portada"
+                    ></div>
+                  } @else if (coverPreview()) {
+                    <img [src]="coverPreview()" alt="Portada generada" />
+                  } @else if (editing()?.imagen) {
+                    @if (editing(); as libroEdit) {
+                      <img [src]="portadaSrc(libroEdit)" alt="Portada actual" />
+                    }
+                  } @else {
+                    <fa-icon class="icon" [icon]="faImagen"></fa-icon>
+                  }
+                </div>
+                <div class="cover-actions">
+                  <span class="f-help">
+                    Se genera sola al elegir el PDF. Puedes reemplazarla por una
+                    imagen propia.
+                  </span>
+                  <label class="btn btn-ghost btn-sm">
+                    Cambiar portada
+                    <input
+                      type="file"
+                      accept="image/*"
+                      hidden
+                      (change)="onPortadaManual($event)"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <span class="spacer"></span>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="cancelar()"
+              [disabled]="saving()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? "Guardando…" : "Guardar" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </app-crud-modal>
+  }
+
+  <!-- ===== Listado ===== -->
+  <div class="card">
+    @switch (status()) {
+      @case ("loading") {
+        <div class="state-box">
+          <div class="spinner" role="status" aria-label="Cargando libros"></div>
+          <p>Cargando libros…</p>
+        </div>
+      }
+      @case ("error") {
+        <div class="state-box error">
+          <p>No pudimos cargar los libros.</p>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">
+            Reintentar
+          </button>
+        </div>
+      }
+      @case ("ready") {
+        @if (libros().length === 0) {
+          <div class="empty-state">
+            <fa-icon class="icon" [icon]="faBook"></fa-icon>
+            <p>Aún no hay libros. Crea el primero.</p>
+          </div>
+        } @else {
+          <div class="table-wrap">
+            <table class="crud-table">
+              <thead>
+                <tr>
+                  <th>Portada</th>
+                  <th>Título</th>
+                  <th>PDF</th>
+                  <th class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (l of libros(); track l._id ?? l.titulo) {
+                  <tr>
+                    <td>
+                      @if (l.imagen && !portadaFallo(l)) {
+                        <img
+                          class="thumb"
+                          [src]="portadaSrc(l)"
+                          [alt]="l.titulo"
+                          loading="lazy"
+                          (error)="onPortadaError(l)"
+                        />
+                      } @else if (l.imagen) {
+                        <span
+                          class="thumb-empty broken"
+                          [title]="'No se pudo cargar la portada: ' + l.imagen"
+                        >
+                          <fa-icon [icon]="faImagenRota"></fa-icon>
+                        </span>
+                      } @else {
+                        <span class="thumb-empty" title="Sin portada">
+                          <fa-icon [icon]="faImagen"></fa-icon>
+                        </span>
+                      }
+                    </td>
+                    <td class="title-cell">{{ l.titulo }}</td>
+                    <td>
+                      @if (l.archivoPdf) {
+                        <a
+                          class="ext"
+                          [href]="pdfHref(l)"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <fa-icon [icon]="faFilePdf"></fa-icon> Ver
+                        </a>
+                      } @else {
+                        <span class="muted">—</span>
+                      }
+                    </td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <button
+                          type="button"
+                          class="btn btn-ghost btn-sm btn-icon"
+                          (click)="editarLibro(l)"
+                          aria-label="Editar"
+                        >
+                          <fa-icon [icon]="faPen"></fa-icon>
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-sm btn-icon"
+                          (click)="eliminarLibro(l)"
+                          [disabled]="deletingId() === l._id"
+                          aria-label="Eliminar"
+                        >
+                          <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      }
+    }
+  </div>
+</section>

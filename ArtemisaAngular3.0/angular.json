@@ -22,14 +22,18 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-
-                "src/assets"
-
+              "src/assets",
+              {
+                "glob": "pdf.worker.min.mjs",
+                "input": "node_modules/pdfjs-dist/build/",
+                "output": "assets/"
+              }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/cyan-orange.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/quill/dist/quill.snow.css",
               "src/styles.css",
               "node_modules/ionicons/dist/scss/ionicons.scss"
             ],

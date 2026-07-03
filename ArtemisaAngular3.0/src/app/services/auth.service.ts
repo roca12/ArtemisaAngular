@@ -41,6 +41,15 @@ export class AuthService {
   }
 
   /**
+   * Limpia únicamente el estado de sesión local (la señal de usuario), sin
+   * llamar al backend. Útil cuando el servidor ya invalidó la sesión (p. ej.
+   * una respuesta 401 por cookie expirada).
+   */
+  limpiarSesionLocal(): void {
+    this._usuario.set(null);
+  }
+
+  /**
    * Cierra la sesión en el servidor (limpia la cookie) y borra el estado local.
    * El estado local se limpia siempre, aunque la petición falle.
    */

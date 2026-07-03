@@ -24,6 +24,6 @@ export class CalendarService {
    * @returns Un Observable con los datos del calendario.
    */
   obtenerCalendario() {
-    return this.http.get<CalendariosResponse>(`${this.baseUrl}`);
+    return this.http.get<CalendariosResponse>(this.baseUrl);
   }
 }

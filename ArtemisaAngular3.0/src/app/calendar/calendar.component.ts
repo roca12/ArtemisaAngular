@@ -57,7 +57,9 @@ export class CalendarComponent implements OnInit {
     this.calendarService
       .obtenerCalendario()
       .subscribe((res: CalendariosResponse) => {
-        this.calendarOptions.events = this.mapearEventos(res.calendarios);
+        this.calendarOptions.events = CalendarComponent.mapearEventos(
+          res.calendarios,
+        );
         this.loading = false;
       });
   }
@@ -67,7 +69,7 @@ export class CalendarComponent implements OnInit {
    * @param calendarios Lista de calendarios con sus eventos.
    * @returns Arreglo plano de CalendarEvent listos para renderizar.
    */
-  private mapearEventos(calendarios: Calendario[]): CalendarEvent[] {
+  private static mapearEventos(calendarios: Calendario[]): CalendarEvent[] {
     return calendarios.flatMap((calendario) =>
       (calendario.eventos ?? []).map((evento) =>
         CalendarComponent.mapearEvento(evento),

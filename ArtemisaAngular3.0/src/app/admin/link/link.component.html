@@ -1,0 +1,221 @@
+<section class="panel">
+  <div class="panel-head">
+    <div class="titles">
+      <h2>Enlaces</h2>
+      <p>Crea, edita y elimina los enlaces valiosos de la plataforma.</p>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="nuevoLink()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      Nuevo enlace
+    </button>
+  </div>
+
+  <!-- ===== Formulario crear / editar (modal) ===== -->
+  @if (formMode() !== "hidden") {
+    <app-crud-modal (cerrar)="cancelar()">
+      <div class="card">
+        <div class="card-head">
+          <h3>{{ formTitle() }}</h3>
+        </div>
+        <form
+          class="crud-form"
+          [formGroup]="form"
+          (ngSubmit)="guardar()"
+          novalidate
+        >
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="nombre">Nombre <span class="req">*</span></label>
+              <input
+                id="nombre"
+                class="f-input"
+                [class.invalid]="invalido('nombre')"
+                type="text"
+                formControlName="nombre"
+                placeholder="VisuAlgo"
+              />
+              @if (invalido("nombre")) {
+                <span class="f-error">El nombre es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="icono">Icono <span class="req">*</span></label>
+              <input
+                id="icono"
+                class="f-input"
+                [class.invalid]="invalido('icono')"
+                type="text"
+                formControlName="icono"
+                placeholder="chart-bar"
+              />
+              @if (invalido("icono")) {
+                <span class="f-error">El icono es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field col-span">
+              <label for="url">URL <span class="req">*</span></label>
+              <input
+                id="url"
+                class="f-input"
+                [class.invalid]="invalido('url')"
+                type="url"
+                formControlName="url"
+                placeholder="https://visualgo.net"
+              />
+              @if (invalido("url")) {
+                <span class="f-error">La URL es obligatoria.</span>
+              }
+            </div>
+
+            <div class="form-field col-span">
+              <label for="tags">Tags <span class="req">*</span></label>
+              <input
+                id="tags"
+                class="f-input"
+                [class.invalid]="invalido('tags')"
+                type="text"
+                formControlName="tags"
+                placeholder="algoritmos, visualización"
+              />
+              @if (invalido("tags")) {
+                <span class="f-error">Escribe al menos una etiqueta.</span>
+              } @else {
+                <span class="f-error" style="color: var(--muted)"
+                  >Separa las etiquetas por comas.</span
+                >
+              }
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <span class="spacer"></span>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="cancelar()"
+              [disabled]="saving()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? "Guardando…" : "Guardar" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </app-crud-modal>
+  }
+
+  <!-- ===== Listado ===== -->
+  <div class="card">
+    @switch (status()) {
+      @case ("loading") {
+        <div class="state-box">
+          <div
+            class="spinner"
+            role="status"
+            aria-label="Cargando enlaces"
+          ></div>
+          <p>Cargando enlaces…</p>
+        </div>
+      }
+      @case ("error") {
+        <div class="state-box error">
+          <p>No pudimos cargar los enlaces.</p>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">
+            Reintentar
+          </button>
+        </div>
+      }
+      @case ("ready") {
+        @if (links().length === 0) {
+          <div class="empty-state">
+            <fa-icon class="icon" [icon]="faLink"></fa-icon>
+            <p>Aún no hay enlaces. Crea el primero.</p>
+          </div>
+        } @else {
+          <div class="table-wrap">
+            <table class="crud-table">
+              <thead>
+                <tr>
+                  <th>Logo</th>
+                  <th>Nombre</th>
+                  <th>Tags</th>
+                  <th class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (l of links(); track l._id ?? l.nombre) {
+                  <tr>
+                    <td>
+                      @if (l.icono && !logoFallo(l)) {
+                        <img
+                          class="thumb-logo"
+                          [src]="l.icono"
+                          [alt]="l.nombre"
+                          loading="lazy"
+                          (error)="onLogoError(l)"
+                        />
+                      } @else if (l.icono) {
+                        <span
+                          class="thumb-logo broken"
+                          [title]="'No se pudo cargar la imagen: ' + l.icono"
+                        >
+                          <fa-icon [icon]="faImagenRota"></fa-icon>
+                        </span>
+                      } @else {
+                        <span class="muted">—</span>
+                      }
+                    </td>
+                    <td class="title-cell">{{ l.nombre }}</td>
+                    <td>
+                      @for (t of tagsDe(l.tags); track t) {
+                        <span class="chip">{{ t }}</span>
+                      } @empty {
+                        <span class="muted">—</span>
+                      }
+                    </td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        @if (l.url) {
+                          <a
+                            class="btn btn-ghost btn-sm btn-icon ext"
+                            [href]="l.url"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Abrir enlace"
+                          >
+                            <fa-icon [icon]="faExternal"></fa-icon>
+                          </a>
+                        }
+                        <button
+                          type="button"
+                          class="btn btn-ghost btn-sm btn-icon"
+                          (click)="editarLink(l)"
+                          aria-label="Editar"
+                        >
+                          <fa-icon [icon]="faPen"></fa-icon>
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-sm btn-icon"
+                          (click)="eliminarLink(l)"
+                          [disabled]="deletingId() === l._id"
+                          aria-label="Eliminar"
+                        >
+                          <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      }
+    }
+  </div>
+</section>

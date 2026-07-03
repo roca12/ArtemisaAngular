@@ -1,0 +1,227 @@
+<section class="panel">
+  <div class="panel-head">
+    <div class="titles">
+      <h2>Temario</h2>
+      <p>Crea, edita y elimina los temas y grupos del temario.</p>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="nuevoTema()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      Nuevo tema
+    </button>
+  </div>
+
+  <!-- ===== Formulario crear / editar (modal) ===== -->
+  @if (formMode() !== "hidden") {
+    <app-crud-modal (cerrar)="cancelar()">
+      <div class="card">
+        <div class="card-head">
+          <h3>{{ formTitle() }}</h3>
+        </div>
+        <form
+          class="crud-form"
+          [formGroup]="form"
+          (ngSubmit)="guardar()"
+          novalidate
+        >
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="supergrupo"
+                >Supergrupo <span class="req">*</span></label
+              >
+              <app-field-selector
+                [control]="form.controls.supergrupo"
+                [opciones]="supergrupos()"
+                [invalido]="invalido('supergrupo')"
+                placeholderNuevo="Nuevo supergrupo"
+                placeholderVacio="— Selecciona —"
+                ariaLabel="Agregar supergrupo nuevo"
+              />
+              @if (invalido("supergrupo")) {
+                <span class="f-error">El supergrupo es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="tema">Tema <span class="req">*</span></label>
+              <app-field-selector
+                [control]="form.controls.tema"
+                [opciones]="temasDisponibles()"
+                [invalido]="invalido('tema')"
+                placeholderNuevo="Nuevo tema"
+                placeholderVacio="— Selecciona —"
+                ariaLabel="Agregar tema nuevo"
+              />
+              @if (invalido("tema")) {
+                <span class="f-error">El tema es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="complejidad">Complejidad de tiempo</label>
+              <input
+                id="complejidad"
+                class="f-input"
+                type="text"
+                formControlName="complejidad_tiempo"
+                placeholder="O(n)"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="orden">Orden</label>
+              <input
+                id="orden"
+                class="f-input"
+                type="number"
+                formControlName="orden"
+                placeholder="1"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="suborden">Suborden</label>
+              <input
+                id="suborden"
+                class="f-input"
+                type="number"
+                formControlName="suborden"
+                placeholder="1"
+              />
+            </div>
+
+            <div class="form-field col-span">
+              <label>Texto / teoría</label>
+              <quill-editor
+                class="rich-editor"
+                formControlName="texto"
+                [modules]="quillModules"
+                [sanitize]="false"
+                placeholder="Descripción o contenido teórico del tema…"
+              ></quill-editor>
+            </div>
+
+            <div class="form-field col-span section-sep">
+              <span>Ejemplos de código</span>
+            </div>
+
+            <div class="form-field col-span">
+              <label>Código Java</label>
+              <app-code-editor
+                language="java"
+                formControlName="java"
+              ></app-code-editor>
+            </div>
+
+            <div class="form-field col-span">
+              <label>Código C++</label>
+              <app-code-editor
+                language="cpp"
+                formControlName="cpp"
+              ></app-code-editor>
+            </div>
+
+            <div class="form-field col-span">
+              <label>Código Python</label>
+              <app-code-editor
+                language="py"
+                formControlName="py"
+              ></app-code-editor>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <span class="spacer"></span>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="cancelar()"
+              [disabled]="saving()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? "Guardando…" : "Guardar" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </app-crud-modal>
+  }
+
+  <!-- ===== Listado ===== -->
+  <div class="card">
+    @switch (status()) {
+      @case ("loading") {
+        <div class="state-box">
+          <div
+            class="spinner"
+            role="status"
+            aria-label="Cargando temario"
+          ></div>
+          <p>Cargando temario…</p>
+        </div>
+      }
+      @case ("error") {
+        <div class="state-box error">
+          <p>No pudimos cargar el temario.</p>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">
+            Reintentar
+          </button>
+        </div>
+      }
+      @case ("ready") {
+        @if (temas().length === 0) {
+          <div class="empty-state">
+            <fa-icon class="icon" [icon]="faListUl"></fa-icon>
+            <p>Aún no hay temas. Crea el primero.</p>
+          </div>
+        } @else {
+          <div class="table-wrap">
+            <table class="crud-table">
+              <thead>
+                <tr>
+                  <th>Supergrupo</th>
+                  <th>Tema</th>
+                  <th>Complejidad</th>
+                  <th>Orden</th>
+                  <th class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (t of temas(); track t._id ?? t.tema) {
+                  <tr>
+                    <td>{{ t.supergrupo }}</td>
+                    <td class="title-cell">{{ t.tema }}</td>
+                    <td class="muted">{{ t.complejidad_tiempo || "—" }}</td>
+                    <td class="muted">{{ t.orden }}.{{ t.suborden }}</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <button
+                          type="button"
+                          class="btn btn-ghost btn-sm btn-icon"
+                          (click)="editarTema(t)"
+                          aria-label="Editar"
+                        >
+                          <fa-icon [icon]="faPen"></fa-icon>
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-sm btn-icon"
+                          (click)="eliminarTema(t)"
+                          [disabled]="deletingId() === t._id"
+                          aria-label="Eliminar"
+                        >
+                          <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      }
+    }
+  </div>
+</section>

@@ -52,3 +52,107 @@ body {
   margin: 0;
   font-family: var(--font-base);
 }
+
+/* ============================================================
+   Editor Quill (panel de administración → temario).
+   Quill inyecta su DOM fuera del ámbito del CSS del componente,
+   por eso estos estilos van globales.
+   ============================================================ */
+/* El host toma ancho de bloque para no desbordar la celda del formulario. */
+.rich-editor {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  /* Separación respecto al siguiente campo (código Java) para que no queden pegados. */
+  margin-bottom: 16px;
+}
+.rich-editor .ql-toolbar,
+.rich-editor .ql-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+/* Borde/radio consistente con los demás campos del formulario (.f-input). */
+.rich-editor .ql-toolbar.ql-snow {
+  border: 1.5px solid var(--line-strong);
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+.rich-editor .ql-container.ql-snow {
+  border: 1.5px solid var(--line-strong);
+  border-top: 0;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  min-height: 170px;
+  font-size: 15px;
+}
+/* El contenido no debe forzar scroll horizontal (palabras/código largos). */
+.rich-editor .ql-editor {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+/* El clipboard interno de Quill debe quedar oculto fuera de pantalla
+   (si el CSS del tema no cargó, aparecería como un cuadro de texto extra). */
+.rich-editor .ql-clipboard {
+  position: absolute !important;
+  top: 50%;
+  left: -100000px;
+  height: 1px;
+  overflow-y: hidden;
+}
+
+/* ============================================================
+   Editor de código (CodeMirror) del panel de administración.
+   El DOM de CodeMirror se crea en runtime, por eso los estilos
+   de tamaño van globales.
+   ============================================================ */
+app-code-editor .cm-editor {
+  min-height: 150px;
+  max-height: 420px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+app-code-editor .cm-editor.cm-focused {
+  outline: none;
+}
+app-code-editor .cm-scroller {
+  overflow: auto;
+}
+.rich-editor .ql-editor pre,
+.rich-editor .ql-editor pre.ql-syntax {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+/* La barra de herramientas envuelve en lugar de desbordarse. */
+.rich-editor .ql-toolbar.ql-snow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+}
+
+/* Modo oscuro del editor */
+.adm-paper.dark .rich-editor .ql-toolbar,
+.adm-paper.dark .rich-editor .ql-container {
+  border-color: var(--border-strong-dark, #3d3d3d);
+}
+.adm-paper.dark .rich-editor .ql-container {
+  background: #262626;
+  color: var(--text-light, #f0f0f0);
+}
+.adm-paper.dark .rich-editor .ql-editor.ql-blank::before {
+  color: var(--text-muted, #b0b0b0);
+}
+.adm-paper.dark .ql-snow .ql-stroke {
+  stroke: var(--text-light, #cfcfcf);
+}
+.adm-paper.dark .ql-snow .ql-fill {
+  fill: var(--text-light, #cfcfcf);
+}
+.adm-paper.dark .ql-snow .ql-picker {
+  color: var(--text-light, #cfcfcf);
+}
+.adm-paper.dark .ql-snow .ql-picker-options {
+  background: #252525;
+}

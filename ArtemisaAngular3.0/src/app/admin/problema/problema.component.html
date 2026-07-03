@@ -1,0 +1,256 @@
+<section class="panel">
+  <div class="panel-head">
+    <div class="titles">
+      <h2>Problemas</h2>
+      <p>Crea, edita y elimina los problemas de programación competitiva.</p>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="nuevoProblema()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      Nuevo problema
+    </button>
+  </div>
+
+  <!-- ===== Formulario crear / editar (modal) ===== -->
+  @if (formMode() !== "hidden") {
+    <app-crud-modal (cerrar)="cancelar()">
+      <div class="card">
+        <div class="card-head">
+          <h3>{{ formTitle() }}</h3>
+        </div>
+        <form
+          class="crud-form"
+          [formGroup]="form"
+          (ngSubmit)="guardar()"
+          novalidate
+        >
+          <div class="form-grid">
+            <div class="form-field col-span">
+              <label for="titulo">Título <span class="req">*</span></label>
+              <input
+                id="titulo"
+                class="f-input"
+                [class.invalid]="invalido('titulo')"
+                type="text"
+                formControlName="titulo"
+                placeholder="Two Sum"
+              />
+              @if (invalido("titulo")) {
+                <span class="f-error">El título es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="juez">Juez <span class="req">*</span></label>
+              <app-field-selector
+                [control]="form.controls.juez"
+                [opciones]="jueces()"
+                [invalido]="invalido('juez')"
+                placeholderNuevo="Nuevo juez"
+                placeholderVacio="— Elige un juez —"
+                ariaLabel="Agregar juez nuevo"
+              />
+              @if (invalido("juez")) {
+                <span class="f-error">El juez es obligatorio.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="alias">Alias</label>
+              <input
+                id="alias"
+                class="f-input"
+                type="text"
+                formControlName="alias"
+                placeholder="1"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="dificultad"
+                >Dificultad <span class="req">*</span></label
+              >
+              <input
+                id="dificultad"
+                class="f-input"
+                [class.invalid]="invalido('dificultad')"
+                type="number"
+                formControlName="dificultad"
+                placeholder="1"
+              />
+              @if (invalido("dificultad")) {
+                <span class="f-error">La dificultad es obligatoria.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="url">URL <span class="req">*</span></label>
+              <input
+                id="url"
+                class="f-input"
+                [class.invalid]="invalido('url')"
+                type="url"
+                formControlName="url"
+                placeholder="https://leetcode.com/problems/two-sum"
+              />
+              @if (invalido("url")) {
+                <span class="f-error">La URL es obligatoria.</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="tema_1">Tema 1 (principal)</label>
+              <app-field-selector
+                [control]="form.controls.tema_1"
+                [opciones]="temasPrincipales()"
+                placeholderNuevo="Nuevo tema"
+                placeholderVacio="— Sin tema —"
+                ariaLabel="Agregar tema nuevo"
+              />
+            </div>
+            <div class="form-field">
+              <label for="tema_2">Tema 2 (subtema)</label>
+              <app-field-selector
+                [control]="form.controls.tema_2"
+                [opciones]="subtemas()"
+                placeholderNuevo="Nuevo subtema"
+                placeholderVacio="— Sin subtema —"
+                ariaLabel="Agregar subtema nuevo"
+              />
+            </div>
+            <div class="form-field">
+              <label for="tema_3">Tema 3 (subtema)</label>
+              <app-field-selector
+                [control]="form.controls.tema_3"
+                [opciones]="subtemas()"
+                placeholderNuevo="Nuevo subtema"
+                placeholderVacio="— Sin subtema —"
+                ariaLabel="Agregar subtema nuevo"
+              />
+            </div>
+            <div class="form-field">
+              <label for="tema_4">Tema 4 (subtema)</label>
+              <app-field-selector
+                [control]="form.controls.tema_4"
+                [opciones]="subtemas()"
+                placeholderNuevo="Nuevo subtema"
+                placeholderVacio="— Sin subtema —"
+                ariaLabel="Agregar subtema nuevo"
+              />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <span class="spacer"></span>
+            <button
+              type="button"
+              class="btn btn-ghost"
+              (click)="cancelar()"
+              [disabled]="saving()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? "Guardando…" : "Guardar" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </app-crud-modal>
+  }
+
+  <!-- ===== Listado ===== -->
+  <div class="card">
+    @switch (status()) {
+      @case ("loading") {
+        <div class="state-box">
+          <div
+            class="spinner"
+            role="status"
+            aria-label="Cargando problemas"
+          ></div>
+          <p>Cargando problemas…</p>
+        </div>
+      }
+      @case ("error") {
+        <div class="state-box error">
+          <p>No pudimos cargar los problemas.</p>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="cargar()">
+            Reintentar
+          </button>
+        </div>
+      }
+      @case ("ready") {
+        @if (problemas().length === 0) {
+          <div class="empty-state">
+            <fa-icon class="icon" [icon]="faCode"></fa-icon>
+            <p>Aún no hay problemas. Crea el primero.</p>
+          </div>
+        } @else {
+          <div class="table-wrap">
+            <table class="crud-table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Juez</th>
+                  <th>Alias</th>
+                  <th>Dificultad</th>
+                  <th>Temas</th>
+                  <th class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (p of problemas(); track p._id ?? p.id) {
+                  <tr>
+                    <td class="title-cell">{{ p.titulo }}</td>
+                    <td>{{ p.juez }}</td>
+                    <td class="muted">{{ p.alias || "—" }}</td>
+                    <td>{{ p.dificultad }}</td>
+                    <td>
+                      @for (t of temasDe(p); track t) {
+                        <span class="chip">{{ t }}</span>
+                      } @empty {
+                        <span class="muted">—</span>
+                      }
+                    </td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        @if (p.url) {
+                          <a
+                            class="btn btn-ghost btn-sm btn-icon ext"
+                            [href]="p.url"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Abrir problema"
+                          >
+                            <fa-icon [icon]="faExternal"></fa-icon>
+                          </a>
+                        }
+                        <button
+                          type="button"
+                          class="btn btn-ghost btn-sm btn-icon"
+                          (click)="editarProblema(p)"
+                          aria-label="Editar"
+                        >
+                          <fa-icon [icon]="faPen"></fa-icon>
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-sm btn-icon"
+                          (click)="eliminarProblema(p)"
+                          [disabled]="deletingId() === p._id"
+                          aria-label="Eliminar"
+                        >
+                          <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      }
+    }
+  </div>
+</section>
